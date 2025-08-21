@@ -1,0 +1,44 @@
+.sitiFoot{
+	list-style-type: none; 
+	display: flex; 
+	justify-content: center;
+}
+
+.info i {
+	padding: 0rem 0.8rem;
+}
+
+.social i {
+	padding: 0.5rem;
+	font-size: 1.5rem;
+	cursor: pointer !important;
+	list-style-type: none
+}
+
+  .freccia{
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    z-index: 99999;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #a9a066;
+    border: 1px solid #a9a066;
+  }
+
+  .freccia:hover{
+    border: 1px solid #903838;
+    background-color: #903838;
+    color: white;
+  }
+
+  .logoF{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5rem;
+    width: auto;
+  }
