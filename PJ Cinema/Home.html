@@ -16,6 +16,7 @@
 
   <link rel="stylesheet" href="./css/bannerBootstrap.css">
   <link rel="stylesheet" href="./css/Homepage.css">
+  <link rel="stylesheet" href="./css/footer.css">
 
   <!-- FONT LINK -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +31,7 @@
     <img class="logo" src="./img/Cinema_Logo.png"></img>
     <ul class="nav">
       <li><a href="./Home.html">Home</a></li>
-      <li><a href="#eventiNav">Prossimamente</a></li>
+      <li><a href="./prossimamente.html">Prossimamente</a></li>
       <li><a href="#cale">Membership</a></li>
       <li><a href="#tabs">Offerte</a></li>
       <li><a href="#cale">Shop</a></li>
@@ -54,7 +55,7 @@
       </p>
       <div class="button">
         <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
-        <a href="#"><i class="bi bi-plus-lg"></i>Prenota</a>
+        <a href="#"><i class="bi bi-plus-lg"></i>Scopri di più</a>
       </div>
     </div>
     <div class="content Lilo">
@@ -181,11 +182,12 @@
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <!--box1-->
-        <div class="swiper-slide  ">
+        <div class="swiper-slide">
           <div class="card" style="width: 20rem;">
             <img src="./img/superman.jpg" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
+              <p class="card-text"></p>
             </div>
           </div>
         </div>
@@ -260,75 +262,47 @@
 
     <!-- INFO SITO-->
     <div class="container">
-      <div class="row">
-        <div class="col-lg-3 mx-auto mt-5">
-
-        </div>
-        <div class="col-lg-3 mx-auto mt-5">
-
-          <h5 class="mb-4">INFO</h5>
-          <ul class="list-unstyled  my-2  info">
-            <li>
-              <i class="fa-solid fa-location-dot my-3" style="color: #a9a066;"></i>Centro Direzionale, NA 535022, IT
-            </li>
-
-            <li>
-              <i class="fa-solid fa-phone my-3" style="color: #a9a066;"></i><strong>Phone:</strong> +39 5589 55488 55
-            </li>
-            <li>
-              <i class="fa-solid fa-envelope my-3" style="color: #a9a066;"></i><strong>Email:</strong>
-              grandview@gmail.com
-            </li>
-
-          </ul>
-
+      <div class="row ">
+        <div class="col-lg-4 mx-auto mt-5">
+          <h5 class="text-white">Siediti & guarda</h5>
+          <p class="text-secondary">La tua destinazione per il cinema di qualità. Vivi l'esperienza cinematografica come mai prima d'ora.</p>
+        </ul>
         </div>
 
         <div class="col-lg-2 mx-auto mt-5">
-
-          <h6 class=" mb-3">LINK UTILI</h5>
-
-            <ul class="list-unstyled fw-">
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Home</p>
-              </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Eventi Disponibili</p>
-              </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Eventi Futuri</p>
-              </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Top 3</p>
-              </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Calendario</p>
-              </li>
-            </ul>
-
+          <ul class="list-unstyled">
+          <li><h5 class="text-white">Chi siamo</h5></li>
+          <li><h5 class="text-white">Lavora con noi</h5></li>
+        </ul>
         </div>
 
         <div class="col-lg-3 mx-auto mt-5">
+          <h5 class="mb-4">Contatti</h5>
+          <ul class="list-unstyled  info text-secondary">
+            <li class="d-inline-flex">
+              <p class="text-secondary"><i class="fa-solid fa-location-dot pb-0" style="color: #a9a066;"></i>Centro Direzionale, NA 535022, IT</p>
+            </li>
+            <li class="d-inline-flex">
+              <p class="text-secondary"><i class="fa-solid fa-phone pb-0" style="color: #a9a066;"></i>+39 5589 55488 55</p> 
+            </li>
+            <li class="d-inline-flex">
+              <p class="text-secondary"><i class="fa-solid fa-envelope pb-0" style="color: #a9a066;"></i>grandview@gmail.com</p>
+            </li>
+          </ul>
+        </div>
 
-          <h6 class="mb-4">SOCIAL</h5>
-            <ul class="list-unstyled fw-">
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i> Twitter</p>
+        <div class="col-lg-3 mx-auto mt-5">
+          <h5 class="mb-4">Orari</h5>
+            <ul class="list-unstyled">
+              <li>
+                <p class="text-secondary">Lunedì - Venerdì: 14:00 - 00:00</p>
               </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i> Facebook</p>
-
-              </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Instagram</p>
-
-              </li>
-              <li class="my-2">
-                <p class="text-white"><i class="ri-arrow-right-s-line text-white"></i>Youtube</p>
+              <li>
+                <p class="text-secondary">Sabato - Domenica: 10:00 - 01:00</p>
               </li>
             </ul>
-
         </div>
+
         <ul class="sitiFoot">
           <li class="my-3 social center-align">
             <a href=""><i class="fa-brands fa-x-twitter" style="color: #a9a066;"></i></a>
@@ -340,7 +314,7 @@
       </div>
       <a href="#return"><button type="button" class="btn freccia"><i class="fa-solid fa-arrow-up"></i></button></a>
 
-      <div class="footer-copyright text-start py-3  text-white">
+      <div class="footer-copyright text-center py-3  text-white">
         <i style="color: #a9a066;">Siediti&Guarda</i> <strong> Cinema, 2025 Tutti i diritti riservati</strong>
 
       </div>
@@ -415,7 +389,6 @@
 
 
   </script>
-  <script src="./js/home.js"></script>
 </body>
 
 </html>

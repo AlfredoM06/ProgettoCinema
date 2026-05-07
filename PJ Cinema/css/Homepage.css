@@ -60,23 +60,6 @@ p {
   text-align: center;
 }
 
-/* .carosello.swiper-horizontal > .swiper-pagination-bullets,
-  .swiper-pagination-bullets.swiper-pagination-horizontal,
-  .swiper-pagination-custom,
-  .swiper-pagination-fraction {
-    position: relative;
-    bottom: auto;
-    padding: 1rem 0;
-  }
-  
-  .carosello .swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.6);
-  }
-  
-  .carosello .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background: #888686;
-  } */
-
 
 .carousel-inner {
   padding: 1em;
@@ -98,6 +81,7 @@ p {
   transform: translateY(-50%);
 }
 
+/* FRECCIA SITO */
 .freccia {
   text-align: center;
   width: 50px;

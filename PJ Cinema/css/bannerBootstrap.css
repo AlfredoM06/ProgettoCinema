@@ -287,15 +287,6 @@ header .nav {
 	color: var(--primary);
 }
 
-.info i {
-	padding: 0rem 0.8rem;
-}
-
-.sitiFoot{
-	list-style-type: none; 
-	display: flex; 
-	justify-content: center;
-}
 
 .nav-link:hover{
 	color: var(--primary);

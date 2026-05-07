@@ -64,6 +64,19 @@ header .nav {
 	color: var(--primary);
 }
 
+.navbar-nav li{
+  list-style: none;
+}
+.navbar-nav li a{
+  color: #fff;
+	text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-link:hover{
+	color: var(--primary);
+}
+
 body {
 	background-color: #1c252e;
 	display: flex;
