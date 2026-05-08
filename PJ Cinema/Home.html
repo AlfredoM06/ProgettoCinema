@@ -10,10 +10,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="css/materialize-carousel.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
 
-
+  <!-- CSS -->
   <link rel="stylesheet" href="./css/bannerBootstrap.css">
   <link rel="stylesheet" href="./css/Homepage.css">
   <link rel="stylesheet" href="./css/footer.css">
@@ -28,9 +27,9 @@
 <body>
 
   <header id="return">
-    <img class="logo" src="./img/Cinema_Logo.png"></img>
+    <a href="./Home.html"><img class="logo" src="./img/Cinema_Logo.png"></img></a>
     <ul class="nav">
-      <li><a href="./Home.html">Home</a></li>
+      <li><a href="./inSala.html">In Sala</a></li>
       <li><a href="./prossimamente.html">Prossimamente</a></li>
       <li><a href="#cale">Membership</a></li>
       <li><a href="#tabs">Offerte</a></li>
@@ -177,65 +176,173 @@
   <!-- SWIPER FILM-->
 
   <section class="filmSala" id="filmSala">
-    <h1 class="inSala" id="insala">IN SALA</h1>
-    <!-- <div class="film-container"> -->
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <!--box1-->
-        <div class="swiper-slide">
-          <div class="card" style="width: 20rem;">
-            <img src="./img/superman.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text"></p>
+    <h1 class="inEvidenza" id="inEvidenza">IN EVIDENZA</h1>
+    <div class="container-fluid p-0">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <!--box1-->
+          <div class="swiper-slide">
+            <div class="card ">
+              <div class="card-img-wrapper">
+                <img src="./img/superman.jpg" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Superman</h5>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="mb-2 d-flex gap-3">
+                    <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
+                    <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
+                  </li>
+                </ul>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="d-flex mb-1">
+                    <span class="badge sala-white text-secondary p-1">IMAX</span>
+                    <span class="badge sala-white text-secondary p-1">3D</span>
+                    <span class="badge sala-white text-secondary p-1">XL</span>
+                    <span class="badge sala-white text-secondary p-1">2D</span>
+                  </li>
+                </ul>
+                <span class="badge categoria-badge">Fantasy</span>
+              </div>
             </div>
           </div>
-        </div>
 
 
-        <div class="swiper-slide">
-          <div class="card" style="width: 20rem;">
-            <img src="./img/superman.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+          <div class="swiper-slide">
+            <div class="card">
+              <div class="card-img-wrapper">
+                <img src="./img/superman.jpg" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Superman</h5>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="mb-2 d-flex gap-3">
+                    <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
+                    <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
+                  </li>
+                </ul>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="d-flex mb-1">
+                    <span class="badge sala-white text-secondary p-1">IMAX</span>
+                    <span class="badge sala-white text-secondary p-1">3D</span>
+                    <span class="badge sala-white text-secondary p-1">XL</span>
+                    <span class="badge sala-white text-secondary p-1">2D</span>
+                  </li>
+                </ul>
+                <span class="badge categoria-badge">Fantasy</span>
+              </div>
             </div>
           </div>
-        </div>
 
 
 
-        <div class="swiper-slide">
-          <div class="card" style="width: 20rem;">
-            <img src="./img/superman.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+          <div class="swiper-slide">
+            <div class="card">
+              <div class="card-img-wrapper">
+                <img src="./img/superman.jpg" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Superman</h5>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="mb-2 d-flex gap-3">
+                    <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
+                    <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
+                  </li>
+                </ul>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="d-flex mb-1">
+                    <span class="badge sala-white text-secondary p-1">IMAX</span>
+                    <span class="badge sala-white text-secondary p-1">3D</span>
+                    <span class="badge sala-white text-secondary p-1">XL</span>
+                    <span class="badge sala-white text-secondary p-1">2D</span>
+                  </li>
+                </ul>
+                <span class="badge categoria-badge">Fantasy</span>
+              </div>
             </div>
           </div>
-        </div>
 
 
-        <div class="swiper-slide ">
-          <div class="card" style="width: 20rem;">
-            <img src="./img/superman.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+          <div class="swiper-slide ">
+            <div class="card">
+              <div class="card-img-wrapper">
+                <img src="./img/superman.jpg" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Superman</h5>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="mb-2 d-flex gap-3">
+                    <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
+                    <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
+                  </li>
+                </ul>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="d-flex mb-1">
+                    <span class="badge sala-white text-secondary p-1">IMAX</span>
+                    <span class="badge sala-white text-secondary p-1">3D</span>
+                    <span class="badge sala-white text-secondary p-1">XL</span>
+                    <span class="badge sala-white text-secondary p-1">2D</span>
+                  </li>
+                </ul>
+                <span class="badge categoria-badge">Fantasy</span>
+              </div>
             </div>
           </div>
-        </div>
 
-
-        <div class="swiper-slide ">
-          <div class="card" style="width: 20rem;">
-            <img src="./img/superman.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+          <div class="swiper-slide ">
+            <div class="card">
+              <div class="card-img-wrapper">
+                <img src="./img/superman.jpg" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Superman</h5>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="mb-2 d-flex gap-3">
+                    <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
+                    <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
+                  </li>
+                </ul>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="d-flex mb-1">
+                    <span class="badge sala-white text-secondary p-1">IMAX</span>
+                    <span class="badge sala-white text-secondary p-1">3D</span>
+                    <span class="badge sala-white text-secondary p-1">XL</span>
+                    <span class="badge sala-white text-secondary p-1">2D</span>
+                  </li>
+                </ul>
+                <span class="badge categoria-badge">Fantasy</span>
+              </div>
             </div>
           </div>
-        </div>
-        </div>
-        <div class="swiper-pagination"></div>
-      </div>
 
+          <div class="swiper-slide ">
+            <div class="card">
+              <div class="card-img-wrapper">
+                <img src="./img/superman.jpg" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Superman</h5>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="mb-2 d-flex gap-3">
+                    <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
+                    <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
+                  </li>
+                </ul>
+                <ul class="list-unstyled p-0 m-0">
+                  <li class="d-flex mb-1">
+                    <span class="badge sala-white text-secondary p-1">IMAX</span>
+                    <span class="badge sala-white text-secondary p-1">3D</span>
+                    <span class="badge sala-white text-secondary p-1">XL</span>
+                    <span class="badge sala-white text-secondary p-1">2D</span>
+                  </li>
+                </ul>
+                <span class="badge categoria-badge">Fantasy</span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div> -->
+        </div>
   </section>
 
 
@@ -252,7 +359,7 @@
         <p class="text-secondary">Vuoi essere sempre al passo con il mondo del cinema? Iscriviti alla nostra newsletter
           e scopri in anteprima:
           i prossimi film in uscita, promozioni esclusive e contenuti speciali dedicati agli appassionati di cinema.</p>
-        <div class="input-group ">
+        <div class="input-group">
           <input type="text" class="form-control bg-body-secondary" placeholder="Inserisci Email"
             aria-label="Recipient's username" aria-describedby="button-addon2" style="border-radius: 0; height: 40px;">
           <button class="btn btn-outline-secondary btninfo" type="button" id="button-addon2">Iscriviti</button>
@@ -265,42 +372,50 @@
       <div class="row ">
         <div class="col-lg-4 mx-auto mt-5">
           <h5 class="text-white">Siediti & guarda</h5>
-          <p class="text-secondary">La tua destinazione per il cinema di qualità. Vivi l'esperienza cinematografica come mai prima d'ora.</p>
-        </ul>
+          <p class="text-secondary">La tua destinazione per il cinema di qualità. Vivi l'esperienza cinematografica come
+            mai prima d'ora.</p>
+          </ul>
         </div>
 
         <div class="col-lg-2 mx-auto mt-5">
           <ul class="list-unstyled">
-          <li><h5 class="text-white">Chi siamo</h5></li>
-          <li><h5 class="text-white">Lavora con noi</h5></li>
-        </ul>
+            <li>
+              <h5 class="text-white">Chi siamo</h5>
+            </li>
+            <li>
+              <h5 class="text-white">Lavora con noi</h5>
+            </li>
+          </ul>
         </div>
 
         <div class="col-lg-3 mx-auto mt-5">
           <h5 class="mb-4">Contatti</h5>
           <ul class="list-unstyled  info text-secondary">
             <li class="d-inline-flex">
-              <p class="text-secondary"><i class="fa-solid fa-location-dot pb-0" style="color: #a9a066;"></i>Centro Direzionale, NA 535022, IT</p>
+              <p class="text-secondary"><i class="fa-solid fa-location-dot pb-0" style="color: #a9a066;"></i>Centro
+                Direzionale, NA 535022, IT</p>
             </li>
             <li class="d-inline-flex">
-              <p class="text-secondary"><i class="fa-solid fa-phone pb-0" style="color: #a9a066;"></i>+39 5589 55488 55</p> 
+              <p class="text-secondary"><i class="fa-solid fa-phone pb-0" style="color: #a9a066;"></i>+39 5589 55488 55
+              </p>
             </li>
             <li class="d-inline-flex">
-              <p class="text-secondary"><i class="fa-solid fa-envelope pb-0" style="color: #a9a066;"></i>grandview@gmail.com</p>
+              <p class="text-secondary"><i class="fa-solid fa-envelope pb-0"
+                  style="color: #a9a066;"></i>grandview@gmail.com</p>
             </li>
           </ul>
         </div>
 
         <div class="col-lg-3 mx-auto mt-5">
           <h5 class="mb-4">Orari</h5>
-            <ul class="list-unstyled">
-              <li>
-                <p class="text-secondary">Lunedì - Venerdì: 14:00 - 00:00</p>
-              </li>
-              <li>
-                <p class="text-secondary">Sabato - Domenica: 10:00 - 01:00</p>
-              </li>
-            </ul>
+          <ul class="list-unstyled">
+            <li>
+              <p class="text-secondary">Lunedì - Venerdì: 14:00 - 00:00</p>
+            </li>
+            <li>
+              <p class="text-secondary">Sabato - Domenica: 10:00 - 01:00</p>
+            </li>
+          </ul>
         </div>
 
         <ul class="sitiFoot">
@@ -330,6 +445,7 @@
   <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
     crossorigin="anonymous"></script>
   <script src="./js/materialize.js"></script>
+  <script src="./js/home.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -351,15 +467,14 @@
       });
     }
 
-
-    let swiperHome = new Swiper('.swiper-container', {
-
-      direction: 'horizontal',
-      loop: true,
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 3,
+      spaceBetween: 10,
+      freeMode: true,
 
       pagination: {
-        el: '.swiper-pagination',
-        clickable: true
+        el: ".swiper-pagination",
+        clickable: true,
       },
 
       navigation: {
@@ -367,19 +482,6 @@
         prevEl: '.swiper-button-prev',
       },
 
-      scrollbar: {
-        el: '.swiper-scrollbar',
-      },
-    });
-
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 4,
-      spaceBetween: 30,
-      freeMode: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
     });
 
     // SWIPER BANNER HOME

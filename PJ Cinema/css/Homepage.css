@@ -23,6 +23,8 @@
 /* questo da mobile */
 body {
   background-color: var(--background-page);
+  /* font-family: 'roboto_condensed', Arial, Helvetica, sans-serif; */
+  /* font-family: 'Poppins', sans-serif; */
 }
 
 footer {
@@ -31,44 +33,64 @@ footer {
   margin-right: 4rem;
 }
 
+.box .box-img{
+  width: 100%;
+  height: 270px;
+}
+
+.box .box-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.box .box-img img:hover{
+  transform: translateY(-10px);
+  transition: 0.2 all linear;
+}
+
+.box h3{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.box span{
+  font-size: 18px;
+}
+
+/* SWIPER FILM IN EVIDENZA*/
+
+.swiper {
+  margin: 0 400px;
+  /* width: 100%; */
+  overflow: hidden;
+}
+
 .swiper-slide {
-  background-position: center;
-  background-size: cover;
-
+  display: flex;
+  justify-content: center;
   background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+}
 
+.swiper-slide:hover {
+  z-index: 20;
+}
+
+/* tutte le card si scuriscono */
+.swiper:hover .card {
+  filter: brightness(0.5);
+  transition: 0.3s ease;
+}
+
+/* card attiva */
+.swiper .card:hover {
+  z-index: 20;
+  filter: brightness(1.1);
 }
 
 .swiper-pagination-bullet-active {
   background-color: #d3c359;
-}
-
-/* aumentare la trasparenza dello sfondo e div scrritta del 100% */
-
-.containerTesto {
-  background-color: #fff;
-
-}
-
-.containerTesto h1,
-p {
-  color: black;
-
-}
-
-.containerTesto p {
-  text-align: center;
-}
-
-
-.carousel-inner {
-  padding: 1em;
-}
-
-.card {
-  margin: 0 .5em;
-  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
-  border: none;
 }
 
 .carousel-control-prev,
@@ -79,6 +101,78 @@ p {
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* TITOLO IN EVIDENZA */
+.inEvidenza{
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--secondary);
+}
+
+/* CARD FILM */
+.card {
+  width: 320px;
+  margin: 0 .5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border: none;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+
+  background: transparent;
+  box-shadow: none;
+}
+
+.card span i{
+  color: var(--secondary);
+}
+
+.categoria-badge{
+  color: var(--secondary);
+}
+
+.card-img-top {
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.card-img-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  z-index: 20;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.1);
+}
+
+.card-img-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255,255,255,0.15) 0%,
+    rgba(255,255,255,0.05) 40%,
+    rgba(0,0,0,0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* luce quando hover */
+.card:hover .card-img-wrapper::after {
+  opacity: 1;
 }
 
 /* FRECCIA SITO */
@@ -154,50 +248,7 @@ p {
   color: white;
 }
 
-.inSala{
-  max-width: 1450px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--secondary);
-}
-
-.film-container{
-  max-width: 1450px;
-  margin-right: auto;
-  margin-left: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(180px,auto));
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.box .box-img{
-  width: 100%;
-  height: 270px;
-}
-
-.box .box-img img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.box .box-img img:hover{
-  transform: translateY(-10px);
-  transition: 0.2 all linear;
-}
-
-.box h3{
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-.box span{
-  font-size: 18px;
-}
+/* FOOTER */
 
 .personeLetter {
   max-width: 900px;
