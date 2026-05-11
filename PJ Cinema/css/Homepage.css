@@ -2,8 +2,10 @@
   --primary: #dc143c;
   --secondary: #9e8f2b;
   --terziary: rgba(0, 0, 0, 0.5);
+  --testo-secondario:#6c757d;
   --background-page: #1c252e;
   --background-div: #0f161d;
+  --background-linea: linear-gradient(90deg, #dc143c, 9e8f2b);
 }
 
 .overlay {
@@ -29,34 +31,101 @@ body {
 
 footer {
   background-color: var(--background-div);
-  margin-left: 4rem;
-  margin-right: 4rem;
 }
 
-.box .box-img{
+.container-fluid {
+  padding-left: 100px;
+  padding-right: 30px;
+}
+
+.box .box-img {
   width: 100%;
   height: 270px;
 }
 
-.box .box-img img{
+.box .box-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.box .box-img img:hover{
+.box .box-img img:hover {
   transform: translateY(-10px);
   transition: 0.2 all linear;
 }
 
-.box h3{
+.box h3 {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.box span{
+.box span {
   font-size: 18px;
 }
+
+/* LINEA GRADIENT*/
+.titoloLinea::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 7px;
+
+  background: linear-gradient(90deg,
+      transparent,
+      #9e8f2b,
+      #dc143c,
+      #9e8f2b,
+      transparent);
+
+  filter: drop-shadow(0 0 6px #dc143c);
+  transition: width 1.5s ease;
+}
+
+.titoloLinea.active::after {
+  width: 100%;
+}
+
+/* TITOLO IN EVIDENZA */
+.titoloLinea {
+  width: 1100px;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 12px;
+  margin: 0;
+}
+
+.titolo-centrato {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* titolo linea menu */
+.menuCinema {
+  position: relative;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  position: relative !important
+}
+
+.menu-header h1 {
+  flex: 1;
+}
+
+.menu-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 
 /* SWIPER FILM IN EVIDENZA*/
 
@@ -103,16 +172,6 @@ footer {
   transform: translateY(-50%);
 }
 
-/* TITOLO IN EVIDENZA */
-.inEvidenza{
-  max-width: 1450px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--secondary);
-}
 
 /* CARD FILM */
 .card {
@@ -124,27 +183,48 @@ footer {
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   z-index: 1;
+  border-radius: 0;
 
   background: transparent;
   box-shadow: none;
 }
 
-.card span i{
+.card span i {
   color: var(--secondary);
 }
 
-.categoria-badge{
+.categoria-badge {
   color: var(--secondary);
+}
+
+.menuCinema a{
+  text-decoration: underline;
+  text-underline-offset: 7px;
+  color: inherit;
+  color: var(--testo-secondario);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
+}
+
+.menuCinema a:hover{
+  color: white;
 }
 
 .card-img-top {
   transition: transform 0.4s ease;
   will-change: transform;
+  border-radius: 0;
 }
 
 .card-img-wrapper {
   overflow: hidden;
   position: relative;
+}
+
+.card-img-novita{
+  width: 320px;
+  height: 191px;
+  object-fit: cover;
+  display: block;
 }
 
 .card:hover {
@@ -155,16 +235,20 @@ footer {
   transform: scale(1.1);
 }
 
+.card-img-wrap{
+  width: 320px;
+  height: 191px;
+  overflow: hidden;
+}
+
 .card-img-wrapper::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(255,255,255,0.15) 0%,
-    rgba(255,255,255,0.05) 40%,
-    rgba(0,0,0,0) 70%
-  );
+  background: radial-gradient(circle at center,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 40%,
+      rgba(0, 0, 0, 0) 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -196,13 +280,6 @@ footer {
   color: white;
 }
 
-/* .testoSopra{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    text-align: center;
-  } */
-
 .testoGiu {
   display: flex;
   flex-direction: column;
@@ -212,12 +289,7 @@ footer {
   font-weight: bolder;
 }
 
-/* .tsa{
-    transform: translateX(-73%);
-    left: 50%;
-    
-  } */
-
+/* BOTTONI */
 .btninfo {
   background-color: var(--terziary);
   border-radius: 0;
@@ -248,19 +320,13 @@ footer {
   color: white;
 }
 
-/* FOOTER */
+/* ANIMAZIONE LINEA */
+@keyframes lineaGrow {
+  from {
+    width: 0;
+  }
 
-.personeLetter {
-  max-width: 900px;
-  -webkit-mask-image: linear-gradient(90deg, transparent 5%, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 1) 44%, transparent 95%);
-}
-
-.newsLetter {
-  padding-left: 50px;
-  padding-right: 50px;
-}
-
-.input-group {
-  padding-left: 189px;
-  padding-right: 189px;
+  to {
+    width: 220px;
+  }
 }
