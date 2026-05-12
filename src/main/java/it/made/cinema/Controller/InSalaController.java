@@ -19,7 +19,7 @@ public class InSalaController {
     //da vedere come si fa
     @Autowired
     private IRepoFilm repoFilm;
-
+/*
     @GetMapping
     public String listaFilm(Model model){
         List<Film> lista = repoFilm.findAll();
@@ -33,5 +33,5 @@ public class InSalaController {
     public String form(){
         return "redirect: /inSala";
 }
-
+*/
 }
