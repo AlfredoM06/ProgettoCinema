@@ -1,0 +1,40 @@
+:root {
+	--primary: #dc143c;
+	--secondary: #9e8f2b;
+	--terziary: rgba(0, 0, 0, 0.5);
+	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
+	--bs-dropdown-link-active-color: #dc143c;
+	--background-page: #1c252e;
+	--background-div: #0f161d;
+}
+
+.accountDrop {
+	background-color: rgba(0, 0, 0, 0);
+	border-color: rgba(0, 0, 0, 0);
+	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item.active {
+	border: 1px solid #9e8f2b;
+}
+
+body {
+	background-color: #1c252e;
+	display: flex;
+	justify-content: center;
+
+	flex-direction: column;
+	min-height: auto;
+}
+
+footer {
+	background-color: #0f161d;
+	margin-left: 4rem;
+	margin-right: 4rem;
+}
+
+.formFilm{
+	background-color: var(--background-div);
+	border-top: 2px solid var(--secondary);
+	border-bottom: 2px solid var(--secondary);
+}

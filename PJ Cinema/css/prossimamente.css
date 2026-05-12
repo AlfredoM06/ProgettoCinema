@@ -1,0 +1,400 @@
+:root {
+	--primary: #dc143c;
+	--secondary: #9e8f2b;
+	--terziary: rgba(0, 0, 0, 0.5);
+	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
+	--bs-dropdown-link-active-color: #dc143c;
+	--background-page: #1c252e;
+	--background-div: #0f161d;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* ==============================
+   BODY E GRID
+   ============================== */
+
+/* Stile base della pagina */
+body {
+  margin: 0; /* rimuove i margini di default del browser */
+  font-family: sans-serif; /* font semplice per tutta la pagina */
+  background: #0f0f0f; /* sfondo scuro della pagina */
+  color: white; /* colore del testo */
+  padding-top: 150px; /* spazio sopra la griglia */
+}
+
+header {
+	position: absolute;
+	top: 0;
+	left: 0%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px 100px;
+	z-index: 10;
+}
+
+header .nav {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+header a{
+	
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.logo {
+	height: 5rem;
+	width: auto;
+}
+
+.nav {
+	display: flex;
+}
+
+.nav li {
+	list-style: none;
+	margin: 0 10px;
+}
+
+.nav li a {
+	color: #fff;
+	text-decoration: none;
+	letter-spacing: 2px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.nav li:hover a {
+	color: var(--primary);
+}
+
+.navbar-nav li{
+  list-style: none;
+}
+.navbar-nav li a{
+  color: #fff;
+	text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-link:hover{
+	color: var(--primary);
+}
+
+
+/* Contenitore che contiene tutte le card dei film */
+.grid {
+  display: flex; /* disposizione orizzontale */
+  gap: 20px; /* spazio tra una card e l'altra */
+  justify-content: center; /* centra la griglia nella pagina */
+}
+
+
+/* ==============================
+   CARD
+   ============================== */
+
+/* Contenitore di ogni singolo film */
+.card {
+  width: 170px; /* larghezza fissa della card */
+  height: 550px; /* altezza della card */
+  position: relative; /* serve per posizionare le immagini assolute dentro */
+  overflow: visible; /* permette alla immagine colorata di uscire dalla card */
+  animation: slideIn .9s ease forwards; /* animazione di entrata */
+}
+
+/* Ritardo di entrata per ogni card (effetto a cascata) */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+
+
+/* ==============================
+   IMMAGINI DELLE CARD
+   ============================== */
+
+/* Regole base per tutte le immagini dentro la card */
+.card img {
+  position: absolute; /* permette di sovrapporle */
+  width: 100%; /* stessa larghezza della card */
+  height: 100%; /* stessa altezza della card */
+  object-fit: cover; /* evita deformazioni dell'immagine */
+}
+
+
+/* ==============================
+   IMMAGINE GRIGIA
+   ============================== */
+
+/* Questa è l'immagine che si vede inizialmente */
+.img-gray {
+  filter: grayscale(100%); /* trasforma l'immagine in bianco e nero */
+  z-index: 1; /* sotto l'immagine colorata */
+  clip-path: inset(100% 0 0 0); /* inizialmente nascosta */
+  animation: curtainOpen .9s ease forwards; /* animazione tendina */
+}
+
+/* Ritardi per animazione tendina */
+.card:nth-child(1) .img-gray { animation-delay: 0.1s; }
+.card:nth-child(2) .img-gray { animation-delay: 0.3s; }
+.card:nth-child(3) .img-gray { animation-delay: 0.6s; }
+.card:nth-child(4) .img-gray { animation-delay: 0.9s; }
+
+
+/* ==============================
+   IMMAGINE COLORATA
+   ============================== */
+
+/* Questa è l'immagine che appare al passaggio del mouse */
+.img-color {
+  top: 0;
+  left: 0;
+  width: 100%; /* stessa larghezza della card */
+  height: 100%; /* stessa altezza base */
+
+  object-fit: cover;
+
+  /* inizialmente nascosta sopra e sotto */
+  clip-path: inset(50% 0 50% 0);
+
+  /* animazioni */
+  transition: 
+    clip-path 0.7s cubic-bezier(.7,0,.2,1), /* apertura tendina */
+    transform 0.7s cubic-bezier(.7,0,.2,1); /* zoom */
+
+  transform-origin: center center; /* lo zoom parte dal centro */
+
+  transform: scale(1); /* scala iniziale */
+
+  z-index: 2; /* sopra l'immagine grigia */
+}
+
+
+/* ==============================
+   HOVER SULLA CARD
+   ============================== */
+
+/* Quando il mouse passa sopra la card */
+.card:hover .img-color {
+
+  transform: scale(1.1); /* leggero zoom */
+
+  /* taglio ai lati per mantenere la stessa larghezza */
+  clip-path: inset(0 4.5% 0 4.5%);
+}
+
+
+/* ==============================
+   ANIMAZIONI
+   ============================== */
+
+/* Animazione di entrata delle card */
+@keyframes slideIn {
+
+  0% {
+    transform: translateX(120px); /* parte spostata a destra */
+    opacity: 0; /* invisibile */
+  }
+
+  100% {
+    transform: translateX(0); /* posizione finale */
+    opacity: 1; /* completamente visibile */
+  }
+}
+
+
+/* Animazione tendina dell'immagine grigia */
+@keyframes curtainOpen {
+
+  0% {
+    clip-path: inset(100% 0 0 0); /* completamente nascosta */
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0); /* completamente visibile */
+  }
+}
+
+
+/* ==============================
+   PAGINA FILM (OVERLAY)
+   ============================== */
+
+/* Overlay che copre tutto lo schermo */
+.movie-page {
+  position: fixed; /* rimane fissa nello schermo */
+  top: 0;
+  left: 0;
+  width: 100%; /* tutta la larghezza */
+  height: 100%; /* tutta l'altezza */
+
+  z-index: 999; /* sopra tutto il resto */
+
+  transform: scale(0.8); /* leggermente più piccola inizialmente */
+  opacity: 0; /* invisibile */
+
+  pointer-events: none; /* blocca interazioni quando nascosta */
+
+  transition: all 0.5s ease; /* animazione apertura */
+
+  overflow: hidden;
+}
+
+
+/* Stato attivo della pagina film */
+.movie-page.active {
+  transform: scale(1); /* scala normale */
+  opacity: 1; /* visibile */
+  pointer-events: auto; /* riattiva click */
+}
+
+
+/* ==============================
+   HERO IMMAGINE DEL FILM
+   ============================== */
+
+.movie-page .hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center; /* centra immagine */
+  background-size: cover; /* copre tutto lo spazio */
+  z-index: 1;
+}
+
+.movie-page.active .hero {
+  animation: openHero 0.8s cubic-bezier(.7,0,.2,1) forwards;
+}
+
+
+/* ==============================
+   GRADIENT SOPRA L'IMMAGINE
+   ============================== */
+
+/* overlay scuro sopra l'immagine */
+.movie-page .hero::after {
+  content: ""; /* necessario per creare lo pseudo-elemento */
+  position: absolute;
+  inset: 0; /* copre tutta la hero */
+
+  background:
+  /* sfumatura verticale */
+  linear-gradient(
+    to top,
+    rgba(0,0,0,0.95) 0%, /* nero intenso in basso */
+    rgba(0,0,0,0.7) 25%,
+    rgba(0,0,0,0.4) 45%,
+    rgba(0,0,0,0) 70% /* trasparente in alto */
+  ),
+
+  /* sfumatura laterale */
+  linear-gradient(
+    to right,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.2) 20%,
+    rgba(0,0,0,0) 40%,
+    rgba(0,0,0,0) 60%,
+    rgba(0,0,0,0.2) 80%,
+    rgba(0,0,0,0.5) 100%
+  );
+
+  z-index: 2; /* sopra immagine */
+  pointer-events: none; /* non blocca click */
+}
+
+
+/* ==============================
+   CONTENUTO DEL FILM
+   ============================== */
+
+.movie-page .content {
+  position: relative;
+  z-index: 3; /* sopra l'immagine e il gradiente */
+  color: white;
+  max-width: 800px;
+  margin: 0 auto; /* centra il contenuto */
+  padding: 40px 20px;
+  top: 20%; /* sposta il contenuto verso il basso */
+  text-align: center;
+}
+
+
+/* Titolo film */
+.movie-page .content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+
+/* Descrizione film */
+.movie-page .content p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+
+/* ==============================
+   BOTTONE CHIUDI
+   ============================== */
+
+.movie-page .close-btn {
+
+  margin-top: 30px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: #e50914; /* rosso stile cinema */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+
+/* effetto hover bottone */
+.movie-page .close-btn:hover {
+
+  transform: scale(1.05);
+}
+
+
+/* ==============================
+   ANIMAZIONE HERO
+   ============================== */
+
+@keyframes openHero {
+
+  0% {
+    clip-path: inset(0 45% 0 45%); /* immagine stretta al centro */
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0); /* immagine completamente visibile */
+  }
+
+}
+
+
+/* blocco generico contenuto */
+.content {
+  padding: 40px;
+  max-width: 700px;
+}
