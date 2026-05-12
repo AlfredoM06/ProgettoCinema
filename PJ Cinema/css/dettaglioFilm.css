@@ -1,0 +1,126 @@
+:root {
+    --primary: #dc143c;
+    --secondary: #9e8f2b;
+    --terziary: rgba(0, 0, 0, 0.5);
+    --testo-secondario: #6c757d;
+    --background-page: #1c252e;
+    --background-div: #0f161d;
+}
+
+body {
+    background-color: var(--background-page);
+}
+
+main{
+    margin-top: 150px;
+}
+
+h1{
+    margin-bottom: 40px;
+}
+
+.movie-info .list-group{
+    background: transparent !important;
+    border: none !important;
+}
+
+.col-md-2,
+.col-md-3,
+.col-md-6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.col-md-6 {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.row {
+    min-height: 60vh;
+    align-items: center;
+}
+
+.movie-content {
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.movie-short {
+    max-width: 55ch;
+}
+
+/* 🟦 POSTER */
+.movie-poster {
+
+    width: 200px;
+    height: 300px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.movie-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 🟨 TITOLI */
+.movie-title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.movie-short {
+    color: #cfd3d6;
+}
+
+.movie-meta {
+    margin-top: 20px;
+}
+
+.meta-block {
+    margin-bottom: 15px;
+}
+
+.meta-title {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--testo-secondario);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.meta-content {
+    margin: 2px 0 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+/* 🟩 LISTA INFO */
+.movie-info .list-group-item {
+    background: #0f161d;
+    color: #fff;
+    border: 1px solid #2a2f36;
+}
+
+/* 🎁 OFFERTE */
+.offers h3 {
+    font-weight: 600;
+}
+
+.offer-card {
+    background: #0f161d;
+    border: 1px solid #2a2f36;
+    color: #fff;
+    border-radius: 0;
+}
+
+.offer-card img {
+    height: 180px;
+    object-fit: cover;
+}

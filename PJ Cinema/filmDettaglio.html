@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film</title>
+
+    <!-- LINK -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/dettaglioFilm.css">
+</head>
+
+<body>
+    <header id="return">
+        <a href="./Home.html"><img class="logo" src="./img/Cinema_Logo.png"></img></a>
+        <ul class="nav">
+            <li><a href="./inSala.html">In Sala</a></li>
+            <li><a href="./prossimamente.html">Prossimamente</a></li>
+            <li><a href="#cale">Membership</a></li>
+            <li><a href="#tabs">Offerte</a></li>
+            <li><a href="#cale">Shop</a></li>
+        </ul>
+        <ul class="navbar-nav ">
+            <a class="nav-link" href="./SignIn.html">Accedi</a>
+        </ul>
+    </header>
+    <main class="container py-5">
+        <div class="row g-4 justify-content-center align-items-start g-4">
+            <!-- POSTER -->
+            <div class="col-md-2">
+                <figure class="movie-poster">
+                    <img src="./img/dragontrainer_poster.jpg" alt="Dragon Trainer">
+                </figure>
+            </div>
+
+            <!-- DESCRIZIONE -->
+            <div class="col-md-6">
+                <div class="movie-content">
+                <h1 class="movie-title text-white">Dragon Trainer</h1>
+                <p class="lead movie-short">
+                    Il villaggio vichingo di Berk è frequentemente attaccato dai draghi,
+                    che rubano il bestiame e mettono in pericolo i suoi abitanti.
+                    Hiccup, il figlio sedicenne del capo Stoick l'Immenso, non essendo fisicamente forte come gli altri
+                    suoi pari,
+                    è relegato nella forgia del villaggio, creando dispositivi meccanici. Durante un'incursione dei
+                    draghi, il ragazzo abbatte un drago raro, la Furia Buia.
+                    Determinato a dimostrare il suo valore a sé stesso e alla tribù, Hiccup trova la creatura
+                    intrappolata, ma esita a finirla e alla fine la libera,
+                    sorprendendosi quando il drago lo risparmia prima di fuggire.
+                </p>
+                <div class="movie-meta">
+                    <div class="meta-block">
+                        <p class="meta-title">Regista</p>
+                        <p class="meta-content">Simon McQuoid</p>
+                    </div>
+
+                    <div class="meta-block">
+                        <p class="meta-title">Cast</p>
+                        <p class="meta-content">
+                            Karl Urban, Adeline Rudolph, Jessica McNamee
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- INFO -->
+            <div class="col-md-3">
+                <ul class="list-group movie-info">
+                    <li class="list-group-item"> Durata: 2h 05min</li>
+                    <li class="list-group-item"> Data di rilascio: 26 Apri 2025</li>
+                    <li class="list-group-item"> Genere: Fantasy</li>
+                    <li class="list-group-item"> Rating: 8.5</li>
+                    <li class="list-group-item"> Lingue: ITA / ENG</li>
+                    <li class="list-group-item"> Disponibile in: IMAX, 2D, 3D</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- OFFERTE -->
+        <section class="offers mt-5">
+            <h3 class="mb-3">Offerte e Gadget</h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card offer-card">
+                        <img src="./img/popcorn.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5>Menu Popcorn</h5>
+                            <p>Sconto con biglietto cinema</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card offer-card">
+                        <img src="./img/biglietto.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5>Biglietto Premium</h5>
+                            <p>Posti VIP inclusi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card offer-card">
+                        <img src="./img/gadget.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5>Gadget Film</h5>
+                            <p>Edizione limitata</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector(".reverse-btn").addEventListener("click", function () {
+            const item = this.closest(".reverse-accordion");
+            item.classList.toggle("active");
+        });
+
+
+    </script>
+
+
+</body>
+
+
+
+</html>
