@@ -174,7 +174,19 @@
   <!-- SWIPER FILM-->
   <main>
     <section class="filmpiuVisti" id="filmpiuVisti">
-      <h1 class="titoloLinea titolo-centrato my-lg-4" id="piuVisti">i più visti</h1>
+      <!-- <h1 class="titoloLinea titolo-centrato my-lg-4" id="piuVisti">i più visti</h1> -->
+      <div class="header-swiper">
+        <h1 class="titoloLinea" id="piuVisti">i più visti</h1>
+
+        <div class="swiper-controls">
+          <div class="swiper-counter">
+            <span id="current">1</span> / <span id="total">6</span>
+          </div>
+
+          <div class="swiper-button-prev custom-btn"></div>
+          <div class="swiper-button-next custom-btn"></div>
+        </div>
+      </div>
       <div class="container-fluid p-0">
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
@@ -185,7 +197,7 @@
                   <img src="./img/superman.jpg" class="card-img-top">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Superman</h5>
+                  <h5 class="card-title">Superman1</h5>
                   <ul class="list-unstyled p-0 m-0">
                     <li class="mb-2 d-flex gap-3">
                       <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
@@ -211,7 +223,7 @@
                   <img src="./img/superman.jpg" class="card-img-top">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Superman</h5>
+                  <h5 class="card-title">Superman2</h5>
                   <ul class="list-unstyled p-0 m-0">
                     <li class="mb-2 d-flex gap-3">
                       <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
@@ -237,7 +249,7 @@
                   <img src="./img/superman.jpg" class="card-img-top">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Superman</h5>
+                  <h5 class="card-title">Superman3</h5>
                   <ul class="list-unstyled p-0 m-0">
                     <li class="mb-2 d-flex gap-3">
                       <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
@@ -263,7 +275,7 @@
                   <img src="./img/superman.jpg" class="card-img-top">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Superman</h5>
+                  <h5 class="card-title">Superman4</h5>
                   <ul class="list-unstyled p-0 m-0">
                     <li class="mb-2 d-flex gap-3">
                       <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
@@ -289,7 +301,7 @@
                   <img src="./img/superman.jpg" class="card-img-top">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Superman</h5>
+                  <h5 class="card-title">Superman5</h5>
                   <ul class="list-unstyled p-0 m-0">
                     <li class="mb-2 d-flex gap-3">
                       <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
@@ -315,7 +327,7 @@
                   <img src="./img/superman.jpg" class="card-img-top">
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Superman</h5>
+                  <h5 class="card-title">Superman6</h5>
                   <ul class="list-unstyled p-0 m-0">
                     <li class="mb-2 d-flex gap-3">
                       <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
@@ -503,6 +515,7 @@
 
     // SCRIPT PER I CAROSELLI
 
+    // BANNER PRINCIPALE
     function cambioBg(Bg, titolo) {
       let banner = document.querySelector('.banner');
       let contenuti = document.querySelectorAll('.content');
@@ -518,28 +531,36 @@
       });
     }
 
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 3,
-      spaceBetween: 10,
-      freeMode: true,
-
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-
-    });
-
-    // SWIPER BANNER HOME
     $(document).ready(function () {
       $('.carusel').carusel();
     });
 
+    //SWIPER I PIU VISTI
+    let swiper = new Swiper(".mySwiper", {
+      slidesPerView: 3,
+      spaceBetween: 10,
+      loop: true,
+
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+
+      on: {
+        init: function () {
+          const realSlides = document.querySelectorAll(
+            ".mySwiper .swiper-slide:not(.swiper-slide-duplicate)"
+          ).length;
+
+          this.totalPages = realSlides - this.params.slidesPerView + 1;
+
+          this.currentPage = 1;
+
+          document.getElementById("total").textContent = this.totalPages;
+          document.getElementById("current").textContent = this.currentPage;
+        }
+      }
+    });
 
   </script>
 </body>

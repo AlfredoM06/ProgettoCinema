@@ -8,53 +8,6 @@
 	--background-div: #0f161d;
 }
 
-header {
-	position: absolute;
-	top: 0;
-	left: 0%;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 30px 100px;
-}
-
-header .nav {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.logo {
-	height: 5rem;
-	width: auto;
-}
-
-.nav {
-	display: flex;
-}
-
-.nav li {
-	list-style: none;
-	margin: 0 10px;
-}
-
-.nav li a {
-	color: #fff;
-	text-decoration: none;
-	letter-spacing: 2px;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-.nav li:hover a {
-	color: var(--primary);
-}
-
 .accountDrop {
 	background-color: rgba(0, 0, 0, 0);
 	border-color: rgba(0, 0, 0, 0);

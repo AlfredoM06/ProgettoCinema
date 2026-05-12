@@ -26,3 +26,28 @@ const observer = new IntersectionObserver((entries) => {
 titoli.forEach(titolo => {
   observer.observe(titolo);
 });
+
+// CONTROLLO FRECCE SWIPER
+document.querySelector(".swiper-button-next").addEventListener("click", () => {
+  const swiper = document.querySelector(".mySwiper").swiper;
+
+  swiper.currentPage++;
+
+  if (swiper.currentPage > swiper.totalPages) {
+    swiper.currentPage = 1;
+  }
+
+  document.getElementById("current").textContent = swiper.currentPage;
+});
+
+document.querySelector(".swiper-button-prev").addEventListener("click", () => {
+  const swiper = document.querySelector(".mySwiper").swiper;
+
+  swiper.currentPage--;
+
+  if (swiper.currentPage < 1) {
+    swiper.currentPage = swiper.totalPages;
+  }
+
+  document.getElementById("current").textContent = swiper.currentPage;
+});

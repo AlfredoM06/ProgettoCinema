@@ -64,10 +64,9 @@ header .nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: url(/img/dragontrainer_cover.jpg) no-repeat;
+	background: url("../img/dragontrainer_cover.jpg") no-repeat;
 	background-size: cover;
 	background-position: center;
-	
 	overflow: hidden;
 	transition: 0.5s;
 }

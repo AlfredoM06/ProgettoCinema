@@ -2,10 +2,9 @@
   --primary: #dc143c;
   --secondary: #9e8f2b;
   --terziary: rgba(0, 0, 0, 0.5);
-  --testo-secondario:#6c757d;
+  --testo-secondario: #6c757d;
   --background-page: #1c252e;
   --background-div: #0f161d;
-  --background-linea: linear-gradient(90deg, #dc143c, 9e8f2b);
 }
 
 .overlay {
@@ -126,6 +125,29 @@ footer {
   margin: 0 auto;
 }
 
+/* CONTENITORE TITOLO + CONTROLLI */
+.header-swiper {
+  max-width: 1100px;
+  margin: 40px auto 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* CONTROLLI (counter + frecce) */
+.swiper-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* CONTATORE PAGINE SWIPER*/
+.swiper-counter {
+  color: #6c757d;
+  font-size: 14px;
+  min-width: 60px;
+  text-align: right;
+}
 
 /* SWIPER FILM IN EVIDENZA*/
 
@@ -197,7 +219,7 @@ footer {
   color: var(--secondary);
 }
 
-.menuCinema a{
+.menuCinema a {
   text-decoration: underline;
   text-underline-offset: 7px;
   color: inherit;
@@ -205,7 +227,7 @@ footer {
   transition: color 0.6s ease, text-shadow 0.6s ease;
 }
 
-.menuCinema a:hover{
+.menuCinema a:hover {
   color: white;
 }
 
@@ -220,7 +242,7 @@ footer {
   position: relative;
 }
 
-.card-img-novita{
+.card-img-novita {
   width: 320px;
   height: 191px;
   object-fit: cover;
@@ -235,7 +257,7 @@ footer {
   transform: scale(1.1);
 }
 
-.card-img-wrap{
+.card-img-wrap {
   width: 320px;
   height: 191px;
   overflow: hidden;
@@ -275,9 +297,12 @@ footer {
 }
 
 .freccia:hover {
-  border: 1px solid var(--primary);
-  background-color: var(--primary);
-  color: white;
+  background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+  color: #1c252e;
+  border: none;
+   box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+              0 0 25px rgba(220, 20, 60, 0.3),
+              0 0 40px rgba(158, 143, 43, 0.2);
 }
 
 .testoGiu {
@@ -289,7 +314,7 @@ footer {
   font-weight: bolder;
 }
 
-/* BOTTONI */
+/* BOTTONI footer*/
 .btninfo {
   background-color: var(--terziary);
   border-radius: 0;
@@ -300,9 +325,13 @@ footer {
 }
 
 .btninfo:hover {
-  border: 1px solid var;
-  background-color: var(--primary);
-  color: white;
+  border: 1px solid;
+  background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+  color: #1c252e;
+  border: none;
+   box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+              0 0 25px rgba(220, 20, 60, 0.3),
+              0 0 40px rgba(158, 143, 43, 0.2);
 }
 
 .btnleggi {
@@ -318,6 +347,49 @@ footer {
   border: 1px solid var(--primary);
   background-color: var(--primary);
   color: white;
+}
+
+/* BOTTONI SWIPER */
+.custom-btn {
+  width: 30px;
+  height: 30px;
+  background-color: #0f161d;
+  border: 1px solid #9e8f2b;
+  border-radius: 0;
+  position: static !important;
+  margin: 0;
+}
+
+/* icone */
+.custom-btn::after {
+  font-size: 14px;
+  color: #9e8f2b;
+}
+
+/* hover */
+.custom-btn:hover {
+  background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+  border: none;
+   box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+              0 0 25px rgba(220, 20, 60, 0.3),
+              0 0 40px rgba(158, 143, 43, 0.2);
+
+}
+
+.custom-btn:hover::after {
+  color: #1c252e;
+}
+
+/* .swiper-button-next,
+.swiper-button-prev {
+  width: 30px;
+  height: 30px;
+} */
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+   font-weight: 900;
+   -webkit-text-stroke: 0.5px currentColor;
 }
 
 /* ANIMAZIONE LINEA */
