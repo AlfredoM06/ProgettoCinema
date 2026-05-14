@@ -1,13 +1,3 @@
-:root {
-	--primary: #dc143c;
-	--secondary: #9e8f2b;
-	--terziary: rgba(0, 0, 0, 0.5);
-	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
-	--bs-dropdown-link-active-color: #dc143c;
-	--background-page: #1c252e;
-	--background-div: #0f161d;
-}
-
 header {
 	position: absolute;
 	top: 0;
@@ -52,5 +42,13 @@ header .nav {
 }
 
 .nav li:hover a {
+	color: var(--primary);
+}
+
+.nav-link{
+	color: white;
+}
+
+.nav-link:hover{
 	color: var(--primary);
 }

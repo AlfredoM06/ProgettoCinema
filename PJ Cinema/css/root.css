@@ -1,0 +1,10 @@
+:root {
+  --primary: #dc143c;
+  --secondary: #6c757d;
+  --gradient: rgba(0, 0, 0, 0.5);
+  --icon-color: #a9a066;
+  --border-color: #9e8f2b;
+  
+  --background-page: #1c252e;
+  --background-div: #0f161d;
+}
