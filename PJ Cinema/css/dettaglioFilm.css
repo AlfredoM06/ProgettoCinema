@@ -1,33 +1,31 @@
-:root {
-    --primary: #dc143c;
-    --secondary: #9e8f2b;
-    --terziary: rgba(0, 0, 0, 0.5);
-    --testo-secondario: #6c757d;
-    --background-page: #1c252e;
-    --background-div: #0f161d;
-}
-
+/* =========================
+        GLOBAL LAYOUT
+   ========================= */
 body {
     background-color: var(--background-page);
 }
 
-main{
-    margin-top: 150px;
+main {
+    margin-top: 9rem;
 }
 
-h1{
-    margin-bottom: 40px;
+h1 {
+    margin-bottom: 2.5rem;
 }
 
-.movie-info .list-group{
-    background: transparent !important;
-    border: none !important;
+article {
+    margin: 0;
+    color: var(--secondary);
 }
 
+/* =========================
+   GRID / BOOTSTRAP OVERRIDES
+   Centramento colonne e struttura layout
+   ========================= */
 .col-md-2,
 .col-md-3,
 .col-md-6 {
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: center;
 }
@@ -37,23 +35,38 @@ h1{
     text-align: left;
 }
 
-.row {
-    min-height: 60vh;
+.row-colon{
+    min-height: 25vh;
     align-items: center;
 }
 
-.movie-content {
-    max-width: 540px;
-    margin: 0 auto;
+/* =========================
+    TYPOGRAPHY / TEXT SYSTEM
+   ========================= */
+.movie-content{
+    margin-bottom: 3rem;
+}
+
+.movie-title {
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .movie-short {
+    color: #cfd3d6;
     max-width: 55ch;
 }
 
-/* 🟦 POSTER */
-.movie-poster {
+.info-item .label {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 
+/* =========================
+   🎬 MOVIE POSTER
+   ========================= */
+.movie-poster {
     width: 200px;
     height: 300px;
     margin: 0;
@@ -69,18 +82,16 @@ h1{
     object-fit: cover;
 }
 
-/* 🟨 TITOLI */
-.movie-title {
-    font-size: 2rem;
-    font-weight: 600;
-}
-
-.movie-short {
-    color: #cfd3d6;
-}
-
+/* =========================
+   📄 MOVIE META (regista, cast, ecc.)
+   ========================= */
 .movie-meta {
     margin-top: 20px;
+}
+
+.meta-wrapper {
+    margin-top: 3rem;
+    margin-bottom: 2.8rem;
 }
 
 .meta-block {
@@ -90,7 +101,7 @@ h1{
 .meta-title {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--testo-secondario);
+    color: var(--secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -101,26 +112,402 @@ h1{
     color: #fff;
 }
 
-/* 🟩 LISTA INFO */
+/* =========================
+MOVIE INFO LIST (durata, rating, ecc.)
+   ========================= */
+.movie-info {
+    color: #fff;
+}
+
 .movie-info .list-group-item {
     background: #0f161d;
     color: #fff;
     border: 1px solid #2a2f36;
 }
 
-/* 🎁 OFFERTE */
-.offers h3 {
+.info-item {
+    margin-bottom: 0.625rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item .value {
+    color: #cfd3d6;
+}
+
+/* =========================
+CINEMA TABS (banner promozionale)
+   ========================= */
+.banner-media {
+    width: 207px;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+
+}
+
+.banner-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+}
+
+.banner-content {
+    position: absolute; 
+    left: 180px;     
+    right: 0;   
+    top: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    padding: 50px 1.5rem 10px 3rem;
+    
+    background-color: var(--background-div);
+    clip-path: polygon(6% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 2;
+    /* padding: 0 1.5rem 0 3rem;*/
+}
+
+.text-box {
+    display: block;
+    font-size: 0.8rem;
+    color: #e5e5e5;
+}
+
+.text-box p {
+    margin: 0;
+}
+
+
+.banner-cta {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 7px;
+    white-space: nowrap;
+}
+
+.banner-title {
+    text-transform: uppercase;
+    display: inline-block;
+    line-height: 1;
+    margin: 0;
+    font-weight: 600;
+    color: #f28c28;
+    letter-spacing: 2px;
+}
+
+.title-box {
+    padding: 0;
+    margin: 0;
+    padding-left: 3rem;
+    padding-top: 1rem;
+}
+
+
+.cinema-banner {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    min-height: 106px;
+}
+/* =========================
+CINEMA TABS (giorni/orari film)
+   ========================= */
+.show-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+
+.show-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* attacca label e oggi con piccolo spazio cinema-style */
+}
+
+
+.cinema-tabs-wrapper {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.cinema-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 1.5rem 0;
+}
+
+.cinema-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+}
+
+.cinema-tabs .nav-item {
+    margin: 0;
+}
+
+.cinema-tabs .nav-link {
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    color: #cfd3d6;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+/* stato attivo tab */
+.cinema-tabs .nav-link.active {
+    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2a 100%);
+    box-shadow: 0 0 6px rgba(220, 20, 60, 0.35),
+        0 0 14px rgba(220, 20, 60, 0.2);
+    color: #1c252e;
+}
+
+/* =========================
+   GRID / CONTENUTO CARDS
+   Centramento colonne e struttura layout
+   ========================= */
+/* CARD CINEMA STILE SPACE */
+
+.show-label {
+    color: white;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.show-time {
+    color: #ffc107;
     font-weight: 600;
 }
 
-.offer-card {
-    background: #0f161d;
-    border: 1px solid #2a2f36;
-    color: #fff;
-    border-radius: 0;
+.show-note {
+    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1rem;
+    margin: 0;
+    white-space: nowrap;
 }
 
-.offer-card img {
-    height: 180px;
-    object-fit: cover;
+.show-column {
+    padding: 4px;
+}
+
+.show-card {
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 4px;
+    display: block;
+    width: 100%;
+    margin: 0;
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(0, 0, 0, 0.55));
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1),
+        border-color 0.35s cubic-bezier(0.19, 1, 0.22, 1),
+        box-shadow 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform;
+
+}
+
+.show-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.5),
+        0 0 18px rgba(37, 36, 36, 0.12);
+}
+
+.session-time {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.start {
+    color: white;
+    font-size: 18;
+}
+
+.end {
+    font-size: 13px;
+}
+
+.meta-line {
+    display: flex;
+    justify-content: flex-start;
+    gap: 6px;
+    color: #767676;
+    font-size: 0.9rem;
+}
+
+.projection-line {
+    display: flex;
+    justify-content: flex-start;
+    gap: 6px;
+    color: var(--border-color);
+    font-size: 0.9rem;
+}
+
+.meta-line,
+.projection-meta-line {
+    line-height: 1;
+}
+
+.price-line {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.price-line .from {
+    color: #aaa;
+    font-size: 0.67rem;
+}
+
+.price-line .price {
+    color: white;
+    font-weight: 700;
+}
+
+
+/* =========================
+     OFFERS / PROMO SECTION
+   ========================= */
+
+/* LINEA GRADIENT*/
+.titoloLinea::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 7px;
+
+  background: linear-gradient(90deg,
+      transparent,
+      #9e8f2b,
+      #dc143c,
+      #9e8f2b,
+      transparent);
+
+  filter: drop-shadow(0 0 6px #dc143c);
+  transition: width 1.5s ease;
+}
+
+.titoloLinea.active::after {
+  width: 100%;
+}
+
+/* TITOLO IN EVIDENZA */
+.titoloLinea {
+  width: 1100px;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 12px;
+  margin: 0;
+  color: white;
+}
+
+.titolo-centrato {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* titolo linea menu */
+.offers {
+  position: relative;
+}
+
+.offers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  position: relative !important
+}
+
+.offers-header h1 {
+  flex: 1;
+}
+
+.offers-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* CARD OFFERS */
+.card {
+  width: 320px;
+  margin: 0 .5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border: none;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+  border-radius: 0;
+  color: white;
+
+  background: transparent;
+  box-shadow: none;
+}
+
+.card span i {
+  color: var(--icon-color);
+}
+
+.offers a {
+  text-decoration: underline;
+  text-underline-offset: 7px;
+  color: inherit;
+  color: var(--secondary);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
+}
+
+.offers a:hover {
+  color: white;
+}
+
+.card-img-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.card-img-novita {
+  width: 320px;
+  height: 191px;
+  object-fit: cover;
+  display: block;
 }
