@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -27,7 +27,7 @@
   <header id="return">
     <a href="Home.html"><img class="logo" src="../static/img/Cinema_Logo.png"></img></a>
     <ul class="nav">
-      <li><a href="inSala.html">In Sala</a></li>
+      <li><a th:href=@{/inSala}>In Sala</a></li>
       <li><a href="prossimamente.html">Prossimamente</a></li>
       <li><a href="#cale">Membership</a></li>
       <li><a href="#tabs">Offerte</a></li>

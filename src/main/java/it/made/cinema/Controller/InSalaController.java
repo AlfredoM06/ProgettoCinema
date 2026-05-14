@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,7 +20,7 @@ public class InSalaController {
     //da vedere come si fa
     @Autowired
     private IRepoFilm repoFilm;
-/*
+
     @GetMapping
     public String listaFilm(Model model){
         List<Film> lista = repoFilm.findAll();
@@ -27,11 +28,13 @@ public class InSalaController {
         return "inSala";
     }
 
+    @GetMapping("/dettagli/{id}")
+    public String dettFilm(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("film", repoFilm.findById(id).get());
+        return "filmDettaglio";
+    }
 
 
-@PostMapping()
-    public String form(){
-        return "redirect: /inSala";
-}
-*/
+
+
 }

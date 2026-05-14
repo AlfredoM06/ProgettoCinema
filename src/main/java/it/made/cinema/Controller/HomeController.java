@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @GetMapping String home(){
+
+
+
         return "Home";
     }
-
+    /*
     @GetMapping("/dettagli")
     public String dettagli(){
-        return "dettagli";
+        return "filmDettaglio";
     }
+
     @GetMapping("/inSala")
     public String inSala(){
         return "inSala";
@@ -32,6 +36,8 @@ public class HomeController {
     public String prossimamente(){
         return "prossimamente";
     }
+    */
+
 
     // redirect da fare nella home = dettagli(film e shop), shop, prenota ecc.
 
