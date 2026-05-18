@@ -23,13 +23,13 @@ public class Gadget {
 	@Column(length= 100, nullable= false, unique= true)
 	private String nome;
 	@NotEmpty
-	@Column(length= 1500, nullable= false, unique= true)
+	@Column(length= 1500, nullable= false)
 	private String descrizione; 
 	@NotEmpty
 	@Column(length= 150, nullable= false, unique= true)
 	private String img; 
 	@NotEmpty
-	@Column(precision=5, scale= 2, nullable= false)
+	@Column(nullable= false)
 	private Double prezzo; 
 	@NotEmpty
 	@Column(nullable= false)

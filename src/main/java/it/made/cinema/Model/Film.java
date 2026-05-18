@@ -32,7 +32,7 @@ public class Film {
 	@Column(nullable=false)
 	private Date data_di_uscita;
 	@NotEmpty
-	@Column(length= 1500, nullable=false, unique=true)
+	@Column(length= 1500, nullable=false)
 	private String descrizione; 
 	@NotEmpty
 	@Column(length=50, nullable=false)
@@ -59,7 +59,7 @@ public class Film {
 	@Column(length=500, nullable=false, unique=true)
 	private String img_poster;
 	@NotEmpty
-	@Column(precision=5, scale=2, nullable=false)
+	@Column(nullable=false)
 	private Double prezzo;
 	@NotEmpty
 	@Column(nullable=false)
