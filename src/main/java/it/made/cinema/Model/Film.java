@@ -1,163 +1,72 @@
 package it.made.cinema.Model;
 
 import java.sql.Date;
-
+import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
+@ToString @EqualsAndHashCode
 @Table(name="films")
 public class Film {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@NotNull 
 	@NotEmpty
+	@Column(length=50, nullable= false) 
 	private String titolo;
-	@NotNull 
 	@NotEmpty
-	private String distribuzione;
-	@NotNull 
+	@Column(length=50, nullable= false)
+	private String distribuzione; 
 	@NotEmpty
+	@Column(nullable=false)
 	private Date data_di_uscita;
-	@NotNull 
 	@NotEmpty
-	private String descrizione;
-	@NotNull 
+	@Column(length= 1500, nullable=false, unique=true)
+	private String descrizione; 
 	@NotEmpty
+	@Column(length=50, nullable=false)
 	private String regista;
-	@NotNull 
 	@NotEmpty
+	@Column(length=1500, nullable=false)
 	private String cast;
-	@NotNull 
 	@NotEmpty
+	@Column(nullable=false)
 	private Integer durata;
-	@NotNull 
 	@NotEmpty
+	@Column(length=50, nullable=false)
 	private String formato;
-	@NotNull 
 	@NotEmpty
+	@Column(length=500, nullable=false)
 	private String lingue;
-	@NotNull 
 	@NotEmpty
+	@Column(length=500, nullable=false, unique=true)
 	private String img_cover;
-	@NotNull 
 	@NotEmpty
+	@Column(length=500, nullable=false, unique=true)
 	private String img_logo;
-	@NotNull 
 	@NotEmpty
+	@Column(length=500, nullable=false, unique=true)
 	private String img_poster;
-	@NotNull 
 	@NotEmpty
+	@Column(precision=5, scale=2, nullable=false)
 	private Double prezzo;
-	@NotNull 
 	@NotEmpty
+	@Column(nullable=false)
 	private Date scadenza;
-	
-	public Film() {};
-	public Film(String titolo, String distribuzione, Date data_di_uscita, String descrizione, String regista,
-			String cast, Integer durata, String formato, String lingue, String img_cover, String img_logo,
-			String img_poster, Double prezzo, Date scadenza) {
-		super();
-		this.titolo = titolo;
-		this.distribuzione = distribuzione;
-		this.data_di_uscita = data_di_uscita;
-		this.descrizione = descrizione;
-		this.regista = regista;
-		this.cast = cast;
-		this.durata = durata;
-		this.formato = formato;
-		this.lingue = lingue;
-		this.img_cover = img_cover;
-		this.img_logo = img_logo;
-		this.img_poster = img_poster;
-		this.prezzo = prezzo;
-		this.scadenza = scadenza;
-	}
-	public String getTitolo() {
-		return titolo;
-	}
-	public void setTitolo(String titolo) {
-		this.titolo = titolo;
-	}
-	public String getDistribuzione() {
-		return distribuzione;
-	}
-	public void setDistribuzione(String distribuzione) {
-		this.distribuzione = distribuzione;
-	}
-	public Date getData_di_uscita() {
-		return data_di_uscita;
-	}
-	public void setData_di_uscita(Date data_di_uscita) {
-		this.data_di_uscita = data_di_uscita;
-	}
-	public String getDescrizione() {
-		return descrizione;
-	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-	public String getRegista() {
-		return regista;
-	}
-	public void setRegista(String regista) {
-		this.regista = regista;
-	}
-	public String getCast() {
-		return cast;
-	}
-	public void setCast(String cast) {
-		this.cast = cast;
-	}
-	public Integer getDurata() {
-		return durata;
-	}
-	public void setDurata(Integer durata) {
-		this.durata = durata;
-	}
-	public String getFormato() {
-		return formato;
-	}
-	public void setFormato(String formato) {
-		this.formato = formato;
-	}
-	public String getLingue() {
-		return lingue;
-	}
-	public void setLingue(String lingue) {
-		this.lingue = lingue;
-	}
-	public String getImg_cover() {
-		return img_cover;
-	}
-	public void setImg_cover(String img_cover) {
-		this.img_cover = img_cover;
-	}
-	public String getImg_logo() {
-		return img_logo;
-	}
-	public void setImg_logo(String img_logo) {
-		this.img_logo = img_logo;
-	}
-	public String getImg_poster() {
-		return img_poster;
-	}
-	public void setImg_poster(String img_poster) {
-		this.img_poster = img_poster;
-	}
-	public Double getPrezzo() {
-		return prezzo;
-	}
-	public void setPrezzo(Double prezzo) {
-		this.prezzo = prezzo;
-	}
-	public Date getScadenza() {
-		return scadenza;
-	}
-	public void setScadenza(Date scadenza) {
-		this.scadenza = scadenza;
-	}
-	
+	@OneToMany(mappedBy="film")
+	private List<Gadget> gadgets;
+	@ManyToMany()
+	@JoinTable(name="films_generi", joinColumns=@JoinColumn(name="id_film"),inverseJoinColumns=@JoinColumn(name="id_genere"))
+	private List<GenereFilm> generi;
 }

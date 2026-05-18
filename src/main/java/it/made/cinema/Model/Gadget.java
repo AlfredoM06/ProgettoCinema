@@ -2,95 +2,42 @@ package it.made.cinema.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
+@ToString @EqualsAndHashCode
 @Table(name="gadgets")
 public class Gadget {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@NotNull 
 	@NotEmpty
+	@Column(length= 100, nullable= false, unique= true)
 	private String nome;
-	@NotNull 
 	@NotEmpty
-	private String descrizione;
-	@NotNull 
+	@Column(length= 1500, nullable= false, unique= true)
+	private String descrizione; 
 	@NotEmpty
-	private String img;
-	@NotNull 
+	@Column(length= 150, nullable= false, unique= true)
+	private String img; 
 	@NotEmpty
-	private Double prezzo;
-	@NotNull 
+	@Column(precision=5, scale= 2, nullable= false)
+	private Double prezzo; 
 	@NotEmpty
+	@Column(nullable= false)
 	private Integer quantita;
-	@NotNull 
 	@NotEmpty
+	@Column(length= 150, nullable= false, unique= true)
 	private String img_banner;
-	
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public Double getPrezzo() {
-		return prezzo;
-	}
-
-	public void setPrezzo(Double prezzo) {
-		this.prezzo = prezzo;
-	}
-
-	public Integer getQuantita() {
-		return quantita;
-	}
-
-	public void setQuantita(Integer quantita) {
-		this.quantita = quantita;
-	}
-
-	public String getImg_banner() {
-		return img_banner;
-	}
-
-	public void setImg_banner(String img_banner) {
-		this.img_banner = img_banner;
-	}
-
-	public Gadget() {};
-	
-	public Gadget(@NotNull @NotEmpty String nome, @NotNull @NotEmpty String descrizione, @NotNull @NotEmpty String img,
-			@NotNull @NotEmpty Double prezzo, @NotNull @NotEmpty Integer quantita,
-			@NotNull @NotEmpty String img_banner) {
-		super();
-		this.nome = nome;
-		this.descrizione = descrizione;
-		this.img = img;
-		this.prezzo = prezzo;
-		this.quantita = quantita;
-		this.img_banner = img_banner;
-	}
-	
-	
-	
+	@ManyToOne
+	@JoinColumn(name="id_film", referencedColumnName="id")
+	private Film film;
 }

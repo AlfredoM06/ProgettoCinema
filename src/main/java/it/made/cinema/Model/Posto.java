@@ -2,41 +2,27 @@ package it.made.cinema.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
+@ToString @EqualsAndHashCode
 @Table(name="posti")
 public class Posto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@NotNull 
 	@NotEmpty
+	@Column(length=50, nullable=false)
 	private String tipo;
-	@NotNull 
-	@NotEmpty
-	private boolean occupato;
-	
-	public Posto(){};
-	
-	public Posto(@NotNull @NotEmpty String tipo, @NotNull @NotEmpty boolean occupato) {
-		super();
-		this.tipo = tipo;
-		this.occupato = occupato;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	public boolean isOccupato() {
-		return occupato;
-	}
-	public void setOccupato(boolean occupato) {
-		this.occupato = occupato;
-	}
-	
-	
-	
+	@ManyToOne
+	@JoinColumn(name="id_sala", referencedColumnName="id")
+	private Sala sala;
 }
