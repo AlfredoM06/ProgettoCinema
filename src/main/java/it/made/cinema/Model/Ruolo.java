@@ -1,6 +1,11 @@
 package it.made.cinema.Model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,25 +19,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter @Setter
 @ToString @EqualsAndHashCode
-@Table(name="utenti")
-public class Utente {
+@Table(name="ruoli")
+public class Ruolo {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	@NotEmpty
-	@Column(length=50, nullable=false, unique=true)
-	private String username;
+	private int id;
 	@NotEmpty
 	@Column(length=50, nullable=false)
-	private String password;
-	@NotEmpty
-	@Column(length=70, nullable=false, unique=true)
-	private String email;
-	@NotEmpty
-	@Column(length=50, nullable=false)
-	private String ruolo;
-	@NotEmpty
-	@Column(nullable=false)
-	private boolean membership;
-	
+	private String nome;
 }
