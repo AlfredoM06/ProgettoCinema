@@ -25,4 +25,7 @@ public class Posto {
 	@ManyToOne
 	@JoinColumn(name="id_sala", referencedColumnName="id")
 	private Sala sala;
+	@OneToOne
+	@JoinColumn(name = "id_postiOccupati", referencedColumnName = "id")
+	private PostiOccupati postiOccupati;
 }

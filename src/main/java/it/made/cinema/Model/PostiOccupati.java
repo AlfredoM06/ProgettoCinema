@@ -20,5 +20,6 @@ public class PostiOccupati {
     @ManyToOne
     //@JoinColumn(name = "id_programmazioneFilm", nullable = false)
     private ProgrammazioneFilm programmazioneFilm;
-
+    @OneToOne(mappedBy = "postiOccupati")
+    private Posto posto;
 }

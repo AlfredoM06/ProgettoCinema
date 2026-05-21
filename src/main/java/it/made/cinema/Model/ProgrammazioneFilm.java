@@ -13,10 +13,10 @@ public class ProgrammazioneFilm {
     @EmbeddedId
     ProgrammazioneFilmKey id;
     // 1aM con posto
-    @ManyToOne
+   /* @ManyToOne
     @MapsId("idPosto")
     @JoinColumn(name = "id_posto")
-    Posto posto;
+    Posto posto;*/
     // 1aM con sala
     @ManyToOne
     @MapsId("idSala")

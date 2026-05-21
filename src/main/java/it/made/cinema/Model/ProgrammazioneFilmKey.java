@@ -25,8 +25,8 @@ public class ProgrammazioneFilmKey implements Serializable {
     @Column(name = "id_sala")
     private Integer idSala;
 
-    @Column(name = "id_posto")
-    private Integer idPosto;
+    /*@Column(name = "id_posto")
+    private Integer idPosto;*/
 
     @Column(name = "id_film")
     private Integer idFilm;
