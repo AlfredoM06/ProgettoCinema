@@ -1,54 +1,121 @@
-header {
-	position: absolute;
-	top: 0;
-	left: 0%;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 30px 100px;
+/* =========================
+   GLOBAL
+========================= */
+
+html {
+  scrollbar-gutter: stable;
 }
 
-header .nav {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
+/* =========================
+   HEADER
+========================= */
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 30px 100px;
+  box-sizing: border-box;
+
+  background: transparent;
 }
+
+/* =========================
+   LOGO
+========================= */
 
 .logo {
-	height: 5rem;
-	width: auto;
+  height: 5rem;
+  width: auto;
+  display: block;
 }
 
-.nav {
-	display: flex;
+/* =========================
+   NAV CENTRALE (FIX IMPORTANTE)
+========================= */
+
+header .nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 20px;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.nav li {
-	list-style: none;
-	margin: 0 10px;
+/* link menu */
+.nav a {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  line-height: 1;
+
+  text-decoration: none;
+  color: #fff;
+
+  display: inline-block;
+  padding: 5px 0;
+
+  transition: color 0.3s ease;
 }
 
-.nav li a {
-	color: #fff;
-	text-decoration: none;
-	letter-spacing: 2px;
-	cursor: pointer;
-	transition: 0.3s;
+.nav a:hover {
+  color: var(--primary);
 }
 
-.nav li:hover a {
-	color: var(--primary);
+/* =========================
+   LOGIN (ACCEDI) FIX
+========================= */
+
+.navbar-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  align-items: center;
 }
 
-.nav-link{
-	color: white;
+.navbar-nav a {
+  letter-spacing: 0.5px;
 }
 
-.nav-link:hover{
-	color: var(--primary);
+.nav-link {
+  display: inline-flex; 
+  padding: 5px 0;        
+
+  font-size: 1rem;
+  letter-spacing: 0 !important;
+  line-height: 1;
+
+  text-decoration: none;
+  color: #fff;
+
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+/* =========================
+   NAVBAR RIMOSSA 
+========================= */
+
+body.no-navbar header {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
 }

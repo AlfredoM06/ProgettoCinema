@@ -8,3 +8,43 @@
   --background-page: #1c252e;
   --background-div: #0f161d;
 }
+
+/* =========================
+   RESET GLOBALE
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HTML / BODY BASE
+========================= */
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--background-page);
+  color: #fff;
+}
+
+/* =========================
+   LINK GLOBALI
+========================= */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   LISTE GLOBALI
+========================= */
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
