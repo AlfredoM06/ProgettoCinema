@@ -1,400 +1,479 @@
-:root {
-	--primary: #dc143c;
-	--secondary: #9e8f2b;
-	--terziary: rgba(0, 0, 0, 0.5);
-	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
-	--bs-dropdown-link-active-color: #dc143c;
-	--background-page: #1c252e;
-	--background-div: #0f161d;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+/* =========================================================
+   1. RESET
+   reset base per coerenza UI
+========================================================= */
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* ==============================
-   BODY E GRID
-   ============================== */
-
-/* Stile base della pagina */
+/* =========================================================
+   2. BASE PAGE
+   Stile generale della pagina (sfondo, font, spacing)
+========================================================= */
 body {
-  margin: 0; /* rimuove i margini di default del browser */
-  font-family: sans-serif; /* font semplice per tutta la pagina */
-  background: #0f0f0f; /* sfondo scuro della pagina */
-  color: white; /* colore del testo */
-  padding-top: 150px; /* spazio sopra la griglia */
+  background: #0f0f0f;
+  color: white;
+  padding-top: 0;
+  margin: 0;
+  padding: 0;
 }
 
-header {
-	position: absolute;
-	top: 0;
-	left: 0%;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 30px 100px;
-	z-index: 10;
-}
-
-header .nav {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-header a{
-	
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.logo {
-	height: 5rem;
-	width: auto;
-}
-
-.nav {
-	display: flex;
-}
-
-.nav li {
-	list-style: none;
-	margin: 0 10px;
-}
-
-.nav li a {
-	color: #fff;
-	text-decoration: none;
-	letter-spacing: 2px;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-.nav li:hover a {
-	color: var(--primary);
-}
-
-.navbar-nav li{
-  list-style: none;
-}
-.navbar-nav li a{
-  color: #fff;
-	text-decoration: none;
-  cursor: pointer;
-}
-
-.nav-link:hover{
-	color: var(--primary);
-}
-
-
-/* Contenitore che contiene tutte le card dei film */
 .grid {
-  display: flex; /* disposizione orizzontale */
-  gap: 20px; /* spazio tra una card e l'altra */
-  justify-content: center; /* centra la griglia nella pagina */
+  margin-top: 150px;
 }
 
+/* =========================================================
+   2. GRID FILM
+   Contenitore delle card film
+========================================================= */
+.grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
 
-/* ==============================
-   CARD
-   ============================== */
-
-/* Contenitore di ogni singolo film */
+/* =========================================================
+   3. CARD FILM
+   Struttura e animazione entrata
+========================================================= */
 .card {
-  width: 170px; /* larghezza fissa della card */
-  height: 550px; /* altezza della card */
-  position: relative; /* serve per posizionare le immagini assolute dentro */
-  overflow: visible; /* permette alla immagine colorata di uscire dalla card */
-  animation: slideIn .9s ease forwards; /* animazione di entrata */
+  width: 170px;
+  height: 550px;
+  position: relative;
+  overflow: visible;
+  animation: slideIn .9s ease forwards;
 }
 
-/* Ritardo di entrata per ogni card (effetto a cascata) */
+/* delay animazioni */
 .card:nth-child(1) { animation-delay: 0.1s; }
 .card:nth-child(2) { animation-delay: 0.2s; }
 .card:nth-child(3) { animation-delay: 0.3s; }
 .card:nth-child(4) { animation-delay: 0.4s; }
 
-
-/* ==============================
-   IMMAGINI DELLE CARD
-   ============================== */
-
-/* Regole base per tutte le immagini dentro la card */
+/* immagini base */
 .card img {
-  position: absolute; /* permette di sovrapporle */
-  width: 100%; /* stessa larghezza della card */
-  height: 100%; /* stessa altezza della card */
-  object-fit: cover; /* evita deformazioni dell'immagine */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
+/* =========================================================
+   4. IMMAGINI CARD (EFFETTI)
+   Gestione grayscale + hover reveal
+========================================================= */
 
-/* ==============================
-   IMMAGINE GRIGIA
-   ============================== */
-
-/* Questa è l'immagine che si vede inizialmente */
+/* immagine iniziale */
 .img-gray {
-  filter: grayscale(100%); /* trasforma l'immagine in bianco e nero */
-  z-index: 1; /* sotto l'immagine colorata */
-  clip-path: inset(100% 0 0 0); /* inizialmente nascosta */
-  animation: curtainOpen .9s ease forwards; /* animazione tendina */
+  filter: grayscale(100%);
+  z-index: 1;
+  clip-path: inset(100% 0 0 0);
+  animation: curtainOpen .9s ease forwards;
 }
 
-/* Ritardi per animazione tendina */
+/* delay tendina */
 .card:nth-child(1) .img-gray { animation-delay: 0.1s; }
 .card:nth-child(2) .img-gray { animation-delay: 0.3s; }
 .card:nth-child(3) .img-gray { animation-delay: 0.6s; }
 .card:nth-child(4) .img-gray { animation-delay: 0.9s; }
 
-
-/* ==============================
-   IMMAGINE COLORATA
-   ============================== */
-
-/* Questa è l'immagine che appare al passaggio del mouse */
+/* immagine hover */
 .img-color {
-  top: 0;
-  left: 0;
-  width: 100%; /* stessa larghezza della card */
-  height: 100%; /* stessa altezza base */
-
-  object-fit: cover;
-
-  /* inizialmente nascosta sopra e sotto */
   clip-path: inset(50% 0 50% 0);
-
-  /* animazioni */
-  transition: 
-    clip-path 0.7s cubic-bezier(.7,0,.2,1), /* apertura tendina */
-    transform 0.7s cubic-bezier(.7,0,.2,1); /* zoom */
-
-  transform-origin: center center; /* lo zoom parte dal centro */
-
-  transform: scale(1); /* scala iniziale */
-
-  z-index: 2; /* sopra l'immagine grigia */
+  transition: clip-path .7s cubic-bezier(.7,0,.2,1),
+              transform .7s cubic-bezier(.7,0,.2,1);
+  transform: scale(1);
+  z-index: 2;
 }
 
-
-/* ==============================
-   HOVER SULLA CARD
-   ============================== */
-
-/* Quando il mouse passa sopra la card */
+/* hover */
 .card:hover .img-color {
-
-  transform: scale(1.1); /* leggero zoom */
-
-  /* taglio ai lati per mantenere la stessa larghezza */
+  transform: scale(1.1);
   clip-path: inset(0 4.5% 0 4.5%);
 }
 
-
-/* ==============================
-   ANIMAZIONI
-   ============================== */
-
-/* Animazione di entrata delle card */
+/* =========================================================
+   5. ANIMAZIONI GLOBALI
+========================================================= */
 @keyframes slideIn {
-
-  0% {
-    transform: translateX(120px); /* parte spostata a destra */
-    opacity: 0; /* invisibile */
-  }
-
-  100% {
-    transform: translateX(0); /* posizione finale */
-    opacity: 1; /* completamente visibile */
-  }
+  from { transform: translateX(120px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
-
-/* Animazione tendina dell'immagine grigia */
 @keyframes curtainOpen {
-
-  0% {
-    clip-path: inset(100% 0 0 0); /* completamente nascosta */
-  }
-
-  100% {
-    clip-path: inset(0 0 0 0); /* completamente visibile */
-  }
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0); }
 }
 
-
-/* ==============================
-   PAGINA FILM (OVERLAY)
-   ============================== */
-
-/* Overlay che copre tutto lo schermo */
+/* =========================================================
+   6. OVERLAY FILM
+   Schermata dettaglio film (fullscreen)
+========================================================= */
 .movie-page {
-  position: fixed; /* rimane fissa nello schermo */
-  top: 0;
-  left: 0;
-  width: 100%; /* tutta la larghezza */
-  height: 100%; /* tutta l'altezza */
+  position: fixed;
+  inset: 0;
+  z-index: 999;
 
-  z-index: 999; /* sopra tutto il resto */
+  opacity: 0;
+  pointer-events: none;
 
-  transform: scale(0.8); /* leggermente più piccola inizialmente */
-  opacity: 0; /* invisibile */
+  /* CHIUSO iniziale: linea verticale centrale */
+  clip-path: inset(0 50% 0 50%);
 
-  pointer-events: none; /* blocca interazioni quando nascosta */
-
-  transition: all 0.5s ease; /* animazione apertura */
+  transition: 
+    clip-path 0.8s cubic-bezier(.7,0,.2,1),
+    opacity 0.4s ease;
 
   overflow: hidden;
 }
 
-
-/* Stato attivo della pagina film */
+/* APERTURA */
 .movie-page.active {
-  transform: scale(1); /* scala normale */
-  opacity: 1; /* visibile */
-  pointer-events: auto; /* riattiva click */
+  opacity: 1;
+  pointer-events: auto;
+
+  /* pieno schermo */
+  clip-path: inset(0 0 0 0);
 }
-
-
-/* ==============================
-   HERO IMMAGINE DEL FILM
-   ============================== */
-
+/* =========================================================
+   7. HERO BACKGROUND
+   Immagine di sfondo film
+========================================================= */
 .movie-page .hero {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-position: center; /* centra immagine */
-  background-size: cover; /* copre tutto lo spazio */
+  inset: 0;
+  background-size: cover;
+  background-position: center;
   z-index: 1;
 }
 
-.movie-page.active .hero {
-  animation: openHero 0.8s cubic-bezier(.7,0,.2,1) forwards;
-}
+/* =========================================================
+   8. CLOSE X
+========================================================= */
 
-
-/* ==============================
-   GRADIENT SOPRA L'IMMAGINE
-   ============================== */
-
-/* overlay scuro sopra l'immagine */
-.movie-page .hero::after {
-  content: ""; /* necessario per creare lo pseudo-elemento */
+.movie-close {
   position: absolute;
-  inset: 0; /* copre tutta la hero */
+  top: 25px;
+  right: 30px;
+  z-index: 10;
 
-  background:
-  /* sfumatura verticale */
-  linear-gradient(
-    to top,
-    rgba(0,0,0,0.95) 0%, /* nero intenso in basso */
-    rgba(0,0,0,0.7) 25%,
-    rgba(0,0,0,0.4) 45%,
-    rgba(0,0,0,0) 70% /* trasparente in alto */
-  ),
+  font-size: 30px;
+  width: 45px;
+  height: 45px;
 
-  /* sfumatura laterale */
-  linear-gradient(
-    to right,
-    rgba(0,0,0,0.5) 0%,
-    rgba(0,0,0,0.2) 20%,
-    rgba(0,0,0,0) 40%,
-    rgba(0,0,0,0) 60%,
-    rgba(0,0,0,0.2) 80%,
-    rgba(0,0,0,0.5) 100%
-  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  z-index: 2; /* sopra immagine */
-  pointer-events: none; /* non blocca click */
-}
-
-
-/* ==============================
-   CONTENUTO DEL FILM
-   ============================== */
-
-.movie-page .content {
-  position: relative;
-  z-index: 3; /* sopra l'immagine e il gradiente */
-  color: white;
-  max-width: 800px;
-  margin: 0 auto; /* centra il contenuto */
-  padding: 40px 20px;
-  top: 20%; /* sposta il contenuto verso il basso */
-  text-align: center;
-}
-
-
-/* Titolo film */
-.movie-page .content h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-
-/* Descrizione film */
-.movie-page .content p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
-
-/* ==============================
-   BOTTONE CHIUDI
-   ============================== */
-
-.movie-page .close-btn {
-
-  margin-top: 30px;
-  padding: 12px 25px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  background: #e50914; /* rosso stile cinema */
-  border: none;
-  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.2s;
+
+  opacity: 0;
+  transform: scale(0.6) rotate(-90deg);
+  transition: all 0.4s ease;
+}
+
+.movie-close.show {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.movie-close:hover {
+  text-shadow: 0 0 10px rgba(255,255,255,0.9);
+  transform: scale(1.1);
+}
+
+/* =========================================================
+   9. LAYOUT CONTENUTO FILM
+   Divide sinistra (titolo/info) e destra (descrizione)
+========================================================= */
+.movie-layout {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 80px;
+  position: relative;
+  z-index: 3;
+}
+
+.left {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* blocco alto */
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* info in fondo */
+.info {
+  margin-top: auto;
+}
+
+.title {
+  font-size: clamp(2.2rem, 3vw, 4rem);
+  font-weight: 900;
+  max-width: min(560px, 45vw);
+  line-height: 1.1;
+  word-break: normal;
+  overflow-wrap: normal;
+  margin: 0;
+}
+
+.title-line {
+  display: block;
+  width: 100%;
+  white-space: normal;
+}
+
+.word {
+  display: inline-flex;
+  white-space: nowrap;    
+  margin-right: 0.4em;
+}
+
+.word span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: letterUp 0.5s forwards;
 }
 
 
-/* effetto hover bottone */
-.movie-page .close-btn:hover {
-
-  transform: scale(1.05);
+/* =========================================================
+   9. TITOLO ANIMATO
+========================================================= */
+.title span {
+  display: inline-block;
+  transform: translateY(40px);
+  opacity: 0;
+  animation: letterUp .4s forwards;
 }
 
-
-/* ==============================
-   ANIMAZIONE HERO
-   ============================== */
-
-@keyframes openHero {
-
-  0% {
-    clip-path: inset(0 45% 0 45%); /* immagine stretta al centro */
-  }
-
-  100% {
-    clip-path: inset(0 0 0 0); /* immagine completamente visibile */
-  }
-
+@keyframes letterUp {
+  to { transform: translateY(0); opacity: 1; }
 }
 
+/* =========================================================
+   10. INFO LIST
+========================================================= */
 
-/* blocco generico contenuto */
-.content {
-  padding: 40px;
-  max-width: 700px;
+.info {
+  list-style: none;
+  margin-top: 40px;
+}
+
+.info li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 12px 0;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.5s ease;
+}
+
+.info li.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info li span {
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+.info li button {
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.4s ease;
+}
+
+.info li button.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================================
+   11. DESCRIZIONE
+========================================================= */
+.desc-box {
+width: clamp(300px, 30vw, 500px);
+  /* width: 500px; */
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-wrap: nowrap;
+}
+
+.desc-line {
+  display: block;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 0.7s ease;
+}
+
+.desc-line.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =========================================================
+   12. ACTION BUTTONS
+========================================================= */
+
+.actions {
+  margin-top: 80px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* =========================================================
+   13. BOTTONI AZIONE (FIX UNIFICATO)
+========================================================= */
+
+.actions {
+  margin-top: 80px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* =========================
+   Bottone base (Chiudi)
+========================= */
+.action-btn {
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.6s ease;
+}
+
+.action-btn.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =========================
+   Bottone slice (Prenota ora)
+   → compatibile con animazione .show
+========================= */
+.btn-slice {
+  padding: 1.4rem 3rem;
+  border: 2px solid white;
+  color: white;
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.25rem;
+  line-height: 1;
+
+  position: relative;
+  display: inline-block;
+
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.4s ease;
+}
+
+.btn-slice .top,
+.btn-slice .bottom {
+  position: relative;
+  height: 6px;   /* 🔥 sweet spot */
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-slice .top span,
+.btn-slice .bottom span {
+  display: block;
+  line-height: 1;
+}
+
+.btn-slice.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn-slice .bottom span {
+  position: absolute;
+  top: -6px;
+  left: 0;
+}
+
+/* hover effetto taglio */
+.btn-slice:hover .top {
+  top: -5px;
+}
+
+.btn-slice:hover .bottom {
+  bottom: -5px;
+}
+
+.btn-slice:hover {
+  margin-left: 10px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+/* linea luminosa */
+.btn-slice:before {
+  content: '';
+  height: 1px;
+  width: 60px;
+  position: absolute;
+  right: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  transition: 0.4s ease;
+}
+
+.btn-slice:hover:before {
+  width: 130%;
+  box-shadow: 0 0 20px rgba(255,255,255,1);
+}
+
+/* =========================================================
+   14. ANIMAZIONE TITOLI
+========================================================= */
+
+.title span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: letterUp 0.4s forwards;
+}
+
+@keyframes letterUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   15. CLOSE ANIMATION (REVERSE CINEMATIC)
+========================================================= */
+/* CHIUSURA = REVERSE DELL’APERTURA */
+/* CHIUSURA (REVERSE PERFETTO) */
+.movie-page.closing {
+  opacity: 1;
+  pointer-events: none;
+
+  /* torna alla linea centrale */
+  clip-path: inset(50% 50% 50% 50%);
 }
