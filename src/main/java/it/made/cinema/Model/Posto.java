@@ -16,6 +16,7 @@ import lombok.ToString;
 @ToString @EqualsAndHashCode
 @Table(name="posti")
 public class Posto {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;

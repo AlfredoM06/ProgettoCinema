@@ -31,7 +31,7 @@ public class InSalaController {
         model.addAttribute("film", repoFilm.findById(id).get());
         return "filmDettaglio";
     }
-
+    //aspetta che finisca la pagina
 
 
 

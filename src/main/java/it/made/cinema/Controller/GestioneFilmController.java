@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/gestioneFilm")
 public class GestioneFilmController {
+
+    //c'è la pagina
+    // gestione drop down con utenti, film e profilo, login e archivio (da vedere come fare)
+
     @Autowired
     IRepoFilm repoFilm;
     Film film = new Film();

@@ -6,4 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/shop")
 public class ShopController {
+
+    //ancora da fare
+
 }

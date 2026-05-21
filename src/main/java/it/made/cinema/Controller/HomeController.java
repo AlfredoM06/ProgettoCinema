@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-
+    //c'è la pagina
     @GetMapping String home(){
 
-
+        //lista dei film, log in, dettagli dei film, dettagli dei gadgets, prenota(redirect), vedi tutti gadget(redirect)
 
         return "Home";
     }

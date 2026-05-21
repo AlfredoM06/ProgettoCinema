@@ -6,4 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/offerte")
 public class OfferteController {
+
+    //ancora da fare
+
 }

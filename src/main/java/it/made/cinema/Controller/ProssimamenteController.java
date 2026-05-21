@@ -6,4 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/prossimamente")
 public class ProssimamenteController {
+
+    //c'è la pagina
+    //lisya film, dettagli film, log in per la prenotazione,
+
 }
