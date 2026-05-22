@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.made.cinema.Model.Film;
@@ -25,5 +26,11 @@ public class ProssimamenteController {
 		//bisogna inserire un filtro con data odierna e top5 per numero prenotazioni
 		
 		return "suca";
+	}
+	
+	@GetMapping("/dettagli/{id}")
+	private String dettagliProssimamente(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("film", RepoFilm.findById(id).get());
+		return "filmDettaglio";
 	}
 }
