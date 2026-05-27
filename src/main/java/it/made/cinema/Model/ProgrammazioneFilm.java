@@ -12,6 +12,16 @@ public class ProgrammazioneFilm {
     //id composito
     @EmbeddedId
     ProgrammazioneFilmKey id;
+
+    // orario
+    @NotEmpty
+    @Column(nullable = false)
+    private Date orario;
+    // prenotazioni
+    @NotEmpty
+    @Column(nullable = false)
+    private int nPrenotazioni;
+
     // 1aM con posto
    /* @ManyToOne
     @MapsId("idPosto")
@@ -27,10 +37,6 @@ public class ProgrammazioneFilm {
     @MapsId("idFilm")
     @JoinColumn(name = "id_film")
     Film film;
-    // orario
-    @NotEmpty
-    @Column(nullable = false)
-    private Date orario;
     // lista posti occupati
     @OneToMany(mappedBy = "programmazioneFilm")
     private List<PostiOccupati> listaPostiOccupati;
