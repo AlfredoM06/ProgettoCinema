@@ -33,13 +33,16 @@ public class HomeController {
         return "Home";
     }
 
-    //dettagli dei film, dettagli dei gadgets
+    //dettagli dei film
     @GetMapping("/dettagli/{id}")
     private String dettagliHome(@PathVariable("id") Integer id, Model model){
         model.addAttribute("film", repoFilm.findById(id).get());
-        model.addAttribute("gadget", repoGadget.findById(id).get());
-        return "";
+        return "filmDettaglio";
     }
+
+    //da fare forse dettagli dei gadgets
+
+
 
     /*
     @GetMapping("/dettagli")
