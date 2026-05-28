@@ -1,5 +1,6 @@
 package it.made.cinema.Controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,10 @@ public class ProssimamenteController {
 	private IRepoFilm RepoFilm;
 	@GetMapping
 	private String listaProssimamente(Model model) {
-		List<Film> listaProssimamente = RepoFilm.findAll();
 		//bisogna inserire un filtro con data odierna e top5 per numero prenotazioni
-		
-		return "suca";
+		List<Film> risultatoRicerca = RepoFilm.findByAllDate();
+		model.addAttribute("filmProssiamente", risultatoRicerca);
+		return "prossimamente";
 	}
 	
 	@GetMapping("/dettagli/{id}")
@@ -33,4 +34,7 @@ public class ProssimamenteController {
 		model.addAttribute("film", RepoFilm.findById(id).get());
 		return "filmDettaglio";
 	}
+
+
+
 }
