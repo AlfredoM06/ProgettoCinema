@@ -20,7 +20,8 @@ public class GestioneFilmController {
     @Autowired
     IRepoFilm repoFilm;
     Film film = new Film();
-
+    //form
+        //da fare validazioni form
     @GetMapping("/form")
     public String form(Model model){
         model.addAttribute("film", new Film());
@@ -32,5 +33,11 @@ public class GestioneFilmController {
         repoFilm.save(formFilm);
         return "redirect:/GestioneFilm";
     }
+    //da fare:
+         //lista film
+        //modifica
+        //modifica per far tornare disponibile un film
+        //cancella
+
 
 }
