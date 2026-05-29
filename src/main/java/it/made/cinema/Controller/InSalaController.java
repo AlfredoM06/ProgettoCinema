@@ -21,8 +21,8 @@ public class InSalaController {
 
     @GetMapping
     public String listaFilm(Model model){
-        List<Film> lista = repoFilm.findAll();
-        model.addAttribute("list", lista);
+        List<Film> films = repoFilm.findByArchiviatoFalse();
+        model.addAttribute("films", films);
         return "inSala";
     }
 

@@ -64,6 +64,9 @@ public class Film {
 	@NotEmpty
 	@Column(nullable=false)
 	private Date scadenza;
+	@NotEmpty
+	@Column(nullable=false)
+	private boolean archiviato;
 	@OneToMany(mappedBy="film")
 	private List<Gadget> gadgets;
 	@ManyToMany()
