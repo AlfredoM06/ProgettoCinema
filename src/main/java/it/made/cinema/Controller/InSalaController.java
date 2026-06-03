@@ -2,6 +2,7 @@ package it.made.cinema.Controller;
 
 import it.made.cinema.Model.Film;
 import it.made.cinema.Repository.IRepoFilm;
+import it.made.cinema.Repository.IRepoGeneri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ public class InSalaController {
     //da vedere come si fa
     @Autowired
     private IRepoFilm repoFilm;
+    @Autowired
+    private IRepoGeneri repoGeneri;
 
     @GetMapping
     public String listaFilm(Model model){
