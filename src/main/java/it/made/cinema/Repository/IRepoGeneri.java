@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IRepoGeneri  extends JpaRepository<GenereFilm, Integer> {
-    public Optional<GenereFilm> findByGenereFilmContaining(String genereFilm);
+    public List<GenereFilm> findByGenereFilmContaining(String genereFilm);
 }
