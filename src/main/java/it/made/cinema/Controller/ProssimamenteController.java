@@ -20,18 +20,18 @@ public class ProssimamenteController {
     //c'è la pagina
     //lista film, dettagli film, log in per la prenotazione,
 	@Autowired
-	private IRepoFilm RepoFilm;
+	private IRepoFilm repoFilm;
 	@GetMapping
-	private String listaProssimamente(Model model) {
+	public String listaProssimamente(Model model) {
 		//bisogna inserire un filtro con data odierna e top5 per numero prenotazioni
-		List<Film> risultatoRicerca = RepoFilm.findByAllDate();
-		model.addAttribute("filmProssiamente", risultatoRicerca);
+		List<Film> risultatoRicerca = repoFilm.findByAllDate();
+		model.addAttribute("filmProssimamente", risultatoRicerca);
 		return "prossimamente";
 	}
 	
 	@GetMapping("/dettagli/{id}")
-	private String dettagliProssimamente(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("film", RepoFilm.findById(id).get());
+	public String dettagliProssimamente(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("film", repoFilm.findById(id).get());
 		return "filmDettaglio";
 	}
 
