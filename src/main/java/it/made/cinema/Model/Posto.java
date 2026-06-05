@@ -21,6 +21,9 @@ public class Posto {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@NotEmpty
+	@Column(nullable = false)
+	private Double prezzoPosto;
+	@NotEmpty
 	@Column(length=50, nullable=false)
 	private String tipo;
 	@ManyToOne
