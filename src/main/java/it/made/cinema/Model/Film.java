@@ -50,13 +50,13 @@ public class Film {
 	@Column(length=500, nullable=false)
 	private String lingue;
 	@NotEmpty
-	@Column(length=500, nullable=false, unique=true)
+	@Column(length=500, nullable=false)
 	private String img_cover;
 	@NotEmpty
-	@Column(length=500, nullable=false, unique=true)
+	@Column(length=500, nullable=false)
 	private String img_logo;
 	@NotEmpty
-	@Column(length=500, nullable=false, unique=true)
+	@Column(length=500, nullable=false)
 	private String img_poster;
 	@NotEmpty
 	@Column(nullable=false)
