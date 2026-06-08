@@ -63,11 +63,11 @@ INSERT INTO db_cinema.posti
 (prezzo_posto, tipo)
 VALUES(0, '');
 INSERT INTO db_cinema.posti
-(tipo)
-VALUES('');
+(prezzo_posto, tipo)
+VALUES(0, '');
 INSERT INTO db_cinema.posti
-(tipo)
-VALUES('');
+(prezzo_posto, tipo)
+VALUES(0, '');
 
 --sale
 INSERT INTO db_cinema.sale
