@@ -64,7 +64,7 @@ article {
 }
 
 /* =========================
-   🎬 MOVIE POSTER
+     MOVIE POSTER
    ========================= */
 .movie-poster {
     width: 200px;
@@ -83,7 +83,7 @@ article {
 }
 
 /* =========================
-   📄 MOVIE META (regista, cast, ecc.)
+     MOVIE META (regista, cast, ecc.)
    ========================= */
 .movie-meta {
     margin-top: 20px;
@@ -204,7 +204,7 @@ CINEMA TABS (banner promozionale)
     line-height: 1;
     margin: 0;
     font-weight: 600;
-    color: #f28c28;
+    color: var(--title);
     letter-spacing: 2px;
 }
 
@@ -402,42 +402,6 @@ CINEMA TABS (giorni/orari film)
 /* =========================
      OFFERS / PROMO SECTION
    ========================= */
-
-/* LINEA GRADIENT*/
-.titoloLinea::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 7px;
-
-  background: linear-gradient(90deg,
-      transparent,
-      #9e8f2b,
-      #dc143c,
-      #9e8f2b,
-      transparent);
-
-  filter: drop-shadow(0 0 6px #dc143c);
-  transition: width 1.5s ease;
-}
-
-.titoloLinea.active::after {
-  width: 100%;
-}
-
-/* TITOLO IN EVIDENZA */
-.titoloLinea {
-  width: 1100px;
-  font-size: 2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 12px;
-  margin: 0;
-  color: white;
-}
 
 .titolo-centrato {
   margin-left: auto;

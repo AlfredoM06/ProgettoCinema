@@ -20,7 +20,7 @@ body {
 }
 
 .grid {
-  margin-top: 150px;
+  margin-top: 170px;
 }
 
 /* =========================================================
@@ -83,15 +83,17 @@ body {
   clip-path: inset(50% 0 50% 0);
   transition: clip-path .7s cubic-bezier(.7,0,.2,1),
               transform .7s cubic-bezier(.7,0,.2,1);
-  transform: scale(1);
   z-index: 2;
 }
 
 /* hover */
 .card:hover .img-color {
-  transform: scale(1.1);
-  clip-path: inset(0 4.5% 0 4.5%);
+  transform: scaleY(1.1);
+  clip-path: inset(0 0 0 0);
 }
+
+
+
 
 /* =========================================================
    5. ANIMAZIONI GLOBALI

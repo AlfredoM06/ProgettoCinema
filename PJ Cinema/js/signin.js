@@ -13,6 +13,7 @@ signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
 
+/* richiamo Login*/
 loginButton.addEventListener('click', (e) => {
 	logIn(e);
 });
@@ -32,13 +33,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 function logIn(e) {
-
+	/*blocca submit */
 	e.preventDefault();
 
 	let email = document.getElementById("email").value;
 	let password = document.getElementById("password").value;
 
-	fetch("http://localhost:9015/api/login", {
+	fetch("http://localhost:3306/api/login", {
 		method: "POST",
 		body: JSON.stringify({
 			email: email,
@@ -48,19 +49,18 @@ function logIn(e) {
 			"Content-type": "application/json; charset=UTF-8"
 		}
 	})
+
 	.then(response => response.json())
 	.then(json => {
-		if (json.esito == "ok"){
+		if (json.esito === "ok"){
 		localStorage.setItem("utente", JSON.stringify(json.utente));
 
 		let user = JSON.parse(localStorage.getItem("utente"));
         let tipoUtente = user.tipo;
 
-		if (tipoUtente == "A"){
-
-			
+		if (tipoUtente === "A"){
 		window.location.href = "homeAdmin.html"
-		}else if(tipoUtente == "B"){
+		}else if(tipoUtente === "B"){
 			window.location.href = "homeUtente.html"
 		}else{
 			window.location.href = "SignIn.html"

@@ -56,56 +56,6 @@ header {
   font-size: 18px;
 }
 
-
-/* =========================
-    TITOLI + LINEA ANIMATA
-========================= */
-
-/* Titolo sezione */
-.titoloLinea {
-  width: 1100px;
-  font-size: 2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 12px;
-  margin: 0;
-}
-
-/* Centro titolo */
-.titolo-centrato {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Linea animata sotto titolo */
-.titoloLinea::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 7px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #9e8f2b,
-    #dc143c,
-    #9e8f2b,
-    transparent
-  );
-
-  filter: drop-shadow(0 0 6px #dc143c);
-  transition: width 1.5s ease;
-}
-
-/* Attivazione animazione */
-.titoloLinea.active::after {
-  width: 100%;
-}
-
-
 /* =========================
     SEZIONE MENU CINEMA
 ========================= */

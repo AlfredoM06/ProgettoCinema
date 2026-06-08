@@ -1,14 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" href="./css/root.css">
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/InSala.css">
+    <link rel="stylesheet" href="./css/titoloLinea.css">
+    <link rel="stylesheet" href="./css/freccia.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <title>In Sala</title>
 </head>
+
 <body>
-    
+    <header id="return">
+        <a href="./Home.html"><img class="logo" src="./img/Cinema_Logo.png"></img></a>
+        <ul class="nav">
+            <li><a href="./inSala.html">In Sala</a></li>
+            <li><a href="./prossimamente.html">Prossimamente</a></li>
+            <li><a href="#cale">Membership</a></li>
+            <li><a href="#tabs">Offerte</a></li>
+            <li><a href="#cale">Shop</a></li>
+        </ul>
+        <ul class="navbar-nav">
+            <li>
+                <a class="nav-link" href="./SignIn.html">Accedi</a>
+            </li>
+        </ul>
+    </header>
 
 
-    
+    <main class="container">
+
+        <h1 class="titoloLinea" id="offerte">Film in Sala</h1>
+
+        <div class="search-wrapper d-flex justify-content-center">
+
+            <div class="input-group search-bar">
+                <select class="form-select genre-select">
+                    <option value="all" selected>Generi</option>
+                    <option value="azione">Azione</option>
+                    <option value="anime">Anime</option>
+                    <option value="commedie">Commedie</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="horror">Horror</option>
+                    <option value="musical">Musical</option>
+                    <option value="romantici">Romantici</option>
+                    <option value="thriller">Thriller</option>
+                </select>
+
+                <!-- 🔍 INPUT TITOLI -->
+                <span class="input-group-text search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+
+                <input type="text" class="form-control search-input" placeholder="Titoli">
+
+            </div>
+            </div>
+
+            <!-- 🎬 GRID -->
+            <!-- CARD -->
+            <div class="movies-grid" id="moviesGrid">
+                <!-- JS inserirà qui tutte le card -->
+            </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-5">
+        <!-- INFO SITO-->
+        <div class="container-fluid">
+            <div class="row mt-4 gx-3">
+                <div class="col-lg-4 mt-5">
+                    <h5>Siediti & guarda</h5>
+                    <p class="text-secondary">La tua destinazione per il cinema di qualità. Vivi l'esperienza
+                        cinematografica come
+                        mai prima d'ora.</p>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 mt-5">
+                    <ul class="list-unstyled">
+                        <li>
+                            <h5>Chi siamo</h5>
+                        </li>
+                        <li>
+                            <h5>Lavora con noi</h5>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 mt-5">
+                    <h5 class="mb-4">Contatti</h5>
+                    <ul class="list-unstyled  info text-secondary">
+                        <li>
+                            <p class="text-secondary"><i class="fa-solid fa-location-dot pb-0 icon"></i>Centro
+                                Direzionale, NA 535022, IT</p>
+                        </li>
+                        <li>
+                            <p class="text-secondary"><i class="fa-solid fa-phone pb-0 icon"></i>+39 5589 55488 55
+                            </p>
+                        </li>
+                        <li>
+                            <p class="text-secondary"><i class="fa-solid fa-envelope pb-0 icon"></i>grandview@gmail.com
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 mt-5">
+                    <h5 class="mb-4">Orari</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p class="text-secondary">Lunedì - Venerdì: 14:00 - 00:00</p>
+                        </li>
+                        <li>
+                            <p class="text-secondary">Sabato - Domenica: 10:00 - 01:00</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="sitiFoot">
+                    <li class="my-lg-5 social center-align">
+                        <a href=""><i class="fa-brands fa-x-twitter icon"></i></a>
+                        <a href=""><i class="fa-brands fa-facebook-f icon"></i></a>
+                        <a href=""><i class="fa-brands fa-instagram icon"></i></a>
+                        <a href=""><i class="fa-brands fa-youtube icon"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <a href="#return"><button type="button" class="freccia"><i class="fa-solid fa-arrow-up"></i></button></a>
+
+            <div class="footer-copyright text-center py-3  text-white">
+                <i class="websiteName">Siediti&Guarda</i> <strong> Cinema, 2025 Tutti i diritti riservati</strong>
+            </div>
+        </div>
+
+
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/inSala.js"></script>
+    <script src="./js/freccia.js"></script>
+    <script src="./js/titoloLinea.js"></script>
 </body>
+
 </html>

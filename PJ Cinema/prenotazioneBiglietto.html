@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <link rel="stylesheet" href="./css/root.css">
+  <link rel="stylesheet" href="./css/prenotazioneBiglietto.css">
+
+  <title>Prenotare-il-biglietto</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header class="custom-navbar">
+    <div class="container">
+      <div class="navbar-flex">
+
+        <img src="./img/Cinema_Logo.png" class="logo">
+
+        <div class="timer-box">
+          <span id="timer">05:00</span>
+          <span> minuti per acquistare il biglietto</span>
+        </div>
+
+        <i class="fa-regular fa-user user-icon"></i>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (ATTACCATO ALLA NAVBAR) -->
+  <section class="hero-film">
+    <div class="container">
+      <div class="row hero-row">
+
+        <!-- POSTER -->
+        <div class="col-md-1">
+          <div class="poster-box">
+            <img src="./img/mandalorian_grogu_poster.jpg">
+          </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="col-md-10">
+
+          <h2 class="film-subtitle">ACQUISTA ORA</h2>
+
+          <h1 class="film-title">STAR WARS: THE MANDALORIAN AND GROGU</h1>
+
+          <hr>
+
+          <div class="film-meta">
+            <span>Siediti & Guarda</span>
+            <span>Sala 11</span>
+            <span class="proiezione">IMAX</span>
+          </div>
+
+          <div class="film-time">
+            <div class="time-info">
+              02 Giugno 2026 • 21:30 - 23:45
+            </div>
+
+            <button class="btn-change"><i class="fa-regular fa-clock"></i>Cambia orario</button>
+          </div>
+
+        </div>
+      </div>
+  </section>
+
+  <!-- SEZIONE POSTI -->
+  <main class="container-fluid cinema-main">
+
+    <div class="row">
+
+      <!-- 🔵 COLONNA SINISTRA -->
+      <div class="col-md-9 cinema-left">
+
+        <div class="cinema-inner">
+
+          <!-- BOX SALA -->
+          <div class="cinema-box">
+
+            <!-- SCHERMO -->
+            <div class="screen-wrapper">
+              <div class="screen-shadow"></div>
+              <div class="screen"></div>
+            </div>
+            <h3 class="hall-title">SALA 9</h3>
+
+            <!-- POSTI -->
+            <div id="seats" class="seats-grid"></div>
+
+          </div>
+
+          <!-- LEGENDA (SEPARATA) -->
+          <div class="legend text-center">
+            <div class="legend text-center">
+
+              <button class="legend-btn">
+                <span class="legend-seat vip"></span>
+                <span>Vip</span>
+                <span class="legend-price">9.70€</span>
+              </button>
+
+              <button class="legend-btn">
+                <span class="legend-seat red"></span>
+                <span>Rosso</span>
+                <span class="legend-price">7.70€</span>
+              </button>
+
+              <button class="legend-btn">
+                <span class="legend-seat blue"></span>
+                <span>Blu</span>
+                <span class="legend-price">6.70€</span>
+              </button>
+
+              <button class="legend-btn">
+                <span class="legend-seat green"></span>
+                <span>Verde</span>
+                <span class="legend-price">5.70€</span>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 🔴 COLONNA DESTRA -->
+      <div class="col-md-3 cinema-right">
+
+        <div class="scroll-area">
+
+          <!-- INFO DINAMICHE -->
+          <div id="selection-info" class="selection-info hidden">
+
+            <div class="quantity-row">
+              <span>Quanti posti?</span>
+
+              <button id="minus">-</button>
+              <span id="seat-count">1</span>
+              <button id="plus">+</button>
+            </div>
+
+            <div id="seat-preview"></div>
+
+          </div>
+
+          <!-- RIEPILOGO BIGLIETTI -->
+          <div id="ticket-summary">
+            <p>Per le proiezioni con certificato VM14 e VM18 porta con te un documento di riconoscimento, potremmo
+              chiedertelo prima dell'ingresso in sala.</p>
+            <p>Il biglietto 3D comprende l’occhialino che verrà consegnato all’ingresso della sala.</p>
+            <p>Con The Space Card puoi utilizzare al massimo 3 ingressi al giorno. L'utilizzo della The Space Card può
+              essere soggetto a limitazioni di giorno, orario e spettacolo. Per gli spettacoli in sala EPIC potrebbe
+              essere previsto un supplemento.</p>
+            <p>Per le proiezioni con certificato VM14 e VM18 porta con te un documento di riconoscimento, potremmo
+              chiedertelo prima dell'ingresso in sala.</p>
+            <p>Il biglietto 3D comprende l’occhialino che verrà consegnato all’ingresso della sala.</p>
+            <p>Per le proiezioni con certificato VM14 e VM18 porta con te un documento di riconoscimento, potremmo
+              chiedertelo prima dell'ingresso in sala.</p>
+            <p>Per le proiezioni con certificato VM14 e VM18 porta con te un documento di riconoscimento, potremmo
+              chiedertelo prima dell'ingresso in sala.</p>
+            <p>Il biglietto 3D comprende l’occhialino che verrà consegnato all’ingresso della sala.</p>
+
+            <p>Il biglietto 3D comprende l’occhialino che verrà consegnato all’ingresso della sala.</p>
+          </div>
+
+          <!-- CHECKOUT -->
+          <div class="checkout-box hidden">
+
+            <div>
+              Biglietti: <span id="total-tickets">0</span>
+            </div>
+
+            <div>
+              Totale: €<span id="total-price">0</span>
+            </div>
+
+            <button class="btn-checkout">
+              Verifica e prosegui
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+      <footer class="custom-footer">
+        <div class="container">
+          <p class="footer-text">Questo checkout è sicuro e completamente certificato PCI, permettendoti di pagare il
+            tuo ordine utilizzando una carta di debito o di credito in completa sicurezza</p>
+        </div>
+      </footer>
+  </main>
+
+  <script src="./js/prenotazioneBiglietto.js"></script>
+</body>
+
+</html>

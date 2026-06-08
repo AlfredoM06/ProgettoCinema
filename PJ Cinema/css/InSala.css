@@ -1,0 +1,169 @@
+
+/* =========================
+   GRID FILM
+   layout a 5 colonne responsive
+========================= */
+
+.movies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ogni card occupa il 20% su desktop */
+.movies-grid > div {
+  flex: 0 0 calc(20% - 6px);
+}
+
+/* =========================
+   LAYOUT PAGINA
+   spacing tra navbar e contenuto
+========================= */
+
+main {
+  margin-top: 180px;
+  margin-bottom: 100px;
+}
+
+/* =========================
+   SEARCH BAR
+========================= */
+
+.search-wrapper {
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #333;
+  color: white;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+  background: transparent !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+/* =========================
+   SEARCH CONTAINER
+   (CONTROLLA LARGHEZZA)
+========================= */
+
+.search-bar {
+  width: 60%;              
+  min-width: 420px;
+  max-width: 700px;
+}
+
+/* =========================
+   DROPDOWN GENERI
+========================= */
+
+.genre-select {
+  background: transparent;
+  color: white;
+  border: 1px solid #333;
+  max-width: 180px;
+}
+
+.genre-select option {
+  background: var(--background-page);  /* tuo background-page */
+}
+
+/* =========================
+   INPUT TESTO
+========================= */
+
+.search-input {
+  background: transparent;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* =========================
+   ICONA LENTE
+========================= */
+
+.search-icon {
+  background: transparent;
+  border: 1px solid #333;
+  color: var(--icon-color);
+}
+
+/* =========================
+   CARD FILM BASE
+   (struttura singola card)
+========================= */
+
+.movie-card {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  max-width: 479px;
+  margin: 0 auto;
+
+  transition: all 0.3s ease;
+}
+
+/* immagine poster */
+.movie-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  display: block;
+}
+
+/* titolo film */
+.movie-card h2 {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* =========================
+   HOVER CARD BASE
+   (animazione singola card)
+========================= */
+
+.movie-card:hover {
+  opacity: 1;
+  transform: translateY(-6px) scale(1.05);
+  filter: brightness(1.2);
+  z-index: 5;
+}
+
+/* =========================
+   EFFETTO FOCUS 
+   usando :has()
+========================= */
+
+.movies-grid:has(.movie-card:hover) .movie-card:not(:hover) {
+  opacity: 0.35;
+}
+
+/* card attiva sopra le altre */
+.movies-grid .movie-card:hover {
+  opacity: 1;
+  z-index: 5;
+}
+
+/* =========================
+   FIX ACCESSORI ANIMAZIONI
+   (evita jump tra hover e non hover)
+========================= */
+
+.movie-card {
+  transition: all 0.3s ease;
+}
