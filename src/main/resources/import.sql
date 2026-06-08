@@ -30,28 +30,28 @@ VALUES(0, '', 0, 0, '', '', '', '', '', '', '', '', '', '', '');
 --generi
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Azione');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Anime');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Commedie');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Fantasy');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Horror');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Musical');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Romantici');
 INSERT INTO db_cinema.genere_films
 (nome)
-VALUES('');
+VALUES('Thriller');
 
 --gadgets
 --INSERT INTO db_cinema.gadgets
@@ -61,13 +61,13 @@ VALUES('');
 --posti
 INSERT INTO db_cinema.posti
 (prezzo_posto, tipo)
-VALUES(0, '');
+VALUES(7, 'Standard');
 INSERT INTO db_cinema.posti
 (prezzo_posto, tipo)
-VALUES(0, '');
+VALUES(9.5, 'V.I.P.');
 INSERT INTO db_cinema.posti
 (prezzo_posto, tipo)
-VALUES(0, '');
+VALUES(5, 'Disabili');
 
 --sale
 INSERT INTO db_cinema.sale
