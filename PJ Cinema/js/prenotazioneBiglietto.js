@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const rows = 12;
-  const seatsPerRow = 14;
+  let rows = 12;
+  let seatsPerRow = 14;
 
-  const seatContainer = document.getElementById("seats");
-  const seatCountEl = document.getElementById("seat-count");
-  const selectionBox = document.getElementById("selection-info");
-  const totalTicketsEl = document.getElementById("total-tickets");
-  const totalPriceEl = document.getElementById("total-price");
+  let seatContainer = document.getElementById("seats");
+  let seatCountEl = document.getElementById("seat-count");
+  let selectionBox = document.getElementById("selection-info");
+  let totalTicketsEl = document.getElementById("total-tickets");
+  let totalPriceEl = document.getElementById("total-price");
 
-  const minusBtn = document.getElementById("minus");
-  const plusBtn = document.getElementById("plus");
+  let minusBtn = document.getElementById("minus");
+  let plusBtn = document.getElementById("plus");
 
   let ticketCount = 1;
   let selectedSeats = [];
@@ -39,52 +39,91 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // GENERAZIONE POSTI
   // =========================
- for (let i = 0; i < rows; i++) {
+  for (let i = 0; i < rows; i++) {
 
-  const rowWrapper = document.createElement("div");
-  rowWrapper.classList.add("row-wrapper");
+    const rowWrapper = document.createElement("div");
+    rowWrapper.classList.add("row-wrapper");
 
-  const label = document.createElement("div");
-  label.classList.add("row-label");
-  label.innerText = String.fromCharCode(65 + i);
+    const label = document.createElement("div");
+    label.classList.add("row-label");
+    label.innerText = String.fromCharCode(65 + i);
 
-  const row = document.createElement("div");
-  row.classList.add("row-seats");
+    const row = document.createElement("div");
+    row.classList.add("row-seats");
 
-  // 🔽 ciclo posti
-  for (let j = 0; j < seatsPerRow; j++) {
+    for (let j = 0; j < seatsPerRow; j++) {
 
-    const seat = document.createElement("div");
-    seat.classList.add("seat", getSeatType(i));
+      const seat = document.createElement("div");
+      seat.classList.add("seat", getSeatType(i));
 
-    // posti occupati random
-    if (Math.random() < 0.2) {
-      seat.classList.add("occupied");
+      if (Math.random() < 0.2) {
+        seat.classList.add("occupied");
+      }
+
+      seat.addEventListener("click", () => {
+        if (seat.classList.contains("occupied")) return;
+
+        seat.classList.toggle("selected");
+
+        updateSelectedSeats();
+        updateUI();
+      });
+
+      row.appendChild(seat);
     }
 
-    seat.addEventListener("click", () => {
-      if (seat.classList.contains("occupied")) return;
-
-      seat.classList.toggle("selected");
-
-      updateSelectedSeats();
-      updateUI();
-    });
-
-    row.appendChild(seat);
+    rowWrapper.appendChild(label);
+    rowWrapper.appendChild(row);
+    seatContainer.appendChild(rowWrapper);
   }
 
-  rowWrapper.appendChild(label);
-  rowWrapper.appendChild(row);
+  // =========================
+  // 🎬 FILTRO CATEGORIE (QUI 👇)
+  // =========================
+  const legendButtons = document.querySelectorAll(".legend-btn");
+  let activeFilter = null;
 
-  seatContainer.appendChild(rowWrapper);
-}
+  legendButtons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      let type = btn.dataset.type;
+
+      if (activeFilter === type) {
+        activeFilter = null;
+
+        document.querySelectorAll(".seat").forEach(seat => {
+          seat.classList.remove("dimmed");
+        });
+
+        legendButtons.forEach(b => b.classList.remove("active"));
+        return;
+      }
+
+      activeFilter = type;
+
+      legendButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      document.querySelectorAll(".seat").forEach(seat => {
+
+        if (seat.classList.contains(type)) {
+          seat.classList.remove("dimmed");
+        } else {
+          seat.classList.add("dimmed");
+        }
+
+      });
+
+    });
+
+  });
 
   // =========================
   // SELEZIONE POSTI
   // =========================
   function updateSelectedSeats() {
-    const allSelected = document.querySelectorAll(".seat.selected");
+    let allSelected = document.querySelectorAll(".seat.selected");
     selectedSeats = Array.from(allSelected);
   }
 
@@ -95,17 +134,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     seatCountEl.innerText = ticketCount;
 
-    const hasSelection = selectedSeats.length > 0;
+    let hasSelection = selectedSeats.length > 0;
 
-    // selection box
     if (hasSelection) {
       selectionBox.classList.remove("hidden");
     } else {
       selectionBox.classList.add("hidden");
     }
 
-    // checkout box (🔥 NUOVO)
-    const checkoutBox = document.querySelector(".checkout-box");
+    let checkoutBox = document.querySelector(".checkout-box");
 
     if (hasSelection) {
       checkoutBox.classList.remove("hidden");
@@ -113,10 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
       checkoutBox.classList.add("hidden");
     }
 
-    // totale biglietti
     totalTicketsEl.innerText = selectedSeats.length;
 
-    // prezzo
     let total = 0;
     selectedSeats.forEach(seat => {
       total += getPrice(seat);
@@ -124,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     totalPriceEl.innerText = total.toFixed(2);
   }
+
   // =========================
   // BOTTONI + / -
   // =========================
@@ -143,8 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let time = 300;
 
   setInterval(() => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
 
     document.getElementById("timer").innerText =
       `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;

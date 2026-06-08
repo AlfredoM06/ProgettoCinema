@@ -81,7 +81,10 @@
       <div class="col-md-9 cinema-left">
 
         <div class="cinema-inner">
-
+          <button class="back-btn" data-bs-toggle="modal" data-bs-target="#exitModal">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Vedi tutti i film</span>
+          </button>
           <!-- BOX SALA -->
           <div class="cinema-box">
 
@@ -101,25 +104,25 @@
           <div class="legend text-center">
             <div class="legend text-center">
 
-              <button class="legend-btn">
+              <button class="legend-btn" data-type="vip">
                 <span class="legend-seat vip"></span>
                 <span>Vip</span>
                 <span class="legend-price">9.70€</span>
               </button>
 
-              <button class="legend-btn">
+              <button class="legend-btn" data-type="red">
                 <span class="legend-seat red"></span>
                 <span>Rosso</span>
                 <span class="legend-price">7.70€</span>
               </button>
 
-              <button class="legend-btn">
+              <button class="legend-btn" data-type="blue">
                 <span class="legend-seat blue"></span>
                 <span>Blu</span>
                 <span class="legend-price">6.70€</span>
               </button>
 
-              <button class="legend-btn">
+              <button class="legend-btn" data-type="green">
                 <span class="legend-seat green"></span>
                 <span>Verde</span>
                 <span class="legend-price">5.70€</span>
@@ -200,7 +203,40 @@
       </footer>
   </main>
 
+  /* MODALE DI USCITA */
+
+  <div class="modal fade" id="exitModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content exit-modal">
+
+        <div class="modal-header justify-content-center">
+          <h2 class="modal-title text-uppercase">
+            VUOI USCIRE DALLA SELEZIONE?
+          </h2>
+        </div>
+
+        <div class="modal-body text-center">
+          <p>Lasciando la pagina, perderai le tue scelte</p>
+        </div>
+
+        <div class="modal-footer flex-column">
+
+          <a href="#" class="keep-selection">
+            Mantieni la mia selezione
+          </a>
+
+          <a href="./inSala.html" class="exit-btn text-uppercase">
+            Esci
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <script src="./js/prenotazioneBiglietto.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
