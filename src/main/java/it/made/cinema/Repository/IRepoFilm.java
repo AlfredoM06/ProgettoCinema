@@ -15,6 +15,6 @@ public interface IRepoFilm extends JpaRepository<Film, Integer> {
     public List<Film> findByTitoloContainingOrRegistaContainingOrCastContainingOrDistribuzioneContaining(String titolo, String regista, String cast, String distribuzione);
     public List<Film> findByArchiviatoFalse();
     //public List<Film> findByGeneriId(Integer id);
-    @Query("select distinct f from Film f join fetch f.generi g where g.id in :genereId")
+    @Query("select distinct f from Film f join fetch f.generi g where g.id in :idGenere")
     public List<Film> findByGenereFilm(@Param("idGenere") List<Integer> idGenere);
 }
