@@ -1,6 +1,7 @@
-const cards = document.querySelectorAll('.card');
-const overlay = document.querySelector('.global-overlay');
+let cards = document.querySelectorAll('.card');
+let overlay = document.querySelector('.global-overlay');
 
+/* style card*/
 cards.forEach(card => {
   card.addEventListener('mouseenter', () => {
     overlay.style.opacity = '1';
@@ -11,25 +12,9 @@ cards.forEach(card => {
   });
 });
 
-const titoli = document.querySelectorAll(".titoloLinea");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("active");
-    }
-  });
-}, {
-  threshold: 0.5
-});
-
-titoli.forEach(titolo => {
-  observer.observe(titolo);
-});
-
 // CONTROLLO FRECCE SWIPER
 document.querySelector(".swiper-button-next").addEventListener("click", () => {
-  const swiper = document.querySelector(".mySwiper").swiper;
+  let swiper = document.querySelector(".mySwiper").swiper;
 
   swiper.currentPage++;
 
@@ -41,7 +26,7 @@ document.querySelector(".swiper-button-next").addEventListener("click", () => {
 });
 
 document.querySelector(".swiper-button-prev").addEventListener("click", () => {
-  const swiper = document.querySelector(".mySwiper").swiper;
+  let swiper = document.querySelector(".mySwiper").swiper;
 
   swiper.currentPage--;
 

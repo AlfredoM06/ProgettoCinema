@@ -1,0 +1,51 @@
+:root {
+  --primary: #dc143c;
+  --secondary: #6c757d;
+  --gradient: rgba(0, 0, 0, 0.5);
+  --icon-color: #a9a066;
+  --border-color: #9e8f2b;
+  --title: #f28c28;
+  
+  --background-page: #1c252e;
+  --background-div: #0f161d;
+}
+
+/* =========================
+   RESET GLOBALE
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HTML / BODY BASE
+========================= */
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--background-page);
+  color: #fff;
+}
+
+/* =========================
+   LINK GLOBALI
+========================= */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   LISTE GLOBALI
+========================= */
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
