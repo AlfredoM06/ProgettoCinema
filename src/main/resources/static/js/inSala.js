@@ -1,89 +1,31 @@
-/* RICERCA INPUT*/
-const searchInput = document.querySelector(".search-input");
-const container = document.querySelector("#moviesGrid");
+// =========================
+// Il JS si occupa solo di filtrare le card visibili.
+// =========================
 
-// dati di prova per fetch
-let movies = [
-  {
-    title: "Jurassic World",
-    posterUrl: "img/jurassicworld_poster.webp"
-  },
-  {
-    title: "Avatar",
-    posterUrl: "img/avatar2_poster.png"
-  },
-  {
-    title: "Dune",
-    posterUrl: "img/dune-prossimamente.jpg"
-  },
-  {
-    title: "Dragon Trainer",
-    posterUrl: "img/dragontrainer_poster.jpg"
-  },
-  {
-    title: "Superman",
-    posterUrl: "img/superman.jpg"
-  },
-  {
-    title: "Lilo & Stitch",
-    posterUrl: "img/lilo_poster.jpg"
-  },
-  {
-    title: "Mandalorian and Grogu",
-    posterUrl: "img/mandalorian_grogu_poster.jpg"
-  },
-  {
-    title: "Final Destination",
-    posterUrl: "img/final destination_poster.jpg"
-  },
-  {
-    title: "Scream 7",
-    posterUrl: "img/scream7_poster.jpg"
-  }
-];
-
-let genere = [
-
-];
-
-renderMovies(movies);
+let searchInput = document.getElementById("searchInput");
+let genreSelect = document.getElementById("genreSelect");
+let allCards   = document.querySelectorAll(".movie-item");
 
 // =========================
-// 🎬 RENDER FUNCTION
+// 🔍 Funzione filtro
 // =========================
-function renderMovies(list) {
-  container.innerHTML = "";
+function filterMovies() {
+  let keyword = searchInput.value.toLowerCase().trim();
+  let genre   = genreSelect.value.toLowerCase();
 
-  list.forEach(movie => {
-    const col = document.createElement("div");
-    col.className = "col-6 col-md-4";
+  allCards.forEach(card => {
+    let title      = card.dataset.title.toLowerCase();
+    let cardGenre  = card.dataset.genere || "";
 
-    col.innerHTML = `
-      <div class="movie-card">
-        <img src="${movie.posterUrl}" alt="${movie.title}">
-        <h2>${movie.title}</h2>
-      </div>
-    `;
+    let matchTitle  = title.includes(keyword);
+    let matchGenre  = genre === "all" || cardGenre === genre;
 
-    container.appendChild(col);
+    card.style.display = (matchTitle && matchGenre) ? "" : "none";
   });
 }
 
 // =========================
-// 🔍 LIVE SEARCH (case insensitive)
+// 🎧 Event listeners
 // =========================
-searchInput.addEventListener("input", (e) => {
-  const value = e.target.value.toLowerCase().trim();
-
-  // se vuoto → reset
-  if (value === "") {
-    renderMovies(movies);
-    return;
-  }
-
-  const filtered = movies.filter(movie =>
-    movie.title.toLowerCase().includes(value)
-  );
-
-  renderMovies(filtered);
-});
+searchInput.addEventListener("input",  filterMovies);
+genreSelect.addEventListener("change", filterMovies);
