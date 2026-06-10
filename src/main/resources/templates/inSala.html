@@ -75,7 +75,7 @@
         <!-- Card per ogni film -->
         <div class="col-6 col-md-4 movie-item"
              th:each="film : ${films}"
-             th:attr="data-title=${film.titolo}, data-genere=${film.genere != null ? film.genere.nome.toLowerCase() : ''}">
+             th:text="data-title=${film.titolo}, data-genere=${film.genere != null ? film.genere.nome.toLowerCase() : ''}">
 
             <a th:href="@{/inSala/dettagli/{id}(id=${film.id})}" class="movie-card-link">
                 <div class="movie-card">
