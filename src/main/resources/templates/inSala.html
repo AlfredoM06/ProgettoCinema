@@ -79,7 +79,7 @@
 
             <a th:href="@{/inSala/dettagli/{id}(id=${film.id})}" class="movie-card-link">
                 <div class="movie-card">
-                    <img th:src="@{${film.posterUrl}}" th:alt="${film.titolo}" alt="Locandina film">
+                    <img th:src="${film.img_poster}" th:alt="${film.titolo}" alt="Locandina film">
                     <h2 th:text="${film.titolo}">Titolo Film</h2>
                 </div>
             </a>
