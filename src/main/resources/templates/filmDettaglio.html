@@ -361,7 +361,11 @@
                     </div>
                     <div class="info-item">
                         <span class="label">Genere</span>
-                        <span class="value" th:text="${film.generi}"></span>
+<!--                        <span class="value" th:text="${film.generi}"></span>-->
+                        <ul>
+                            <li th:each="genere : ${film.generi}" th:text="${genere.nome}"></li>
+                        </ul>
+
                     </div>
                     <div class="info-item">
                         <span class="label">Rating</span>
