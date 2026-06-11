@@ -19,6 +19,19 @@ INSERT INTO db_cinema.genere_films (nome) VALUES ('Musical');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Romantici');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Thriller');
 
+--relazioni film/generi
+
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (1, 8);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (2, 2);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (3, 4);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (4, 2);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (5, 6);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (6, 4);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (6, 2);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (7, 4);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (8, 2);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (9, 5);
+
 --gadgets
 --INSERT INTO db_cinema.gadgets
 --(prezzo, quantita, nome, img, img_banner, descrizione)
