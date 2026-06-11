@@ -26,12 +26,12 @@ public class InSalaController {
   //  @Autowired
   //  private IRepoGeneri repoGeneri;
 
-    @GetMapping
+   /* @GetMapping
     public String listaFilm(Model model){
         List<Film> films = repoFilm.findByArchiviatoFalse();
         model.addAttribute("films", films);
         return "inSala";
-    }
+    }*/
 
     @GetMapping("/dettagli/{id}")
     public String dettFilm(@PathVariable("id") Integer id, Model model){
@@ -40,8 +40,8 @@ public class InSalaController {
         return "filmDettaglio";
     }
     //aspetta che finisca la pagina
-    /*@GetMapping
-    public String ricercaPerGenere(@RequestParam(name= "genere", required=false) List<Integer> idGenere, Model model) {
+    @GetMapping
+   /*public String ricercaPerGenere(@RequestParam(name= "genere", required=false) List<Integer> idGenere, Model model) {
     	if (idGenere != null && !idGenere.isEmpty()) {
     		model.addAttribute("films", repoFilm.findByGenereFilm(idGenere));
     	}
@@ -49,20 +49,22 @@ public class InSalaController {
     		model.addAttribute("films", repoFilm.findAll());
     		}
     	return "inSala";
-    }
-    public String index(@RequestParam(name= "keyword", required =false) String searchKeyword, Model model) {
-    	List<Film> films;
-    	if (searchKeyword != null) {
+    }*/
+    public String index(@RequestParam(name= "keyword", required =false) String searchKeyword,@RequestParam(name="genere", required=false) List<Integer> idGenere, Model model) {
+    	List<Film> films = null;
+    	if (searchKeyword != null && !searchKeyword.isBlank()) {
     		films = repoFilm.findByTitoloContainingOrRegistaContainingOrCastContainingOrDistribuzioneContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
-    	} else {
-    		films=repoFilm.findAll();
+    	} else if(idGenere != null && !idGenere.isEmpty()){
+    		films = repoFilm.findByGenereFilm(idGenere);
     	}
-    	if (films.isEmpty()) {
-    		return "Pagina errore";
+    	else {
+    		films = repoFilm.findAll();
     	}
     	model.addAttribute("films", films);
+    	model.addAttribute("noResult", films.isEmpty());
     	model.addAttribute("preloadSearch", searchKeyword);
+    	model.addAttribute("preloadGenere", idGenere);
     	return "inSala";
-    }*/
+    }
 
 }
