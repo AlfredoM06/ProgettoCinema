@@ -69,7 +69,7 @@ public class Film {
 	private boolean archiviato;
 	@OneToMany(mappedBy="film")
 	private List<Gadget> gadgets;
-	@ManyToMany()
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="films_generi", joinColumns=@JoinColumn(name="id_film"),inverseJoinColumns=@JoinColumn(name="id_genere"))
 	private List<GenereFilm> generi;
 }

@@ -36,6 +36,7 @@ public class InSalaController {
     @GetMapping("/dettagli/{id}")
     public String dettFilm(@PathVariable("id") Integer id, Model model){
         model.addAttribute("film", repoFilm.findById(id).get());
+        System.out.println(repoFilm.toString());
         return "filmDettaglio";
     }
     //aspetta che finisca la pagina
