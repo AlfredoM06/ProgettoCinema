@@ -23,15 +23,6 @@ public class InSalaController {
     //da vedere come si fa
     @Autowired
     private IRepoFilm repoFilm;
-  //  @Autowired
-  //  private IRepoGeneri repoGeneri;
-
-   /* @GetMapping
-    public String listaFilm(Model model){
-        List<Film> films = repoFilm.findByArchiviatoFalse();
-        model.addAttribute("films", films);
-        return "inSala";
-    }*/
 
     @GetMapping("/dettagli/{id}")
     public String dettFilm(@PathVariable("id") Integer id, Model model){
@@ -41,15 +32,6 @@ public class InSalaController {
     }
     //aspetta che finisca la pagina
     @GetMapping
-   /*public String ricercaPerGenere(@RequestParam(name= "genere", required=false) List<Integer> idGenere, Model model) {
-    	if (idGenere != null && !idGenere.isEmpty()) {
-    		model.addAttribute("films", repoFilm.findByGenereFilm(idGenere));
-    	}
-    	else {
-    		model.addAttribute("films", repoFilm.findAll());
-    		}
-    	return "inSala";
-    }*/
     public String index(@RequestParam(name= "keyword", required =false) String searchKeyword,@RequestParam(name="genere", required=false) List<Integer> idGenere, Model model) {
     	List<Film> films = null;
     	if (searchKeyword != null && !searchKeyword.isBlank()) {
