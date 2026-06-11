@@ -24,8 +24,11 @@ public class ProssimamenteController {
 	@GetMapping
 	public String listaProssimamente(Model model) {
 		//bisogna inserire un filtro con data odierna e top5 per numero prenotazioni
-		List<Film> risultatoRicerca = repoFilm.findByAllDate();
-		model.addAttribute("filmProssimamente", risultatoRicerca);
+		List<Film> lsitafilm = repoFilm.findAll();
+		//collegare il filtro a thymeleaf cosi da far generare le card con già i film filtrati
+		//List<Film> risultatoRicerca = repoFilm.findByAllDate();
+		//model.addAttribute("filmProssimamente", risultatoRicerca);
+		model.addAttribute(lsitafilm);
 		return "prossimamente";
 	}
 	

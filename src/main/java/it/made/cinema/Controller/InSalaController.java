@@ -23,14 +23,14 @@ public class InSalaController {
     //da vedere come si fa
     @Autowired
     private IRepoFilm repoFilm;
-
+	//dettagli di un film
     @GetMapping("/dettagli/{id}")
     public String dettFilm(@PathVariable("id") Integer id, Model model){
         model.addAttribute("film", repoFilm.findById(id).get());
         System.out.println(repoFilm.toString());
         return "filmDettaglio";
     }
-    //aspetta che finisca la pagina
+    //filtri per la pagina dell'insala e la lista intera
     @GetMapping
     public String index(@RequestParam(name= "keyword", required =false) String searchKeyword,@RequestParam(name="genere", required=false) List<Integer> idGenere, Model model) {
     	List<Film> films = null;
