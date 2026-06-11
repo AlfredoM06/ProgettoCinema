@@ -1,10 +1,14 @@
-footer li{
-	line-height: 1rem;
-}
+/* =========================
+   FOOTER BASE
+========================= */
 
 footer {
   background-color: var(--background-div);
   color: var(--icon-color);
+}
+
+footer li{
+	line-height: 1rem;
 }
 
 footer .social i,
@@ -50,8 +54,8 @@ h5{
 }
 
 .sitiFoot{
-	list-style-type: none; 
-	display: flex; 
+	list-style-type: none;
+	display: flex;
 	justify-content: center;
 }
 
@@ -66,7 +70,9 @@ h5{
 	list-style-type: none
 }
 
-/* BOTTONI footer*/
+/* =========================
+   BUTTON NEWSLETTER
+========================= */
 .btninfo {
   background-color: var(--terziary);
   border-radius: 0;
