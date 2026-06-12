@@ -18,22 +18,7 @@
 </head>
 
 <body>
-<header id="return">
-    <a th:href="@{/}"><img class="logo" th:src="@{/img/Cinema_Logo.png}" alt="Logo"></a>
-    <ul class="nav">
-        <li><a th:href="@{/inSala}">In Sala</a></li>
-        <li><a th:href="@{/prossimamente}">Prossimamente</a></li>
-        <li><a th:href="@{#cale}">Membership</a></li>
-        <li><a th:href="@{#tabs}">Offerte</a></li>
-        <li><a th:href="@{#cale}">Shop</a></li>
-    </ul>
-    <ul class="navbar-nav">
-        <li>
-            <a class="nav-link" th:href="@{/login}">Accedi</a>
-        </li>
-    </ul>
-</header>
-
+<div th:replace="fragments/navbar :: navbar"></div>
 <main class="container">
 
     <h1 class="titoloLinea" id="offerte">Film in Sala</h1>
@@ -144,7 +129,9 @@
             </ul>
         </div>
 
-        <a href="#return"><button type="button" class="freccia"><i class="fa-solid fa-arrow-up"></i></button></a>
+        <a href="#return">
+            <button type="button" class="freccia"><i class="fa-solid fa-arrow-up"></i></button>
+        </a>
 
         <div class="footer-copyright text-center py-3 text-white">
             <i class="websiteName">Siediti&amp;Guarda</i>
