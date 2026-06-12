@@ -30,6 +30,16 @@ article {
     align-items: center;
 }
 
+.value {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: baseline;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
 .col-md-6 {
     align-items: flex-start;
     text-align: left;

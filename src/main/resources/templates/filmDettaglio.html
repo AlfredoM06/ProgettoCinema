@@ -341,11 +341,14 @@
             <div class="movie-info">
                 <div class="info-item">
                     <span class="label">Durata</span>
-                    <span class="value" th:text="${film.durata}"></span>
+                    <span class="value">
+                        <span th:text="${film.durata.intValue() / 60} + 'h'"></span>
+                        <span th:text="${film.durata.intValue() % 60} + 'min'"></span>
+                    </span>
                 </div>
                 <div class="info-item">
                     <span class="label">Data di rilascio</span>
-                    <span class="value" th:text="${film.data_di_uscita}"></span>
+                    <span th:text="${#dates.format(film.data_di_uscita, 'dd/MM/yyyy')}"></span>
                 </div>
                 <div class="info-item">
                     <span class="label">Genere</span>
@@ -361,11 +364,11 @@
                 </div>
                 <div class="info-item">
                     <span class="label">Lingue</span>
-                    <span class="value" th:text="${film.lingue}"></span>
+                    <span class="value uppercase" th:text="${film.lingue}"></span>
                 </div>
                 <div class="info-item">
                     <span class="label">Disponibile</span>
-                    <span class="value" th:text="${film.formato}"></span>
+                    <span class="value uppercase" th:text="${film.formato}"></span>
                 </div>
             </div>
         </div>
@@ -446,6 +449,7 @@
 
 
 </body>
+
 
 
 </html>
