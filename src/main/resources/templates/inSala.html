@@ -65,69 +65,7 @@
 </main>
 
 <!-- FOOTER -->
-<footer class="mt-5">
-    <div class="container-fluid">
-        <div class="row mt-4 gx-3">
-            <div class="col-lg-4 mt-5">
-                <h5>Siediti &amp; guarda</h5>
-                <p class="text-secondary">La tua destinazione per il cinema di qualità. Vivi l'esperienza
-                    cinematografica come mai prima d'ora.</p>
-            </div>
-
-            <div class="col-lg-2 mt-5">
-                <ul class="list-unstyled">
-                    <li><h5>Chi siamo</h5></li>
-                    <li><h5>Lavora con noi</h5></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-3 mt-5">
-                <h5 class="mb-4">Contatti</h5>
-                <ul class="list-unstyled info text-secondary">
-                    <li>
-                        <p class="text-secondary">
-                            <i class="fa-solid fa-location-dot pb-0 icon"></i>Centro Direzionale, NA 535022, IT
-                        </p>
-                    </li>
-                    <li>
-                        <p class="text-secondary">
-                            <i class="fa-solid fa-phone pb-0 icon"></i>+39 5589 55488 55
-                        </p>
-                    </li>
-                    <li>
-                        <p class="text-secondary">
-                            <i class="fa-solid fa-envelope pb-0 icon"></i>grandview@gmail.com
-                        </p>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 mt-5">
-                <h5 class="mb-4">Orari</h5>
-                <ul class="list-unstyled">
-                    <li><p class="text-secondary">Lunedì - Venerdì: 14:00 - 00:00</p></li>
-                    <li><p class="text-secondary">Sabato - Domenica: 10:00 - 01:00</p></li>
-                </ul>
-            </div>
-
-            <ul class="sitiFoot">
-                <li class="my-lg-5 social center-align">
-                    <a href=""><i class="fa-brands fa-x-twitter icon"></i></a>
-                    <a href=""><i class="fa-brands fa-facebook-f icon"></i></a>
-                    <a href=""><i class="fa-brands fa-instagram icon"></i></a>
-                    <a href=""><i class="fa-brands fa-youtube icon"></i></a>
-                </li>
-            </ul>
-        </div>
-
-        <a href="#return"><button type="button" class="freccia"><i class="fa-solid fa-arrow-up"></i></button></a>
-
-        <div class="footer-copyright text-center py-3 text-white">
-            <i class="websiteName">Siediti&amp;Guarda</i>
-            <strong> Cinema, 2025 Tutti i diritti riservati</strong>
-        </div>
-    </div>
-</footer>
+	<div th:replace="fragments/footer :: footer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./js/inSala.js"></script>
