@@ -16,7 +16,7 @@ public class ProgrammazioneFilm {
     // orario
     @NotEmpty
     @Column(nullable = false)
-    private Date orario;
+    private String orario;//da aggiustare in formato orario qui e su sql
     // prenotazioni
     @NotEmpty
     @Column(nullable = false)
