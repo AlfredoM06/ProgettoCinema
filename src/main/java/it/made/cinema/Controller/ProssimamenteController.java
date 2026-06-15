@@ -29,7 +29,6 @@ public class ProssimamenteController {
 		List<Film> risultatoRicerca = repoFilm.findByAllDate();
 		model.addAttribute("filmProssimamente", risultatoRicerca);
 		//model.addAttribute(lsitafilm);
-		System.out.println(risultatoRicerca.size());
 		return "prossimamente";
 	}
 	
