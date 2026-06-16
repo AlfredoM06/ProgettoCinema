@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class ProgrammazioneFilm {
     // orario
     @NotEmpty
     @Column(nullable = false)
-    private String orario;//da aggiustare in formato orario qui e su sql
+    private LocalTime orario;//da aggiustare in formato orario qui e su sql
     // prenotazioni
     @NotEmpty
     @Column(nullable = false)

@@ -1,6 +1,7 @@
 package it.made.cinema.Model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -30,7 +31,7 @@ public class Film {
 	private String distribuzione; 
 	@NotEmpty
 	@Column(nullable=false)
-	private Date data_di_uscita;
+	private LocalDate data_di_uscita;
 	@NotEmpty
 	@Column(length= 1500, nullable=false)
 	private String descrizione; 
@@ -63,7 +64,7 @@ public class Film {
 	private Double prezzo;
 	@NotEmpty
 	@Column(nullable=false)
-	private Date scadenza;
+	private LocalDate scadenza;
 	@NotEmpty
 	@Column(nullable=false)
 	private boolean archiviato;

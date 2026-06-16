@@ -27,7 +27,6 @@ public class InSalaController {
     @GetMapping("/dettagli/{id}")
     public String dettFilm(@PathVariable("id") Integer id, Model model){
         model.addAttribute("film", repoFilm.findById(id).get());
-        System.out.println(repoFilm.toString());
         return "filmDettaglio";
     }
     //filtri per la pagina dell'insala e la lista intera

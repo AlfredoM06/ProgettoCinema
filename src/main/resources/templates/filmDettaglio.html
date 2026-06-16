@@ -348,7 +348,7 @@
                 </div>
                 <div class="info-item">
                     <span class="label">Data di rilascio</span>
-                    <span th:text="${#dates.format(film.data_di_uscita, 'dd/MM/yyyy')}"></span>
+                    <span th:text="${#temporals.format(film.data_di_uscita, 'dd-MM-yyyy')}"></span>
                 </div>
                 <div class="info-item">
                     <span class="label">Genere</span>
@@ -425,11 +425,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+        </div>
     </section>
 </main>
-</div>
+
 
 <!-- FOOTER -->
 <div th:replace="fragments/footer :: footer"></div>
@@ -449,7 +449,6 @@
 
 
 </body>
-
 
 
 </html>
