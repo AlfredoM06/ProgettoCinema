@@ -10,6 +10,13 @@ document.querySelectorAll(".card-flip").forEach(card => {
   const backBtn = card.querySelector(".flip-back");
 
   frontBtn.addEventListener("click", () => {
+
+    // chiudi tutte le altre
+    document.querySelectorAll(".card-flip").forEach(c => {
+      c.classList.remove("flipped");
+    });
+
+    // apri solo questa
     card.classList.add("flipped");
   });
 
