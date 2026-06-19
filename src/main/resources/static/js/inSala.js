@@ -61,29 +61,20 @@ function fetchMovies() {
 function fetchGenres() {
 
     fetch(BASE_URL_GENRE)
-        .then(response => response.text())
-        .then(data => {
-              console.log("RAW RESPONSE FILM:", data);
+        .then(response => response.json())
+        .then(genres => {
 
-              let films = JSON.parse(data);
+            genreSelect.innerHTML = `<option value="all">Generi</option>`;
 
-              console.log("FILMS PARSED:", films);
+            genres.forEach(g => {
+                genreSelect.innerHTML += `
+                    <option value="${g.id}">
+                        ${g.nome}
+                    </option>
+                `;
+            });
 
-              // qui poi render
-          })
-//        .then(genres => {
-//
-//            genreSelect.innerHTML = `<option value="all">Generi</option>`;
-//
-//            genres.forEach(g => {
-//                genreSelect.innerHTML += `
-//                    <option value="${g.id}">
-//                        ${g.nome}
-//                    </option>
-//                `;
-//            });
-//
-//        })
+        })
         .catch(err => {
             console.log("Errore caricamento generi:", err);
         });
@@ -98,7 +89,7 @@ searchInput.addEventListener("input", function () {
 
     timeout = setTimeout(function () {
         fetchMovies();
-    }, 400);
+    }, 300);
 
 });
 

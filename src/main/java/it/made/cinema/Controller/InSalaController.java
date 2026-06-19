@@ -1,5 +1,6 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.DTO.ListaFilmDTO;
 import it.made.cinema.Model.Film;
 import it.made.cinema.Model.GenereFilm;
 import it.made.cinema.Model.DTO.ListaGenereDTO;
@@ -38,7 +39,7 @@ public class InSalaController {
     }
 	//filtri per la pagina dell'insala e la lista intera
 	@GetMapping("/ricerca")
-	public @ResponseBody List<Film> ricercaFilm(@RequestParam(name= "keyword", required =false) String searchKeyword, @RequestParam(name="genere", required=false) List<Integer> idGenere){
+	public @ResponseBody List<ListaFilmDTO> ricercaFilm(@RequestParam(name= "keyword", required =false) String searchKeyword, @RequestParam(name="genere", required=false) List<Integer> idGenere){
 		List<Film> films = null;
 		if (searchKeyword != null && !searchKeyword.isBlank()) {
 			films = repoFilm.findByTitoloContainingOrRegistaContainingOrCastContainingOrDistribuzioneContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
@@ -47,7 +48,11 @@ public class InSalaController {
 		}else {
 			films=repoFilm.findAll();
 		}
-		return films;
+		List<ListaFilmDTO> filmsDTO = new ArrayList<>();
+		for (Film film: films){
+			filmsDTO.add(new ListaFilmDTO(film.getId(), film.getTitolo(), film.getImg_poster()));
+		}
+		return filmsDTO;
 	}
 	//lista di generi da passare al fornt-end
 	@GetMapping("/generi")
