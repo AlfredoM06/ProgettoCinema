@@ -23,29 +23,37 @@ public class InSalaController {
     //da vedere come si fa
     @Autowired
     private IRepoFilm repoFilm;
+	@Autowired
+	private IRepoGeneri repoGeneri;
 	//dettagli di un film
     @GetMapping("/dettagli/{id}")
     public String dettFilm(@PathVariable("id") Integer id, Model model){
         model.addAttribute("film", repoFilm.findById(id).get());
         return "filmDettaglio";
     }
-    //filtri per la pagina dell'insala e la lista intera
+    //index
     @GetMapping
-    public String index(@RequestParam(name= "keyword", required =false) String searchKeyword,@RequestParam(name="genere", required=false) List<Integer> idGenere, Model model) {
-    	List<Film> films = null;
-    	if (searchKeyword != null && !searchKeyword.isBlank()) {
-    		films = repoFilm.findByTitoloContainingOrRegistaContainingOrCastContainingOrDistribuzioneContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
-    	} else if(idGenere != null && !idGenere.isEmpty()){
-    		films = repoFilm.findByGenereFilm(idGenere);
-    	}
-    	else {
-    		films = repoFilm.findAll();
-    	}
-    	model.addAttribute("films", films);
-    	model.addAttribute("noResult", films.isEmpty());
-    	model.addAttribute("preloadSearch", searchKeyword);
-    	model.addAttribute("preloadGenere", idGenere);
+    public String index(Model model) {
+    	List<Film> films = repoFilm.findAll();
     	return "inSala";
     }
-
+	//filtri per la pagina dell'insala e la lista intera
+	@GetMapping("/ricerca")
+	public List<Film> ricercaFilm(@RequestParam(name= "keyword", required =false) String searchKeyword, @RequestParam(name="genere", required=false) List<Integer> idGenere){
+		List<Film> films = null;
+		if (searchKeyword != null && !searchKeyword.isBlank()) {
+			films = repoFilm.findByTitoloContainingOrRegistaContainingOrCastContainingOrDistribuzioneContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
+		} else if(idGenere != null && !idGenere.isEmpty()){
+			films = repoFilm.findByGenereFilm(idGenere);
+		}else {
+			films=repoFilm.findAll();
+		}
+		return films;
+	}
+	//lista di generi da passare al fornt-end
+	@GetMapping("/generi")
+	public List<GenereFilm> listaGeneri(){
+		List<GenereFilm> generi= repoGeneri.findAll();
+		return generi;
+	}
 }
