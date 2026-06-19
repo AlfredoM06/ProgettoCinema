@@ -73,7 +73,7 @@ public class Film implements Serializable {
 	@Column(nullable=false)
 	private boolean archiviato;
 	@OneToMany(mappedBy="film")
-	private List<Gadget> gadgets;
+	private List<Offerta> offerte;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="films_generi", joinColumns=@JoinColumn(name="id_film"),inverseJoinColumns=@JoinColumn(name="id_genere"))
 	private List<GenereFilm> generi;

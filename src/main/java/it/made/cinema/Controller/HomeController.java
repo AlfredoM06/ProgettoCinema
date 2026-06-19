@@ -1,9 +1,7 @@
 package it.made.cinema.Controller;
 
 import it.made.cinema.Model.Film;
-import it.made.cinema.Model.Gadget;
 import it.made.cinema.Repository.IRepoFilm;
-import it.made.cinema.Repository.IRepoGadget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +16,8 @@ import java.util.List;
 public class HomeController {
     @Autowired
     IRepoFilm repoFilm;
-    @Autowired
-    IRepoGadget repoGadget;
+    //@Autowired
+    //IRepoGadget repoGadget;
     //c'è la pagina
     //prenota(redirect), vedi tutti gadget(redirect)
     //log in
@@ -27,9 +25,9 @@ public class HomeController {
     @GetMapping
     private String home(Model model){
         List<Film> listaFilmHome = repoFilm.findAll();
-        List<Gadget> listaGadgetHome = repoGadget.findAll();
+        //List<Gadget> listaGadgetHome = repoGadget.findAll();
         model.addAttribute("listaFilm", listaFilmHome);
-        model.addAttribute("listaGadget", listaGadgetHome);
+        //model.addAttribute("listaGadget", listaGadgetHome);
         return "Home";
     }
 

@@ -32,7 +32,6 @@ public class Offerta {
 	@NotEmpty
 	@Column(length=500, nullable=false)
 	private String descrizione;
-	@NotEmpty
 	@Column
 	private BigDecimal prezzo;
 	@NotEmpty
@@ -41,4 +40,7 @@ public class Offerta {
 	@NotEmpty
 	@Column(length=1000, nullable=false)
 	private String img_dettaglio;
+	@ManyToOne
+	@JoinColumn(name="id_film", referencedColumnName="id")
+	private Film film;
 }

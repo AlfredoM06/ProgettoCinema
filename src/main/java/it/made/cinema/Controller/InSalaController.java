@@ -55,7 +55,7 @@ public class InSalaController {
 		List<GenereFilm> generi= repoGeneri.findAll();
 		List<ListaGenereDTO> generiDTO = new ArrayList<>();
 		for (GenereFilm genere:generi) {
-			//generiDTO.add(new ListaGeneriDTO(genere.get));
+			generiDTO.add(new ListaGenereDTO(genere.getId(), genere.getNome()));
 		}
 		return generiDTO;
 	}
