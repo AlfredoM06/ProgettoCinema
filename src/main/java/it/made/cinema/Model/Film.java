@@ -1,9 +1,11 @@
 package it.made.cinema.Model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -13,13 +15,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.annotation.processing.Generated;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
 @ToString @EqualsAndHashCode
 @Table(name="films")
-public class Film {
+public class Film implements Serializable {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;

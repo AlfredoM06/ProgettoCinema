@@ -1,7 +1,5 @@
-
 /* =========================
    GRID FILM
-   layout a 5 colonne responsive
 ========================= */
 
 .movies-grid {
@@ -10,14 +8,12 @@
   gap: 6px;
 }
 
-/* ogni card occupa il 20% su desktop */
 .movies-grid > div {
   flex: 0 0 calc(20% - 6px);
 }
 
 /* =========================
    LAYOUT PAGINA
-   spacing tra navbar e contenuto
 ========================= */
 
 main {
@@ -26,21 +22,97 @@ main {
 }
 
 /* =========================
-   SEARCH BAR
+   SEARCH WRAPPER
 ========================= */
 
 .search-wrapper {
-  margin-bottom: 3rem;
-  margin-top: 2rem;
+  margin: 2rem 0 3rem;
+  display: flex;
+  justify-content: center;
 }
 
-.search-input {
+/* =========================
+   SEARCH BAR (PIÙ STRETTA)
+========================= */
+
+.search-bar {
+  display: flex;
+  align-items: stretch;
+
   width: 100%;
-  padding: 10px;
-  background: transparent;
-  border: 1px solid #333;
+  max-width: 380px;
+  min-width: 260px;
+}
+
+/* =========================
+   SELECT GENERE
+========================= */
+
+.genre-select {
+  background-color: var(--background-page);
   color: white;
+   font-size: 0.95rem;
+
+  border: 1px solid #333;
+  border-right: none;
+
+  padding: 0 12px;
+
   outline: none;
+  box-shadow: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+   background-image: none;
+}
+
+.genre-select,
+.search-input,
+.search-icon {
+  height: 48px;
+}
+
+.genre-select:focus,
+.genre-select:focus-visible,
+.genre-select:active {
+  background-color: var(--background-page);
+  color: white;
+
+  outline: none;
+  box-shadow: none;
+
+  border-color: #555;
+}
+
+
+.genre-select.form-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.genre-select option {
+  background-color: var(--background-page);
+  color: white;
+}
+
+/* =========================
+   INPUT SEARCH
+========================= */
+
+.search-input {
+  width: 140px;
+  font-size: 0.95rem;
+  padding: 0 12px;
+
+  background-color: var(--background-page);
+  color: white;
+
+  border: 1px solid #333;
+  border-left: none;
+
+  outline: none;
+  box-shadow: none;
 }
 
 .search-input::placeholder {
@@ -48,45 +120,13 @@ main {
 }
 
 .search-input:focus {
-  background: transparent !important;
-  color: white !important;
-  box-shadow: none !important;
-}
-
-/* =========================
-   SEARCH CONTAINER
-   (CONTROLLA LARGHEZZA)
-========================= */
-
-.search-bar {
-  width: 60%;              
-  min-width: 420px;
-  max-width: 700px;
-}
-
-/* =========================
-   DROPDOWN GENERI
-========================= */
-
-.genre-select {
-  background: transparent;
+  background-color: var(--background-page);
   color: white;
-  border: 1px solid #333;
-  max-width: 180px;
-}
 
-.genre-select option {
-  background: var(--background-page);  /* tuo background-page */
-}
+  outline: none;
+  box-shadow: none;
 
-/* =========================
-   INPUT TESTO
-========================= */
-
-.search-input {
-  background: transparent;
-  color: white;
-  border: 1px solid #333;
+  border-color: #555;
 }
 
 /* =========================
@@ -94,14 +134,22 @@ main {
 ========================= */
 
 .search-icon {
-  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 14px;
+
+  background-color: var(--background-page);
   border: 1px solid #333;
+  border-left: none;
+  font-size: 1rem;
+
   color: var(--icon-color);
 }
 
 /* =========================
-   CARD FILM BASE
-   (struttura singola card)
+   CARD FILM
 ========================= */
 
 .movie-card {
@@ -112,11 +160,9 @@ main {
   border: none;
   max-width: 479px;
   margin: 0 auto;
-
   transition: all 0.3s ease;
 }
 
-/* immagine poster */
 .movie-card img {
   width: 100%;
   height: 320px;
@@ -124,7 +170,6 @@ main {
   display: block;
 }
 
-/* titolo film */
 .movie-card h2 {
   margin-top: 8px;
   font-size: 0.85rem;
@@ -132,11 +177,7 @@ main {
   color: #fff;
 }
 
-/* =========================
-   HOVER CARD BASE
-   (animazione singola card)
-========================= */
-
+/* hover card */
 .movie-card:hover {
   opacity: 1;
   transform: translateY(-6px) scale(1.05);
@@ -144,26 +185,12 @@ main {
   z-index: 5;
 }
 
-/* =========================
-   EFFETTO FOCUS 
-   usando :has()
-========================= */
-
+/* effetto focus griglia */
 .movies-grid:has(.movie-card:hover) .movie-card:not(:hover) {
   opacity: 0.35;
 }
 
-/* card attiva sopra le altre */
 .movies-grid .movie-card:hover {
   opacity: 1;
   z-index: 5;
-}
-
-/* =========================
-   FIX ACCESSORI ANIMAZIONI
-   (evita jump tra hover e non hover)
-========================= */
-
-.movie-card {
-  transition: all 0.3s ease;
 }

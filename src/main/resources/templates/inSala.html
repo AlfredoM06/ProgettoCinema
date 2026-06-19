@@ -18,50 +18,48 @@
 </head>
 
 <body>
+<!--NAVBAR-->
 <div th:replace="fragments/navbar :: navbar"></div>
+<!--GRIGLIA-->
 <main class="container">
 
     <h1 class="titoloLinea" id="offerte">Film in Sala</h1>
 
-    <div class="search-wrapper d-flex justify-content-center">
+    <!-- ================= SEARCH ================= -->
+    <div class="search-wrapper">
         <div class="input-group search-bar">
 
-            <!-- Filtro genere -->
+            <!-- GENERE -->
             <select class="form-select genre-select" id="genreSelect">
-                <!--                <option value="all" selected>Generi</option>-->
-                <!--                <option th:each="genere : ${generi}"-->
-                <!--                        th:value="${genere}"-->
-                <!--                        th:text="${genere}">-->
-                <!--                </option>-->
+                <option value="all">Tutti i generi</option>
             </select>
 
-            <!-- Ricerca per titolo -->
+            <!-- ICONA -->
             <span class="input-group-text search-icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-            <input type="text" class="form-control search-input" id="searchInput" placeholder="Titoli" th:value="${preloadSearch}">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+
+            <!-- INPUT -->
+            <input type="text"
+                   class="form-control search-input"
+                   id="searchInput"
+                   placeholder="Cerca film...">
 
         </div>
     </div>
 
-    <!-- GRID FILM -->
+    <!-- ================= MOVIES GRID ================= -->
     <div class="movies-grid" id="moviesGrid">
-        <!-- Messaggio se lista vuota -->
-        <p th:if="${noResult}" class="text-center text-secondary mt-4">
-            Nessun film attualmente in sala.
-        </p>
-
-        <!-- Card per ogni film -->
-        <div class="col-6 col-md-4 movie-item" th:each="film : ${films}">
-            <a th:href="@{/inSala/dettagli/{id}(id=${film.id})}" class="movie-card-link">
-                <div class="movie-card">
-                    <img th:src="${film.img_poster}" th:alt="${film.titolo}" alt="Locandina film">
-                    <h2 th:text="${film.titolo}">Titolo Film</h2>
-                </div>
-            </a>
-        </div>
-
+        <!-- JS RENDERIZZA QUI -->
     </div>
+
+    <!-- EMPTY STATE -->
+    <p id="emptyState"
+       class="text-center text-secondary mt-4"
+       style="display:none;">
+        Nessun film trovato
+    </p>
+
 </main>
 
 <!-- FOOTER -->

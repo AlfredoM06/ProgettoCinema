@@ -24,6 +24,6 @@ public class GenereFilm {
 	@NotEmpty
 	@Column(length=100, nullable=false, unique= true)
 	private String nome;
-	@ManyToMany(mappedBy="generi")
+	@ManyToMany(mappedBy="generi", fetch = FetchType.LAZY)
 	private List<Film> films;
 }

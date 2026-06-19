@@ -7,10 +7,7 @@ import it.made.cinema.Repository.IRepoGeneri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +36,7 @@ public class InSalaController {
     }
 	//filtri per la pagina dell'insala e la lista intera
 	@GetMapping("/ricerca")
-	public List<Film> ricercaFilm(@RequestParam(name= "keyword", required =false) String searchKeyword, @RequestParam(name="genere", required=false) List<Integer> idGenere){
+	public @ResponseBody List<Film> ricercaFilm(@RequestParam(name= "keyword", required =false) String searchKeyword, @RequestParam(name="genere", required=false) List<Integer> idGenere){
 		List<Film> films = null;
 		if (searchKeyword != null && !searchKeyword.isBlank()) {
 			films = repoFilm.findByTitoloContainingOrRegistaContainingOrCastContainingOrDistribuzioneContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
@@ -52,7 +49,7 @@ public class InSalaController {
 	}
 	//lista di generi da passare al fornt-end
 	@GetMapping("/generi")
-	public List<GenereFilm> listaGeneri(){
+	public @ResponseBody List<GenereFilm> listaGeneri(){
 		List<GenereFilm> generi= repoGeneri.findAll();
 		return generi;
 	}

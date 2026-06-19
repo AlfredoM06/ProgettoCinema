@@ -1,51 +1,113 @@
-//let searchInput = document.querySelector("#searchInput");
-//let genreSelect = document.querySelector("#genreSelect");
-//let container = document.querySelector("#moviesGrid");
+let searchInput = document.querySelector("#searchInput");
+let genreSelect = document.querySelector("#genreSelect");
+let container = document.querySelector("#moviesGrid");
+
+const BASE_URL_FILM = "/inSala/ricerca";
+const BASE_URL_GENRE = "/inSala/generi";
+
+let timeout = null;
+
+// =========================
+// CARICAMENTO FILM
+// =========================
+function fetchMovies() {
+    let keyword = searchInput.value.trim();
+    let genere = genreSelect.value;
+
+    let params = new URLSearchParams();
+
+    if (keyword) params.append("keyword", keyword);
+    if (genere && genere !== "all") params.append("genere", genere);
+
+    let url = BASE_URL_FILM + "?" + params.toString();
+
+    fetch(url)
+        .then(response => response.json())
+        .then(films => {
+
+            container.innerHTML = "";
+
+            if (!films || films.length === 0) {
+                container.innerHTML = `
+                    <p class="text-center text-secondary mt-4">
+                        Nessun film trovato.
+                    </p>
+                `;
+                return;
+            }
+
+            films.forEach(film => {
+                container.innerHTML += `
+                    <div class="col-6 col-md-4 movie-item">
+                        <a href="/inSala/dettagli/${film.id}" class="movie-card-link">
+                            <div class="movie-card">
+                                <img src="${film.img_poster}" alt="${film.titolo}">
+                                <h2>${film.titolo}</h2>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            });
+
+        })
+        .catch(err => {
+            console.log("Errore caricamento film:", err);
+        });
+}
+
+// =========================
+// CARICAMENTO GENERI
+// =========================
+function fetchGenres() {
+
+    fetch(BASE_URL_GENRE)
+        .then(response => response.text())
+        .then(data => {
+              console.log("RAW RESPONSE FILM:", data);
+
+              let films = JSON.parse(data);
+
+              console.log("FILMS PARSED:", films);
+
+              // qui poi render
+          })
+//        .then(genres => {
 //
-//const BASE_URL = "url qualcosa";
+//            genreSelect.innerHTML = `<option value="all">Generi</option>`;
 //
-//let timeout = null;
+//            genres.forEach(g => {
+//                genreSelect.innerHTML += `
+//                    <option value="${g.id}">
+//                        ${g.nome}
+//                    </option>
+//                `;
+//            });
 //
-//// =========================
-//// 🔥 FETCH HTML DAL BACKEND
-//// =========================
-//async function fetchMovies() {
-//  let keyword = searchInput.value.trim();
-//  let genere = genreSelect.value;
-//
-//  let params = new URLSearchParams();
-//
-//  if (keyword) params.append("keyword", keyword);
-//  if (genere && genere !== "all") params.append("genere", genere);
-//
-//  const url = `${BASE_URL}?${params.toString()}`;
-//
-//  try {
-//    const res = await fetch(url);
-//    const html = await res.text();
-//
-//    const parser = new DOMParser();
-//    const doc = parser.parseFromString(html, "text/html");
-//
-//    const newGrid = doc.querySelector("#moviesGrid");
-//
-//    container.innerHTML = newGrid.innerHTML;
-//
-//  } catch (err) {
-//    console.error("Errore fetch film:", err);
-//  }
-//}
-//
-//// typing con debounce
-//searchInput.addEventListener("input", () => {
-//  clearTimeout(timeout);
-//
-//  timeout = setTimeout(() => {
-//    fetchMovies();
-//  }, 400);
-//});
-//
-//// cambio genere immediato
-//genreSelect.addEventListener("change", () => {
-//  fetchMovies();
-//});
+//        })
+        .catch(err => {
+            console.log("Errore caricamento generi:", err);
+        });
+}
+
+// =========================
+// EVENTI INPUT
+// =========================
+searchInput.addEventListener("input", function () {
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(function () {
+        fetchMovies();
+    }, 400);
+
+});
+
+genreSelect.addEventListener("change", function () {
+    fetchMovies();
+});
+
+// =========================
+// INIT
+// =========================
+fetchGenres();
+fetchMovies();
