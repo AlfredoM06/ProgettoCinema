@@ -1,0 +1,76 @@
+/* =========================
+     OFFERS / PROMO SECTION
+   ========================= */
+
+.titolo-centrato {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* titolo linea */
+.offers {
+  position: relative;
+}
+
+.offers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  position: relative !important
+}
+
+.offers-header h1 {
+  flex: 1;
+}
+
+.offers-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* CARD OFFERS */
+.card {
+  width: 320px;
+  margin: 0 .5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border: none;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+  border-radius: 0;
+  color: white;
+
+  background: transparent;
+  box-shadow: none;
+}
+
+.card span i {
+  color: var(--icon-color);
+}
+
+.offers a {
+  text-decoration: underline;
+  text-underline-offset: 7px;
+  color: inherit;
+  color: var(--secondary);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
+}
+
+.offers a:hover {
+  color: white;
+}
+
+.card-img-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.card-img-novita {
+  width: 320px;
+  height: 191px;
+  object-fit: cover;
+  display: block;
+}

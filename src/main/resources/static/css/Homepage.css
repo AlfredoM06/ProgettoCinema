@@ -2,14 +2,12 @@
       GLOBAL / BASE
 ========================= */
 
-/* Sfondo pagina */
 body {
   background-color: var(--background-page);
 }
 
-/* Spazio prima del footer */
 main {
-  margin-bottom: 6rem;
+  margin-bottom: 10rem;
 }
 
 html, body {
@@ -31,7 +29,7 @@ header {
 
 .box .box-img {
   width: 100%;
-  height: 270px;
+  height: 16.87rem; /* 270px */
 }
 
 .box .box-img img {
@@ -42,7 +40,7 @@ header {
 
 /* Hover immagine */
 .box .box-img img:hover {
-  transform: translateY(-10px);
+  transform: translateY(-0.625rem); /* -10px */
   transition: 0.2s all linear;
 }
 
@@ -53,48 +51,7 @@ header {
 }
 
 .box span {
-  font-size: 18px;
-}
-
-/* =========================
-    SEZIONE MENU CINEMA
-========================= */
-
-.menuCinema {
-  position: relative;
-  margin-top: 6rem;
-}
-
-/* Header (titolo + link) */
-.menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0;
-  position: relative !important;
-}
-
-.menu-header h1 {
-  flex: 1;
-}
-
-/* Wrapper centrale */
-.menu-wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Link menu */
-.menuCinema a {
-  text-decoration: underline;
-  text-underline-offset: 7px;
-  color: var(--testo-secondario);
-  transition: color 0.6s ease, text-shadow 0.6s ease;
-}
-
-.menuCinema a:hover {
-  color: white;
+  font-size: 1.12rem; /* 18px */
 }
 
 
@@ -102,43 +59,43 @@ header {
     SWIPER FILM (PIÙ VISTI)
 ========================= */
 
-/* Spazio sopra sezione */
 .filmpiuVisti {
   margin-top: 6rem;
+  margin-bottom: 6rem;
 }
 
-/* Header swiper (titolo + controlli) */
+/* Header swiper */
 .header-swiper {
-  max-width: 1100px;
-  margin: 40px auto 20px;
+  max-width: 68.75rem; /* 1100px */
+  margin: 2.5rem auto 1.25rem; /* 40px 20px */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Controlli (frecce + counter) */
+/* Controlli */
 .swiper-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem; /* 8px */
 }
 
-/* Contatore slide */
+/* Contatore */
 .swiper-counter {
   color: #6c757d;
-  font-size: 14px;
-  min-width: 60px;
+  font-size: 0.87rem; /* 14px */
+  min-width: 3.75rem; /* 60px */
   text-align: right;
-  gap: 2px;
+  gap: 0.12rem; /* 2px */
 }
 
 /* Container swiper */
 .swiper {
-  margin: 0 400px;
+  margin: 0 25rem; /* 400px */
   overflow: hidden;
 }
 
-/* Singola slide */
+/* Slide */
 .swiper-slide {
   display: flex;
   justify-content: center;
@@ -150,31 +107,28 @@ header {
   z-index: 20;
 }
 
-/* Effetto oscuramento globale */
 .swiper:hover .card {
   filter: brightness(0.5);
   transition: 0.3s ease;
 }
 
-/* Card attiva */
 .swiper .card:hover {
   z-index: 20;
   filter: brightness(1.1);
 }
 
-/* Bullet attivo */
 .swiper-pagination-bullet-active {
   background-color: #d3c359;
 }
 
 
 /* =========================
-    CARD FILM (SWIPER + MENU)
+    CARD FILM
 ========================= */
 
 .card {
-  width: 320px;
-  margin: 0 .5em;
+  width: 20rem;
+  margin: 0 0.5em;
   border: none;
   overflow: hidden;
   position: relative;
@@ -186,7 +140,6 @@ header {
   box-shadow: none;
 }
 
-/* Icone dentro card */
 .card span i {
   color: var(--border-color);
 }
@@ -195,18 +148,15 @@ header {
   color: var(--border-color);
 }
 
-/* Hover card */
 .card:hover {
   z-index: 20;
 }
 
-/* Wrapper immagine */
 .card-img-wrapper {
   overflow: hidden;
   position: relative;
 }
 
-/* Immagine */
 .card-img-top {
   transition: transform 0.4s ease;
   will-change: transform;
@@ -217,21 +167,19 @@ header {
   transform: scale(1.1);
 }
 
-/* Dimensioni immagini */
+/* Immagini */
 .card-img-novita {
-  width: 320px;
-  height: 191px;
+  width: 20rem;
+  height: 11.9rem;
   object-fit: cover;
   display: block;
 }
 
 .card-img-wrap {
-  width: 320px;
-  height: 191px;
+  width: 20rem;
+  height: 11.9rem;
   overflow: hidden;
 }
-
-/* Effetto luce hover */
 .card-img-wrapper::after {
   content: "";
   position: absolute;
@@ -257,37 +205,40 @@ header {
 ========================= */
 
 .custom-btn {
-  width: 30px;
-  height: 30px;
+  width: 1.8rem;
+  height: 1.8rem;
   background-color: #0f161d;
-  border: 1px solid #9e8f2b;
-  border-radius: 6px;
+  border: 0.06rem solid #9e8f2b;
+  border-radius: 0.3rem;
   position: static !important;
   margin: 0;
 }
 
-/* Icone bottoni */
 .custom-btn::after {
-  font-size: 14px;
+  font-size: 0.8rem;
   color: #9e8f2b;
 }
 
-/* Hover bottoni */
 .custom-btn:hover {
-  background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+  background: linear-gradient(
+    90deg,
+    #dc143c 0%,
+    #b88f2a 50%,
+    #9e8f2b 100%
+  );
   border: none;
-  box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
-              0 0 25px rgba(220, 20, 60, 0.3),
-              0 0 40px rgba(158, 143, 43, 0.2);
+  box-shadow:
+    0 0 0.5rem rgba(220, 20, 60, 0.5),
+    0 0 1.5rem rgba(220, 20, 60, 0.3),
+    0 0 2.5rem rgba(158, 143, 43, 0.2);
 }
 
 .custom-btn:hover::after {
   color: #1c252e;
 }
 
-/* Frecce swiper */
 .swiper-button-next::after,
 .swiper-button-prev::after {
   font-weight: 900;
-  -webkit-text-stroke: 0.5px currentColor;
+  -webkit-text-stroke: 0.03rem currentColor;
 }

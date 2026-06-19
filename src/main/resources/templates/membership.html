@@ -2,9 +2,9 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Membership Cinema</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,279 +13,282 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/root.css">
-    <link rel="stylesheet" href="./css/navbar.css">
-    <link rel="stylesheet" href="./css/membership.css">
-    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" th:href="@{./css/root.css}">
+    <link rel="stylesheet" th:href="@{./css/navbar.css}">
+    <link rel="stylesheet" th:href="@{./css/membership.css}">
+    <link rel="stylesheet" th:href="@{./css/footer.css}">
 
 </head>
 
 <body>
 
-    <!-- NAVBAR -->  
-	<div th:replace="fragments/navbar :: navbar"></div>
+<!-- NAVBAR -->
+<div th:replace="fragments/navbar :: navbar"></div>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <section class="hero-content">
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <section class="hero-content">
 
-            <img src="./img/MYS&G.webp" class="hero-logo" alt="Logo">
+        <img src="./img/MYS&G.webp" class="hero-logo" alt="Logo">
 
-            <h2>Il cinema ti premia</h2>
+        <h2>Il cinema ti premia</h2>
 
-            <p>
-                Entra al cinema a partire da soli € 4,90 e inizia subito a raccogliere punti per ottenere vantaggi
-                esclusivi.
-            </p>
+        <p>
+            Entra al cinema a partire da soli € 4,90 e inizia subito a raccogliere punti per ottenere vantaggi
+            esclusivi.
+        </p>
 
-            <button class="btn btn-warning btn-lg mt-3">
-                Accedi o Iscriviti
-            </button>
+        <button class="btn btn-warning btn-lg mt-3">
+            Accedi o Iscriviti
+        </button>
 
-        </section>
-        <div class="scroll-down" id="scrollDown">
-            <i class="fa-solid fa-chevron-down"></i>
-        </div>
     </section>
+    <div class="scroll-down" id="scrollDown">
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+</section>
 
-    <!-- MAIN -->
-    <main id="main" class="container membership-main">
-        <section class="advantages-section">
-            <h1 class="title-section">I vantaggi che ti aspettano</h1>
+<!-- MAIN -->
+<main id="main" class="container membership-main">
+    <section class="advantages-section">
+        <h1 class="title-section">I vantaggi che ti aspettano</h1>
 
-                <div class="row">
+        <div class="row">
 
-                    <!-- CARD 1 -->
-                    <div class="col-12 col-md-4 show-column">
-                        <div class="card-flip">
-                            <div class="card-inner">
-                                <div class="card-face card-front">
-                                    <div class="card-content">
-                                        <img src="./svg/pricetag_mys&g.svg" alt="sconti_biglietti">
-                                        <h3>sconti sui biglietti</h3>
-                                        <p>Il grande schermo a partire da soli €4,90.</p>
-                                        <button class="btn btn-primary flip-btn">Scopri</button>
-                                    </div>
-                                </div>
-
-                                <div class="card-face card-back">
-                                    <div class="card-content">
-                                        <h3>sconti sui biglietti</h3>
-                                        <p>Ottieni biglietti gratis e sconti esclusivi!</p>
-                                        <a href="#" class="btn btn-dark flip-back">Indietro</a>
-                                    </div>
-                                </div>
-
+            <!-- CARD 1 -->
+            <div class="col-12 col-md-4 show-column">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="card-content">
+                                <img src="./svg/pricetag_mys&g.svg" alt="sconti_biglietti">
+                                <h3>sconti sui biglietti</h3>
+                                <p>Il grande schermo a partire da soli €4,90.</p>
+                                <button class="btn btn-primary flip-btn">Scopri</button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- CARD 2 -->
-                    <div class="col-12 col-md-4 show-column">
-                        <div class="card-flip">
-                            <div class="card-inner">
-                                <div class="card-face card-front">
-                                    <div class="card-content">
-                                        <img src="./svg/popcorn_mys&g.svg" alt="sconti_bar">
-                                        <h3>Sconti al bar</h3>
-                                        <p>Sconto del 10% sul merchandising dei film del momento.</p>
-                                        <button class="btn btn-primary flip-btn">Scopri</button>
-                                    </div>
-                                </div>
-
-                                <div class="card-face card-back">
-                                    <div class="card-content">
-                                        <h3>Sconti al bar</h3>
-                                        <p>Goditi il film e con Cinesnack hai lo sconto del 10% sui menù al bar dedicati
-                                            ai
-                                            film del momento.</p>
-                                        <a href="#" class="btn btn-dark flip-back">Indietro</a>
-                                    </div>
-                                </div>
-
+                        <div class="card-face card-back">
+                            <div class="card-content">
+                                <h3>sconti sui biglietti</h3>
+                                <p>Ottieni biglietti gratis e sconti esclusivi!</p>
+                                <a href="#" class="btn btn-dark flip-back">Indietro</a>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- CARD 3 -->
-                    <div class="col-12 col-md-4 show-column">
-                        <div class="card-flip">
-                            <div class="card-inner">
-                                <div class="card-face card-front">
-                                    <div class="card-content">
-                                        <img src="./svg/ticket_mys&g.svg" alt="biglietto_menu_gratis">
-                                        <h3>film è menù gratis</h3>
-                                        <p>Biglietti e prodotti bar grazie ai punti raccolti (1€ = 10 punti).</p>
-                                        <button class="btn btn-primary flip-btn">Scopri</button>
-                                    </div>
-                                </div>
-
-                                <div class="card-face card-back">
-                                    <div class="card-content">
-                                        <h3>film è menù gratis</h3>
-                                        <p>Più vai al cinema, più premi ricevi. Accedi alla tua area personale e scopri
-                                            tutti i tuoi omaggi.</p>
-                                        <a href="#" class="btn btn-dark flip-back">Indietro</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 4 -->
-                    <div class="col-12 col-md-4 show-column">
-                        <div class="card-flip">
-                            <div class="card-inner">
-                                <div class="card-face card-front">
-                                    <div class="card-content">
-                                        <img src="./svg/birtdaycake_mys&g.svg" alt="buoncompleanno">
-                                        <h3>buon compleanno!</h3>
-                                        <p>Per il tuo compleanno il cinema te lo offriamo noi!</p>
-                                        <button class="btn btn-primary flip-btn">Scopri</button>
-                                    </div>
-                                </div>
-
-                                <div class="card-face card-back">
-                                    <div class="card-content">
-                                        <h3>auguri!</h3>
-                                        <p>Festeggia con noi: per te un biglietto in regalo valido il giorno del tuo
-                                            compleanno e i 6 giorni successivi.</p>
-                                        <a href="#" class="btn btn-dark flip-back">Indietro</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 5 -->
-                    <div class="col-12 col-md-4 show-column">
-                        <div class="card-flip">
-                            <div class="card-inner">
-                                <div class="card-face card-front">
-                                    <div class="card-content">
-                                        <img src="./svg/anteprima_mys&g.svg" alt="anteprima">
-                                        <h3>anteprime esclusive</h3>
-                                        <p>Con myUCI sei il primo a vedere nuovi film.</p>
-                                        <button class="btn btn-primary flip-btn">Scopri</button>
-                                    </div>
-                                </div>
-
-                                <div class="card-face card-back">
-                                    <div class="card-content">
-                                        <h3>anteprime esclusive</h3>
-                                        <p>Vuoi essere il primo a vedere un nuovo film? Unisciti a noi sul red carpet e
-                                            vivi
-                                            l'emozione di un'anteprima nazionale da star.</p>
-                                        <a href="#" class="btn btn-dark flip-back">Indietro</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 6 -->
-                    <div class="col-12 col-md-4 show-column">
-                        <div class="card-flip">
-                            <div class="card-inner">
-                                <div class="card-face card-front">
-                                    <div class="card-content">
-                                        <img src="./svg/promozioni_mys&g.svg" alt="promozioni">
-                                        <h3>promozioni speciali</h3>
-                                        <p>Offerte esclusive pensate per i membri myUCI.</p>
-                                        <button class="btn btn-primary flip-btn">Scopri</button>
-                                    </div>
-                                </div>
-
-                                <div class="card-face card-back">
-                                    <div class="card-content">
-                                        <h3>guarda, guadagna e ripeti</h3>
-                                        <p>Con Cinefilm e Red Carpet ti premiamo ancora di più: ricevi punti extra su
-                                            una
-                                            selezione di film dedicati. E non finisce qui: per ogni anno insieme, ti
-                                            regaliamo punti bonus.</p>
-                                        <a href="#" class="btn btn-dark flip-back">Indietro</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-        </section>
-
-        <!-- FAQ  -->
-        <section class="faq-section">
-
-            <h1 class="title-section">Domande frequenti</h1>
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Cos'è myS&G
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <p>myUCI è il programma fedeltà di UCI Cinemas che ti permette di accedere a tante
-                                promozioni e sconti,
-                                raccogliere punti e ottenere biglietti gratis e omaggi al bar.
-                                La card è gratuita, digitale e subito utilizzabile online e al cinema.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Come posso iscrivermi a myS&G?
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <p>Puoi iscriverti gratuitamente a myUCI registrandoti nella sezione dedicata del nostro
-                                sito.
-                                Al termine della registrazione troverai la card nella tua area privata e potrai
-                                utilizzarla da subito per guadagnare punti,
-                                richiedere premi ed utilizzare gli sconti.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Come posso utilizzare myS&G e i suoi vantagg?
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <p>
-                                La tua myUCI è sempre disponibile nella tua Area Personale e può essere utilizzata
-                                su sito, app,
-                                totem e al bar del cinema per acquistare biglietti e prodotti bar, accumulando punti
-                                a ogni acquisto.
-                                Ti basta effettuare il login con le tue credenziali: online la card verrà
-                                riconosciuta automaticamente,
-                                mentre al cinema ti basterà mostrare il codice a barre per approfittare dei suoi
-                                vantaggi.
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
-    </main>
-	<div th:replace="fragments/footer :: footer"></div>
-    <!-- JS -->
-    <script src="./js/membership.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+            <!-- CARD 2 -->
+            <div class="col-12 col-md-4 show-column">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="card-content">
+                                <img src="./svg/popcorn_mys&g.svg" alt="sconti_bar">
+                                <h3>Sconti al bar</h3>
+                                <p>Sconto del 10% sul merchandising dei film del momento.</p>
+                                <button class="btn btn-primary flip-btn">Scopri</button>
+                            </div>
+                        </div>
+
+                        <div class="card-face card-back">
+                            <div class="card-content">
+                                <h3>Sconti al bar</h3>
+                                <p>Goditi il film e con Cinesnack hai lo sconto del 10% sui menù al bar dedicati
+                                    ai
+                                    film del momento.</p>
+                                <a href="#" class="btn btn-dark flip-back">Indietro</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="col-12 col-md-4 show-column">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="card-content">
+                                <img src="./svg/ticket_mys&g.svg" alt="biglietto_menu_gratis">
+                                <h3>film è menù gratis</h3>
+                                <p>Biglietti e prodotti bar grazie ai punti raccolti (1€ = 10 punti).</p>
+                                <button class="btn btn-primary flip-btn">Scopri</button>
+                            </div>
+                        </div>
+
+                        <div class="card-face card-back">
+                            <div class="card-content">
+                                <h3>film è menù gratis</h3>
+                                <p>Più vai al cinema, più premi ricevi. Accedi alla tua area personale e scopri
+                                    tutti i tuoi omaggi.</p>
+                                <a href="#" class="btn btn-dark flip-back">Indietro</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="col-12 col-md-4 show-column">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="card-content">
+                                <img src="./svg/birtdaycake_mys&g.svg" alt="buoncompleanno">
+                                <h3>buon compleanno!</h3>
+                                <p>Per il tuo compleanno il cinema te lo offriamo noi!</p>
+                                <button class="btn btn-primary flip-btn">Scopri</button>
+                            </div>
+                        </div>
+
+                        <div class="card-face card-back">
+                            <div class="card-content">
+                                <h3>auguri!</h3>
+                                <p>Festeggia con noi: per te un biglietto in regalo valido il giorno del tuo
+                                    compleanno e i 6 giorni successivi.</p>
+                                <a href="#" class="btn btn-dark flip-back">Indietro</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="col-12 col-md-4 show-column">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="card-content">
+                                <img src="./svg/anteprima_mys&g.svg" alt="anteprima">
+                                <h3>anteprime esclusive</h3>
+                                <p>Con myUCI sei il primo a vedere nuovi film.</p>
+                                <button class="btn btn-primary flip-btn">Scopri</button>
+                            </div>
+                        </div>
+
+                        <div class="card-face card-back">
+                            <div class="card-content">
+                                <h3>anteprime esclusive</h3>
+                                <p>Vuoi essere il primo a vedere un nuovo film? Unisciti a noi sul red carpet e
+                                    vivi
+                                    l'emozione di un'anteprima nazionale da star.</p>
+                                <a href="#" class="btn btn-dark flip-back">Indietro</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 6 -->
+            <div class="col-12 col-md-4 show-column">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="card-content">
+                                <img src="./svg/promozioni_mys&g.svg" alt="promozioni">
+                                <h3>promozioni speciali</h3>
+                                <p>Offerte esclusive pensate per i membri myUCI.</p>
+                                <button class="btn btn-primary flip-btn">Scopri</button>
+                            </div>
+                        </div>
+
+                        <div class="card-face card-back">
+                            <div class="card-content">
+                                <h3>guarda, guadagna e ripeti</h3>
+                                <p>Con Cinefilm e Red Carpet ti premiamo ancora di più: ricevi punti extra su
+                                    una
+                                    selezione di film dedicati. E non finisce qui: per ogni anno insieme, ti
+                                    regaliamo punti bonus.</p>
+                                <a href="#" class="btn btn-dark flip-back">Indietro</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ  -->
+    <section class="faq-section">
+
+        <h1 class="title-section">Domande frequenti</h1>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Cos'è myS&G
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>myUCI è il programma fedeltà di UCI Cinemas che ti permette di accedere a tante
+                            promozioni e sconti,
+                            raccogliere punti e ottenere biglietti gratis e omaggi al bar.
+                            La card è gratuita, digitale e subito utilizzabile online e al cinema.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Come posso iscrivermi a myS&G?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Puoi iscriverti gratuitamente a myUCI registrandoti nella sezione dedicata del nostro
+                            sito.
+                            Al termine della registrazione troverai la card nella tua area privata e potrai
+                            utilizzarla da subito per guadagnare punti,
+                            richiedere premi ed utilizzare gli sconti.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Come posso utilizzare myS&G e i suoi vantagg?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>
+                            La tua myUCI è sempre disponibile nella tua Area Personale e può essere utilizzata
+                            su sito, app,
+                            totem e al bar del cinema per acquistare biglietti e prodotti bar, accumulando punti
+                            a ogni acquisto.
+                            Ti basta effettuare il login con le tue credenziali: online la card verrà
+                            riconosciuta automaticamente,
+                            mentre al cinema ti basterà mostrare il codice a barre per approfittare dei suoi
+                            vantaggi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="fragments/footer :: content"></div>
+<div th:replace="fragments/footer :: social"></div>
+<div th:replace="fragments/footer :: copyright"></div>
+<!-- JS -->
+<script src="./js/membership.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

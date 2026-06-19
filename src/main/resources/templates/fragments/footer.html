@@ -1,68 +1,101 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<footer th:fragment="footer" class="mt-5">
-        <div class="container-fluid">
-            <div class="row mt-4 gx-3">
-                <div class="col-lg-4 mt-5">
-                    <h5>Siediti &amp; guarda</h5>
-                    <p class="text-secondary">La tua destinazione per il cinema di qualità. Vivi l'esperienza
-                        cinematografica come mai prima d'ora.</p>
-                </div>
 
-                <div class="col-lg-2 mt-5">
-                    <ul class="list-unstyled">
-                        <li><h5>Chi siamo</h5></li>
-                        <li><h5>Lavora con noi</h5></li>
-                    </ul>
-                </div>
+<!-- ================= FOOTER NEWSLETTER ================= -->
+<div th:fragment="newsletter" class="footer-newsletter">
+    <div class="row text-center gx-0">
+        <div class="col-lg-6">
+            <img th:src="@{/img/personaLetter.png}"
+                 alt="personeCinema"
+                 class="personeLetter">
+        </div>
+        <div class="col-lg-5 footer-newsletter__content">
+            <h4>Iscriviti alla Newsletter Siediti & Guarda</h4>
+            <p>
+                Vuoi essere sempre al passo con il mondo del cinema? Iscriviti alla nostra newsletter e scopri in anteprima: i prossimi film in uscita, promozioni esclusive e contenuti speciali dedicati agli appassionati di cinema.
+            </p>
+            <div class="input-group footer-newsletter__form">
+                <input type="email"
+                       class="form-control"
+                       placeholder="Inserisci email">
+                <button class="btn btninfo">
+                    Iscriviti
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <div class="col-lg-3 mt-5">
-                    <h5 class="mb-4">Contatti</h5>
-                    <ul class="list-unstyled info text-secondary">
-                        <li>
-                            <p class="text-secondary">
-                                <i class="fa-solid fa-location-dot pb-0 icon"></i>Centro Direzionale, NA 535022, IT
-                            </p>
-                        </li>
-                        <li>
-                            <p class="text-secondary">
-                                <i class="fa-solid fa-phone pb-0 icon"></i>+39 5589 55488 55
-                            </p>
-                        </li>
-                        <li>
-                            <p class="text-secondary">
-                                <i class="fa-solid fa-envelope pb-0 icon"></i>grandview@gmail.com
-                            </p>
-                        </li>
-                    </ul>
-                </div>
+<!-- ================= FOOTER CONTENT ================= -->
+<div th:fragment="content" class="footer-content">
+    <div class="container-fluid">
+        <div class="row">
 
-                <div class="col-lg-2 mt-5">
-                    <h5 class="mb-4">Orari</h5>
-                    <ul class="list-unstyled">
-                        <li><p class="text-secondary">Lunedì - Venerdì: 14:00 - 00:00</p></li>
-                        <li><p class="text-secondary">Sabato - Domenica: 10:00 - 01:00</p></li>
-                    </ul>
-                </div>
+            <div class="col-lg-4">
+                <h5>Siediti & guarda</h5>
+                <p>La tua destinazione per il cinema di qualità. Vivi l'esperienza cinematografica come mai prima d'ora.</p>
+            </div>
 
-                <ul class="sitiFoot">
-                    <li class="my-lg-5 social center-align">
-                        <a href=""><i class="fa-brands fa-x-twitter icon"></i></a>
-                        <a href=""><i class="fa-brands fa-facebook-f icon"></i></a>
-                        <a href=""><i class="fa-brands fa-instagram icon"></i></a>
-                        <a href=""><i class="fa-brands fa-youtube icon"></i></a>
+            <div class="col-lg-2">
+                <h5>Chi siamo</h5>
+                <h5>Lavora con noi</h5>
+            </div>
+
+            <div class="col-lg-3">
+                <h5>Contatti</h5>
+                <ul class="list-unstyled info">
+                    <li class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Centro Direzionale, NA 535022, IT</span>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+39 5589 55488 55</span>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>grandview@gmail.com</span>
                     </li>
                 </ul>
             </div>
 
-            <a href="#return"><button type="button" class="freccia"><i class="fa-solid fa-arrow-up"></i></button></a>
-
-            <div class="footer-copyright text-center py-3 text-white">
-                <i class="websiteName">Siediti&amp;Guarda</i>
-                <strong> Cinema, 2025 Tutti i diritti riservati</strong>
+            <div class="col-lg-2">
+                <h5>Orari</h5>
+                <p>Lunedì - Venerdì: 14:00 - 00:00</p>
+                <p>Sabato - Domenica: 10:00 - 01:00</p>
             </div>
         </div>
-    </footer>
+    </div>
+</div>
+
+<!-- ================= FOOTER SOCIAL ================= -->
+<div th:fragment="social" class="footer-social">
+
+    <ul class="social-list">
+        <li>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </li>
+    </ul>
+</div>
+<!-- ================= COPYRIGHT ================= -->
+<div th:fragment="copyright" class="footer-bottom">
+
+    <a href="#return">
+        <button type="button" class="freccia">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </a>
+
+    <div class="footer-copyright">
+        <i class="websiteName">Siediti&Guarda</i>
+        <strong> Cinema, 2025 Tutti i diritti riservati</strong>
+    </div>
+
+</div>
+
 </body>
 </html>

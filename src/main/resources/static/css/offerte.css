@@ -12,6 +12,7 @@
     max-width: 75rem;
     margin: 0 auto;
     padding: 1.25rem;
+    margin-bottom: 10rem;
 }
 
 /* ======================
@@ -39,7 +40,7 @@
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('../img/sfondo_membership.jpg') center/cover no-repeat;
+    background: url('../img/bannerOfferte.jpg') center/cover no-repeat;
     z-index: 0;
 
     -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);

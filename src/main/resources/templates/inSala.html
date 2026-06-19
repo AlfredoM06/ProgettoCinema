@@ -28,11 +28,11 @@
 
             <!-- Filtro genere -->
             <select class="form-select genre-select" id="genreSelect">
-<!--                <option value="all" selected>Generi</option>-->
-<!--                <option th:each="genere : ${generi}"-->
-<!--                        th:value="${genere}"-->
-<!--                        th:text="${genere}">-->
-<!--                </option>-->
+                <!--                <option value="all" selected>Generi</option>-->
+                <!--                <option th:each="genere : ${generi}"-->
+                <!--                        th:value="${genere}"-->
+                <!--                        th:text="${genere}">-->
+                <!--                </option>-->
             </select>
 
             <!-- Ricerca per titolo -->
@@ -65,7 +65,9 @@
 </main>
 
 <!-- FOOTER -->
-	<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/footer :: content"></div>
+<div th:replace="fragments/footer :: social"></div>
+<div th:replace="fragments/footer :: copyright"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./js/inSala.js"></script>
