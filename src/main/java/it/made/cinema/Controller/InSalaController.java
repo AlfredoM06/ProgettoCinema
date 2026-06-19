@@ -2,6 +2,7 @@ package it.made.cinema.Controller;
 
 import it.made.cinema.Model.Film;
 import it.made.cinema.Model.GenereFilm;
+import it.made.cinema.Model.DTO.ListaGenereDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +51,12 @@ public class InSalaController {
 	}
 	//lista di generi da passare al fornt-end
 	@GetMapping("/generi")
-	public @ResponseBody List<GenereFilm> listaGeneri(){
+	public @ResponseBody List<ListaGenereDTO> listaGeneri(){
 		List<GenereFilm> generi= repoGeneri.findAll();
-		return generi;
+		List<ListaGenereDTO> generiDTO = new ArrayList<>();
+		for (GenereFilm genere:generi) {
+			//generiDTO.add(new ListaGeneriDTO(genere.get));
+		}
+		return generiDTO;
 	}
 }
