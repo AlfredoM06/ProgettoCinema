@@ -20,13 +20,13 @@ public class Utente {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@NotEmpty
-	@Column(length=50, nullable=false, unique=true)
+	@Column(length=50, nullable=false)
 	private String username;
 	@NotEmpty
 	@Column(length=50, nullable=false)
 	private String password;
 	@NotEmpty
-	@Column(length=70, nullable=false, unique=true)
+	@Column(length=70, nullable=false)
 	private String email;
 	@NotEmpty
 	@Column(length=50, nullable=false)

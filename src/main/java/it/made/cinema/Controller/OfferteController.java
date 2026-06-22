@@ -27,9 +27,9 @@ public class OfferteController {
 		model.addAttribute("offerte", offerte);
 		return "offerte";
 	}
-	@GetMapping("/filtro")
+	/*@GetMapping("/filtro")
 	public @ResponseBody List<Offerta> filtroOfferte(@RequestParam (name= "filtroOfferta", required = false) String searchOfferta){
 
 		return List;
-	}
+	}*/
 }
