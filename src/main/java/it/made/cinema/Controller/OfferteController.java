@@ -1,5 +1,6 @@
 package it.made.cinema.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.made.cinema.Model.Offerta;
+import it.made.cinema.Model.DTO.ListaOffertaDTO;
 import it.made.cinema.Repository.IRepoOfferte;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,8 +30,17 @@ public class OfferteController {
 		return "offerte";
 	}
 	@GetMapping("/filtro")
-	public @ResponseBody List<Offerta> filtroOfferte(@RequestParam (name= "filtroOfferta", required = false) String searchOfferta){
-
-		return List;
+	public @ResponseBody List<ListaOffertaDTO> filtroOfferte(@RequestParam (name= "filtroOfferta", required = false) String searchOfferta){
+		List<Offerta> offerte = null;
+		if (searchOfferta != null && !searchOfferta.isBlank()) {
+			offerte = repoOfferte.findByGenere(searchOfferta);
+		}else {
+			offerte = repoOfferte.findAll();
+		}
+		List<ListaOffertaDTO> offerteDTO= new ArrayList<ListaOffertaDTO>();
+		for (Offerta offerta : offerte) {
+			offerteDTO.add(new ListaOffertaDTO(offerta.getId(),offerta.getNome(),offerta.getGenere(),offerta.getDescrizione(),offerta.getImg_banner()));
+		}
+		return offerteDTO;
 	}
 }
