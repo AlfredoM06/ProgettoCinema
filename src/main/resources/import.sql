@@ -33,10 +33,10 @@ INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (8, 2);
 INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (9, 5);
 
 --offerte
-INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-13', 5.99, 'Menu', 'Toy Story 5 Menu', 'cosa a caso', '', '');
-INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-16', 7, 'Menu', 'Spiderman Menu', 'cosa più a caso dell''altra', '', '');
-INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-19', 'Evento', 'Carte Disney Lorcana', 'carte collezionabili', '', '');
-INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-22', 'Anteprima', 'Master of Universe Poster', 'stacce', '', '');
+INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-13', 5.99, 'menu', 'Toy Story 5 Menu', 'cosa a caso', '', '');
+INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-16', 7, 'menu', 'Spiderman Menu', 'cosa più a caso dell''altra', '', '');
+INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-19', 'evento', 'Carte Disney Lorcana', 'carte collezionabili', '', '');
+INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-22', 'anteprima', 'Master of Universe Poster', 'stacce', '', '');
 
 --gadgets
 --INSERT INTO db_cinema.gadgets (prezzo, n_scorte, nome, img, img_banner, descrizione) VALUES(5.99, 30, 'Toy Story 5 Menu', '', '', 'cosa a caso');

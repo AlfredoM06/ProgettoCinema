@@ -45,15 +45,15 @@
                 <span>Tutti</span>
             </label>
             <label class="radio">
-                <input type="radio" name="filter" value="eventi">
+                <input type="radio" name="filter" value="evento">
                 <span>Eventi</span>
             </label>
             <label class="radio">
-                <input type="radio" name="filter" value="anteprime">
+                <input type="radio" name="filter" value="anteprima">
                 <span>Anteprime</span>
             </label>
             <label class="radio">
-                <input type="radio" name="filter" value="bar">
+                <input type="radio" name="filter" value="menu">
                 <span>Bar</span>
             </label>
         </form>
@@ -63,113 +63,28 @@
     <!-- CONTENUTO -->
     <section class="cards-section" aria-label="Lista contenuti">
 
-        <div class="cards-grid">
-            <article class="card" data-type="bar">
+        <div class="cards-grid"  id="cardsContainer">
+            <article class="card" th:each="offerta : ${offerte}" th:attr="data-type=${offerta.genere}">
                 <figure class="card-media">
-                    <img src="img/menu michael.jpg" alt="Immagine del Bar Centrale">
+                    <img th:src="@{${offerta.img_banner}}" alt="Immagine offerta">
                     <!-- WAVE ATTACCATA ALL’IMMAGINE -->
                     <div class="card-wave">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273444" fill-opacity="1" d="M0,64L48,53.3C96,43,192,21,288,58.7C384,96,480,192,576,218.7C672,245,768,203,864,154.7C960,107,1056,53,1152,32C1248,11,1344,21,1392,26.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
                     </div>
                     <!-- ICONA ROTANTE -->
-                    <a href="#" class="card-icon">
-                        <i class="fa-solid fa-clapperboard"></i>
+                    <a class="card-icon">
+                        <img class="icon-svg"
+                             th:src="@{'./svg/' + ${offerta.genere} + '.svg'}" th:alt="${offerta.genere}">
                     </a>
                 </figure>
 
                 <div class="card-body">
-                    <h2 class="card-title">Entra nel mondo dei giocattoli con i menù di Toy Story 5</h2>
+                    <h2 class="card-title" th:text="${offerta.nome}"></h2>
 
-                    <p class="card-text">
-                        Direttamente dal mondo dei giocattoli, arrivano i menù di Toy Story 5. Scegli il tuo
-                        preferito!
-                    </p>
+                    <p class="card-text" th:text="${offerta.descrizione}"></p>
 
-                    <a class="card-link" href="/dettaglio/bar-centrale">
-                        Scorpi di più
-                    </a>
-                </div>
-            </article>
-
-            <!-- CARD -->
-            <article class="card" data-type="bar">
-                <figure class="card-media">
-                    <img src="img/dragontrainer_poster.jpg" alt="Immagine del Bar Centrale">
-                    <!-- WAVE ATTACCATA ALL’IMMAGINE -->
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273444" fill-opacity="1" d="M0,64L48,53.3C96,43,192,21,288,58.7C384,96,480,192,576,218.7C672,245,768,203,864,154.7C960,107,1056,53,1152,32C1248,11,1344,21,1392,26.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-                    </div>
-                    <!-- ICONA ROTANTE -->
-                    <a href="#" class="card-icon">
-                        <i class="fa-solid fa-clapperboard"></i>
-                    </a>
-                </figure>
-
-                <div class="card-body">
-                    <h2 class="card-title">Entra nel mondo dei giocattoli con i menù di Toy Story 5</h2>
-
-                    <p class="card-text">
-                        Direttamente dal mondo dei giocattoli, arrivano i menù di Toy Story 5. Scegli il tuo
-                        preferito!
-                    </p>
-
-                    <a class="card-link" href="/dettaglio/bar-centrale">
-                        Scorpi di più
-                    </a>
-                </div>
-            </article>
-
-            <!-- card3 -->
-            <article class="card" data-type="bar">
-                <figure class="card-media">
-                    <img src="img/lilo_poster.jpg" alt="Immagine del Bar Centrale">
-                    <!-- WAVE ATTACCATA ALL’IMMAGINE -->
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273444" fill-opacity="1" d="M0,64L48,53.3C96,43,192,21,288,58.7C384,96,480,192,576,218.7C672,245,768,203,864,154.7C960,107,1056,53,1152,32C1248,11,1344,21,1392,26.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-                    </div>
-                    <!-- ICONA ROTANTE -->
-                    <a href="#" class="card-icon">
-                        <i class="fa-solid fa-clapperboard"></i>
-                    </a>
-                </figure>
-
-                <div class="card-body">
-                    <h2 class="card-title">Entra nel mondo dei giocattoli con i menù di Toy Story 5</h2>
-
-                    <p class="card-text">
-                        Direttamente dal mondo dei giocattoli, arrivano i menù di Toy Story 5. Scegli il tuo
-                        preferito!
-                    </p>
-
-                    <a class="card-link" href="/dettaglio/bar-centrale">
-                        Scorpi di più
-                    </a>
-                </div>
-            </article>
-
-            <article class="card" data-type="bar">
-                <figure class="card-media">
-                    <img src="img/jurassicworld_poster.webp" alt="Immagine del Bar Centrale">
-                    <!-- WAVE ATTACCATA ALL’IMMAGINE -->
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273444" fill-opacity="1" d="M0,64L48,53.3C96,43,192,21,288,58.7C384,96,480,192,576,218.7C672,245,768,203,864,154.7C960,107,1056,53,1152,32C1248,11,1344,21,1392,26.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-                    </div>
-                    <!-- ICONA ROTANTE -->
-                    <a href="#" class="card-icon">
-                        <i class="fa-solid fa-clapperboard"></i>
-                    </a>
-                </figure>
-
-                <div class="card-body">
-                    <h2 class="card-title">Entra nel mondo dei giocattoli con i menù di Toy Story 5</h2>
-
-                    <p class="card-text">
-                        Direttamente dal mondo dei giocattoli, arrivano i menù di Toy Story 5. Scegli il tuo
-                        preferito!
-                    </p>
-
-                    <a class="card-link" href="/dettaglio/bar-centrale">
-                        Scorpi di più
+                    <a class="card-link" th:href="@{'/dettaglio/' + ${offerta.id}}">
+                        Scopri di più
                     </a>
                 </div>
             </article>
