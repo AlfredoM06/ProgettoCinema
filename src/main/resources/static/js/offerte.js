@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="card-body">
                         <h2 class="card-title">${offerta.nome}</h2>
                         <p class="card-text">${offerta.descrizione}</p>
-                        <a class="card-link" href="/dettaglio/${offerta.id}">
+                        <a class="card-link" href="/offerte/dettagli/${offerta.id}">
                             Scopri di più
                         </a>
                     </div>

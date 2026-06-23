@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gadget</title>
+    <title>Offerte</title>
 
     <!-- LINK -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,64 +13,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/root.css">
-    <link rel="stylesheet" href="./css/navbar.css">
-    <link rel="stylesheet" href="./css/gadgetDettaglio.css">
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/offertaDettaglio.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/freccia.css}">
 </head>
-<body>
-<header id="return">
-    <a href="./Home.html"><img class="logo" src="./img/Cinema_Logo.png"></img></a>
-    <ul class="nav">
-        <li><a href="./inSala.html">In Sala</a></li>
-        <li><a href="./prossimamente.html">Prossimamente</a></li>
-        <li><a href="#cale">Membership</a></li>
-        <li><a href="#tabs">Offerte</a></li>
-        <li><a href="#cale">Shop</a></li>
-    </ul>
-    <ul class="navbar-nav">
-        <li>
-            <a class="nav-link" href="./SignIn.html">Accedi</a>
-        </li>
-    </ul>
-</header>
 
+<body>
+<!--NAVBAR-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--HERO-->
 <section class="hero-custom">
-    <img src="/img/prova.jfif" alt="Gadget cinema">
+    <img th:src="@{/img/prova.jfif}">
 </section>
 
 <main>
     <div class="content-wrapper">
-        <h1>Titolo Gadget</h1>
-        <p>
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-        </p>
-        <p>Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.
-            Descrizione del gadget del cinema. Testo informativo, dettagli,
-            curiosità e contesto.</p>
+        <h1 th:text="${offerta.nome}"></h1>
+        <h5 th:text="${offerta.data_inizio}"></h5>
+        <p th:text="${offerta.descrizione}"></p>
         <button class="btn btnGadget">Acquista</button>
     </div>
 </main>
 
-<footer th:replace="fragments/footer :: footer"></footer>
+<!--FOOTER-->
+<div th:replace="fragments/footer :: content"></div>
+<div th:replace="fragments/footer :: social"></div>
+<div th:replace="fragments/footer :: copyright"></div>
+
+<!--JS-->
+<script src="./js/freccia.js"></script>
 </body>
 </html>
