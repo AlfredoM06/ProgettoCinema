@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/admin/gestioneOfferte")
 public class GestioneOfferteController {
     @Autowired
     IRepoOfferte repoOfferte;
@@ -47,7 +45,7 @@ public class GestioneOfferteController {
             return "";
         }
         repoOfferte.save(formOfferta);
-        return "redirect:/GestioneFilm";
+        return "";
     }
     //elimina
     @PostMapping ("/cancella/{id}")
