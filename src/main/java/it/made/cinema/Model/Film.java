@@ -77,4 +77,7 @@ public class Film implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="films_generi", joinColumns=@JoinColumn(name="id_film"),inverseJoinColumns=@JoinColumn(name="id_genere"))
 	private List<GenereFilm> generi;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="id_partnership", referencedColumnName="id")
+	private String partnership;
 }
