@@ -1,0 +1,46 @@
+/* =========================
+   OFFERTA FORM LAYOUT
+========================= */
+
+/* colonne più equilibrate */
+.form-section {
+    display: flex;
+    flex-direction: column;
+}
+/* =========================
+   RADIO GROUP FIX
+========================= */
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.form-check-input {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.form-check-label {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--border-color);
+    border-color: var(--border-color);
+}
+
+/* textarea NON enorme */
+textarea.form-control {
+    min-height: 8rem;
+    max-height: 12rem;
+    resize: vertical;
+}

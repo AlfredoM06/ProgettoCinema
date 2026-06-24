@@ -1,0 +1,173 @@
+/* =========================
+   GLOBAL PAGE
+========================= */
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* spazio sotto navbar */
+.page-main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: clamp(14rem, 18vh, 18rem);
+}
+
+/* =========================
+   SECTION / TABS
+========================= */
+
+section {
+    margin-top: 1rem;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+
+}
+
+section .section-title {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+#tabs {
+    background: var(--background-div);
+    color: #fff;
+}
+
+#tabs h1.section-title {
+    color: var(--gradient);
+    -webkit-text-stroke: 1px var(--border-color);
+}
+
+/* =========================
+   NAV TABS
+========================= */
+
+.nav-fill {
+    border-bottom: 0;
+}
+
+#tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+#tabs .nav-tabs .nav-link.active {
+    color: #000;
+    background: transparent;
+    border-bottom: 3px solid #000;
+    font-weight: bold;
+}
+
+/* =========================
+   FORM CONTAINER BASE
+========================= */
+
+.formFilm {
+    background-color: var(--background-div);
+    border-top: 0.125rem solid var(--border-color);
+    border-bottom: 0.125rem solid var(--border-color);
+
+    padding: 2rem;
+    border-radius: 0.75rem;
+
+    width: 100%;
+    max-width: 75rem;
+}
+
+/* =========================
+   FORM GLOBAL ELEMENTS
+========================= */
+
+.form-label {
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+}
+
+.form-control:focus {
+    border-color: var(--border-color);
+    box-shadow: 0 0 0 0.2rem rgba(158, 143, 43, 0.25);
+}
+
+/* =========================
+   FORM GROUP SPACING
+========================= */
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* =========================
+   BUTTON AREA
+========================= */
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+
+    border-top: 0.0625rem solid rgba(255,255,255,0.1);
+}
+
+/* =========================
+   DATATABLES UI
+========================= */
+
+.dataTables_filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.dataTables_filter label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* search input */
+.dataTables_filter input {
+    max-width: 18rem;
+    height: 2.2rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* select show */
+.dataTables_length select:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: 0 0 0 0.15rem rgba(158, 143, 43, 0.25) !important;
+    outline: none;
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+
+.accountDrop {
+    background-color: transparent;
+    border-color: transparent;
+    --bs-dropdown-link-active-bg: rgba(0,0,0,0.5);
+}
+
+.dropdown-item.active {
+    border: 1px solid var(--border-color);
+}
