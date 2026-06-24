@@ -19,3 +19,80 @@
 </header>
 </body>
 </html>
+
+<!--<header th:fragment="navbar" id="return"-->
+<!--        xmlns:th="http://www.thymeleaf.org"-->
+<!--        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+
+<!--    <a th:href="@{/}">-->
+<!--        <img class="logo" th:src="@{/img/Cinema_Logo.png}">-->
+<!--    </a>-->
+
+<!--    <ul class="nav">-->
+<!--        <li><a th:href="@{/inSala}">In Sala</a></li>-->
+<!--        <li><a th:href="@{/prossimamente}">Prossimamente</a></li>-->
+<!--        <li><a th:href="@{/membership}">Membership</a></li>-->
+<!--        <li><a th:href="@{/offerte}">Offerte</a></li>-->
+<!--        <li><a th:href="@{/shop}">Shop</a></li>-->
+<!--    </ul>-->
+
+<!--    &lt;!&ndash; 🔴 NON LOGGATO &ndash;&gt;-->
+<!--    <ul class="navbar-nav" sec:authorize="isAnonymous()">-->
+<!--        <li>-->
+<!--            <a class="nav-link" th:href="@{/SignIn}">Accedi</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+<!--    &lt;!&ndash; 🟢 LOGGATO (USER + ADMIN) &ndash;&gt;-->
+<!--    <ul class="navbar-nav" sec:authorize="isAuthenticated()">-->
+<!--        <li class="nav-item dropdown">-->
+
+<!--            &lt;!&ndash; 👤 ICONA DINAMICA &ndash;&gt;-->
+<!--            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">-->
+<!--                <i class="fa-solid"-->
+<!--                   th:classappend="${#authorization.expression('hasRole(''ADMIN'')')} -->
+<!--                                   ? ' fa-user-tie' -->
+<!--                                   : ' fa-user'">-->
+<!--                </i>-->
+<!--            </a>-->
+
+<!--            <ul class="dropdown-menu accountDrop">-->
+
+<!--                &lt;!&ndash; comuni &ndash;&gt;-->
+<!--                <li>-->
+<!--                    <a class="dropdown-item" th:href="@{/profilo}">-->
+<!--                        Profilo-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 🟢 SOLO USER &ndash;&gt;-->
+<!--                <th:block sec:authorize="hasRole('USER')">-->
+<!--                    <li><a class="dropdown-item" th:href="@{/carrello}">Carrello</a></li>-->
+<!--                    <li><a class="dropdown-item" th:href="@{/biglietti}">I miei Biglietti</a></li>-->
+<!--                    <li><a class="dropdown-item" th:href="@{/menu}">I miei Menù</a></li>-->
+<!--                </th:block>-->
+
+<!--                &lt;!&ndash; 🔵 SOLO ADMIN &ndash;&gt;-->
+<!--                <th:block sec:authorize="hasRole('ADMIN')">-->
+<!--                    <li><a class="dropdown-item" th:href="@{/gestioneFilm}">Gestione Film</a></li>-->
+<!--                    <li><a class="dropdown-item" th:href="@{/gestioneOfferte}">Gestione Offerte</a></li>-->
+<!--                    <li><a class="dropdown-item" th:href="@{/gestionePartnership}">Gestione Partnership</a></li>-->
+<!--                    <li><a class="dropdown-item" th:href="@{/gestioneUtenti}">Gestione Utenti</a></li>-->
+<!--                </th:block>-->
+
+<!--                <li><hr class="dropdown-divider"></li>-->
+
+<!--                &lt;!&ndash; logout &ndash;&gt;-->
+<!--                <li>-->
+<!--                    <form th:action="@{/logout}" method="post">-->
+<!--                        <button class="dropdown-item" type="submit">-->
+<!--                            Logout-->
+<!--                        </button>-->
+<!--                    </form>-->
+<!--                </li>-->
+
+<!--            </ul>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+<!--</header>-->
