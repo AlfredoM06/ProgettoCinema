@@ -25,10 +25,10 @@ public class Offerta {
 	private String genere;
 	@NotEmpty
 	@Column(nullable=false)
-	private LocalDate data_inizio;
+	private LocalDate dataInizio;
 	@NotEmpty
 	@Column(nullable=false)
-	private LocalDate data_scadenza;
+	private LocalDate dataScadenza;
 	@NotEmpty
 	@Column(length=500, nullable=false)
 	private String descrizione;
@@ -36,10 +36,10 @@ public class Offerta {
 	private BigDecimal prezzo;
 	@NotEmpty
 	@Column(length=1000, nullable=false)
-	private String img_banner;
+	private String imgBanner;
 	@NotEmpty
 	@Column(length=1000, nullable=false)
-	private String img_dettaglio;
+	private String imgDettaglio;
 	@ManyToOne
 	@JoinColumn(name="id_film", referencedColumnName="id")
 	private Film film;
