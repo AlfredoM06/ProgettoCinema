@@ -18,35 +18,38 @@ public class GestioneUtentiController {
     IRepoUtenti repoUtenti;
 
     @GetMapping("/formUtente")
-    public String formUtente(Model model){
+    public String formUtente(Model model) {
         model.addAttribute("utente", new Utente());
         return "";
     }
 
     @PostMapping("/formUtente")
-    public String salvaForm(@ModelAttribute("utente") Utente formUtente, BindingResult bindinResult, Model model){
-        if(bindinResult.hasErrors()) {
+    public String salvaForm(@ModelAttribute("utente") Utente formUtente, BindingResult bindinResult, Model model) {
+        if (bindinResult.hasErrors()) {
             return "";
         }
         repoUtenti.save(formUtente);
         return "";
     }
+
     //modifica
-    @GetMapping ("/modifica/{id}")
+    @GetMapping("/modifica/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("offerta", repoUtenti.findById(id).get() );
+        model.addAttribute("offerta", repoUtenti.findById(id).get());
         return "";
     }
+
     @PostMapping("/modifica/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Utente formUtente, BindingResult bindinResult, Model model) {
-        if(bindinResult.hasErrors()) {
+        if (bindinResult.hasErrors()) {
             return "";
         }
         repoUtenti.save(formUtente);
         return "";
     }
+
     //elimina
-    @PostMapping ("/cancella/{id}")
+    @PostMapping("/cancella/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoUtenti.deleteById(id);
         return "";

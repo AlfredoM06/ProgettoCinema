@@ -26,45 +26,50 @@ public class GestioneFilmController {
     @Autowired
     IRepoFilm repoFilm;
     Film film;
+
     //form
-        //da fare validazioni form
+    //da fare validazioni form
     @GetMapping("/form")
-    public String form(Model model){
+    public String form(Model model) {
         model.addAttribute("film", new Film());
         return "/GestioneFilm";
     }
 
     @PostMapping("/form")
-    public String salvaForm(@ModelAttribute("film") Film formFilm, Model model){
+    public String salvaForm(@ModelAttribute("film") Film formFilm, Model model) {
         repoFilm.save(formFilm);
         return "redirect:/GestioneFilm";
     }
+
     @GetMapping
-    public String listaArchivio(Model model){
+    public String listaArchivio(Model model) {
         List<Film> lista = repoFilm.findAll();
         model.addAttribute("list", lista);
         return "GestioneFilm";
     }
-    @GetMapping ("/modifica/{id}")
+
+    @GetMapping("/modifica/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
-    	model.addAttribute("film",repoFilm.findById(id).get() );
-    	return "GestioneFilm/modifica";
+        model.addAttribute("film", repoFilm.findById(id).get());
+        return "GestioneFilm/modifica";
     }
+
     @PostMapping("/modifica/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Film formFilm, BindingResult bindinResult, Model model) {
-    	if(bindinResult.hasErrors()) {
-    		return "GestioneFilm/modifica";
-    	}
-    	repoFilm.save(formFilm);
-    	return "redirect:/GestioneFilm";
+        if (bindinResult.hasErrors()) {
+            return "GestioneFilm/modifica";
+        }
+        repoFilm.save(formFilm);
+        return "redirect:/GestioneFilm";
     }
-    @PostMapping ("/cancella/{id}")
+
+    @PostMapping("/cancella/{id}")
     public String cancella(@PathVariable("id") Integer id) {
-    	repoFilm.deleteById(id);
-    	return "redirect:/GestioneFilm";
+        repoFilm.deleteById(id);
+        return "redirect:/GestioneFilm";
     }
     //da fare:
-        //modifica per far tornare disponibile un film da fare in thymeleaf
+    //modifica per far tornare disponibile un film da fare in thymeleaf
 
 
 }

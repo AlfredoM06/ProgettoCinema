@@ -20,33 +20,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/offerte")
 public class OfferteController {
 
-	@Autowired
-	private IRepoOfferte repoOfferte;
-    //popolare tabella offerte 
-	//creare repository offerte e scommentare metodo findall
-	@GetMapping
-	private String offerte(Model model) {
-		List<Offerta> offerte = repoOfferte.findAll();
-		model.addAttribute("offerte", offerte);
-		return "offerte";
-	}
-	@GetMapping("/filtro")
-	public @ResponseBody List<ListaOffertaDTO> filtroOfferte(@RequestParam (name= "filtroOfferta", required = false) String searchOfferta){
-		List<Offerta> offerte = null;
-		if (searchOfferta != null && !searchOfferta.isBlank()) {
-			offerte = repoOfferte.findByGenere(searchOfferta);
-		}else {
-			offerte = repoOfferte.findAll();
-		}
-		List<ListaOffertaDTO> offerteDTO= new ArrayList<ListaOffertaDTO>();
-		for (Offerta offerta : offerte) {
-			offerteDTO.add(new ListaOffertaDTO(offerta.getId(),offerta.getNome(),offerta.getGenere(),offerta.getDescrizione(),offerta.getImg_banner()));
-		}
-		return offerteDTO;
-	}
-	 @GetMapping("/dettagli/{id}")
-	    public String dettOfferta(@PathVariable("id") Integer id, Model model){
-	        model.addAttribute("offerta", repoOfferte.findById(id).get());
-	        return "offertaDettaglio";
-	        }
+    @Autowired
+    private IRepoOfferte repoOfferte;
+
+    //popolare tabella offerte
+    //creare repository offerte e scommentare metodo findall
+    @GetMapping
+    private String offerte(Model model) {
+        List<Offerta> offerte = repoOfferte.findAll();
+        model.addAttribute("offerte", offerte);
+        return "offerte";
+    }
+
+    @GetMapping("/filtro")
+    public @ResponseBody List<ListaOffertaDTO> filtroOfferte(@RequestParam(name = "filtroOfferta", required = false) String searchOfferta) {
+        List<Offerta> offerte = null;
+        if (searchOfferta != null && !searchOfferta.isBlank()) {
+            offerte = repoOfferte.findByGenere(searchOfferta);
+        } else {
+            offerte = repoOfferte.findAll();
+        }
+        List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
+        for (Offerta offerta : offerte) {
+            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImg_banner()));
+        }
+        return offerteDTO;
+    }
+
+    @GetMapping("/dettagli/{id}")
+    public String dettOfferta(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("offerta", repoOfferte.findById(id).get());
+        return "offertaDettaglio";
+    }
 }

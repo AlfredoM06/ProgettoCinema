@@ -79,5 +79,5 @@ public class Film implements Serializable {
 	private List<GenereFilm> generi;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_partnership", referencedColumnName="id")
-	private String partnership;
+	private Partnership partnership;
 }

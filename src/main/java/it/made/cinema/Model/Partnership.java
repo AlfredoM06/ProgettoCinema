@@ -27,6 +27,6 @@ public class Partnership {
 	@Column(length=1000, nullable=false)
 	private String img_banner;
 	@OneToOne(mappedBy="partnership")
-	private String film;
-	
+	private Film film;
+
 }

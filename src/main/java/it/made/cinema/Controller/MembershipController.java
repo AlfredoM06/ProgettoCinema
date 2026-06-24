@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MembershipController {
 
     //ancora da fare
-	@GetMapping
-	public String membership() {
-		return "membership";
-	}
+    @GetMapping
+    public String membership() {
+        return "membership";
+    }
 }

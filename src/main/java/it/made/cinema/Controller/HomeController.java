@@ -16,6 +16,7 @@ import java.util.List;
 public class HomeController {
     @Autowired
     IRepoFilm repoFilm;
+
     //@Autowired
     //IRepoGadget repoGadget;
     //c'è la pagina
@@ -23,7 +24,7 @@ public class HomeController {
     //log in
     //lista dei film, lista gadgets
     @GetMapping
-    private String home(Model model){
+    private String home(Model model) {
         List<Film> listaFilmHome = repoFilm.findAll();
         //List<Gadget> listaGadgetHome = repoGadget.findAll();
         model.addAttribute("listaFilm", listaFilmHome);
@@ -33,7 +34,7 @@ public class HomeController {
 
     //dettagli dei film
     @GetMapping("/dettagli/{id}")
-    private String dettagliHome(@PathVariable("id") Integer id, Model model){
+    private String dettagliHome(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("film", repoFilm.findById(id).get());
         return "filmDettaglio";
     }

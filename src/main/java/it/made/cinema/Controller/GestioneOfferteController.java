@@ -20,35 +20,38 @@ public class GestioneOfferteController {
 
     //form per la crezione
     @GetMapping("/formOfferta")
-    public String formOfferta(Model model){
+    public String formOfferta(Model model) {
         model.addAttribute("offerta", new Offerta());
         return "";
     }
 
     @PostMapping("/formOfferta")
-    public String salvaForm(@ModelAttribute("offerta") Offerta formOfferta,BindingResult bindinResult, Model model){
-        if(bindinResult.hasErrors()) {
+    public String salvaForm(@ModelAttribute("offerta") Offerta formOfferta, BindingResult bindinResult, Model model) {
+        if (bindinResult.hasErrors()) {
             return "";
         }
         repoOfferte.save(formOfferta);
         return "";
     }
+
     //modifica
-    @GetMapping ("/modifica/{id}")
+    @GetMapping("/modifica/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("offerta",repoOfferte.findById(id).get() );
+        model.addAttribute("offerta", repoOfferte.findById(id).get());
         return "";
     }
+
     @PostMapping("/modifica/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Offerta formOfferta, BindingResult bindinResult, Model model) {
-        if(bindinResult.hasErrors()) {
+        if (bindinResult.hasErrors()) {
             return "";
         }
         repoOfferte.save(formOfferta);
         return "";
     }
+
     //elimina
-    @PostMapping ("/cancella/{id}")
+    @PostMapping("/cancella/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoOfferte.deleteById(id);
         return "";
