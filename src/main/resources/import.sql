@@ -20,7 +20,6 @@ INSERT INTO db_cinema.genere_films (nome) VALUES ('Romantici');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Thriller');
 
 --relazioni film/generi
-
 INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (1, 8);
 INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (2, 2);
 INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (3, 4);

@@ -25,7 +25,7 @@ public class GestioneFilmController {
 
     @Autowired
     IRepoFilm repoFilm;
-    Film film;
+    //Film film;
 
     //form
     //da fare validazioni form

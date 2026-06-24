@@ -49,7 +49,7 @@ public class OfferteController {
     }
 
     @GetMapping("/top3")
-    public @ResponseBody List<ListaTop3DTO> top3Offerte(Model model) {
+    public @ResponseBody List<ListaTop3DTO> top3Offerte() {
         List<Offerta> offerte = null;
         offerte = repoOfferte.findTop3ByOrderByDataInizioDesc();
         List<ListaTop3DTO> top3Dto = new ArrayList<ListaTop3DTO>();
