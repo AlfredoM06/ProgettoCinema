@@ -362,7 +362,7 @@
                 </div>
                 <div class="info-item">
                     <span class="label">Data di rilascio</span>
-                    <!--                        <span th:text="${#dates.format(film.data_di_uscita, 'dd/MM/yyyy')}"></span>-->
+                        <span th:text="${#temporals.format(film.dataUscita, 'dd/MM/yyyy')}"></span>
                 </div>
                 <div class="info-item">
                     <span class="label">Genere</span>
