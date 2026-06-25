@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class ProgrammazioneFilm {
     @MapsId("idSala")
     @JoinColumn(name = "id_sala")
     Sala sala;
+    //Data delle programmazione
+    private LocalDate dataProgrammazione;
     //1aM film
     @ManyToOne
     @MapsId("idFilm")
