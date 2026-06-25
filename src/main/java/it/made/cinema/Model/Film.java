@@ -24,60 +24,83 @@ import javax.annotation.processing.Generated;
 @ToString @EqualsAndHashCode
 @Table(name="films")
 public class Film implements Serializable {
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	@NotEmpty
-	@Column(length=50, nullable= false) 
+	@Column(length = 50, nullable = false)
 	private String titolo;
+
 	@NotEmpty
-	@Column(length=50, nullable= false)
-	private String distribuzione; 
-	@NotEmpty
-	@Column(nullable=false)
+	@Column(length = 50, nullable = false)
+	private String distribuzione;
+
+	@NotNull
+	@Column(nullable = false)
 	private LocalDate data_di_uscita;
+
 	@NotEmpty
-	@Column(length= 1500, nullable=false)
-	private String descrizione; 
+	@Column(length = 1500, nullable = false)
+	private String descrizione;
+
 	@NotEmpty
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
 	private String regista;
+
 	@NotEmpty
-	@Column(length=1500, nullable=false)
+	@Column(length = 1500, nullable = false)
 	private String cast;
-	@NotEmpty
-	@Column(nullable=false)
+
+	@NotNull
+	@Column(nullable = false)
 	private Integer durata;
+
 	@NotEmpty
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
 	private String formato;
+
 	@NotEmpty
-	@Column(length=500, nullable=false)
+	@Column(length = 500, nullable = false)
 	private String lingue;
+
 	@NotEmpty
-	@Column(length=500, nullable=false)
+	@Column(length = 500, nullable = false)
 	private String img_cover;
+
 	@NotEmpty
-	@Column(length=500, nullable=false)
+	@Column(length = 500, nullable = false)
 	private String img_logo;
+
 	@NotEmpty
-	@Column(length=500, nullable=false)
+	@Column(length = 500, nullable = false)
 	private String img_poster;
-	@NotEmpty
-	@Column(nullable=false)
+
+	@NotNull
+	@Column(nullable = false)
 	private Double prezzo;
-	@NotEmpty
-	@Column(nullable=false)
+
+	@NotNull
+	@Column(nullable = false)
 	private LocalDate scadenza;
-	@NotEmpty
-	@Column(nullable=false)
+
+	@NotNull
+	@Column(nullable = false)
 	private boolean archiviato;
+
 	@OneToMany(mappedBy="film")
 	private List<Offerta> offerte;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="films_generi", joinColumns=@JoinColumn(name="id_film"),inverseJoinColumns=@JoinColumn(name="id_genere"))
 	private List<GenereFilm> generi;
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_partnership", referencedColumnName="id")
 	private Partnership partnership;
+
+	//relazione con programmazione
+	@OneToMany(mappedBy = "film")
+	private List<ProgrammazioneFilm> programmazioni;
+
 }

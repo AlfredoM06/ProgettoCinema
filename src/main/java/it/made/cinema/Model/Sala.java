@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,14 +20,21 @@ import lombok.ToString;
 @Table(name="sale")
 public class Sala {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	@NotEmpty
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
 	private String tipo;
-	@NotEmpty
-	@Column(nullable= false)
+
+	@NotNull
+	@Column(nullable = false)
 	private Integer numero_posti;
-	@OneToMany(mappedBy="sala")
+
+	@OneToMany(mappedBy = "sala")
 	private List<Posto> posti;
+
+	// relazione con programmazione
+	@OneToMany(mappedBy = "sala")
+	private List<ProgrammazioneFilm> programmazioni;
 }

@@ -1,12 +1,9 @@
 package it.made.cinema.Model.DTO;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-
-import it.made.cinema.Model.ProgrammazioneFilmKey;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +14,7 @@ import it.made.cinema.Model.ProgrammazioneFilmKey;
 public class ListaProgDTO implements Serializable {
 
     //orario, sala, prezzo, formato, id
-    private ProgrammazioneFilmKey id;
+    private Integer id;
     private Integer id_film;
     private Integer id_sala;
     private Double prezzo;

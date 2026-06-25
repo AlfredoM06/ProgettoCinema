@@ -2,6 +2,7 @@ package it.made.cinema.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,36 +22,34 @@ import java.util.List;
 @ToString @EqualsAndHashCode
 @Table(name = "programmazioneDeiFilm")
 public class ProgrammazioneFilm {
-    //id composito
-    @EmbeddedId
-    ProgrammazioneFilmKey id;
 
-    // orario
-    @NotEmpty
+    // id semplice autogenerato ✅
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotNull
     @Column(nullable = false)
     private LocalTime orario;
-    
-    // prenotazioni
-    @NotEmpty
+
+    @NotNull
     @Column(nullable = false)
     private int nPrenotazioni;
 
-    // 1aM con sala
-    @ManyToOne
-    @MapsId("idSala")
-    @JoinColumn(name = "id_sala")
-    Sala sala;
-    
-    //Data delle programmazione
+    @NotNull
     private LocalDate dataProgrammazione;
-   
-    //1aM film
+
+    // ManyToOne con Sala
     @ManyToOne
-    @MapsId("idFilm")
+    @JoinColumn(name = "id_sala")
+    private Sala sala;
+
+    // ManyToOne con Film
+    @ManyToOne
     @JoinColumn(name = "id_film")
-    Film film;
-    
-    // lista posti occupati
+    private Film film;
+
     @OneToMany(mappedBy = "programmazioneFilm")
     private List<PostiOccupati> listaPostiOccupati;
 }
+
