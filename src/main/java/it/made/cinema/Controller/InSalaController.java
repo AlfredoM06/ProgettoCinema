@@ -4,6 +4,7 @@ import it.made.cinema.Model.DTO.ListaFilmDTO;
 import it.made.cinema.Model.Film;
 import it.made.cinema.Model.GenereFilm;
 import it.made.cinema.Model.DTO.ListaGenereDTO;
+import it.made.cinema.Model.DTO.ListaProgDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,5 @@ public class InSalaController {
         }
         return generiDTO;
     }
+
 }

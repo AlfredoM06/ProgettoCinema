@@ -6,6 +6,8 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalTime;
 
+import it.made.cinema.Model.ProgrammazioneFilmKey;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,7 +17,7 @@ import java.time.LocalTime;
 public class ListaProgDTO implements Serializable {
 
     //orario, sala, prezzo, formato, id
-    private Integer id_programmazione;
+    private ProgrammazioneFilmKey id;
     private Integer id_film;
     private Integer id_sala;
     private Double prezzo;

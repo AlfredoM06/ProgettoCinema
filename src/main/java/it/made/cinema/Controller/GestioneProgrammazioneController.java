@@ -1,9 +1,13 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.Partnership;
 import it.made.cinema.Model.ProgrammazioneFilm;
-import it.made.cinema.Repository.IRepoPartnership;
+import it.made.cinema.Model.DTO.ListaProgDTO;
+import it.made.cinema.Repository.IRepoProgrammazione;
 import jakarta.validation.Valid;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/gestioneProgrammazione")
 public class GestioneProgrammazioneController {
     @Autowired
-    //IRepoProgrammazione ;
+    private IRepoProgrammazione repoProgrammazione ;
 
 
     //form per la crezione
@@ -29,14 +33,14 @@ public class GestioneProgrammazioneController {
         if (bindinResult.hasErrors()) {
             return "";
         }
-        //repoPartnership.save(formPartner);
+        repoProgrammazione.save(formProgrammazione);
         return "";
     }
 
     //modifica
     @GetMapping("/modifica/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
-       // model.addAttribute("offerta", repoPartnership.findById(id).get());
+        model.addAttribute("programmazione", repoProgrammazione.findById(id).get());
         return "";
     }
 
@@ -45,14 +49,30 @@ public class GestioneProgrammazioneController {
         if (bindinResult.hasErrors()) {
             return "";
         }
-       //repoPartnership.save(formPartner);
+       repoProgrammazione.save(formProgrammazione);
         return "";
     }
 
     //elimina
     @PostMapping("/cancella/{id}")
     public String cancella(@PathVariable("id") Integer id) {
-       // repoPartnership.deleteById(id);
+        repoProgrammazione.deleteById(id);
         return "";
+    }
+    @GetMapping("/programmazione")
+    public @ResponseBody List<ListaProgDTO> listaProgrammazione(){
+    	List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findAll();
+    	List<ListaProgDTO> programmazioneDTO = new ArrayList<>();
+    	for (ProgrammazioneFilm programmazione : programmazioni) {
+    		programmazioneDTO.add(new ListaProgDTO(
+    				programmazione.getId(), 
+    				programmazione.getFilm().getId(), 
+    				programmazione.getSala().getId(),
+    				programmazione.getFilm().getPrezzo(),
+    				programmazione.getFilm().getFormato(),
+    				programmazione.getOrario(),
+    				programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata()+30)));
+    	}
+    	return programmazioneDTO;
     }
 }
