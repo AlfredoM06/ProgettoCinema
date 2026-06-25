@@ -23,7 +23,7 @@ import java.util.List;
 @Table(name = "programmazioneDeiFilm")
 public class ProgrammazioneFilm {
 
-    // id semplice autogenerato ✅
+    // id semplice autogenerato
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

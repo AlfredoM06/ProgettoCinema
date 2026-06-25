@@ -54,12 +54,12 @@ INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 25, 'IMAX');
 INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, '4K');
 
 --programmazione films
-INSERT INTO db_cinema.programmazione_dei_film (id_film, id_sala, n_prenotazioni, orario) VALUES(3, 2, 23, '21:30');
-INSERT INTO db_cinema.programmazione_dei_film (id_film, id_sala, n_prenotazioni, orario) VALUES(5, 1, 30, '20:00');
-INSERT INTO db_cinema.programmazione_dei_film (id_film, id_sala, n_prenotazioni, orario) VALUES(7, 4, 32, '20:10');
-INSERT INTO db_cinema.programmazione_dei_film (id_film, id_sala, n_prenotazioni, orario) VALUES(9, 3, 25, '23:30');
-INSERT INTO db_cinema.programmazione_dei_film (id_film, id_sala, n_prenotazioni, orario) VALUES(2, 1, 40, '22:00');
-INSERT INTO db_cinema.programmazione_dei_film (id_film, id_sala, n_prenotazioni, orario) VALUES(4, 4, 39, '19:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 3, 2, 23, '21:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 5, 1, 30, '20:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 7, 4, 32, '20:10');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 9, 3, 25, '23:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 2, 1, 40, '22:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 4, 4, 39, '19:30');
 
 --ruoli
 --INSERT INTO db_cinema.ruoli
