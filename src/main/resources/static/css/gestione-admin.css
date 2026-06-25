@@ -22,9 +22,10 @@ body {
 ========================= */
 
 section {
-    margin-top: 1rem;
+    margin-top: 5rem;
     padding-top: 3rem;
     padding-bottom: 5rem;
+    background-color: var(--background-div)
 
 }
 
@@ -35,35 +36,12 @@ section .section-title {
     text-transform: uppercase;
 }
 
-#tabs {
-    background: var(--background-div);
-    color: #fff;
-}
-
-#tabs h1.section-title {
-    color: var(--gradient);
-    -webkit-text-stroke: 1px var(--border-color);
-}
-
 /* =========================
    NAV TABS
 ========================= */
 
 .nav-fill {
     border-bottom: 0;
-}
-
-#tabs .nav-tabs .nav-link {
-    border: 1px solid transparent;
-    color: var(--primary);
-    font-size: 1.1rem;
-}
-
-#tabs .nav-tabs .nav-link.active {
-    color: #000;
-    background: transparent;
-    border-bottom: 3px solid #000;
-    font-weight: bold;
 }
 
 /* =========================
@@ -170,4 +148,18 @@ section .section-title {
 
 .dropdown-item.active {
     border: 1px solid var(--border-color);
+}
+
+/* =========================
+   SELECT
+========================= */
+
+.form-select:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: 0 0 0 0.15rem rgba(158, 143, 43, 0.25) !important;
+    outline: none !important;
+}
+
+option:hover {
+    background-color: 0 0 0 0.15rem rgba(158, 143, 43, 0.25) !important;;
 }
