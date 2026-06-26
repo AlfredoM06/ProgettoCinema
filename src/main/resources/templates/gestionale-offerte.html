@@ -24,14 +24,14 @@
 </head>
 
 <body>
-
 <!--NAVBAR-->
     <div th:replace="fragments/navbar :: navbar"></div>
 
 <!--FORM + TABLE-->
-<main th:replace="~{fragments/gestionali :: formOfferte}"></main>
-        <section th:replace="~{fragments :: tabellaGenerica(titolo='Database Offerte', tableId='tabellaOfferte')}"></section>
-
+<!--<main th:replace="~{fragments/gestionali :: formOfferte}"></main>
+        <section th:replace="~{fragments :: tabellaGenerica(titolo='Database Offerte', tableId='tabellaOfferte')}"></section> -->
+    <main th:replace="~{fragments/gestionali :: formOfferte}"></main>
+        <section th:replace="~{fragments/gestionali :: tabellaGenerica(titolo='Database Offerte', tableId='tabellaOfferte')}"></section> -->
 
 
 

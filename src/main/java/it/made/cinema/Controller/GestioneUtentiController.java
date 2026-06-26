@@ -17,6 +17,11 @@ public class GestioneUtentiController {
     @Autowired
     IRepoUtenti repoUtenti;
 
+    @GetMapping
+    public String gestioneUtenti(){
+        return "";
+    }
+
     @GetMapping("/formUtente")
     public String formUtente(Model model) {
         model.addAttribute("utente", new Utente());

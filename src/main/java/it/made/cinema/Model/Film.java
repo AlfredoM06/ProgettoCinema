@@ -38,7 +38,7 @@ public class Film implements Serializable {
 
 	@NotNull
 	@Column(nullable = false)
-	private LocalDate data_di_uscita;
+	private LocalDate dataDiUscita;
 
 	@NotEmpty
 	@Column(length = 1500, nullable = false)

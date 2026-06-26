@@ -20,6 +20,11 @@ public class GestionePartnershipController {
     IRepoPartnership repoPartnership;
     //Form aggiunta, modifica e elimina
 
+    @GetMapping
+    public String gestioneParnership(){
+        return "";
+    }
+
     //form per la crezione
     @GetMapping("/formPartner")
     public String formPartner(Model model) {

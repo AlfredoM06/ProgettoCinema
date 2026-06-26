@@ -20,6 +20,10 @@ public class GestioneProgrammazioneController {
     @Autowired
     private IRepoProgrammazione repoProgrammazione ;
 
+    @GetMapping
+    public String gestioneProgrammazione(){
+        return "";
+    }
 
     //form per la crezione
     @GetMapping("/formProgrammazione")
@@ -40,6 +44,7 @@ public class GestioneProgrammazioneController {
     //modifica
     @GetMapping("/modifica/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
+        //passare tutti i dati necessari con le repo
         model.addAttribute("programmazione", repoProgrammazione.findById(id).get());
         return "";
     }
