@@ -1,10 +1,13 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.Film;
 import it.made.cinema.Model.ProgrammazioneFilm;
+import it.made.cinema.Model.DTO.ListaFilmDTO;
 import it.made.cinema.Model.DTO.ListaProgDTO;
 import it.made.cinema.Repository.IRepoProgrammazione;
 import jakarta.validation.Valid;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,8 +68,14 @@ public class GestioneProgrammazioneController {
         return "";
     }
     @GetMapping("/programmazione")
-    public @ResponseBody List<ListaProgDTO> listaProgrammazione(){
-    	List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findAll();
+    public @ResponseBody List<ListaProgDTO> ricercaProgrammazione(@RequestParam(name = "Giorno", required = false) LocalDate dataProgrammazione){
+    	List<ProgrammazioneFilm> programmazioni=null;
+    	if(dataProgrammazione!=null) {
+    		programmazioni = repoProgrammazione.findByDataProgrammazione(dataProgrammazione);
+    	}
+    	else {
+    		programmazioni = repoProgrammazione.findAll();
+    	}
     	List<ListaProgDTO> programmazioneDTO = new ArrayList<>();
     	for (ProgrammazioneFilm programmazione : programmazioni) {
     		programmazioneDTO.add(new ListaProgDTO(
@@ -80,4 +89,5 @@ public class GestioneProgrammazioneController {
     	}
     	return programmazioneDTO;
     }
+
 }
