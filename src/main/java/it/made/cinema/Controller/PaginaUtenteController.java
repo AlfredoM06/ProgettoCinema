@@ -22,6 +22,7 @@ public class PaginaUtenteController {
 
 
     //Le card se le accolla alfredo e ci deve stare
+    //fare metodi direttamente qui per le card sia punti quindi membership sia ricaricabili.
     // P.S. Qunado fai la card myS&G ti danno punti di benvenuto, all'acquisto della card/abbonamento si riceveranno punti da aggiungere alla myS&G;
     // la carta punti e le carte ricaricabili sono due entità separate.
     // Le carte ricariabili saranno ad uso singolo: nel senso che se scade o finisci gli usi limitati, le opzioni sono due:

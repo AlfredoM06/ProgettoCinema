@@ -33,6 +33,10 @@ public class Utente {
 	private String ruolo;
 	@NotEmpty
 	@Column(nullable=false)
-	private boolean membership;
+	private boolean membership;//carta punti
+	// attributo integer punti membership per i calcoli sui punti
+	// attributo string nomeCarta
+	// 2 date 1 di scadenza e 1 di acquisto delle card ricaricabili
+	// integer utilizzi delle card
 	
 }
