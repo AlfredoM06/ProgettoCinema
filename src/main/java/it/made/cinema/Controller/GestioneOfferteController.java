@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin/gestioneOfferte")
 public class GestioneOfferteController {
@@ -17,7 +19,9 @@ public class GestioneOfferteController {
     //Form aggiunta, modifica e elimina
 
     @GetMapping
-    public String gestioneOfferte(){
+    public String gestioneOfferte(Model model){
+        List<Offerta> listaOfferte = repoOfferte.findAll();
+        model.addAttribute("lista", listaOfferte);
         return "gestionale-offerte";
     }
 

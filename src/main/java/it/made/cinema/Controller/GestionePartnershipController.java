@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin/gestionePartnership")
 public class GestionePartnershipController {
@@ -21,7 +23,9 @@ public class GestionePartnershipController {
     //Form aggiunta, modifica e elimina
 
     @GetMapping
-    public String gestioneParnership(){
+    public String gestionePartnership(Model model){
+        List<Partnership> listaPartnership = repoPartnership.findAll();
+        model.addAttribute("listaPartnership", listaPartnership);
         return "";
     }
 
