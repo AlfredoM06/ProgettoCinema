@@ -4,6 +4,9 @@ import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoUtenti;
 import jakarta.validation.Valid;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +21,9 @@ public class GestioneUtentiController {
     IRepoUtenti repoUtenti;
 
     @GetMapping
-    public String gestioneUtenti(){
+    public String gestioneUtenti(Model model){
+    	List<Utente> listaUtenti= repoUtenti.findAll();
+    	model.addAttribute("listaUtenti", listaUtenti);
         return "";
     }
 

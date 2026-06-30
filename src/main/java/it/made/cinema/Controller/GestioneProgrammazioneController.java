@@ -24,7 +24,9 @@ public class GestioneProgrammazioneController {
     private IRepoProgrammazione repoProgrammazione ;
 
     @GetMapping
-    public String gestioneProgrammazione(){
+    public String gestioneProgrammazione(Model model){
+    	List<ProgrammazioneFilm> listaProgrammazione= repoProgrammazione.findAll();
+    	model.addAttribute("listaProgrammazione", listaProgrammazione);
         return "";
     }
 
