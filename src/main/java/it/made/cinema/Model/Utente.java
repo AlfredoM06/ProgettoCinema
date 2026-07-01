@@ -33,15 +33,13 @@ public class Utente {
 	@NotEmpty
 	@Column(length=50, nullable=false)
 	private String ruolo;
-	@NotEmpty
 	@Column(nullable=false)
-	private boolean membership;//carta punti
+	private Boolean membership;//carta punti
 	@NotEmpty
 	@Column(nullable=false)
 	private Integer puntiMembership;
-	@NotEmpty
 	@Column(nullable = false)
-	private boolean cartaRicaricabile;
+	private Boolean cartaRicaricabile;
 	@NotEmpty
 	@Column(length=100,nullable=false)
 	private String nomeCarta;
