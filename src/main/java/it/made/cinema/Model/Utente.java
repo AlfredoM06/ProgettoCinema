@@ -40,6 +40,9 @@ public class Utente {
 	@Column(nullable=false)
 	private Integer puntiMembership;
 	@NotEmpty
+	@Column(nullable = false)
+	private boolean cartaRicaricabile;
+	@NotEmpty
 	@Column(length=100,nullable=false)
 	private String nomeCarta;
 	@NotEmpty
@@ -51,9 +54,5 @@ public class Utente {
 	@NotEmpty
 	@Column(nullable=false)
 	private Integer utilizziCard;
-	// attributo integer punti membership per i calcoli sui punti
-	// attributo string nomeCarta
-	// 2 date 1 di scadenza e 1 di acquisto delle card ricaricabili
-	// integer utilizzi delle card
-	
+
 }
