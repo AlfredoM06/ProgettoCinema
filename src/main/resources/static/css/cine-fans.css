@@ -1,0 +1,316 @@
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.main-content {
+  margin-top: 13rem;
+  padding-left: 14rem;
+  padding-right: 14rem;
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+
+/* =========================
+   INTRO SECTION
+========================= */
+
+.intro h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3.3rem;
+}
+
+.intro p {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+/* =========================
+   SECTION WRAPPER
+========================= */
+
+.cinefans-section {
+  margin-top: 3rem;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.product-wrapper {
+  margin-top: 6rem;
+  row-gap: 2rem;
+}
+
+/* CARD BASE */
+.product-wrapper .card {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+/* IMAGE WRAPPER */
+.product-wrapper .card-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* IMAGE */
+.product-wrapper .card-img-top {
+  width: 28rem;
+  max-width: 100%;
+}
+
+/* TEXT */
+.product-wrapper .card-body {
+  padding-top: 1rem;
+  color: white;
+}
+
+.product-wrapper .card-title {
+  font-size: 1.9rem;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.product-wrapper .card-text {
+  font-size: 1rem;
+}
+
+/* HOVER EFFECT (SOFT DARKEN) */
+.product-wrapper .card img,
+.product-wrapper .card h3,
+.product-wrapper .card p {
+  transition: all 0.3s ease;
+}
+
+.product-wrapper .card:hover img,
+.product-wrapper .card:hover h3,
+.product-wrapper .card:hover p {
+  filter: brightness(0.7);
+}
+
+/* =========================
+   ICON SYSTEM (TABLE)
+========================= */
+
+.icon {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+/* ICON STACK */
+.icon i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* CIRCLE */
+.icon .fa-circle {
+  font-size: 2.5rem;
+}
+
+/* SYMBOL */
+.icon .fa-check,
+.icon .fa-xmark {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* COLORS */
+.icon-check .fa-circle {
+  color: #28a745;
+}
+
+.icon-cross .fa-circle {
+  color: #dc3545;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+  margin-top: 4rem;
+}
+
+.table-description {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.custom-table th,
+.custom-table td {
+  text-align: center;
+  padding: 1rem;
+  color: white;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-right: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.custom-table td:first-child {
+  text-align: left;
+}
+
+.custom-table,
+.custom-table thead,
+.custom-table tbody,
+.custom-table tr,
+.custom-table th,
+.custom-table td {
+  background-color: #1c252e !important;
+}
+
+.table-plan-img {
+  width: 12rem;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   MODAL LAYOUT
+========================= */
+
+.modal-content {
+  background-color: var(--background-div);
+  border: none;
+  color: white;
+}
+
+.modal-dialog {
+  max-width: 85rem;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+/* ALLINEAMENTO COLONNE MODAL */
+.modal-body .row {
+  align-items: flex-start;
+}
+
+/* =========================
+   MODAL MEDIA (LEFT SIDE)
+========================= */
+
+.media-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-img {
+  width: 43.75rem; /* ~700px */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* =========================
+   MODAL INFO (RIGHT SIDE)
+========================= */
+
+.info-wrapper {
+  text-align: left;
+}
+
+/* TITLE + PRICE */
+.title-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* gap: 0.3rem; */
+  /* margin-bottom: 1rem; */
+}
+
+.title-price h3,
+.title-price p {
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.title-price h3 {
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+
+.title-price p {
+  font-size: 2rem;
+}
+
+/* DIVIDER */
+.divider {
+  height: 2px;
+  background-color: white;
+  margin: 1rem 0 1.5rem 0;
+}
+
+/* BUTTON */
+.add-cart-btn {
+  margin-bottom: 1.5rem;
+}
+
+/* DESCRIPTION */
+.description p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* NOTE */
+.note p {
+  color: var(--title);
+  font-size: 0.95rem;
+  font-size: 1.1rem;
+}
+
+/* =========================
+   ACCORDION (MODAL)
+========================= */
+
+.custom-accordion .accordion-item {
+  background: transparent;
+  border: none;
+}
+
+.custom-accordion .accordion-button {
+  background: transparent;
+  color: white;
+  box-shadow: none;
+  padding-left: 0;
+}
+
+.custom-accordion .accordion-button::after {
+  filter: invert(1);
+}
+
+.custom-accordion .accordion-body {
+  background: transparent;
+  color: white;
+  padding-left: 0;
+}

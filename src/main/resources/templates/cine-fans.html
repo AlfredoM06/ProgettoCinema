@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineFans</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/cine-fans.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/freccia.css}">
+</head>
+
+<body>
+
+<!--NAVBAR-->
+<header>
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: admin"></div>
+</header>
+
+<!--CONTENUTO CARD-->
+<main class="main-content">
+
+    <div class="container">
+
+        <!-- TITLE -->
+        <section class="intro text-center">
+            <h2>CINEFANS</h2>
+            <p><strong> la tua Cinefans, la carta prepagata che ti offre 5 ingressi al cinema.</strong></p>
+            <p>Scegli la tipologia di carta che preferisci e converti gli ingressi direttamente in biglietti, sul nostro
+                sito, e alle casse dei cinema.</p>
+        </section>
+
+        <!-- PRODUCTS + TABLE -->
+        <section class="cinefans-section" aria-label="Elenco Cinefans disponibili">
+
+            <div class="row product-wrapper">
+
+                <!-- CARD 1 -->
+                <article class="col-md-4">
+                    <div class="card" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#cineModal"
+                         data-title="Cinefans Basic (Lun-Ven)" data-price="30,00 €" data-img="img/card_basic.webp"
+                         data-desc="La prepagata include 5 biglietti per film in 2D e 3D validi dal lunedì al venerdì."
+                         data-acc1="La Cinefans Basic include 5 biglietti validi per le proiezioni in 2D e 3D. Non è valida per le poltrone VIP, contenuti alternativi e sale speciali (IMAX e 4K).
+                            Gli occhialini per le proiezioni 3D possono essere acquistati presso le casse del cinema o sul nostro sito"
+                         data-acc2="La Cinefans Basic è valida dal lunedì al venerdì. Si possono utilizzare fino a tre ingressi al giorno e fino a tre ingressi per lo stesso film. La sua validità è di 1 anno dall'acquisto."
+                         data-acc3="Riceverai tutte le informazioni e i codici tramite email e sui miei biglietti.Non è prevista l'emissione di una carta fisica.">
+
+
+                        <figure>
+                            <img src="img/card_basic.webp" class="card-img-top" alt="Cinefans Basic">
+                        </figure>
+
+                        <div class="card-body text-center">
+                            <h2 class="card-title">CINEFANS BASIC</h2>
+                            <p><strong>30,00 €</strong></p>
+                        </div>
+
+                    </div>
+                </article>
+
+                <!-- CARD 2 -->
+                <article class="col-md-4">
+                    <div class="card" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#cineModal"
+                         data-title="Cinefans Plus (Lun-Sab)" data-price="40,00 €" data-img="img/card_plus.webp"
+                         data-desc="La prepagata che include 5 biglietti per film in 2D e 3D validi dal lunedì al sabato"
+                         data-acc1="La Cinefans PLUS include 5 biglietti validi per proiezioni in 2D e 3D, dal lunedì al sabato. Non è valida per le poltrone VIP e contenuti alternativi e sale speciali (IMAX e 4K).
+                Gli occhialini per proiezioni 3D, iSense 3D, Screen X 3D and IMAX 3D possono essere acquistati presso le casse del cinema o sul nostro sito"
+                         data-acc2="La Cinefans Basic è valida dal lunedì al sabato. Si possono utilizzare fino a tre ingressi al giorno e fino a tre ingressi per lo stesso film. La sua validità è di 1 anno dall'acquisto."
+                         data-acc3="Riceverai tutte le informazioni e i codici tramite email e sui miei biglietti.Non è prevista l'emissione di una carta fisica.">
+
+                        <figure>
+                            <img src="img/card_plus.webp" class="card-img-top" alt="Cinefans Plus">
+                        </figure>
+
+                        <div class="card-body text-center">
+                            <h2 class="card-title">CINEFANS PLUS</h2>
+                            <p><strong>40,00 €</strong></p>
+                        </div>
+
+                    </div>
+                </article>
+
+                <!-- CARD 3 -->
+                <article class="col-md-4">
+                    <div class="card" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#cineModal"
+                         data-title="All You Can See (Lun-Dom)" data-price="99,00 €" data-img="img/abbonamento_annuale..webp"
+                         data-desc="La prepagata che include la visione di 1anno per film in 2D e 3D validi anche per le sale IMAX e 4K."
+                         data-acc1="La Cinefans ALL YOU CAN SEE include 1 anno per proiezioni in 2D e 3D, tutti i giorni, inclusi gli spettacoli nelle sale IMAX e 4K. Non è valida per le poltrone VIP e contenuti alternativi.
+                Gli occhialini per proiezioni 3D, iSense 3D, Screen X 3D and IMAX 3D possono essere acquistati presso le casse del cinema o sul nostro sito"
+                         data-acc2="La Cinefans Basic è valida tutti i giorni. Si possono utilizzare fino a tre ingressi al giorno e fino a tre ingressi per lo stesso film. La sua validità è di 1 anno dall'acquisto."
+                         data-acc3="Riceverai tutte le informazioni e i codici tramite email e sui miei biglietti.Non è prevista l'emissione di una carta fisica.">
+
+                        <figure>
+                            <img src="img/abbonamento_annuale..webp" class="card-img-top" alt="All You Can See">
+                        </figure>
+
+                        <div class="card-body text-center">
+                            <h2 class="card-title">ALL YOU CAN SEE</h2>
+                            <p><strong>99,00 €</strong></p>
+                        </div>
+
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- TABLE -->
+        <div class="table-wrapper">
+
+            <p class="text-center table-description">
+                <strong> Confronta le Cinefans, per trovare quella più adatta alle tue esigenze.</strong>
+            </p>
+
+            <div class="table-responsive">
+                <table class="table custom-table">
+
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th><img src="img/card_basic.webp" class="table-plan-img" alt="basic">CINEFANS BASIC</th>
+                        <th><img src="img/card_plus.webp" class="table-plan-img" alt="plus">CINEFANS PLUS</th>
+                        <th><img src="img/abbonamento_annuale..webp" class="table-plan-img" alt="allyoucansee"> ALL YOU CAN
+                            SEE</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Ingressi</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>1 anno</td>
+                    </tr>
+
+                    <tr>
+                        <td>Giorni</td>
+                        <td>Lunedì - Venerdì</td>
+                        <td>Lunedì - Sabato</td>
+                        <td>Lunedì - Domenica</td>
+                    </tr>
+
+                    <tr>
+                        <td>FILM 3D</td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                    </tr>
+
+                    <tr>
+                        <td>FILM 2D</td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                    </tr>
+
+                    <tr>
+                        <td>SALE IMAX</td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                    </tr>
+
+                    <tr>
+                        <td>SALE 4K</td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                        <td><span class="icon icon-check">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-check"></i>
+                    </span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Poltrone Vip</td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                        <td><span class="icon icon-cross">
+                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-xmark"></i>
+                    </span></td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div class="modal fade" id="cineModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+
+            <section class="modal-body">
+                <div class="row">
+
+                    <!-- MEDIA -->
+                    <figure class="col-md-7 media-wrapper">
+                        <img id="modal-img" class="modal-img" src="" alt="Cinefans">
+                    </figure>
+
+                    <!-- INFO -->
+                    <section class="col-md-5 info-wrapper">
+                        <div class="title-price">
+                            <h3 id="modal-title"></h3>
+                            <p id="modal-price"></p>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <button class="btn btn-light add-cart-btn">
+                            Aggiungi al carrello
+                        </button>
+                        <section class="description">
+                            <strong><p id="modal-desc"></p></strong>
+                        </section>
+                        <aside class="note">
+                            <p>
+                                La tua Cinefans acquistata online potrebbe impiegare fino a 1 ora per attivarsi. Nel caso riscontrassi errori nell'utilizzo ti consigliamo di riprovare circa 1h dopo la finalizzazione dell'acquisto
+                            </p>
+                        </aside>
+
+                        <!-- ACCORDION -->
+                        <section class="accordion custom-accordion" aria-label="Informazioni Cinefans">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#a1">
+                                        <strong> include questa Cinefans?</strong>
+                                    </button>
+                                </h2>
+                                <div id="a1" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="accordion-body" id="acc-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#a2">
+                                        <strong>Quando è valida?</strong>
+                                    </button>
+                                </h2>
+
+                                <div id="a2" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="accordion-body" id="acc-2"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#a3">
+                                        <Strong>Come riceverò la mia Cinefans?</strong>
+                                    </button>
+                                </h2>
+                                <div id="a3" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="accordion-body" id="acc-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div th:replace="fragments/footer :: content"></div>
+<div th:replace="fragments/footer :: social"></div>
+<div th:replace="fragments/footer :: copyright"></div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/cine-fans.js"></script>
+
+</body>
+
+</html>
