@@ -1,4 +1,4 @@
-let cards = document.querySelectorAll('.card');
+let cards = document.querySelectorAll('.filmCard');
 
 let moviePage = document.createElement('div');
 moviePage.classList.add('movie-page');
@@ -113,13 +113,13 @@ function animateDescriptionLines(container, text) {
 // ======================================================
 // OPEN MOVIE
 // ======================================================
-function openMovie(card) {
+function openMovie(filmCard) {
   document.body.classList.add("no-navbar");
   moviePage.classList.remove('active');
 
-  let title = card.dataset.title;
-  let desc = card.dataset.desc;
-  let img = card.dataset.img;
+  let title = filmCard.dataset.title;
+  let desc = filmCard.dataset.desc;
+  let img = filmCard.dataset.img;
 
   moviePage.innerHTML = `
     <div class="hero" style="background-image: url('${img}')"></div>
@@ -229,6 +229,6 @@ moviePage.addEventListener('click', (e) => {
 }
 
 // EVENTS
-cards.forEach(card => {
-  card.addEventListener('click', () => openMovie(card));
+cards.forEach(filmCard => {
+  filmCard.addEventListener('click', () => openMovie(filmCard));
 });

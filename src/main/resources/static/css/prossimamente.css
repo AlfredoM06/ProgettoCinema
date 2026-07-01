@@ -37,7 +37,7 @@ body {
    3. CARD FILM
    Struttura e animazione entrata
 ========================================================= */
-.card {
+.filmCard {
   width: 170px;
   height: 550px;
   position: relative;
@@ -46,14 +46,14 @@ body {
 }
 
 /* delay animazioni */
-.card:nth-child(1) { animation-delay: 0.1s; }
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.3s; }
-.card:nth-child(4) { animation-delay: 0.4s; }
-.card:nth-child(5) { animation-delay: 0.5s; }
+.filmCard:nth-child(1) { animation-delay: 0.1s; }
+.filmCard:nth-child(2) { animation-delay: 0.2s; }
+.filmCard:nth-child(3) { animation-delay: 0.3s; }
+.filmCard:nth-child(4) { animation-delay: 0.4s; }
+.filmCard:nth-child(5) { animation-delay: 0.5s; }
 
 /* immagini base */
-.card img {
+.filmCard img {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -74,11 +74,11 @@ body {
 }
 
 /* delay tendina */
-.card:nth-child(1) .img-gray { animation-delay: 0.1s; }
-.card:nth-child(2) .img-gray { animation-delay: 0.3s; }
-.card:nth-child(3) .img-gray { animation-delay: 0.6s; }
-.card:nth-child(4) .img-gray { animation-delay: 0.9s; }
-.card:nth-child(5) .img-gray { animation-delay: 1.2s; }
+.filmCard:nth-child(1) .img-gray { animation-delay: 0.1s; }
+.filmCard:nth-child(2) .img-gray { animation-delay: 0.3s; }
+.filmCard:nth-child(3) .img-gray { animation-delay: 0.6s; }
+.filmCard:nth-child(4) .img-gray { animation-delay: 0.9s; }
+.filmCard:nth-child(5) .img-gray { animation-delay: 1.2s; }
 
 /* immagine hover */
 .img-color {
@@ -89,7 +89,7 @@ body {
 }
 
 /* hover */
-.card:hover .img-color {
+.filmCard:hover .img-color {
   transform: scaleY(1.1);
   clip-path: inset(0 0 0 0);
 }

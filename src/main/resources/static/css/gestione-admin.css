@@ -137,20 +137,6 @@ section .section-title {
 }
 
 /* =========================
-   DROPDOWN
-========================= */
-
-.accountDrop {
-    background-color: transparent;
-    border-color: transparent;
-    --bs-dropdown-link-active-bg: rgba(0,0,0,0.5);
-}
-
-.dropdown-item.active {
-    border: 1px solid var(--border-color);
-}
-
-/* =========================
    SELECT
 ========================= */
 

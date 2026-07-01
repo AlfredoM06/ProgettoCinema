@@ -261,12 +261,14 @@
     transition: transform 0.6s ease;
 }
 
-.card-icon i {
-    color: white;
-    font-size: 2.5rem;
+/* 👇 QUI LA FIX */
+.card-icon img.icon-svg {
+    width: 2.7rem;
+    height: 2.7rem;
+    filter: brightness(0) invert(1);
     transition: transform 0.6s ease;
 }
 
-.card:hover .card-icon i {
+.card:hover .card-icon img.icon-svg {
     transform: rotate(-360deg);
 }

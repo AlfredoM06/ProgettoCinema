@@ -2,27 +2,83 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<header th:fragment="navbar" id="return">
-    <a th:href="@{/}"><img class="logo" th:src="@{/img/Cinema_Logo.png}"></img></a>
-    <ul class="nav">
-        <li><a th:href="@{/inSala}">In Sala</a></li>
-        <li><a th:href="@{/prossimamente}">Prossimamente</a></li>
-        <li><a th:href="@{/membership}">Membership</a></li>
-        <li><a th:href="@{/offerte}">Offerte</a></li>
-        <li><a th:href="@{/shop}">CineFans</a></li>
-    </ul>
-    <ul class="navbar-nav">
-        <li>
-            <a class="nav-link" th:href="@{/SignIn.html}">Accedi</a>
-        </li>
-    </ul>
-</header>
+<div th:fragment="logo">
+    <a th:href="@{/}">
+        <img class="logo" th:src="@{/img/Cinema_Logo.png}">
+    </a>
+</div>
+
+<ul class="nav" th:fragment="menu">
+    <li><a th:href="@{/inSala}">In Sala</a></li>
+    <li><a th:href="@{/prossimamente}">Prossimamente</a></li>
+    <li><a th:href="@{/membership}">Membership</a></li>
+    <li><a th:href="@{/offerte}">Offerte</a></li>
+    <li><a th:href="@{/shop}">Shop</a></li>
+</ul>
+
+<ul class="navbar-nav" th:fragment="anonimo">
+    <li>
+        <a class="nav-link" th:href="@{/SignIn}">Accedi</a>
+    </li>
+</ul>
+
+<ul class="navbar-nav" th:fragment="user">
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            <img class="user-icon"
+                 th:src="@{/img/icona_profilo-utente.svg}"
+                 alt="user icon">
+        </a>
+
+        <ul class="dropdown-menu accountDrop">
+            <li><a class="dropdown-item" th:href="@{/}">Account</a></li>
+            <li><a class="dropdown-item" th:href="@{/}">Carrello</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button class="dropdown-item" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+
+</ul>
+
+<ul class="navbar-nav" th:fragment="admin">
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            <img class="user-icon"
+                 th:src="@{/img/icona_admin_user.svg}"
+                 alt="admin icon">
+        </a>
+
+        <ul class="dropdown-menu accountDrop">
+            <li><a class="dropdown-item" th:href="@{/profilo}">Account</a></li>
+            <li><a class="dropdown-item" th:href="@{/GestioneFilm}">Gestione Film</a></li>
+            <li><a class="dropdown-item" th:href="@{/gestionale-offerte}">Gestione Offerte</a></li>
+            <li><a class="dropdown-item" th:href="@{/}">Gestione Partnership</a></li>
+            <li><a class="dropdown-item" th:href="@{/}">Gestione Utenti</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button class="dropdown-item" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+
+</ul>
 </body>
 </html>
 
-<!--<header th:fragment="navbar" id="return"-->
-<!--        xmlns:th="http://www.thymeleaf.org"-->
-<!--        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--NAVBAR CON AUTENTICAZIONE SPRING SECURITY-->
+<!--<header th:fragment="navbar" id="return">-->
+<!--&lt;!&ndash;        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">&ndash;&gt;-->
 
 <!--    <a th:href="@{/}">-->
 <!--        <img class="logo" th:src="@{/img/Cinema_Logo.png}">-->
@@ -50,8 +106,8 @@
 <!--            &lt;!&ndash; 👤 ICONA DINAMICA &ndash;&gt;-->
 <!--            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">-->
 <!--                <i class="fa-solid"-->
-<!--                   th:classappend="${#authorization.expression('hasRole(''ADMIN'')')} -->
-<!--                                   ? ' fa-user-tie' -->
+<!--                   th:classappend="${#authorization.expression('hasRole(''ADMIN'')')}-->
+<!--                                   ? ' fa-user-tie'-->
 <!--                                   : ' fa-user'">-->
 <!--                </i>-->
 <!--            </a>-->

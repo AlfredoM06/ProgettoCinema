@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <!-- CSS -->
     <link rel="stylesheet" href="./css/root.css">
     <link rel="stylesheet" href="./css/navbar.css">
@@ -13,39 +16,26 @@
 </head>
 
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<!--NAVBAR-->
+<header>
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: user"></div>
+</header>
+
+<!--GRIGLIA FILM-->
 <div class="grid" > 
 
-    <div class="card" th:each="film : ${filmProssimamente}" th:data-title="${film.titolo}"
+    <div class="filmCard" th:each="film : ${filmProssimamente}" th:data-title="${film.titolo}"
          th:data-desc="${film.descrizione}"
          th:data-img="${film.img_cover}">
         <img class="img-gray" alt="incolore" th:src="${film.img_poster}">
         <img class="img-color" alt="a colori" th:src="${film.img_poster}">
     </div>
 
-    <!--<div class="card" data-movie="mario" data-title="Star wars: The mandalorian and grogu"
-         data-desc="Il Mandaloriano e Grogu intraprendono la loro missione più avvincente in Star Wars: Il Mandaloriano e Grogu di Lucasfilm, una nuovissima avventura di Star Wars in uscita esclusivamente al cinema il 22 maggio 2026. Il malvagio Impero è caduto e i signori della guerra imperiali sono sparsi per la galassia. La neonata Nuova Repubblica lavora per proteggere tutto ciò per cui la Ribellione ha combattuto e si è assicurata l'aiuto del leggendario cacciatore di taglie mandaloriano Din Djarin (Pedro Pascal) e del suo giovane apprendista Grogu."
-         data-img="./img/mandalorian_grogu_cover.jpg">
-        <img class="img-gray" alt="Mandalorian incolore" src="./img/mandalorian_grogu_poster.jpg">
-        <img class="img-color" alt="Mandalorian a colori" src="./img/mandalorian_grogu_poster.jpg">
-    </div>
-
-    <div class="card" data-movie="scream" data-title="Scream 7" data-desc="Scream 7" data-img="./img/scream7_cover.jpg">
-        <img class="img-gray" alt="Scream 7 incolore" src="./img/scream7_poster.jpg">
-        <img class="img-color" alt="Scream 7 colori" src="./img/scream7_poster.jpg">
-
-    </div>
-
-    <div class="card" data-movie="avatar2" data-title="Avatar: The Way of Water"
-         data-desc="Jake Sully e Neytiri affrontano nuove minacce per proteggere Pandora."
-         data-img="./img/avatar2_cover.jpg">
-        <img class="img-gray" alt="Avatar incolore" src="./img/avatar2_poster.png">
-        <img class="img-color" alt="Avatar a colori" src="./img/avatar2_poster.png">
-    </div> -->
-
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./js/prossimamente.js"></script>
 </body>
 </html>

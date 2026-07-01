@@ -12,12 +12,12 @@
 
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/root.css}">
-    <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
     <link rel="stylesheet" th:href="@{/css/bannerBootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/Homepage.css}">
     <link rel="stylesheet" th:href="@{/css/offers-banner.css}">
     <link rel="stylesheet" th:href="@{/css/titoloLinea.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/freccia.css}">
 
 
@@ -30,7 +30,11 @@
 
 <body>
 <!--NAVBAR-->
-<div th:replace="fragments/navbar :: navbar"></div>
+<header>
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: anonimo"></div>
+</header>
 <!--BANNER-->
 <div class="banner">
     <div class="content Dragon active">

@@ -110,6 +110,52 @@ header .nav {
 }
 
 /* =========================
+   NAVBAR DROPDOWN
+========================= */
+header .accountDrop {
+	background-color: rgba(0, 0, 0, 0);
+	border-color: rgba(0, 0, 0, 0);
+	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
+}
+
+header .accountDrop .dropdown-item {
+    color: white;
+}
+
+header .accountDrop .dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+header .accountDrop .dropdown-item.active {
+	border: 1px solid #9e8f2b;
+}
+
+.accountDrop .dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* =========================
+   ICONA PROFILO
+========================= */
+.user-icon-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+/* ICONA SVG */
+.user-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    filter: brightness(0) invert(1);
+    cursor: pointer;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* =========================
    NAVBAR RIMOSSA 
 ========================= */
 
