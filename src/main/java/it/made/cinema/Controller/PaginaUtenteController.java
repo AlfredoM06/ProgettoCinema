@@ -38,7 +38,7 @@ public class PaginaUtenteController {
     //2) Se ha acquistato una card(ricaricabile) e o abbonamento.
 	@GetMapping("/abbonamento/{id}")
 	public Boolean abbonamento(@PathVariable Integer id){
-		Optional<Utente> utenteOpt= repoUtenti.findById(id);
+		Optional<Utente> utenteOpt = repoUtenti.findById(id);
 		if(utenteOpt.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato");
 		}
@@ -48,7 +48,17 @@ public class PaginaUtenteController {
 	}
     //3) Cambiare i suoi dati tipo l'email.
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.
-    //5) Card myS&G (carta con punti ottunuti).
+    //5) Card myS&G (carta con punti ottenuti).
+	@GetMapping("/punti/{id}")
+	public Integer puntiMembership(@PathVariable Integer id) {
+		Optional<Utente> utenteOpt = repoUtenti.findById(id);
+		if(utenteOpt.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato");
+		}
+		Utente utente = utenteOpt.get();
+		Integer nPunti = utente.getPuntiMembership();
+		return nPunti;
+	}
     //6) Biglietto omaggio per il tuo compleanno da usare entro i 6 giorni successivi alla data di comp.(controller membership)
     //7) Prezzo base bliglietto 7 euro, prezzo con card myUCI è 5 euro.(controller membership)
         @GetMapping("/prezzoBiglietto/{id}")
@@ -63,7 +73,6 @@ public class PaginaUtenteController {
             } else {
                 prezzo = film.getPrezzo();
             }
-
             return prezzo;
         }
     //8) C'è lo sconto al bar del 10% sui gadget relativi ad un film (se hai la card punti,controller membership).

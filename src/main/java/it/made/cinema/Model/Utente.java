@@ -26,6 +26,12 @@ public class Utente {
 	private String username;
 	@NotEmpty
 	@Column(length=50, nullable=false)
+	private String nome;
+	@NotEmpty
+	@Column(length=50, nullable=false)
+	private String cognome;
+	@NotEmpty
+	@Column(length=50, nullable=false)
 	private String password;
 	@NotEmpty
 	@Column(length=70, nullable=false)
@@ -52,5 +58,10 @@ public class Utente {
 	@NotEmpty
 	@Column(nullable=false)
 	private Integer utilizziCard;
-
+	@NotEmpty
+	@Column(nullable=false)
+	private LocalDate dataNascita;
+	@NotEmpty
+	@Column
+	private Integer annoUltimaMailCompleanno;
 }
