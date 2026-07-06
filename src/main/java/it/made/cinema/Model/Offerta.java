@@ -33,7 +33,7 @@ public class Offerta {
 	@Column(length=500, nullable=false)
 	private String descrizione;
 	@Column
-	private BigDecimal prezzo;
+	private Double prezzo;
 	@NotEmpty
 	@Column(length=1000, nullable=false)
 	private String imgBanner;

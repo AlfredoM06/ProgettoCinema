@@ -25,7 +25,11 @@
 </head>
 
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<header>
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: anonimo"></div>
+</header>
 
 <main class="container py-5">
     <div class="row g-4 justify-content-center align-items-start g-4">

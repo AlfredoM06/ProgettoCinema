@@ -7,6 +7,7 @@ import it.made.cinema.Model.DTO.ListaGenereDTO;
 import it.made.cinema.Model.DTO.ListaProgDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
+import it.made.cinema.Service.PrezzoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,8 @@ public class InSalaController {
     private IRepoFilm repoFilm;
     @Autowired
     private IRepoGeneri repoGeneri;
+    @Autowired
+    PrezzoService prezzoService;
 
     //dettagli di un film
     @GetMapping("/dettagli/{id}")
