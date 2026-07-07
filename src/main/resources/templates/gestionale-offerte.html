@@ -25,7 +25,11 @@
 
 <body>
 <!--NAVBAR-->
-    <div th:replace="fragments/navbar :: navbar"></div>
+<header id="return">
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: admin"></div>
+</header>
 
 <!--FORM + TABLE-->
     <main th:replace="~{fragments/gestionali :: formOfferte}"></main>

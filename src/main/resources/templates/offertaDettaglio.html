@@ -22,7 +22,11 @@
 
 <body>
 <!--NAVBAR-->
-<div th:replace="fragments/navbar :: navbar"></div>
+<header id="return">
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: admin"></div>
+</header>
 <!--HERO-->
 <section class="hero-custom">
     <img th:src="@{/img/prova.jfif}">
