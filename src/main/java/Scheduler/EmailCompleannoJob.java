@@ -37,16 +37,31 @@ public class EmailCompleannoJob {
 			Boolean giaMandataQuestAnno = utente.getAnnoUltimaMailCompleanno() != null
 					&& utente.getAnnoUltimaMailCompleanno() == oggi.getYear();
 			
+			Boolean membro = utente.getMembership();
+			
 		if(compleanno && !giaMandataQuestAnno) {
+			if(membro) {
 			SimpleMailMessage messaggio = new SimpleMailMessage();
 			messaggio.setTo(utente.getEmail());
 			messaggio.setSubject("Buon compleanno, " + utente.getNome()+" "+utente.getCognome()+"!");
 			messaggio.setText("Tanti auguri da tutto lo staff di Siediti & Guarda! Per questo evento straordinario abbiamo deciso di regalarti un codice omaggio da poter utilizzare fino al "+ scadenza 
-			+" per gustarti un film gratuitamente! Il codice omaggio è: Capocchiabagnata ");
+			+" per gustarti un film gratuitamente! Il codice omaggio è: Freefilm\nInoltre dato che sei membro S&G ecco a te il codice da inserire per avere punti sulla nostra carta membership: addpoints");
 			mailSender.send(messaggio);
 			
 			utente.setAnnoUltimaMailCompleanno(oggi.getYear());
 			repoUtenti.save(utente);
+				}
+			else {
+				SimpleMailMessage messaggio = new SimpleMailMessage();
+				messaggio.setTo(utente.getEmail());
+				messaggio.setSubject("Buon compleanno, " + utente.getNome()+" "+utente.getCognome()+"!");
+				messaggio.setText("Tanti auguri da tutto lo staff di Siediti & Guarda! Per questo evento straordinario abbiamo deciso di regalarti un codice omaggio da poter utilizzare fino al "+ scadenza 
+				+" per gustarti un film gratuitamente! Il codice omaggio è: Freefilm");
+				mailSender.send(messaggio);
+				
+				utente.setAnnoUltimaMailCompleanno(oggi.getYear());
+				repoUtenti.save(utente);
+			}
 			}
 		}
 	}
