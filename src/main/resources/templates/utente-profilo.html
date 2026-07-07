@@ -22,7 +22,7 @@
     <header id="return">
         <div th:replace="fragments/navbar :: logo"></div>
         <div th:replace="fragments/navbar :: menu"></div>
-        <div th:replace="fragments/navbar :: utente"></div>
+        <div th:replace="fragments/navbar :: user"></div>
     </header>
 
     <!-- CONTENUTO PAGINA -->
@@ -34,7 +34,7 @@
             <!-- ========================= -->
             <aside class="sidebar">
 
-                <h2>Ciao <span th:text="${user.nome}">Mario</span></h2>
+               <!-- <h2>Ciao <span th:text="${user.nome}">Mario</span></h2> -->
 
                 <!-- PANORAMICA -->
                 <section>
