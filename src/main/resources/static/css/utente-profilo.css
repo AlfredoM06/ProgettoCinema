@@ -1,0 +1,874 @@
+/* ========================= */
+/* BASE */
+/* ========================= */
+
+body {
+    background-color: var(--background-page);
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+/* reset liste */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+/* ========================= */
+/* LAYOUT */
+/* ========================= */
+
+.account-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1%;
+    margin-top: 10rem;
+}
+
+.sidebar {
+    width: 15%;
+    margin-top: 5rem;
+}
+
+.content-area {
+    width: 60%;
+}
+
+.content-box {
+    background-color: #111821;
+    padding: 2rem;
+}
+
+
+/* ========================= */
+/* TYPOGRAPHY */
+/* ========================= */
+
+h3 {
+    font-size: .87rem;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--secondary);
+}
+
+
+/* ========================= */
+/* SIDEBAR BUTTONS */
+/* ========================= */
+
+.menu-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.20rem;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    background-color: var(--background-div);
+    border: none;
+    border-radius: 0.20rem;
+    text-align: left;
+}
+
+.menu-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(80%);
+}
+
+.menu-btn span {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+/* active indicator */
+.menu-btn.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: .375rem;
+    background: linear-gradient(0deg, #dc143c 0, #b88f2a 50%, #9e8f2b);
+    border-radius: .125rem 0 0 .125rem;
+}
+
+
+/* ========================= */
+/* PAGE TITLE */
+/* ========================= */
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.page-title h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.page-title img {
+    width: 2.8rem;
+    height: 2.8rem;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(80%);
+}
+
+
+/* ========================= */
+/* ACCOUNT PANORAMA */
+/* ========================= */
+
+.account-panorama {
+    display: flex;
+    gap: 2rem;
+    padding-bottom: 11.5rem;
+}
+
+.account-left,
+.account-right {
+    width: 50%;
+}
+
+
+/* ========================= */
+/* LOYALTY CARD */
+/* ========================= */
+
+.loyalty-card {
+    background: var(--background-div);
+    margin-top: 1.5rem;
+    padding: 2rem;
+    border-radius: .5rem;
+}
+
+.loyalty-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.loyalty-img img {
+    width: 7rem;
+    height: auto;
+}
+
+.loyalty-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.loyalty-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand,
+.points {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.loyalty-card-number {
+    margin-top: 0.4rem;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+
+/* link sotto card */
+.loyalty-bottom {
+    margin-top: 0.80rem;
+}
+
+.loyalty-link {
+    color: var(--secondary);
+    text-decoration: underline;
+    text-underline-offset: 0.40rem;
+    font-size: 0.95rem;
+    transition: text-decoration-color 0.3s ease;
+}
+
+.loyalty-link:hover {
+    text-decoration-color: var(--text-primary);
+}
+
+
+/* ========================= */
+/* ACCOUNT HEADER */
+/* ========================= */
+
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    background: linear-gradient(0deg, #b74d1c, #f7941e, #eec42a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* edit button */
+.edit-btn {
+    background: none;
+    border: none;
+    color: var(--bs-secondary);
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    transition: color 0.3s ease;
+}
+
+.edit-btn i {
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.edit-btn:hover {
+    color: #fff;
+}
+
+
+/* ========================= */
+/* ACCOUNT FIELDS */
+/* ========================= */
+
+.account-fields {
+    margin: 0;
+}
+
+.field-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.field dt {
+    font-size: 0.80rem;
+    font-weight: 200;
+    opacity: .7;
+}
+
+.field dd {
+    margin: 0;
+    font-size: 1.20rem;
+    font-weight: 400;
+}
+
+/* ========================= */
+/* TICKETS */
+/* ========================= */
+
+.ticket-card {
+    background: var(--background-div);
+    padding: 2rem;
+    border-radius: .5rem;
+    height: 100%;
+}
+
+/* DATA */
+.ticket-date {
+    color: var(--bs-secondary);
+    font-size: 0.9rem;
+}
+
+/* ORARI */
+.ticket-times {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* QR */
+.ticket-qr-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.qrcode {
+    padding: 0.5rem;
+    border: 1px solid var(--bs-secondary);
+    border-radius: 0.3rem;
+    background: #fff;
+}
+
+.codice {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* ========================= */
+/* TICKET FIELDS (stile account) */
+/* ========================= */
+
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+/* già esistenti ma li rifiniamo */
+.ticket-field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* label */
+.ticket-label {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* valore */
+.ticket-value {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* prezzo leggermente più evidenziato */
+.ticket-price {
+    font-weight: 600;
+    color: var(--bs-secondary);
+}
+
+
+/* ========================= */
+/* VOUCHER */
+/* ========================= */
+
+.voucher-layout{
+padding-bottom: 11.1rem;
+}
+
+.voucher-card {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--background-div);
+    padding: 2rem;
+    border-radius: .5rem;
+    align-items: center;
+}
+
+/* immagine grande */
+.voucher-img img {
+    width: 15.4rem;
+    height: auto;
+}
+
+/* info lato testo */
+.voucher-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* header card */
+.voucher-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+/* titolo */
+.voucher-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* giorni disponibilità */
+.voucher-days {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* blocco ingressi */
+.voucher-credits {
+    display: flex;
+    flex-direction: column;
+}
+
+.voucher-label {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.voucher-value {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+
+/* EMPTY STATE */
+
+.empty-state {
+    background: var(--background-div);
+    padding: 2rem;
+    border-radius: .5rem;
+
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+
+/* FORM AREA */
+
+.voucher-form-wrapper {
+    background: var(--background-div);
+    padding: 2rem;
+    border-radius: .5rem;
+}
+
+.voucher-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.voucher-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+
+/* LABEL */
+
+.label-wrapper {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-wrapper label {
+    font-size: 0.95rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 200;
+}
+
+
+/* INPUT WRAPPER */
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+/* input unico (pulito, senza duplicati) */
+.voucher-form input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #fff;
+    padding: 0.6rem 0.8rem;
+    color: var(--text-primary);
+    outline: none;
+}
+
+
+/* HELPER TEXT */
+
+.form-text {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    color: var(--secondary);
+}
+
+/* bottone */
+.voucher-btn {
+    align-self: flex-end;
+    box-shadow: inset 0 0 0 1px var(--border-color);
+    transition: all 0.25s ease;
+    border: none;
+    border-radius: 0;
+
+    width: 12.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    color: #e1e1e1;
+    background: transparent;
+}
+
+.voucher-btn:hover {
+    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+    color: #1c252e;
+
+    box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+        0 0 25px rgba(220, 20, 60, 0.3),
+        0 0 40px rgba(158, 143, 43, 0.2);
+}
+
+
+/* ========================= */
+/* DETTAGLI PERSONALI */
+/* ========================= */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20rem 0 2rem;
+}
+
+/* ogni riga */
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+    width: 100%;
+}
+
+
+.profile-row .input-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.profile-row .input-wrapper .form-control {
+    width: 100%;
+}
+
+/* LABEL */
+.profile-form .form-label {
+    width: 40%;
+    text-align: center;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 200;
+    color: var(--secondary);
+}
+
+/* INPUT GENERICO */
+.profile-form .form-control {
+    width: 60%;
+    background: transparent;
+    border: 1px solid #fff;
+    color: var(--text-primary);
+    border-radius: 0;
+    padding: 1rem 1rem; /* più alto come volevi */
+    min-height: 3.2rem;
+}
+
+
+/* FOCUS (pulito e visibile) */
+.profile-form .form-control:focus {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    box-shadow: 0 0 0 0.2rem rgba(158, 143, 43, 0.25);
+    outline: none;
+}
+
+/* BIRTHDAY */
+.birthday-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    width: 60%;
+}
+
+.birthday-wrapper .form-control {
+    text-align: center;
+    padding: 1rem 0.5rem;
+}
+
+/* limiti visivi */
+.birthday-day,
+.birthday-month {
+    width: 25%;
+}
+
+.birthday-year {
+    width: 50%;
+}
+
+/* HELP TEXT */
+.password-help {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    color: var(--secondary);
+    margin-top: 0.5rem;
+}
+
+/* TITOLI SEZIONE */
+
+.profile-section-title {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    margin-left: 2.5rem;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+/* password title più grande */
+.profile-section-title.big {
+    font-size: 2rem;
+}
+
+/* ACTION BUTTONS */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* btn */
+.save-btn,
+.delete-btn {
+    all: unset;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 12.5rem;
+    padding: 1rem 2rem;
+
+    text-transform: uppercase;
+    cursor: not-allowed;
+
+    color: #e1e1e1;;
+    background: transparent;
+
+    box-shadow: inset 0 0 0 1px var(--border-color);
+    transition: all 0.25s ease;
+
+    opacity: 0.6;
+}
+
+.save-btn.active,
+.delete-btn.active {
+    cursor: pointer;
+    opacity: 1;
+    color: #e1e1e1;
+}
+
+.save-btn.active:hover,
+.delete-btn.active:hover {
+    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+    color: #1c252e;
+}
+
+.save-btn:disabled,
+.delete-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+
+/* hover identico voucher */
+.save-btn:hover,
+.delete-btn:hover {
+    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+    color: #1c252e;
+
+    box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+        0 0 25px rgba(220, 20, 60, 0.3),
+        0 0 40px rgba(158, 143, 43, 0.2);
+}
+
+.save-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: transparent;
+    color: var(--secondary);
+    box-shadow: inset 0 0 0 1px var(--secondary);
+}
+
+
+/* ========================= */
+/* SOCIAL SECTION */
+/* ========================= */
+
+.social-wrapper {
+    padding: 0 18rem 0 2rem;
+}
+
+/* header testo */
+.social-text {
+    font-size: 1.2rem;
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+}
+
+/* lista */
+.social-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* item */
+.social-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+
+    padding: 1.5rem 0;
+}
+
+/* contenuto sinistra */
+.social-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* logo */
+.social-left img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+}
+
+/* testo social */
+.social-left span {
+    font-size: 1rem;
+}
+
+/* separatore */
+.social-item.bordered {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* bottone */
+.connect-btn {
+    justify-self: end;
+}
+
+
+/* ========================= */
+/* MARKETING SECTION */
+/* ========================= */
+
+.marketing-wrapper {
+    padding: 0 18rem 0 2rem;
+}
+
+/* titolo coerente ma leggermente più "importante" */
+.marketing-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    margin-left: 0;
+
+}
+
+/* testo descrizione */
+.marketing-text {
+    font-size: 1.1rem;
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+/* checklist container */
+.marketing-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* singolo item */
+.marketing-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--border-color);
+    border-color: var(--border-color);
+}
+
+.form-check-input:focus {
+    outline: none;
+}
+
+/* checkbox più grande */
+.marketing-checkbox {
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-top: 0.2rem;
+    accent-color: #b88f2a;
+}
+
+/* testo checkbox */
+.marketing-check label {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+}
+
+.save-btn-marketing {
+    align-self: flex-end;
+    box-shadow: inset 0 0 0 1px var(--border-color);
+    transition: all 0.25s ease;
+    border: none;
+    border-radius: 0;
+
+    width: 12.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    color: #e1e1e1;
+    background: transparent;
+}
+
+.save-btn-marketing:hover {
+    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+    color: #1c252e;
+
+    box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+        0 0 25px rgba(220, 20, 60, 0.3),
+        0 0 40px rgba(158, 143, 43, 0.2);
+}

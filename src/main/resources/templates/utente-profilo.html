@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo Utente</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/utente-profilo.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/freccia.css}">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header>
+        <div th:replace="fragments/navbar :: logo"></div>
+        <div th:replace="fragments/navbar :: menu"></div>
+        <div th:replace="fragments/navbar :: utente"></div>
+    </header>
+
+    <!-- CONTENUTO PAGINA -->
+    <div class="container-fluid">
+        <div class="account-wrapper">
+
+            <!-- ========================= -->
+            <!-- SIDEBAR -->
+            <!-- ========================= -->
+            <aside class="sidebar">
+
+                <h2>Ciao <span th:text="${user.nome}">Mario</span></h2>
+
+                <!-- PANORAMICA -->
+                <section>
+                    <ul>
+                        <li>
+                            <button class="menu-btn active" data-target="overview">
+                                <img th:src="@{img/user_profil.svg}" alt="user_profile">
+                                <span>Panoramica dell'account</span>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- PORTAFOGLIO -->
+                <section>
+                    <h3>Il mio portafoglio</h3>
+                    <ul>
+                        <li>
+                            <button class="menu-btn" data-target="tickets">
+                                <img src="/img/user_tickets.svg" alt="user_tickets">
+                                <span>I miei biglietti</span>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button class="menu-btn" data-target="cards">
+                                <img src="/img/user_voucher.svg" alt="user_card_voucher">
+                                <span>Card e voucher</span>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- IMPOSTAZIONI -->
+                <section>
+                    <h3>Impostazioni e preferenze</h3>
+                    <ul>
+                        <li>
+                            <button class="menu-btn" data-target="profile">
+                                <img src="/img/user_detail.svg" alt="user_detail">
+                                <span>Dettagli personali</span>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button class="menu-btn" data-target="social">
+                                <img src="img/user_social.svg" alt="user_social">
+                                <span>Account e Social Media</span>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button class="menu-btn" data-target="marketing">
+                                <img src="img/user_marketing.svg" alt="user_marketing">
+                                <span>Preferenze di Marketing</span>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+
+
+            </aside>
+
+            <!-- CONTENUTO DINAMICO DESTRA-->
+            <main class="content-area">
+                <div class="content-box">
+
+                    <!-- PANORAMICA -->
+                    <div class="content-section active" id="overview">
+                        <div class="page-title">
+                            <img src="img/user_profil.svg" alt="user_profile">
+                            <h1>Panoramica dell'account</h1>
+                        </div>
+                        <div class="account-panorama">
+
+                            <!-- COLONNA SINISTRA -->
+                            <section class="account-left" aria-labelledby="loyalty-title">
+
+                                <div>
+                                    <h2 id="loyalty-title" class="section-title">
+                                        Programma fedeltà myS&amp;G
+                                    </h2>
+                                </div>
+
+                                <article class="loyalty-card">
+
+                                    <div class="loyalty-top">
+
+                                        <figure class="loyalty-img">
+                                            <img src="./img/card_myS&G.webp" alt="Programma fedeltà myS&G">
+                                        </figure>
+
+                                        <div class="loyalty-content">
+
+                                            <div class="loyalty-main">
+                                                <span class="brand">Programma myS&amp;G</span>
+                                                <span class="points">6 punti</span>
+                                            </div>
+
+                                            <div class="loyalty-card-number">
+                                                Numero carta: 1234 5678 9012
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="loyalty-bottom">
+                                        <a href="#" class="loyalty-link">
+                                            Scopri di più sui tuoi vantaggi
+                                        </a>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <!-- COLONNA DESTRA -->
+                            <section class="account-right" aria-labelledby="account-title">
+
+                                <div class="account-header">
+
+                                    <h2 id="account-title" class="section-title">
+                                        Dettagli personali
+                                    </h2>
+
+                                    <button type="button" class="edit-btn">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                        Modifica
+                                    </button>
+
+                                </div>
+
+                                <dl class="account-fields">
+
+                                    <div class="field-row">
+                                        <div class="field">
+                                            <dt>Nome</dt>
+                                            <dd>Mario</dd>
+                                        </div>
+
+                                        <div class="field">
+                                            <dt>Cognome</dt>
+                                            <dd>Rossi</dd>
+                                        </div>
+                                    </div>
+
+                                    <div class="field-row">
+                                        <div class="field">
+                                            <dt>Cellulare</dt>
+                                            <dd>+39 333 123 4567</dd>
+                                        </div>
+
+                                        <div class="field">
+                                            <dt>Email</dt>
+                                            <dd>mariolumaconeseducente@gmail.com</dd>
+                                        </div>
+                                    </div>
+
+                                </dl>
+
+                            </section>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- BIGLIETTI -->
+                    <!-- ========================= -->
+                    <section class="content-section" id="tickets" style="display:none;">
+                        <div class="page-title">
+                            <img src="img/user_tickets.svg" alt="user_tickets">
+                            <h1>I miei Biglietti</h1>
+                        </div>
+                        <div class="row g-4">
+
+                            <!-- BIGLIETTO 1 -->
+                            <div class="col-md-6">
+                                <article class="ticket-card">
+
+                                    <!-- HEADER -->
+                                    <div class="account-header">
+                                        <h2 class="section-title">Lilo & Stitch</h2>
+                                        <span class="ticket-date">12/07/2026</span>
+                                    </div>
+
+                                    <!-- ORARI -->
+                                    <div class="ticket-times">
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Inizio</span>
+                                            <span class="ticket-value">18:30</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Fine</span>
+                                            <span class="ticket-value">20:15</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- QR -->
+                                    <div class="ticket-qr-wrapper">
+                                        <div class="qrcode" data-id="1"></div>
+                                        <p class="codice"></p>
+                                    </div>
+
+                                    <!-- INFO -->
+                                    <div class="ticket-footer">
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Sala</span>
+                                            <span class="ticket-value">3</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Fila</span>
+                                            <span class="ticket-value">A</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Posto</span>
+                                            <span class="ticket-value">3</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Prezzo</span>
+                                            <span class="ticket-value ticket-price">€8.50</span>
+                                        </div>
+                                    </div>
+
+                                </article>
+                            </div>
+
+                            <!-- BIGLIETTO 2 -->
+                            <div class="col-md-6">
+                                <article class="ticket-card">
+
+                                    <div class="account-header">
+                                        <h2 class="section-title">Spider-Man: Brand New Day</h2>
+                                        <span class="ticket-date">15/07/2026</span>
+                                    </div>
+
+                                    <div class="ticket-times">
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Inizio</span>
+                                            <span class="ticket-value">18:30</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Fine</span>
+                                            <span class="ticket-value">20:15</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ticket-qr-wrapper">
+                                        <div class="qrcode" data-id="2"></div>
+                                        <p class="codice"></p>
+                                    </div>
+
+                                    <div class="ticket-footer">
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Sala</span>
+                                            <span class="ticket-value">3</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Fila</span>
+                                            <span class="ticket-value">A</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Posto</span>
+                                            <span class="ticket-value">3</span>
+                                        </div>
+
+                                        <div class="ticket-field">
+                                            <span class="ticket-label">Prezzo</span>
+                                            <span class="ticket-value ticket-price">€8.50</span>
+                                        </div>
+                                    </div>
+
+                                </article>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- ========================= -->
+                    <!-- CARD E VOUCHER -->
+                    <!-- ========================= -->
+                    <section class="content-section" id="cards" style="display:none;">
+                        <div class="page-title">
+                            <img src="img/user_voucher.svg" alt="user_voucher">
+                            <h1>Card e Voucher</h1>
+                        </div>
+                        <div class="row g-4 voucher-layout">
+
+                            <!-- ========================= -->
+                            <!-- LEFT: CARD AREA -->
+                            <!-- ========================= -->
+                            <div class="col-md-6">
+
+                                <!-- CARD ESISTENTE -->
+                                <article class="voucher-card">
+
+                                    <figure class="voucher-img">
+                                        <img src="./img/card_basic.webp" alt="CineFANS Basic card">
+                                    </figure>
+
+                                    <div class="voucher-info">
+
+                                        <span class="voucher-title">CineFANS Basic</span>
+                                        <span class="voucher-days">Lunedì - Venerdì</span>
+
+                                        <section class="voucher-credits">
+
+                                            <span class="voucher-label">Ingressi rimanenti</span>
+                                            <span class="voucher-value">4</span>
+
+                                        </section>
+
+                                    </div>
+
+                                </article>
+
+                                <!-- 🔥 EMPTY STATE (commentato per futuro Thymeleaf) -->
+                                <!--<div class="empty-state">
+                                    NON HAI ANCORA NESSUNA CARD O VOUCHER ASSOCIATI AL TUO ACCOUNT
+                                </div>-->
+
+                            </div>
+
+                            <!-- ========================= -->
+                            <!-- RIGHT: FORM AREA -->
+                            <!-- ========================= -->
+                            <div class="col-md-6">
+
+                                <section class="voucher-form-wrapper">
+
+                                    <form class="voucher-form">
+
+                                        <div class="voucher-row">
+
+                                            <div class="label-wrapper">
+                                                <label for="voucherCode">
+                                                    Codice voucher o card
+                                                </label>
+                                            </div>
+
+                                            <div class="input-wrapper">
+                                                <input type="text" id="voucherCode" placeholder="Inserisci codice" />
+
+                                                <div id="emailHelp" class="form-text">
+                                                    Non condividere i tuoi codici a terze parti
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <button type="submit" class="voucher-btn">
+                                            Aggiungi
+                                        </button>
+
+                                    </form>
+
+                                </section>
+
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- ========================= -->
+                    <!-- DETTAGLI PERSONALI -->
+                    <!-- ========================= -->
+                    <div class="content-section" id="profile" style="display:none;">
+                        <div class="page-title">
+                            <img src="img/user_detail.svg" alt="">
+                            <h1>Dettagli Personali</h1>
+                        </div>
+
+                        <form class="profile-form" id="sunto">
+
+                            <!-- NOME -->
+                            <div class="profile-row">
+                                <label class="form-label" for="nome">Nome</label>
+                                <input type="text" id="nome" class="form-control" placeholder="Nome" value="Mario">
+                            </div>
+
+                            <!-- COGNOME -->
+                            <div class="profile-row">
+                                <label class="form-label" for="cognome">Cognome</label>
+                                <input type="text" id="cognome" class="form-control" placeholder="Cognome"
+                                    value="Rossi">
+                            </div>
+
+                            <!-- EMAIL -->
+                            <div class="profile-row">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Email"
+                                    value="mario.rossi@email.com">
+                            </div>
+
+                            <!-- COMPLEANNO -->
+                            <div class="profile-row">
+                                <label class="form-label">Compleanno</label>
+
+                                <div class="birthday-wrapper">
+                                    <input type="text" class="form-control" placeholder="GG" maxlength="2"
+                                        inputmode="numeric">
+
+                                    <input type="text" class="form-control" placeholder="MM" maxlength="2"
+                                        inputmode="numeric">
+
+                                    <input type="text" class="form-control" placeholder="AAAA" maxlength="4"
+                                        inputmode="numeric">
+                                </div>
+                            </div>
+
+                            <!-- SALVA COMPLEANNO -->
+                            <div class="form-actions">
+                                <button type="button" class="save-btn">
+                                    Salva
+                                </button>
+                            </div>
+
+                        </form>
+
+
+                        <!-- CAMBIA PASSWORD -->
+                        <h2 class="section-title profile-section-title">
+                            Cambia password
+                        </h2>
+
+                        <form class="profile-form" id="password">
+
+                            <!-- NUOVA PASSWORD -->
+                            <div class="profile-row">
+                                <label class="form-label" for="newPassword">Nuova password</label>
+                                <div class="input-wrapper">
+                                    <input type="password" class="form-control" placeholder="Nuova password">
+
+                                    <div class="password-help">
+                                        La tua password deve includere un minimo di 8 caratteri, un numero,
+                                        una lettera minuscola e una lettera maiuscola
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CONFERMA PASSWORD -->
+                            <div class="profile-row">
+                                <label class="form-label" for="confirmPassword">Conferma password</label>
+                                <input type="password" id="confirmPassword" class="form-control"
+                                    placeholder="Conferma password">
+                            </div>
+
+                            <!-- SALVA PASSWORD -->
+                            <div class="form-actions">
+                                <button type="button" class="save-btn">
+                                    Salva
+                                </button>
+                            </div>
+
+                        </form>
+
+
+                        <!-- DETTAGLI CONTATTO -->
+                        <h2 class="section-title profile-section-title">
+                            Dettagli di contatto
+                        </h2>
+
+                        <form class="profile-form" id="details">
+
+                            <!-- CELLULARE -->
+                            <div class="profile-row">
+                                <label class="form-label" for="telefono">Cellulare</label>
+                                <input type="text" id="telefono" class="form-control" placeholder="Cellulare">
+                            </div>
+
+                            <!-- INDIRIZZO -->
+                            <div class="profile-row">
+                                <label class="form-label" for="indirizzo">Indirizzo</label>
+                                <input type="text" id="indirizzo" class="form-control" placeholder="Indirizzo">
+                            </div>
+
+                            <!-- CITTÀ -->
+                            <div class="profile-row">
+                                <label class="form-label" for="citta">Città</label>
+                                <input type="text" id="citta" class="form-control" placeholder="Città">
+                            </div>
+
+                            <!-- CAP -->
+                            <div class="profile-row">
+                                <label class="form-label" for="cap">Codice Postale</label>
+                                <input type="text" id="cap" class="form-control" placeholder="Codice Postale"
+                                    maxlength="5" inputmode="numeric">
+                            </div>
+
+                            <!-- SALVA CONTATTI -->
+                            <div class="form-actions">
+                                <button type="button" class="save-btn">
+                                    Salva
+                                </button>
+                            </div>
+                            <!--CANCELLAZIONE ACCOUNT-->
+                            <h2 class="section-title profile-section-title text-danger">
+                                Cancellazione account
+                            </h2>
+
+                            <p class="delete-text">
+                                Sei sicuro di voler eliminare il tuo intero account? Perderai tutto.
+                                Storia dei biglietti, i tuoi promemoria, le offerte, l'amore che abbiamo condiviso.
+                                Se sei sicuro, conferma l'eliminazione dell'account.
+                            </p>
+
+                            <div class="form-actions">
+                                <button type="button" class="delete-btn">
+                                    Elimina account
+                                </button>
+                            </div>
+                        </form>
+
+
+
+
+
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- ACCOUNT E SOCIAL -->
+                    <!-- ========================= -->
+                    <div class="content-section" id="social" style="display:none;">
+                        <div class="page-title">
+                            <img src="img/user_social.svg" alt="">
+                            <h1>Account e Social</h1>
+                        </div>
+                        <div class="social-wrapper">
+
+                            <p class="social-text">
+                                Collega i tuoi account social e accedi facilmente al tuo account The Space
+                            </p>
+
+                            <!-- SOCIAL LIST -->
+                            <ul class="social-list">
+
+                                <li class="social-item bordered">
+                                    <figure class="social-left">
+                                        <img src="img/facebook_icon.svg.webp" alt="Facebook">
+                                        <span>Facebook</span>
+                                    </figure>
+
+                                    <button type="button" class="save-btn-marketing connect-btn">
+                                        Collega
+                                    </button>
+                                </li>
+
+                                <li class="social-item bordered">
+                                    <figure class="social-left">
+                                        <img src="img/apple.svg" alt="Apple">
+                                        <span>Apple</span>
+                                    </figure>
+
+                                    <button type="button" class="save-btn-marketing connect-btn">
+                                        Collega
+                                    </button>
+                                </li>
+
+                                <li class="social-item">
+                                    <figure class="social-left">
+                                        <img src="img/Google.svg.webp" alt="Google">
+                                        <span>Google</span>
+                                    </figure>
+
+                                    <button type="button" class="save-btn-marketing connect-btn">
+                                        Collega
+                                    </button>
+                                </li>
+
+                                <p class="social-text">Per disconnettere questo account social, ti preghiamo di creare prima una password in Dettagli personali</p>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- MARKETING -->
+                    <!-- ========================= -->
+                    <div class="content-section" id="marketing" style="display:none;">
+                        <div class="page-title">
+                            <img src="img/user_marketing.svg" alt="">
+                            <h1>Preferenze di Marketing</h1>
+                        </div>
+                        <div class="marketing-wrapper">
+
+                            <!-- TITLE -->
+                            <h2 class="section-title profile-section-title big marketing-title">
+                                Le tue notifiche di Siediti & Guarda
+                            </h2>
+
+                            <!-- DESCRIPTION -->
+                            <p class="marketing-text">
+                                Rimani aggiornato sugli orari dei film, le offerte e tutte le ultime notizie da The
+                                Space Cinema
+                            </p>
+
+                            <!-- CHECKLIST -->
+                            <div class="marketing-checklist">
+
+                                <div class="form-check marketing-check">
+                                    <input class="form-check-input marketing-checkbox" type="checkbox" id="mkt1">
+                                    <label class="form-check-label" for="mkt1">
+                                        Trattamento di dati personali per finalità informative, promozionali e di
+                                        marketing come le newsletter settimanali
+                                    </label>
+                                </div>
+
+                                <div class="form-check marketing-check">
+                                    <input class="form-check-input marketing-checkbox" type="checkbox" id="mkt2">
+                                    <label class="form-check-label" for="mkt2">
+                                        Trattamento di dati personali per l’invio di promozioni e offerte personalizzate
+                                        legate alle preferenze dell’utente
+                                    </label>
+                                </div>
+
+                                <div class="form-check marketing-check">
+                                    <input class="form-check-input marketing-checkbox" type="checkbox" id="mkt3">
+                                    <label class="form-check-label" for="mkt3">
+                                        Trattamento di dati personali per finalità informative, promozionali e di
+                                        marketing di Società terze
+                                    </label>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="save-btn-marketing">
+                                        Salva
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: content"></div>
+    <div th:replace="fragments/footer :: social"></div>
+    <div th:replace="fragments/footer :: copyright"></div>
+
+
+    <!-- SCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="./js/utente-profilo.js"></script>
+    <script src="./js/freccia.js"></script>
+</body>
+
+</html>
