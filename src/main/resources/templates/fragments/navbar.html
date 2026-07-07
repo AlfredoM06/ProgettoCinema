@@ -13,7 +13,7 @@
     <li><a th:href="@{/prossimamente}">Prossimamente</a></li>
     <li><a th:href="@{/membership}">Membership</a></li>
     <li><a th:href="@{/offerte}">Offerte</a></li>
-    <li><a th:href="@{/shop}">CineFans</a></li>
+    <li><a th:href="@{/cinefans}">CineFans</a></li>
 </ul>
 
 <ul class="navbar-nav" th:fragment="anonimo">
@@ -25,17 +25,20 @@
 <ul class="navbar-nav" th:fragment="user">
 
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+        <a class="nav-link dropdown-toggle" th:href="@{/utente}" data-bs-toggle="dropdown">
             <img class="user-icon"
                  th:src="@{/img/icona_profilo-utente.svg}"
                  alt="user icon">
+            </img>
         </a>
 
         <ul class="dropdown-menu accountDrop">
             <li><a class="dropdown-item" th:href="@{/}">Account</a></li>
             <li><a class="dropdown-item" th:href="@{/}">Carrello</a></li>
 
-            <li><hr class="dropdown-divider"></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
             <li>
                 <form th:action="@{/logout}" method="post">
                     <button class="dropdown-item" type="submit">Logout</button>
@@ -62,7 +65,9 @@
             <li><a class="dropdown-item" th:href="@{/}">Gestione Partnership</a></li>
             <li><a class="dropdown-item" th:href="@{/}">Gestione Utenti</a></li>
 
-            <li><hr class="dropdown-divider"></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
 
             <li>
                 <form th:action="@{/logout}" method="post">

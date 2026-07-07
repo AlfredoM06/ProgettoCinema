@@ -1,6 +1,7 @@
 package it.made.cinema.Service;
 
 import it.made.cinema.Model.Film;
+import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.Posto;
 import it.made.cinema.Model.Utente;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,19 @@ public class PrezzoService {
             }
 
             return prezzoTotale;
+        }
+
+        //8) C'è lo sconto al bar del 10% sui gadget relativi ad un film (se hai la card punti,controller membership).
+        public Double calcolaScontoOfferta(Utente utente, Offerta offerta){
+            Double prezzoOfferta;
+            if (Boolean.TRUE.equals(utente.getMembership())){
+                // Sconto del 10% sul prezzo dell'offerta
+                // Alternativa più concisa: offerta.getPrezzo() * 0.90
+                prezzoOfferta = offerta.getPrezzo() - (offerta.getPrezzo() * 10 / 100);
+            } else {
+                prezzoOfferta = offerta.getPrezzo();
+            }
+            return prezzoOfferta;
         }
 
         /*public  Double calcolaPrezzoFilm(Film film, Utente utente){

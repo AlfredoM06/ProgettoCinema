@@ -37,11 +37,6 @@ INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome,
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-19', 'evento', 'Carte Disney Lorcana', 'carte collezionabili', '', '');
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-22', 'anteprima', 'Master of Universe Poster', 'stacce', '', '');
 
---gadgets
---INSERT INTO db_cinema.gadgets (prezzo, n_scorte, nome, img, img_banner, descrizione) VALUES(5.99, 30, 'Toy Story 5 Menu', '', '', 'cosa a caso');
---INSERT INTO db_cinema.gadgets (prezzo, n_scorte, nome, img, img_banner, descrizione) VALUES(7, 40, 'Spiderman Menu', '', '', 'cosa più a caso dell''altra');
---INSERT INTO db_cinema.gadgets (n_scorte, nome, img, img_banner, descrizione) VALUES(50, 'Master of Universe Poster', '', '', 'stacce');
-
 --posti
 INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES (7, 'Standard');
 INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES (9.5, 'V.I.P.');
