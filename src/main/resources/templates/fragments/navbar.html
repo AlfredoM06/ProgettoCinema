@@ -25,14 +25,14 @@
 <ul class="navbar-nav" th:fragment="user">
 
     <li class="nav-item dropdown">
-        <a class="nav-link" href="#">
+        <a class="nav-link" th:href="@{/utente}">
             <img class="user-icon"
                  th:src="@{/img/icona_profilo-utente.svg}"
                  alt="user icon">
         </a>
 
         <ul class="dropdown-menu accountDrop">
-            <li><a class="dropdown-item" th:href="@{/}">Account</a></li>
+            <li><a class="dropdown-item" th:href="@{/utente}">Account</a></li>
             <li><a class="dropdown-item" th:href="@{/}">Carrello</a></li>
 
             <li><hr class="dropdown-divider"></li>
