@@ -25,20 +25,17 @@
 <ul class="navbar-nav" th:fragment="user">
 
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" th:href="@{/utente}" data-bs-toggle="dropdown">
+        <a class="nav-link" href="#">
             <img class="user-icon"
                  th:src="@{/img/icona_profilo-utente.svg}"
                  alt="user icon">
-            </img>
         </a>
 
         <ul class="dropdown-menu accountDrop">
             <li><a class="dropdown-item" th:href="@{/}">Account</a></li>
             <li><a class="dropdown-item" th:href="@{/}">Carrello</a></li>
 
-            <li>
-                <hr class="dropdown-divider">
-            </li>
+            <li><hr class="dropdown-divider"></li>
             <li>
                 <form th:action="@{/logout}" method="post">
                     <button class="dropdown-item" type="submit">Logout</button>
@@ -52,22 +49,16 @@
 <ul class="navbar-nav" th:fragment="admin">
 
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+        <a class="nav-link" href="#">
             <img class="user-icon"
                  th:src="@{/img/icona_admin_user.svg}"
                  alt="admin icon">
         </a>
 
         <ul class="dropdown-menu accountDrop">
-            <li><a class="dropdown-item" th:href="@{/profilo}">Account</a></li>
+            <li><a class="dropdown-item" th:href="@{/}">Account</a></li>
             <li><a class="dropdown-item" th:href="@{/GestioneFilm}">Gestione Film</a></li>
-            <li><a class="dropdown-item" th:href="@{/gestionale-offerte}">Gestione Offerte</a></li>
-            <li><a class="dropdown-item" th:href="@{/}">Gestione Partnership</a></li>
-            <li><a class="dropdown-item" th:href="@{/}">Gestione Utenti</a></li>
-
-            <li>
-                <hr class="dropdown-divider">
-            </li>
+            <li><hr class="dropdown-divider"></li>
 
             <li>
                 <form th:action="@{/logout}" method="post">

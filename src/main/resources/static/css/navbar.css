@@ -151,8 +151,41 @@ header .accountDrop .dropdown-item.active {
     cursor: pointer;
 }
 
-.dropdown-toggle::after {
-    display: none !important;
+/* =========================
+   HOVER DROPDOWN
+========================= */
+
+.nav-item.dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    display: block;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(10px);
+    transition: all .25s ease;
+
+    z-index: 99999;
+}
+
+.nav-item.dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
 /* =========================
@@ -165,3 +198,5 @@ body.no-navbar header {
   transform: translateY(-20px);
   transition: all 0.3s ease;
 }
+
+
