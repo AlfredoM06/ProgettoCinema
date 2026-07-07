@@ -4,7 +4,9 @@ import it.made.cinema.Model.DTO.DatiUtenteDTO;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoUtenti;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,17 +21,20 @@ public class PaginaUtenteController {
     IRepoUtenti repoUtenti;
 
     @GetMapping
-    public String paginaUtente(){
+    public String paginaUtente() {
         return "utente-profilo";
     }
 
 
     //                  DA FARE:
     //1) I biglietti prenotati e acquistati con i relativi dati i quali verranno cancellati dopo 1 settimana per eventuali rimborsi.
-    // va aggiunto atttributo n_biglietti_comprati e vanno filtrati per biglietti acquistati >0 e per scadenza, da fare tramite la programmazione dei film passando il tutto come dto.
-    //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.( probabilmente da fare entità a parte con relativa tabella domanda per emilio= bisogna fara una relazione con l'utente o passare direttamente la lista di quelli acquistati, facendo sempre il filtro che faremo per il n°1?)
+    // va aggiunto atttributo in posti occupati che lega utente con posto occupato (tramite id utente) tramite l'id posto occupato andiamo in programmazione e vediamo quale film ha prenotato/acquistato.
+    //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
     //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
-    // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.(Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)
+    // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
+    // (Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)
+    // (soluzione emilio la parte di impedire agli altri di prenotare se non hanno la carte da far fare a erica tramite un if che mostra solo a chi è tesserato la possibilità di prendersi quei posti, erica si richiama un metodo che gli facciamo noi
+    // in cui calcoliamo se mancano effettivamente 4 ore all'inizio dell'anteprima e vedere se è tesserato o meno)
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra) e per ogni anno di possesso della card si guadagno punti.(PARZIALMENTE FINITO DA FINIRE CON IL 12)
     //12) fare metodo per i punti della carta che ad ogni euro speso equivale a 10 punti da collegare all'11.(da fare il service)
 
@@ -49,7 +54,7 @@ public class PaginaUtenteController {
     }
 
     //3) Cambiare i suoi dati tipo l'email.
-    @PostMapping("/profilo/modifica/{id}")
+    @PostMapping("/modifica/{id}")
     @ResponseBody
     public ResponseEntity<String> modificaUtente(
             @PathVariable Integer id,
@@ -86,7 +91,6 @@ public class PaginaUtenteController {
     //7) Prezzo base bliglietto 7 euro, prezzo con card myUCI è 5 euro.(controller membership) (FATTO) metodo non più necessario poichè è stato accorpato al 9 e spostato sul controller del biglietto
     //8) C'è lo sconto al bar del 10% sui gadget relativi ad un film (se hai la card punti,controller membership).(FATTO)
     //9) Film e o menu gratis/scontati a seconda dei punti.(controller membership) spostano in biglietto controller. (FATTO)
-
 
 
     //Le card se le accolla alfredo e ci deve stare
