@@ -32,6 +32,9 @@ public class HomeController {
         return "Home";
     }
 
+    // bisogna fare un filtro per visualizzare i film in evidenza da decidere che attributo assegnargli.
+    // e nel carousel grande da filtrare negli ultimi 7 appena usciti.
+
     //dettagli dei film
     @GetMapping("/dettagli/{id}")
     private String dettagliHome(@PathVariable("id") Integer id, Model model) {

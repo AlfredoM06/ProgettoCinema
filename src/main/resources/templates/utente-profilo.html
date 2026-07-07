@@ -35,6 +35,7 @@
             <aside class="sidebar">
 
                <!-- <h2>Ciao <span th:text="${user.nome}">Mario</span></h2> -->
+                <h2>Ciao <span>Mario</span></h2>
 
                 <!-- PANORAMICA -->
                 <section>
@@ -320,7 +321,7 @@
                     <!-- ========================= -->
                     <section class="content-section" id="cards" style="display:none;">
                         <div class="page-title">
-                            <img src="img/user_voucher.svg" alt="user_voucher">
+                            <img th:src="@{/img/user_voucher.svg}" alt="user_voucher">
                             <h1>Card e Voucher</h1>
                         </div>
                         <div class="row g-4 voucher-layout">
@@ -334,7 +335,7 @@
                                 <article class="voucher-card">
 
                                     <figure class="voucher-img">
-                                        <img src="./img/card_basic.webp" alt="CineFANS Basic card">
+                                        <img th:src="@{/img/card_basic.webp}" alt="CineFANS Basic card">
                                     </figure>
 
                                     <div class="voucher-info">
@@ -549,12 +550,6 @@
                                 </button>
                             </div>
                         </form>
-
-
-
-
-
-
                     </div>
 
                     <!-- ========================= -->
@@ -576,7 +571,7 @@
 
                                 <li class="social-item bordered">
                                     <figure class="social-left">
-                                        <img src="img/facebook_icon.svg.webp" alt="Facebook">
+                                        <img th:src="@{img/facebook_icon.svg.webp}" alt="Facebook">
                                         <span>Facebook</span>
                                     </figure>
 
@@ -587,7 +582,7 @@
 
                                 <li class="social-item bordered">
                                     <figure class="social-left">
-                                        <img src="img/apple.svg" alt="Apple">
+                                        <img th:src="@{img/apple.svg}" alt="Apple">
                                         <span>Apple</span>
                                     </figure>
 
@@ -598,7 +593,7 @@
 
                                 <li class="social-item">
                                     <figure class="social-left">
-                                        <img src="img/Google.svg.webp" alt="Google">
+                                        <img th:src="@{/img/Google.svg.webp}" alt="Google">
                                         <span>Google</span>
                                     </figure>
 
@@ -674,7 +669,7 @@
 
                 </div>
             </main>
-
+        </div>
         </div>
     </div>
 
