@@ -1,6 +1,7 @@
 package it.made.cinema.Model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -64,4 +65,6 @@ public class Utente {
 	@NotEmpty
 	@Column
 	private Integer annoUltimaMailCompleanno;
+	@OneToMany(mappedBy="utente")
+	private List<PostiOccupati> postiOccupati;
 }
