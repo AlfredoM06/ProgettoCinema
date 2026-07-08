@@ -1,46 +1,44 @@
-let cards = document.querySelectorAll('.card');
-let overlay = document.querySelector('.global-overlay');
-
-/* style card*/
-cards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    overlay.style.opacity = '1';
-  });
-
-  card.addEventListener('mouseleave', () => {
-    overlay.style.opacity = '0';
-  });
-});
-
-// CONTROLLO FRECCE SWIPER
-document.querySelector(".swiper-button-next").addEventListener("click", () => {
-  let swiper = document.querySelector(".mySwiper").swiper;
-
-  swiper.currentPage++;
-
-  if (swiper.currentPage > swiper.totalPages) {
-    swiper.currentPage = 1;
-  }
-
-  document.getElementById("current").textContent = swiper.currentPage;
-});
-
-document.querySelector(".swiper-button-prev").addEventListener("click", () => {
-  let swiper = document.querySelector(".mySwiper").swiper;
-
-  swiper.currentPage--;
-
-  if (swiper.currentPage < 1) {
-    swiper.currentPage = swiper.totalPages;
-  }
-
-  document.getElementById("current").textContent = swiper.currentPage;
-});
-
-// CARD TOP 3
-
 document.addEventListener("DOMContentLoaded", function () {
+    let cards = document.querySelectorAll('.card');
+    let overlay = document.querySelector('.global-overlay');
 
+    /* style card*/
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        overlay.style.opacity = '1';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        overlay.style.opacity = '0';
+      });
+    });
+
+    // CONTROLLO FRECCE SWIPER
+    document.querySelector(".swiper-button-next").addEventListener("click", () => {
+      let swiper = document.querySelector(".mySwiper").swiper;
+
+      swiper.currentPage++;
+
+      if (swiper.currentPage > swiper.totalPages) {
+        swiper.currentPage = 1;
+      }
+
+      document.getElementById("current").textContent = swiper.currentPage;
+    });
+
+    document.querySelector(".swiper-button-prev").addEventListener("click", () => {
+      let swiper = document.querySelector(".mySwiper").swiper;
+
+      swiper.currentPage--;
+
+      if (swiper.currentPage < 1) {
+        swiper.currentPage = swiper.totalPages;
+      }
+
+      document.getElementById("current").textContent = swiper.currentPage;
+    });
+
+    // CARD TOP 3
     fetch("/offerte/top3")
         .then(response => response.json())
         .then(data => {
@@ -98,4 +96,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
+//    BANNER SCORRIMENTO
+    const bannerImages = [
+        "/img/banner_homepage.webp",
+        "/img/banner_homepage2.webp",
+        "/img/banner_homepage3.webp"
+      ];
+
+      let bannerIndex = 0;
+      const bannerImg = document.getElementById("cinemaBannerImg");
+
+      setInterval(() => {
+        bannerIndex = (bannerIndex + 1) % bannerImages.length;
+        bannerImg.src = bannerImages[bannerIndex];
+      }, 2000);
+
 });
+

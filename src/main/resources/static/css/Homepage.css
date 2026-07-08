@@ -6,9 +6,9 @@ body {
   background-color: var(--background-page);
 }
 
-main {
+/*main {
   margin-bottom: 10rem;
-}
+}*/
 
 html, body {
   margin: 0;
@@ -241,4 +241,128 @@ header {
 .swiper-button-prev::after {
   font-weight: 900;
   -webkit-text-stroke: 0.03rem currentColor;
+}
+
+/* =========================
+    BANNER ALL YOU CAN SEE
+========================= */
+
+.cinema-banner {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem
+}
+
+.cinema-banner img {
+  width: 90rem;
+  height: 23.5rem;
+  object-fit: contain;
+}
+
+/* =========================
+   MEMBERSHIP BANNER
+========================= */
+
+.membership-banner {
+    width: 100%;
+    height: 40rem;
+    background-color: #111821;
+    display: flex;
+
+}
+
+
+.membership-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+
+/* IMMAGINE SINISTRA*/
+
+.membership-image {
+    width: 65%;
+    height: 100%;
+    margin: 0;
+}
+
+
+.membership-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+.membership-image-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to left,
+        transparent 60%,
+        #111821 100%
+    );
+
+    pointer-events: none;
+}
+
+
+.membership-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+}
+
+
+/* TESTO DESTRA */
+
+.membership-text {
+    width: 50%;
+    padding-right: 5rem;
+    padding-left: 30rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.membership-text h2{
+    text-transform: uppercase;
+}
+
+
+/* Bottone */
+.membership-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1px var(--border-color);
+    transition: all 0.25s ease;
+    border: none;
+    border-radius: 0;
+
+    width: 12.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    color: #e1e1e1;
+    background: transparent;
+}
+
+
+.membership-btn:hover {
+     background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+     color: #1c252e;
+     box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+          0 0 25px rgba(220, 20, 60, 0.3),
+          0 0 40px rgba(158, 143, 43, 0.2);
 }

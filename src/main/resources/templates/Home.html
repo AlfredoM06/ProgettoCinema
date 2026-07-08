@@ -172,6 +172,10 @@
     </div>
 </div>
 
+<!-- BANNER SPONSORSHIP -->
+<div class="sponsorship-banner">
+    <img id="cinemaBannerImg" src="/img/banner_homepage.webp" alt="banner_all_you_can_see">
+</div>
 <!-- SWIPER FILM-->
 <main>
     <section class="filmpiuVisti" id="filmpiuVisti">
@@ -352,6 +356,35 @@
     </section>
     <!-- MENU CINEMA -->
     <div th:replace="fragments/offerte-section :: offerteSection"></div>
+    <!-- BANNER CINEMA HOMEPAGE -->
+    <div class="cinema-banner">
+        <img id="cinemaBannerImg" src="/img/banner_homepage.webp" alt="banner_all_you_can_see">
+    </div>
+
+    <!-- BANNER MEMBERSHIP -->
+    <section class="membership-banner" aria-label="Scopri myS&G">
+        <div class="container-fluid p-0 membership-container">
+            <div class="membership-content">
+                <div class="membership-text">
+                    <h2>Entra in myS&amp;G</h2>
+                    <p>
+                        myS&amp;G è il programma fedeltà che premia il tuo amore per il cinema.
+                        Un'unica card digitale, gratuita ed un solo protagonista: tu.
+                    </p>
+                    <a th:href="@{/membership}" class="membership-btn">
+                        Scopri di più
+                    </a>
+                </div>
+                <figure class="membership-image">
+                    <div class="membership-image-wrapper">
+                        <img th:src="@{/img/banner_fedelityCard.webp}"
+                             alt="Card digitale myS&G">
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 
