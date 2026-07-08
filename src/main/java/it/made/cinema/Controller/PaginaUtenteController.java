@@ -1,10 +1,15 @@
 package it.made.cinema.Controller;
 
 import it.made.cinema.Model.DTO.DatiUtenteDTO;
+import it.made.cinema.Model.DTO.PostiOccupatiDTO;
+import it.made.cinema.Model.PostiOccupati;
 import it.made.cinema.Model.Utente;
+import it.made.cinema.Repository.IRepoPostiOccupati;
 import it.made.cinema.Repository.IRepoUtenti;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -19,6 +24,9 @@ public class PaginaUtenteController {
 
     @Autowired
     IRepoUtenti repoUtenti;
+    
+    @Autowired
+    IRepoPostiOccupati repoPO;
 
     @GetMapping
     public String paginaUtente() {
@@ -29,6 +37,26 @@ public class PaginaUtenteController {
     //                  DA FARE:
     //1) I biglietti prenotati e acquistati con i relativi dati i quali verranno cancellati dopo 1 settimana per eventuali rimborsi.
     // va aggiunto attributo in posti occupati che lega utente con posto occupato (tramite id utente) tramite l'id posto occupato andiamo in programmazione e vediamo quale film ha prenotato/acquistato.
+    @GetMapping("/acquisti/{id}")
+    public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(@PathVariable Integer id){
+    	List<PostiOccupati> postiOccupati = repoPO.findByUtenteId(id);
+    	List<PostiOccupatiDTO> biglietti = new ArrayList<>();
+    	for (PostiOccupati posto:postiOccupati) {
+    		biglietti.add(new PostiOccupatiDTO(
+    				posto.getId(),
+    				posto.getProgrammazioneFilm().getFilm().getTitolo(),
+    				posto.getProgrammazioneFilm().getOrario(),
+    				posto.getProgrammazioneFilm().getOrario().plusMinutes(posto.getProgrammazioneFilm().getFilm().getDurata()+30),
+    				posto.getProgrammazioneFilm().getDataProgrammazione(),
+    				posto.getProgrammazioneFilm().getSala().getId(),
+    				posto.getPosto().getTipo()
+    				));
+    	}
+    	return biglietti;
+    }
+    
+    
+    
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
     //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
     // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
