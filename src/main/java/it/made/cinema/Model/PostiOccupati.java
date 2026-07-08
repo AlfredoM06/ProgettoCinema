@@ -18,8 +18,11 @@ public class PostiOccupati {
     private Boolean occupato;
     //relazione con tabPonte
     @ManyToOne
-    //@JoinColumn(name = "id_programmazioneFilm", nullable = false)
+    @JoinColumn(name = "id_programmazioneFilm", nullable = false)
     private ProgrammazioneFilm programmazioneFilm;
     @OneToOne(mappedBy = "postiOccupati")
     private Posto posto;
+    @ManyToOne
+    @JoinColumn(name = "id_utente")
+    private Utente utente;
 }

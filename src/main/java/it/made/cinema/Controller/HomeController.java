@@ -32,8 +32,9 @@ public class HomeController {
         return "Home";
     }
 
-    // bisogna fare un filtro per visualizzare i film in evidenza da decidere che attributo assegnargli.
+    // bisogna fare un filtro per visualizzare i film in evidenza da decidere che attributo assegnargli soluzione = fare in base ai biglietti aquistati come non lo so e non lo voglio sapere
     // e nel carousel grande da filtrare negli ultimi 7 appena usciti.
+
 
     //dettagli dei film
     @GetMapping("/dettagli/{id}")
