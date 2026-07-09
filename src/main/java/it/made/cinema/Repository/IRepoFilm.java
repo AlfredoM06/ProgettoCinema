@@ -17,4 +17,6 @@ public interface IRepoFilm extends JpaRepository<Film, Integer> {
     //public List<Film> findByGeneriId(Integer id);
     @Query("select distinct f from Film f join fetch f.generi g where g.id in :idGenere")
     public List<Film> findByGenereFilm(@Param("idGenere") List<Integer> idGenere);
+    // 7 film con data di uscita più recente
+    List<Film> findTop7ByOrderByDataDiUscitaDesc();
 }

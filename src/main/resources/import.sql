@@ -37,16 +37,16 @@ INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome,
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-19', 'evento', 'Carte Disney Lorcana', 'carte collezionabili', '', '');
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-22', 'anteprima', 'Master of Universe Poster', 'stacce', '', '');
 
---posti
-INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES (7, 'Standard');
-INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES (9.5, 'V.I.P.');
-INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES (5, 'Disabili');
+--posti  38 standard, 10 vip, 2 disabili
+INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 1, 7, 'Standard');
+INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 2, 9.5, 'V.I.P.');
+INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 3, 5, 'Disabili');
 
 --sale
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, 'Standard');
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 35, '3D');
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 25, 'IMAX');
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, '4K');
+INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, 'Standard'); -- 1
+INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 35, '3D'); -- 2
+INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 25, 'IMAX'); -- 3
+INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, '4K'); -- 4
 
 --programmazione films
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 3, 2, 23, '21:30');
