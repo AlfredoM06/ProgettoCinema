@@ -1,7 +1,9 @@
 package it.made.cinema.Controller;
 
 import it.made.cinema.Model.Film;
+import it.made.cinema.Model.Offerta;
 import it.made.cinema.Repository.IRepoFilm;
+import it.made.cinema.Repository.IRepoOfferte;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,25 +18,37 @@ import java.util.List;
 public class HomeController {
     @Autowired
     IRepoFilm repoFilm;
+    @Autowired
+    IRepoOfferte repoOfferte;
 
-    //@Autowired
-    //IRepoGadget repoGadget;
-    //c'è la pagina
-    //prenota(redirect), vedi tutti gadget(redirect)
-    //log in
-    //lista dei film, lista gadgets
+    public HomeController() {
+    }
+
+
+    //log in da fare
+
+    //lista dei film, lista offerte , lista film in Evidenza
     @GetMapping
     private String home(Model model) {
-        List<Film> listaFilmHome = repoFilm.findAll();
-        //List<Gadget> listaGadgetHome = repoGadget.findAll();
-        model.addAttribute("listaFilm", listaFilmHome);
-        //model.addAttribute("listaGadget", listaGadgetHome);
+        List<Film> filmRecenti = repoFilm.findTop7ByOrderByDataDiUscitaDesc();
+        List<Offerta> top3Offerte = repoOfferte.findTop3ByOrderByDataInizioDesc();
+        //List<Film> filmInEvidenza = repoFilm.findByBigliettiComprati();
+       // model.addAttribute("inEvidenza", filmInEvidenza);
+        model.addAttribute("filmRecenti", filmRecenti);
+        model.addAttribute("top3", top3Offerte);
         return "Home";
     }
 
+    // da completare film in evidenza
+    /*@GetMapping("/inEvidenza")
+    private String homeEvidenza(Model model){
+        List<Film> filmInEvidenza = repoFilm.findByBigliettiComprati();
+        model.addAttribute("inEvidenza", filmInEvidenza);
+        return ;
+    }*/
+
     // bisogna fare un filtro per visualizzare i film in evidenza da decidere che attributo assegnargli soluzione = fare in base ai biglietti aquistati come non lo so e non lo voglio sapere
     // e nel carousel grande da filtrare negli ultimi 7 appena usciti.
-
 
     //dettagli dei film
     @GetMapping("/dettagli/{id}")
@@ -44,6 +58,11 @@ public class HomeController {
     }
 
     //da fare forse dettagli dei gadgets
+    @GetMapping("/dettagliOfferte/{idOfferte}")
+    private String dettagliHomeOfferte(@PathVariable("idOfferte") Integer id, Model model){
+        model.addAttribute("offerteDettagli", repoOfferte.findById(id).get());
+        return "offertaDettaglio";
+    }
 
 
 
