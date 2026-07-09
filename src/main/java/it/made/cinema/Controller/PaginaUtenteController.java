@@ -6,6 +6,8 @@ import it.made.cinema.Model.PostiOccupati;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoPostiOccupati;
 import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Service.PrezzoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class PaginaUtenteController {
     @Autowired
     IRepoPostiOccupati repoPO;
 
+    @Autowired
+    PrezzoService prezzoService;
+    
     @GetMapping
     public String paginaUtente() {
         return "utente-profilo";
@@ -49,7 +54,10 @@ public class PaginaUtenteController {
     				posto.getProgrammazioneFilm().getOrario().plusMinutes(posto.getProgrammazioneFilm().getFilm().getDurata()+30),
     				posto.getProgrammazioneFilm().getDataProgrammazione(),
     				posto.getProgrammazioneFilm().getSala().getId(),
-    				posto.getPosto().getTipo()
+    				posto.getPosto().getTipo(),
+    				posto.getPosto().getFila(),
+    				posto.getPosto().getColonna(),
+    				prezzoService.calcolaPrezzoFinale(posto.getUtente(), posto.getProgrammazioneFilm().getFilm(), posto.getPosto())
     				));
     	}
     	return biglietti;

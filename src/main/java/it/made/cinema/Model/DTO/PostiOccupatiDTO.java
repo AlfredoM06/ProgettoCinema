@@ -24,5 +24,8 @@ public class PostiOccupatiDTO implements Serializable {
 	private LocalTime fine;
 	private LocalDate giorno;
 	private Integer sala;
-	private String posto;
+	private String tipoPosto;
+	private Integer fila;
+	private Integer colonna;
+	private Double prezzo;
 }
