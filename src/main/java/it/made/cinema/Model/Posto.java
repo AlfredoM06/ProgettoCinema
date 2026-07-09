@@ -2,6 +2,7 @@ package it.made.cinema.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,6 +27,10 @@ public class Posto {
 	@NotEmpty
 	@Column(length=50, nullable=false)
 	private String tipo;
+	@NotNull
+	private Integer fila;
+	@NotNull
+	private Integer colonna;
 	@ManyToOne
 	@JoinColumn(name="id_sala", referencedColumnName="id")
 	private Sala sala;
