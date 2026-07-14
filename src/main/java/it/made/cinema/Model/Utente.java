@@ -70,4 +70,6 @@ public class Utente {
 	private Integer annoUltimaMailCompleanno;
 	@OneToMany(mappedBy="utente")
 	private List<PostiOccupati> postiOccupati;
+	@OneToMany(mappedBy="utente")
+	private List<AcquistiGadget> acquistiGadget;
 }

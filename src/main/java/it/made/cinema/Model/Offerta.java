@@ -2,6 +2,7 @@ package it.made.cinema.Model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -43,4 +44,6 @@ public class Offerta {
 	@ManyToOne
 	@JoinColumn(name="id_film", referencedColumnName="id")
 	private Film film;
+	@OneToMany(mappedBy="offerta")
+	private List<AcquistiGadget> acquistiGadget;
 }
