@@ -24,15 +24,14 @@ public class HomeController {
     public HomeController() {
     }
 
-
     //log in da fare
 
-    //lista dei film, lista offerte , lista film in Evidenza
+    //lista dei film, lista offerte , lista film in Evidenza  da finire
     @GetMapping
     private String home(Model model) {
         List<Film> filmRecenti = repoFilm.findTop7ByOrderByDataDiUscitaDesc();
         List<Offerta> top3Offerte = repoOfferte.findTop3ByOrderByDataInizioDesc();
-        //List<Film> filmInEvidenza = repoFilm.findByBigliettiComprati();
+        //List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
        // model.addAttribute("inEvidenza", filmInEvidenza);
         model.addAttribute("filmRecenti", filmRecenti);
         model.addAttribute("top3", top3Offerte);
@@ -42,7 +41,7 @@ public class HomeController {
     // da completare film in evidenza
     /*@GetMapping("/inEvidenza")
     private String homeEvidenza(Model model){
-        List<Film> filmInEvidenza = repoFilm.findByBigliettiComprati();
+        List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
         model.addAttribute("inEvidenza", filmInEvidenza);
         return ;
     }*/

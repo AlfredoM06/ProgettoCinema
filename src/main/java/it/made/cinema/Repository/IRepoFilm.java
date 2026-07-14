@@ -19,4 +19,7 @@ public interface IRepoFilm extends JpaRepository<Film, Integer> {
     public List<Film> findByGenereFilm(@Param("idGenere") List<Integer> idGenere);
     // 7 film con data di uscita più recente
     List<Film> findTop7ByOrderByDataDiUscitaDesc();
+    //mettere query per fare la ricerca dei film in evidenza contando quanti posti sono stati occupati che equivalgono ai biglietti comprati
+    // @Query(value = " SELECT F.TITOLO, COUNT(PO.id) AS posti_occupati FROM POSTI_OCCUPATI PO, PROGRAMMAZIONE_DEI_FILM PDF, FILMS F WHERE PDF.ID_FILM = F.ID AND PO.ID_PROGRAMMAZIONE_FILM = PDF.ID GROUP BY F.TITOLO ORDER BY posti_occupati DESC LIMIT 6 ", nativeQuery = true)
+    // public List<Film> findFilmEvidenza();
 }

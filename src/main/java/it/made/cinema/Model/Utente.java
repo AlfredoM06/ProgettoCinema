@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -45,6 +46,8 @@ public class Utente {
 	@NotEmpty
 	@Column(nullable=false)
 	private Integer puntiMembership;
+	@NotNull
+	private LocalDate acquistoMembership;
 	@Column(nullable = false)
 	private Boolean cartaRicaricabile;
 	@NotEmpty

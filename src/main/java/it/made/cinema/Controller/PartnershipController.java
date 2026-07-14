@@ -25,6 +25,8 @@ public class PartnershipController {
         return "";
     }
 
+
+
     @GetMapping("/dettaglioBanner/{id}")
     public String dettaglioBanner(@RequestParam("id") Integer id, Model model){
         model.addAttribute("dettaglioBanner", repoPartnership.findById(id).get());
