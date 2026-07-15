@@ -1,9 +1,14 @@
 package it.made.cinema.Controller;
 
 import it.made.cinema.Model.DTO.DatiUtenteDTO;
+import it.made.cinema.Model.DTO.OfferteDTO;
 import it.made.cinema.Model.DTO.PostiOccupatiDTO;
+import it.made.cinema.Model.AcquistiGadget;
+import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.PostiOccupati;
 import it.made.cinema.Model.Utente;
+import it.made.cinema.Repository.IRepoAcquisti;
+import it.made.cinema.Repository.IRepoOfferte;
 import it.made.cinema.Repository.IRepoPostiOccupati;
 import it.made.cinema.Repository.IRepoUtenti;
 import it.made.cinema.Service.PrezzoService;
@@ -32,6 +37,12 @@ public class PaginaUtenteController {
 
     @Autowired
     PrezzoService prezzoService;
+    
+    @Autowired
+    IRepoOfferte repoOfferte;
+    
+    @Autowired
+    IRepoAcquisti repoAcquisti;
     
     @GetMapping
     public String paginaUtente() {
@@ -63,6 +74,21 @@ public class PaginaUtenteController {
     }
 
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
+    
+    @GetMapping("acquistiOfferte/{id}")
+    public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, String genere){
+    	List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(id, genere);
+    	List<OfferteDTO> acquisti = new ArrayList<>();
+    	for(AcquistiGadget acquisto:acquistiGadget) {
+    		acquisti.add(new OfferteDTO(
+    				acquisto.getId(),
+    				acquisto.getOfferta().getNome(),
+    				acquisto.getOfferta().getImgBanner(),
+    				acquisto.getDataAcquisto()
+    				));
+    	}
+    	return acquisti;
+    }
     //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
     // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
     // (Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)

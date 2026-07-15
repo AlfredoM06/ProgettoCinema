@@ -57,14 +57,6 @@ public class Film implements Serializable {
 	private Integer durata;
 
 	@NotEmpty
-	@Column(length = 50, nullable = false)
-	private String formato;
-
-	@NotEmpty
-	@Column(length = 500, nullable = false)
-	private String lingue;
-
-	@NotEmpty
 	@Column(length = 500, nullable = false)
 	private String img_cover;
 
@@ -102,5 +94,8 @@ public class Film implements Serializable {
 	//relazione con programmazione
 	@OneToMany(mappedBy = "film")
 	private List<ProgrammazioneFilm> programmazioni;
+	
+	@OneToMany(mappedBy="film")
+	private List<CrossFilmFormatoLingua> crossFilmFormatoLingua;
 
 }

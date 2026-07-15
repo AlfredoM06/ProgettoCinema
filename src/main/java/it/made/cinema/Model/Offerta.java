@@ -41,6 +41,9 @@ public class Offerta {
 	@NotEmpty
 	@Column(length=1000, nullable=false)
 	private String imgDettaglio;
+	@NotEmpty
+	@Column(length=1000, nullable=false)
+	private String imgBannerTopOfferte;
 	@ManyToOne
 	@JoinColumn(name="id_film", referencedColumnName="id")
 	private Film film;
