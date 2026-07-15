@@ -173,9 +173,14 @@
 </div>
 
 <!-- BANNER SPONSORSHIP -->
-<div class="sponsorship-banner">
-    <img id="cinemaBannerImg" src="/img/banner_homepage.webp" alt="banner_all_you_can_see">
-</div>
+<section class="sponsorship-banner" aria-label="Banner sponsorizzazioni">
+    <img id="sponsorshipBannerImg" alt="Banner sponsorizzazione">
+<!--         th:src="${sponsorshipImages[0]}"-->
+    <div id="sponsorshipBannerData" hidden>
+<!--         th:attr="data-images=${#strings.listJoin(sponsorshipImages, ',')}"-->
+
+    </div>
+</section>
 <!-- SWIPER FILM-->
 <main>
     <section class="filmpiuVisti" id="filmpiuVisti">

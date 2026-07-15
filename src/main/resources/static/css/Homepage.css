@@ -242,6 +242,20 @@ header {
   font-weight: 900;
   -webkit-text-stroke: 0.03rem currentColor;
 }
+/* =========================
+    BANNER SPONSORSHIP
+========================= */
+.sponsorship-banner {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.sponsorship-banner img {
+    width: 90rem;
+    height: 23.5rem;
+    object-fit: contain;
+}
 
 /* =========================
     BANNER ALL YOU CAN SEE

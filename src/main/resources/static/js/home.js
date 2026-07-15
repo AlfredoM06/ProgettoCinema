@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // helper per formattare la data
     function formatDate(dateString) {
-        const [year, month, day] = dateString.split("-");
+        let [year, month, day] = dateString.split("-");
 
-        const date = new Date(year, month - 1, day);
+        let date = new Date(year, month - 1, day);
 
         return date.toLocaleDateString("it-IT", {
             day: "2-digit",
@@ -111,6 +111,30 @@ document.addEventListener("DOMContentLoaded", function () {
         bannerIndex = (bannerIndex + 1) % bannerImages.length;
         bannerImg.src = bannerImages[bannerIndex];
       }, 2000);
+
+      // =====================================================
+          // SPONSORSHIP BANNER DINAMICO DA DATABASE
+          // =====================================================
+          let sponsorshipImg =
+              document.getElementById("sponsorshipBannerImg");
+          let sponsorshipData =
+              document.getElementById("sponsorshipBannerData");
+
+          if (sponsorshipImg && sponsorshipData) {
+              let sponsorshipImages =
+                  sponsorshipData.dataset.images
+                      ? sponsorshipData.dataset.images.split(",")
+                      : [];
+
+              // Se ci sono più immagini parte lo slideshow
+              if (sponsorshipImages.length > 1) {
+                  let sponsorshipIndex = 0;
+                  setInterval(() => {
+                        sponsorshipIndex = (sponsorshipIndex + 1)% sponsorshipImages.length;
+                        sponsorshipImg.src = sponsorshipImages[sponsorshipIndex];
+                  }, 2000);
+              }
+          }
 
 });
 
