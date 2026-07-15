@@ -5,92 +5,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" th:href="@{/css/root.css}">
-    <link rel="stylesheet" th:href="@{/css/navbar.css}">
-    <link rel="stylesheet" th:href="@{/css/gestione-film.css}">
-    <link rel="stylesheet" th:href="@{/css/gestione-admin.css}">
-
-
+    <!-- LINK -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
           integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Gestionale Film</title>
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/account-admin.css}">
+    <link rel="stylesheet" th:href="@{/css/gestionali-admin.css}">
+
+    <title>Dashboard Admin</title>
 </head>
 
-<body>
-
+<body class="page-layout">
+<!--NAVBAR-->
 <header id="return">
-    <img alt="cinema_logo" class="logo" src="./img/Cinema_Logo.png"></img>
-    <ul class="nav">
-        <li><a href="./inSala.html">In Sala</a></li>
-        <li><a href="./prossimamente.html">Prossimamente</a></li>
-        <li><a href="#cale">Membership</a></li>
-        <li><a href="#tabs">Offerte</a></li>
-        <li><a href="#cale">Shop</a></li>
-    </ul>
-
-    <ul class="navbar-nav ">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false" id="dropdown">
-                Dropdown
-            </a>
-            <ul class="dropdown-menu accountDrop">
-                <li><a class="dropdown-item" href="#">Profilo</a></li>
-                <li><a class="dropdown-item active" href="GestioneFilm.html">Gestione Film</a></li>
-                <li><a class="dropdown-item" href="GestioneFilm.html">Gestione Offerte</a></li>
-                <li><a class="dropdown-item" href="GestioneFilm.html">Gestione Partnership</a></li>
-                <li><a class="dropdown-item" href="#">Gestione Utenti</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#" id="btnLogOut">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: admin"></div>
 </header>
 
-<!--FORM FILM-->
-<main th:replace="~{fragments/gestionali :: formFilm}"></main>
+<!-- CONTENUTO PAGINA -->
+<div class="container-fluid">
+    <div class="account-wrapper">
+        <!-- ========================= -->
+        <!-- SIDEBAR -->
+        <!-- ========================= -->
+        <aside class="sidebar">
+            <h2>Ciao <span>Mario</span></h2>
+            <!-- PANORAMICA ADMIN-->
+            <section>
+                <ul>
+                    <li>
+                        <button class="menu-btn sidebar-main active" data-target="overview">
+                            <img th:src="@{/img/admin_profile.svg}" alt="admin_profilo">
+                            <span>Panoramica dell'account</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
 
-<!-- FILM GESTIONALE  -->
-<section th:replace="~{fragments/gestionali :: tabellaFilm}" ></section>
+            <!-- GESTIONALI PRODOTTI -->
+            <section class="sidebar-section">
+                <h3>Gestionali</h3>
+
+                <div class="dropdown-admin">
+                    <!-- TOGGLE -->
+                    <button class="dropdown-toggle-admin sidebar-main">
+                        <img th:src="@{/img/adming_managment.svg}" alt="admin_gestionali">
+                        <span>Gestionali Prodotti</span>
+                    </button>
+
+                    <!-- GESTIONALI PRODOTTI -->
+                    <div class="dropdown-menu-admin">
+                        <button class="menu-btn" data-target="film">
+                            Gestionale Film
+                        </button>
+                        <button class="menu-btn" data-target="tabsOfferte">
+                            Gestionale Offerte
+                        </button>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <button class="menu-btn sidebar-main" data-target="management_user">
+                            <img th:src="@{/img/admin_mangment_user.svg}" alt="gestionali_utenti">
+                            <span>Gestione utenti</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- ========================= -->
+        <!-- CONTENUTO DINAMICO DESTRA -->
+        <!-- ========================= -->
+        <main class="content-area">
+            <div class="content-box">
+
+                <!-- PANORAMICA -->
+                <div class="content-section active" id="overview">
+                    <div class="page-title">
+                        <img th:src="@{/img/user_profil.svg}" alt="user_profile">
+                        <h1>Panoramica dell'account</h1>
+                    </div>
+                    <div class="account-panorama">
+
+                        <!-- COLONNA DESTRA -->
+                        <section class="account-right" aria-labelledby="account-title">
+                            <div class="account-header">
+                                <h2 id="account-title" class="section-title">
+                                    Dettagli personali
+                                </h2>
+                            </div>
+                            <dl class="account-fields">
+                                <div class="field-row">
+                                    <div class="field">
+                                        <dt>Nome</dt>
+                                        <dd>Mario</dd>
+                                    </div>
+                                    <div class="field">
+                                        <dt>Cognome</dt>
+                                        <dd>Rossi</dd>
+                                    </div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field">
+                                        <dt>Cellulare</dt>
+                                        <dd>+39 333 123 4567</dd>
+                                    </div>
+                                    <div class="field">
+                                        <dt>Email</dt>
+                                        <dd>mariolumaconeseducente@gmail.com</dd>
+                                    </div>
+                                </div>
+                            </dl>
+                        </section>
+                    </div>
+                </div>
+
+                <!--GESTIONALE PRODOTTI FILM-->
+                <section class="content-section" id="film" style="display:none;">
+                    <div class="page-title">
+                        <img th:src="@{/img/adming_managment.svg}" alt="gestionale_prodotti">
+                        <h1>Gestionale Film</h1>
+                    </div>
+                    <!-- WRAPPER -->
+                    <div class="admin-panel">
+                        <!--FORM FILM-->
+                        <section th:replace="~{fragments/gestionali :: formFilm}"></section>
+                        <!-- TABELLA FILM  -->
+                        <section th:replace="~{fragments/gestionali :: tabellaFilm}" ></section>
+                    </div>
+                </section>
+
+                <!--GESTIONALE PRODOTTI OFFERTE-->
+                <section class="content-section" id="tabsOfferte" style="display:none;">
+                    <div class="page-title">
+                        <img th:src="@{/img/adming_managment.svg}" alt="gestionale_offerte">
+                        <h1>Gestionale Offerte</h1>
+                    </div>
+                    <!-- WRAPPER -->
+                    <div class="admin-panel">
+                        <!--FORM OFFERTE-->
+                        <section th:replace="~{fragments/gestionali :: formOfferte}"></section>
+                        <!-- TABELLA OFFERTE  -->
+                        <section th:replace="~{fragments/gestionali :: tabellaFilm}" ></section>
+                    </div>
+                </section>
+
+                <!--GESTIONALE UTENTE-->
+                <section class="content-section" id="management_user" style="display:none;">
+                    <div class="page-title">
+                        <img th:src="@{/img/admin_mangment_user.svg}" alt="gestionale_utente">
+                        <h1>Gestionale Utente</h1>
+                    </div>
+                    <!-- WRAPPER -->
+                    <div class="admin-panel">
+                        <!--FORM UTENTE-->
+                        <section th:replace="~{fragments/gestionali :: formUtenti}"></section>
+                        <!--TABELLA UTENTE-->
+                        <section th:replace="~{fragments/gestionali :: tabellaUtenti}"></section>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+</div>
 
 
 
-<!--SCRIPT-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- jQuery (DataTables) DataTables JS -->
+
+
+
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="/js/account-admin.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
     $(document).ready(function () {
 
- if (!$.fn.DataTable.isDataTable('#example')) {
-     $('#tabellaFilmInSala').DataTable({
-         dom:
-             "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
-             "<'row'<'col-12'tr>>" +
-             "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
-     });
- }
- if (!$.fn.DataTable.isDataTable('#example2')) {
-     $('#tabellaFilmArchivio').DataTable({
-         dom:
-             "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
-             "<'row'<'col-12'tr>>" +
-             "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
-     });
- }
+        if (!$.fn.DataTable.isDataTable('#example')) {
+            $('#tabellaFilmInSala').DataTable({
+                dom:
+                    "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
+                    "<'row'<'col-12'tr>>" +
+                    "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
+            });
+        }
+        if (!$.fn.DataTable.isDataTable('#example2')) {
+            $('#tabellaFilmArchivio').DataTable({
+                dom:
+                    "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
+                    "<'row'<'col-12'tr>>" +
+                    "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
+            });
+        }
+        if (!$.fn.DataTable.isDataTable('#example3')) {
+            $('#tableOffers').DataTable({
+                dom:
+                    "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
+                    "<'row'<'col-12'tr>>" +
+                    "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
+            });
+        }
 
-});
+        if (!$.fn.DataTable.isDataTable('#example4')) {
+            $('#tableUsers').DataTable({
+                dom:
+                    "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
+                    "<'row'<'col-12'tr>>" +
+                    "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
+            });
+        }
+
+
+    });
 
 </script>
 

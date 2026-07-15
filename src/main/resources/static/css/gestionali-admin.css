@@ -1,37 +1,38 @@
 /* =========================
    GLOBAL PAGE
 ========================= */
+.page-layout {
+    background-color: #1c252e;
+	display: flex;
+	justify-content: center;
 
-body {
-    display: flex;
-    flex-direction: column;
+	flex-direction: column;
+	min-height: auto;
 }
 
-/* spazio sotto navbar */
 .page-main {
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+}
 
-    padding-top: clamp(14rem, 18vh, 18rem);
+.admin-panel .form-select {
+    color-scheme: dark;
 }
 
 /* =========================
    SECTION / TABS
 ========================= */
 
-section {
-    margin-top: 5rem;
+.section-layout {
+    margin-top: 1rem;
     padding-top: 3rem;
     padding-bottom: 5rem;
     background-color: var(--background-div)
-
 }
 
-section .section-title {
+.section-layout .section-title {
     text-align: center;
-    color: #fff;
     margin-bottom: 2rem;
     text-transform: uppercase;
 }
@@ -40,7 +41,7 @@ section .section-title {
    NAV TABS
 ========================= */
 
-.nav-fill {
+.section-layout .nav-fill {
     border-bottom: 0;
 }
 
@@ -48,7 +49,7 @@ section .section-title {
    FORM CONTAINER BASE
 ========================= */
 
-.formFilm {
+.admin-panel .formFilm {
     background-color: var(--background-div);
     border-top: 0.125rem solid var(--border-color);
     border-bottom: 0.125rem solid var(--border-color);
@@ -60,22 +61,31 @@ section .section-title {
     max-width: 75rem;
 }
 
+
+/* =========================
+   ADMIN PANEL (ISOLAMENTO 🔥)
+========================= */
+
+.admin-panel {
+    width: 100%;
+}
+
 /* =========================
    FORM GLOBAL ELEMENTS
 ========================= */
 
-.form-label {
+ .form-label {
     margin-bottom: 0.4rem;
     font-weight: 500;
     font-size: 0.95rem;
     text-transform: uppercase;
 }
 
-.form-control {
+ .form-control {
     border-radius: 0.5rem;
 }
 
-.form-control:focus {
+ .form-control:focus {
     border-color: var(--border-color);
     box-shadow: 0 0 0 0.2rem rgba(158, 143, 43, 0.25);
 }
@@ -84,7 +94,7 @@ section .section-title {
    FORM GROUP SPACING
 ========================= */
 
-.form-group {
+.admin-panel .form-group {
     margin-bottom: 1rem;
 }
 
@@ -92,7 +102,7 @@ section .section-title {
    BUTTON AREA
 ========================= */
 
-.form-actions {
+.admin-panel .form-actions {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,20 +118,19 @@ section .section-title {
    DATATABLES UI
 ========================= */
 
-.dataTables_filter {
+.admin-panel .dataTables_filter {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.dataTables_filter label {
+.admin-panel .dataTables_filter label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-/* search input */
-.dataTables_filter input {
+.admin-panel .dataTables_filter input {
     max-width: 18rem;
     height: 2.2rem;
     padding: 0.3rem 0.75rem;
@@ -129,8 +138,7 @@ section .section-title {
     font-size: 0.9rem;
 }
 
-/* select show */
-.dataTables_length select:focus {
+.admin-panel .dataTables_length select:focus {
     border-color: var(--border-color) !important;
     box-shadow: 0 0 0 0.15rem rgba(158, 143, 43, 0.25) !important;
     outline: none;
@@ -140,7 +148,7 @@ section .section-title {
    SELECT
 ========================= */
 
-.form-select:focus {
+.admin-panel .form-select:focus {
     border-color: var(--border-color) !important;
     box-shadow: 0 0 0 0.15rem rgba(158, 143, 43, 0.25) !important;
     outline: none !important;
@@ -148,4 +156,89 @@ section .section-title {
 
 option:hover {
     background-color: 0 0 0 0.15rem rgba(158, 143, 43, 0.25) !important;;
+}
+
+/* =========================
+   OFFERTA FORM LAYOUT
+========================= */
+
+.admin-panel .form-section {
+    display: flex;
+    flex-direction: column;
+}
+/* =========================
+   RADIO GROUP FIX
+========================= */
+
+.admin-panel .form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.admin-panel .form-check-input {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.admin-panel .form-check-label {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.admin-panel .form-check-input:checked {
+    background-color: var(--border-color);
+    border-color: var(--border-color);
+}
+
+/* textarea NON enorme */
+.admin-panel textarea.form-control {
+    min-height: 13rem;
+    max-height: 16rem;
+    resize: vertical;
+}
+
+/* =========================
+   TABS
+========================= */
+
+/* titolo tabella */
+#tabsFilm h1.section-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+#tabsOfferte h1.section-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+#tabsUsers h1.section-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+#tabsFilm {
+    background: var(--background-div);
+    color: #fff;
+}
+
+#tabsFilm .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    color: var(--secondary);
+	border-bottom: 3px solid var(--secondary);;
+    font-size: 1.1rem;
+}
+
+#tabsFilm .nav-tabs .nav-link.active {
+	color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+    background: transparent;
+    font-weight: bold;
 }

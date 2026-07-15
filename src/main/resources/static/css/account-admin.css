@@ -1,0 +1,240 @@
+/* ========================= */
+/* BASE */
+/* ========================= */
+
+body {
+    background-color: var(--background-page);
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+/* reset liste */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ========================= */
+/* LAYOUT */
+/* ========================= */
+
+.account-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1%;
+    margin-top: 10rem;
+}
+
+.sidebar {
+    width: 15%;
+    margin-top: 5rem;
+}
+
+.content-area {
+    width: 60%;
+}
+
+.content-box {
+    background-color: #111821;
+    padding: 2rem;
+}
+
+
+/* ========================= */
+/* TYPOGRAPHY */
+/* ========================= */
+
+h3 {
+    font-size: .87rem;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--secondary);
+}
+
+
+/* ========================= */
+/* SIDEBAR BUTTONS */
+/* ========================= */
+
+.menu-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.20rem;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    margin-top: 0.20rem;
+    background-color: var(--background-div);
+    border: none;
+    border-radius: 0.20rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(80%);
+}
+
+.menu-btn span {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.sidebar-main.active::after,
+.dropdown-toggle-admin.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: .375rem;
+    background: linear-gradient(0deg, #dc143c 0, #b88f2a 50%, #9e8f2b);
+    border-radius: .125rem 0 0 .125rem;
+}
+
+/* DROPDOWN ADMIN*/
+dropdown-admin {
+    width: 100%;
+}
+
+
+.dropdown-toggle-admin {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.5rem 1rem;
+
+    background-color: var(--background-div);
+    border: none;
+    border-radius: 0.20rem;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+
+.dropdown-menu-admin {
+    display: none;
+    flex-direction: column;
+    background: #111821;
+}
+
+.dropdown-toggle-admin img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(80%);
+}
+
+
+.dropdown-menu-admin .menu-btn {
+    padding-left: 3rem;
+    background: #111821;
+    color: var(--text-primary);
+}
+
+
+.dropdown-menu-admin .menu-btn.active {
+    background: #1a2430;
+    color: var(--text-primary);
+    border-radius: none;
+}
+
+
+/* OPEN STATE */
+.dropdown-admin.open .dropdown-menu-admin {
+    display: flex;
+}
+
+
+/* ========================= */
+/* PAGE TITLE */
+/* ========================= */
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.page-title h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.page-title img {
+    width: 2.8rem;
+    height: 2.8rem;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(80%);
+}
+
+
+/* ========================= */
+/* ACCOUNT PANORAMA */
+/* ========================= */
+
+.account-panorama {
+    display: flex;
+    gap: 2rem;
+    padding-bottom: 11.5rem;
+}
+
+
+/* ACCOUNT HEADER */
+
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    background: linear-gradient(0deg, #b74d1c, #f7941e, #eec42a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* ACCOUNT FIELDS */
+.account-fields {
+    margin: 0;
+}
+
+.field-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.field dt {
+    font-size: 0.80rem;
+    font-weight: 200;
+    opacity: .7;
+}
+
+.field dd {
+    margin: 0;
+    font-size: 1.20rem;
+    font-weight: 400;
+}
+
+

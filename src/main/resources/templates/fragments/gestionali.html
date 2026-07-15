@@ -9,9 +9,9 @@
 
 <!-- ============================================================
      FRAGMENT: FORM OFFERTE
-     Uso: <main th:replace="~{fragments :: formOfferte}">
+     Uso: <main th:replace="~{fragments/gestionali :: formOfferte}">
      ============================================================ -->
-<main class="page-main" th:fragment="formOfferte">
+<section class="page-main" th:fragment="formOfferte">
     <div class="container formFilm">
         <form class="row g-4">
 
@@ -26,15 +26,18 @@
                     <label class="form-label d-block">Genere Offerta</label>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genere" value="evento">
+                        <input class="form-check-input" type="radio" name="genere"
+                               value="evento">
                         <label class="form-check-label">Eventi</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genere" value="bar">
+                        <input class="form-check-input" type="radio" name="genere"
+                               value="bar">
                         <label class="form-check-label">Bar</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genere" value="anteprima">
+                        <input class="form-check-input" type="radio" name="genere"
+                               value="anteprima">
                         <label class="form-check-label">Anteprime</label>
                     </div>
                 </div>
@@ -59,15 +62,19 @@
             </div>
 
             <!-- PREZZO + IMMAGINI -->
-            <div class="col-md-4 form-group">
+            <div class="col-md-3 form-group">
                 <label class="form-label">Prezzo (solo Bar)</label>
                 <input type="number" class="form-control" id="prezzo">
             </div>
-            <div class="col-md-4 form-group">
-                <label class="form-label">Immagine Card</label>
+            <div class="col-md-3 form-group">
+                <label class="form-label">Immagine Card Ver.</label>
                 <input type="file" class="form-control">
             </div>
-            <div class="col-md-4 form-group">
+            <div class="col-md-3 form-group">
+                <label class="form-label">Immagine Toplist Ori.</label>
+                <input type="file" class="form-control">
+            </div>
+            <div class="col-md-3 form-group">
                 <label class="form-label">Immagine Dettaglio</label>
                 <input type="file" class="form-control">
             </div>
@@ -79,15 +86,16 @@
             </div>
 
         </form>
+
     </div>
-</main>
+</section>
 
 
 <!-- ============================================================
      FRAGMENT: FORM FILM
-     Uso: <main th:replace="~{fragments :: formFilm}">
+     Uso: <section th:replace="~{fragments/gestionali :: formFilm}">
      ============================================================ -->
-<main class="page-main" th:fragment="formFilm">
+<section class="page-main" th:fragment="formFilm">
     <div class="container formFilm">
         <form class="row g-4">
 
@@ -141,33 +149,119 @@
 
             <!-- LINGUE + PREZZO + FORMATO -->
 
-                <div class="col-md-4 form-group">
-                    <label class="form-label">Lingua</label>
-                    <select class="form-select" id="lingua">
-                        <option value="" disabled selected>Seleziona lingua</option>
-                        <option value="ita">Italiano</option>
-                        <option value="eng">Inglese</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group4">
-                    <label class="form-label">Formato</label>
-                    <input type="date" class="form-control" id="dataFine">
-                </div>
-                <div class="col-md-2 form-group">
-                    <label class="form-label">Prezzo</label>
-                    <input type="number" class="form-control" id="durata">
-                </div>
-            <div class="col-md-2 form-group">
-                <label class="form-label d-block">Stato Film</label>
+            <div class="col-md-4 form-group" id="ita0">
+                <label class="form-label d-block">Italiano</label>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statoFilm" value="inSala">
-                    <label class="form-check-label">In Sala</label>
+                <div class="row">
+
+                    <!-- colonna sinistra -->
+                    <div class="col-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato2D"
+                                   value="2D">
+
+                            <label class="form-check-label" for="formato2D">
+                                2D
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato3D"
+                                   value="3D">
+
+                            <label class="form-check-label" for="formato3D">
+                                3D
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato3D"
+                                   value="3D">
+
+                            <label class="form-check-label" for="formato3D">
+                                No
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                    <!-- colonna destra -->
+                    <div class="col-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato4K"
+                                   value="4K">
+
+                            <label class="form-check-label" for="formato4K">
+                                4K
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formatoIMAX"
+                                   value="IMAX">
+                            <label class="form-check-label" for="formatoIMAX">
+                                IMAX
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statoFilm" value="archiviato">
-                    <label class="form-check-label">Archiviato</label>
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label class="form-label d-block" id="eng">Inglese</label>
+
+                <div class="row">
+
+                    <!-- colonna sinistra -->
+                    <div class="col-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato2D"
+                                   value="2D">
+
+                            <label class="form-check-label" for="formato2D">
+                                2D
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato3D"
+                                   value="3D">
+
+                            <label class="form-check-label" for="formato3D">
+                                3D
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato3D"
+                                   value="3D">
+                            <label class="form-check-label" for="formato3D">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- colonna destra -->
+                    <div class="col-5">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formato4K"
+                                   value="4K">
+                            <label class="form-check-label" for="formato4K">
+                                4K
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formatoIMAX"
+                                   value="IMAX">
+                            <label class="form-check-label" for="formatoIMAX">
+                                IMAX
+                            </label>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- PREZZO -->
+            <div class="col-md-4 form-group">
+                <label class="form-label">Prezzo</label>
+                <input type="number" class="form-control" id="durata">
             </div>
 
             <!-- IMMAGINI -->
@@ -184,22 +278,60 @@
                 <input type="file" class="form-control" accept="image/*">
             </div>
 
-            <!-- BOTTONI -->
+            <!-- PARTNERSHIP -->
+            <div class="col-md-4 form-group">
+                <label class="form-label">Immagine Partnership</label>
+                <input type="file" class="form-control" accept="image/*">
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label class="form-label d-block">Partnership</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="partnership"
+                           value="si">
+                    <label class="form-check-label">Sì</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="partnership"
+                           value="no">
+                    <label class="form-check-label">No</label>
+                </div>
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label class="form-label d-block">Stato Film</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="statoFilm"
+                           value="inSala">
+                    <label class="form-check-label">In Sala</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="statoFilm"
+                           value="archiviato">
+                    <label class="form-check-label">Archiviato</label>
+                </div>
+            </div>
+
+            <!-- BOTTONI CONFERMA E ANNULLA-->
             <div class="col-12 form-actions">
                 <button type="submit" class="btn btn-outline-warning">Conferma</button>
                 <button type="reset" class="btn btn-outline-danger">Annulla</button>
             </div>
 
         </form>
+
     </div>
-</main>
+</section>
 
 
 <!-- ============================================================
      FRAGMENT: FORM UTENTI  ← placeholder, da personalizzare
-     Uso: <main th:replace="~{fragments :: formUtenti}">
+     Uso: <section th:replace="~{fragments/gestionali :: formUtenti}">
      ============================================================ -->
-<main class="page-main" th:fragment="formUtenti">
+<section class="page-main" th:fragment="formUtenti">
     <div class="container formFilm">
         <form class="row g-4">
 
@@ -207,37 +339,45 @@
             <div class="col-md-6 form-section">
                 <div class="form-group">
                     <label class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nomeUtente">
+                    <input type="text" class="form-control" id="nome">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Cognome</label>
-                    <input type="text" class="form-control" id="cognomeUtente">
+                    <input type="text" class="form-control" id="cognome">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" id="emailUtente">
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
             </div>
 
             <!-- COLONNA DESTRA -->
-            <div class="col-md-6 form-section">
-                <div class="form-group">
-                    <label class="form-label">Ruolo</label>
-                    <select class="form-select" id="ruoloUtente">
-                        <option value="" disabled selected>Seleziona ruolo...</option>
-                        <option value="admin">Admin</option>
-                        <option value="staff">Staff</option>
-                        <option value="utente">Utente</option>
-                    </select>
+            <div class="col-md-4 form-section">
+                <div class=" form-group">
+                    <label class="form-label d-block">Ruolo</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ruolo">
+                        <label class="form-check-label">Admin</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ruolo">
+                        <label class="form-check-label">User</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" id="passwordUtente">
+                <div class=" form-group">
+                    <label class="form-label d-block">Stato account</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="stato_account">
+                        <label class="form-check-label">Attivo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="stato_account">
+                        <label class="form-check-label">Bloccato</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Conferma Password</label>
-                    <input type="password" class="form-control" id="confermaPassword">
-                </div>
+
             </div>
 
             <!-- BOTTONI -->
@@ -247,81 +387,21 @@
             </div>
 
         </form>
-    </div>
-</main>
 
+    </div>
+</section>
 
 <!-- ============================================================
-     FRAGMENT: FORM PARTNERSHIP  ← placeholder, da personalizzare
-     Uso: <main th:replace="~{fragments :: formPartnership}">
+     FRAGMENT: TABELLA OFFERTE
+     Uso: <section th:replace="~{fragments/gestionali :: tabellaOfferte}">
      ============================================================ -->
-<main class="page-main" th:fragment="formPartnership">
-    <div class="container formFilm">
-        <form class="row g-4">
-
-            <!-- COLONNA SINISTRA -->
-            <div class="col-md-6 form-section">
-                <div class="form-group">
-                    <label class="form-label">Nome Partner</label>
-                    <input type="text" class="form-control" id="nomePartner">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tipo Partnership</label>
-                    <select class="form-select" id="tipoPartnership">
-                        <option value="" disabled selected>Seleziona tipo...</option>
-                        <option value="sponsor">Sponsor</option>
-                        <option value="media">Media Partner</option>
-                        <option value="commerciale">Commerciale</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- COLONNA DESTRA -->
-            <div class="col-md-6 form-section">
-                <div class="form-group">
-                    <label class="form-label">Descrizione Partnership</label>
-                    <textarea class="form-control" id="descrizionePartnership"></textarea>
-                </div>
-            </div>
-
-            <!-- DATE -->
-            <div class="col-md-6 form-group">
-                <label class="form-label">Data Inizio</label>
-                <input type="date" class="form-control" id="dataInizioPartnership">
-            </div>
-            <div class="col-md-6 form-group">
-                <label class="form-label">Data Scadenza</label>
-                <input type="date" class="form-control" id="dataScadenzaPartnership">
-            </div>
-
-            <!-- LOGO -->
-            <div class="col-md-6 form-group">
-                <label class="form-label">Logo Partner</label>
-                <input type="file" class="form-control" accept="image/*">
-            </div>
-
-            <!-- BOTTONI -->
-            <div class="col-12 form-actions">
-                <button type="submit" class="btn btn-outline-warning">Conferma</button>
-                <button type="reset" class="btn btn-outline-danger">Annulla</button>
-            </div>
-
-        </form>
-    </div>
-</main>
-
-
-<!-- ============================================================
-     FRAGMENT: TABELLA GENERICA (Offerte, Utenti, Partnership)
-     Uso: <section th:replace="~{fragments :: tabellaGenerica(titolo='Database Offerte', tableId='tabellaOfferte')}">
-     ============================================================ -->
-<section id="tabsOffers" th:fragment="tabellaGenerica(titolo, tableId)">
+<section id="tabsOffers" class="section-layout" th:fragment="tabellaOfferte">
     <div class="container">
 
-        <h1 class="section-title h1" th:text="${titolo}">Database</h1>
+        <h1 class="section-title h1">Database Offerte</h1>
 
-        <div class="row">
-            <table th:id="${tableId}" class="table table-striped dataTable-init">
+        <div class="row" id="Offers">
+            <table id="tableOffers" class="table table-striped dataTable-init">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -332,16 +412,39 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Riga di esempio: popolare dinamicamente con th:each -->
                 <tr>
                     <td>1</td>
                     <td>Esempio Record</td>
                     <td>Categoria</td>
                     <td>01/01/2025</td>
                     <td>
-                        <div class="btn-group d-flex justify-content-center" role="group">
+                        <div class="btn-group d-flex justify-content-center"
+                             role="group">
                             <button type="button" class="btn btn-outline-success">
                                 <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="fa-regular fa-folder-open"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>bruh</td>
+                    <td>breeeh</td>
+                    <td>05/01/2025</td>
+                    <td>
+                        <div class="btn-group d-flex justify-content-center"
+                             role="group">
+                            <button type="button" class="btn btn-outline-success">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="fa-regular fa-folder-open"></i>
                             </button>
                             <button type="button" class="btn btn-outline-danger">
                                 <i class="fa-regular fa-trash-can"></i>
@@ -352,33 +455,103 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    </div>
+</section>
 
+
+<!-- ============================================================
+     FRAGMENT: TABELLA UTENTI
+     Uso: <section th:replace="~{fragments/gestionali :: tabellaUtenti}">
+     ============================================================ -->
+<section id="tabsUsers" class="section-layout"  th:fragment="tabellaUtenti">
+    <div class="container">
+
+        <h1 class="section-title h1">Database Utenti</h1>
+
+        <div class="row" id="Users">
+            <table id="tableUsers" class="table table-striped dataTable-init">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Email</th>
+                    <th>Ruolo</th>
+                    <th>Azioni</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Mario</td>
+                    <td>Rossi</td>
+                    <td>mariorossi@gmail.com</td>
+                    <td>User</td>
+                    <td>
+                        <div class="btn-group d-flex justify-content-center"
+                             role="group">
+                            <button type="button" class="btn btn-outline-success">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="fa-regular fa-folder-open"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Mamba</td>
+                    <td>Puffi</td>
+                    <td>mambapuffi@gmail.com</td>
+                    <td>Admin</td>
+                    <td>
+                        <div class="btn-group d-flex justify-content-center"
+                             role="group">
+                            <button type="button" class="btn btn-outline-success">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="fa-regular fa-folder-open"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     </div>
 </section>
 
 
 <!-- ============================================================
      FRAGMENT: TABELLA FILM (con tab In Sala / Archivio)
-     Uso: <section th:replace="~{fragments :: tabellaFilm}">
+     Uso: <section th:replace="~{fragments/gestionali :: tabellaFilm}">
      ============================================================ -->
-<section id="tabsFilm" th:fragment="tabellaFilm">
+<section id="tabsFilm" class="section-layout" th:fragment="tabellaFilm">
     <div class="container">
 
         <h1 class="section-title h1">Database Film</h1>
 
         <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab"
-                        data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-                        type="button" role="tab"
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                        data-bs-target="#home-tab-pane" type="button" role="tab"
                         aria-controls="home-tab-pane" aria-selected="true">
                     In Sala
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab"
-                        data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                        type="button" role="tab"
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                        data-bs-target="#profile-tab-pane" type="button" role="tab"
                         aria-controls="profile-tab-pane" aria-selected="false">
                     Archivio
                 </button>
@@ -388,10 +561,11 @@
         <div class="tab-content py-3 px-3 px-sm-0" id="myTabContent">
 
             <!-- TAB: IN SALA -->
-            <div class="tab-pane fade show active" id="home-tab-pane"
-                 role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
+                 aria-labelledby="home-tab" tabindex="0">
                 <div class="row" id="tabInSala">
-                    <table id="tabellaFilmInSala" class="table table-striped dataTable-init">
+                    <table id="tabellaFilmInSala"
+                           class="table table-striped dataTable-init">
                         <thead>
                         <tr>
                             <th>Id</th>
@@ -409,14 +583,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -428,14 +606,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -447,14 +629,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -466,14 +652,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -485,14 +675,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -504,14 +698,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -523,14 +721,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -542,14 +744,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -561,14 +767,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -580,14 +790,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2025</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -599,10 +813,11 @@
             </div>
 
             <!-- TAB: ARCHIVIO -->
-            <div class="tab-pane fade" id="profile-tab-pane"
-                 role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel"
+                 aria-labelledby="profile-tab" tabindex="0">
                 <div class="row" id="Archivio">
-                    <table id="tabellaFilmArchivio" class="table table-striped dataTable-init">
+                    <table id="tabellaFilmArchivio"
+                           class="table table-striped dataTable-init">
                         <thead>
                         <tr>
                             <th>Id</th>
@@ -620,14 +835,18 @@
                             <td>Distribuzione</td>
                             <td>01/01/2024</td>
                             <td>
-                                <div class="btn-group d-flex justify-content-center" role="group">
-                                    <button type="button" class="btn btn-outline-success">
+                                <div class="btn-group d-flex justify-content-center"
+                                     role="group">
+                                    <button type="button"
+                                            class="btn btn-outline-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning">
+                                    <button type="button"
+                                            class="btn btn-outline-warning">
                                         <i class="fa-regular fa-folder-open"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-outline-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -650,6 +869,7 @@
         </div>
     </div>
 </section>
+
 
 
 </body>
