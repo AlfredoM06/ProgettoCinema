@@ -76,7 +76,7 @@ public class PaginaUtenteController {
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
     
     @GetMapping("acquistiOfferte/{id}")
-    public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, String genere){
+    public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, @RequestParam(required=false) String genere){
     	List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(id, genere);
     	List<OfferteDTO> acquisti = new ArrayList<>();
     	for(AcquistiGadget acquisto:acquistiGadget) {
