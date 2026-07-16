@@ -43,10 +43,10 @@ INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 2, 9.5
 INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 3, 5, 'Disabili');
 
 --sale
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, 'Standard'); -- 1
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 35, '3D'); -- 2
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 25, 'IMAX'); -- 3
-INSERT INTO db_cinema.sale (numero_posti, tipo) VALUES ( 40, '4K'); -- 4
+INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ( 40, 'Standard'); -- 1
+INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ( 35, '3D'); -- 2
+INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ( 25, 'IMAX'); -- 3
+INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ( 40, '4K'); -- 4
 
 --programmazione films
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 3, 2, 23, '21:30');

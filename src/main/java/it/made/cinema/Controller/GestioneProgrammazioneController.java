@@ -4,29 +4,41 @@ import it.made.cinema.Model.Film;
 import it.made.cinema.Model.ProgrammazioneFilm;
 import it.made.cinema.Model.DTO.ListaFilmDTO;
 import it.made.cinema.Model.DTO.ListaProgDTO;
+import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoProgrammazione;
+import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Service.OrarioService;
 import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/gestioneProgrammazione")
 public class GestioneProgrammazioneController {
     @Autowired
-    private IRepoProgrammazione repoProgrammazione ;
+    private IRepoProgrammazione repoProgrammazione;
+
+    @Autowired
+    OrarioService orarioService;
+
+    @Autowired
+    IRepoUtenti repoUtenti;
 
     @GetMapping
-    public String gestioneProgrammazione(Model model){
-    	List<ProgrammazioneFilm> listaProgrammazione= repoProgrammazione.findAll();
-    	model.addAttribute("listaProgrammazione", listaProgrammazione);
+    public String gestioneProgrammazione(Model model) {
+        List<ProgrammazioneFilm> listaProgrammazione = repoProgrammazione.findAll();
+        model.addAttribute("listaProgrammazione", listaProgrammazione);
         return "";
     }
 
@@ -59,7 +71,7 @@ public class GestioneProgrammazioneController {
         if (bindinResult.hasErrors()) {
             return "";
         }
-       repoProgrammazione.save(formProgrammazione);
+        repoProgrammazione.save(formProgrammazione);
         return "";
     }
 
@@ -69,27 +81,42 @@ public class GestioneProgrammazioneController {
         repoProgrammazione.deleteById(id);
         return "";
     }
+
     @GetMapping("/programmazione")
-    public @ResponseBody List<ListaProgDTO> ricercaProgrammazione(@RequestParam(name = "Giorno", required = false) LocalDate dataProgrammazione){
-    	List<ProgrammazioneFilm> programmazioni=null;
-    	if(dataProgrammazione!=null) {
-    		programmazioni = repoProgrammazione.findByDataProgrammazione(dataProgrammazione);
-    	}
-    	else {
-    		programmazioni = repoProgrammazione.findAll();
-    	}
-    	List<ListaProgDTO> programmazioneDTO = new ArrayList<>();
-    	for (ProgrammazioneFilm programmazione : programmazioni) {
-    		programmazioneDTO.add(new ListaProgDTO(
-    				programmazione.getId(), 
-    				programmazione.getFilm().getId(), 
-    				programmazione.getSala().getId(),
-    				programmazione.getFilm().getPrezzo(),
-    				programmazione.getFilm().getFormato(),
-    				programmazione.getOrario(),
-    				programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata()+30)));
-    	}
-    	return programmazioneDTO;
+    public @ResponseBody List<ListaProgDTO> ricercaProgrammazione(@RequestParam(name = "Giorno", required = false) LocalDate dataProgrammazione) {
+        List<ProgrammazioneFilm> programmazioni = null;
+        if (dataProgrammazione != null) {
+            programmazioni = repoProgrammazione.findByDataProgrammazione(dataProgrammazione);
+        } else {
+            programmazioni = repoProgrammazione.findAll();
+        }
+        List<ListaProgDTO> programmazioneDTO = new ArrayList<>();
+        for (ProgrammazioneFilm programmazione : programmazioni) {
+            programmazioneDTO.add(new ListaProgDTO(
+                    programmazione.getId(),
+                    programmazione.getFilm().getId(),
+                    programmazione.getSala().getId(),
+                    programmazione.getFilm().getPrezzo(),
+                    programmazione.getSala().getFormato(),
+                    programmazione.getOrario(),
+                    programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata() + 30)));
+        }
+        return programmazioneDTO;
     }
 
+    @GetMapping("/programmazione/oreMancanti/{idProgrammazione}/{id}")
+    @ResponseBody
+    public Boolean oreMancati(@PathVariable Integer idProgrammazione, @PathVariable Integer id) {
+
+        Optional<Utente> utenteOpt = repoUtenti.findById(id);
+        if (utenteOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato");
+        }
+        Utente utente = utenteOpt.get();
+        ProgrammazioneFilm programmazione = repoProgrammazione.findById(idProgrammazione).get();
+
+        return Boolean.TRUE.equals(utente.getMembership()) ||
+                Boolean.TRUE.equals(orarioService.oreMancanti(programmazione.getDataProgrammazione(), programmazione.getOrario()));
+
+    }
 }

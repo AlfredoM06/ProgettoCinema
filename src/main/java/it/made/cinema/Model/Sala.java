@@ -25,7 +25,7 @@ public class Sala {
 
 	@NotEmpty
 	@Column(length = 50, nullable = false)
-	private String tipo;
+	private String formato;
 
 	@NotNull
 	@Column(nullable = false)
