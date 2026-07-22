@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 public class PrezzoService {
 
         // service per fare il calcolo del prezzo del biglietto (il service serve come layer di mezzo tra controller e repository, gli si passasno i dati e i calcoli da fare e poi lo si richiama nel controller dove serve al contrario di un controller che non può essere richiamato da un'altro controller)
-        public Double calcolaPrezzoFinale(Utente utente, Film film, Posto posto) {
+        public Double calcolaPrezzoFinale(Utente utente, Film film, Integer tipo) {
 
             // Prezzo base del film
             Double prezzoBase = film.getPrezzo();
 
             // Prezzo del posto in base al tipo
             Double prezzoPosto;
-            switch (posto.getTipo()) {
-                case "vip" -> prezzoPosto = 9.5;
-                case "disabili" -> prezzoPosto = 5.0;
+            switch (tipo) {
+                case 2 -> prezzoPosto = 9.5;
+                case 3 -> prezzoPosto = 5.0;
                 default -> prezzoPosto = 7.0; // normale
             }
 

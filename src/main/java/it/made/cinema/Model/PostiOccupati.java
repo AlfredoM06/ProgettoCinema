@@ -15,14 +15,17 @@ public class PostiOccupati {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private Boolean occupato;
     //relazione con tabPonte
     @ManyToOne
     @JoinColumn(name = "id_programmazioneFilm", nullable = false)
     private ProgrammazioneFilm programmazioneFilm;
-    @OneToOne(mappedBy = "postiOccupati")
-    private Posto posto;
+    @Column
+    private String posizione;
     @ManyToOne
     @JoinColumn(name = "id_utente")
     private Utente utente;
+    @Column
+    private Integer tipoPosto;
 }

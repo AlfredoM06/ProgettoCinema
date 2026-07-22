@@ -57,6 +57,9 @@ public class PaginaUtenteController {
     	List<PostiOccupati> postiOccupati = repoPO.findByUtenteId(id);
     	List<PostiOccupatiDTO> biglietti = new ArrayList<>();
     	for (PostiOccupati posto:postiOccupati) {
+    		String[] posizioni = posto.getPosizione().split("_");
+    		
+    		
     		biglietti.add(new PostiOccupatiDTO(
     				posto.getId(),
     				posto.getProgrammazioneFilm().getFilm().getTitolo(),
@@ -64,10 +67,10 @@ public class PaginaUtenteController {
     				posto.getProgrammazioneFilm().getOrario().plusMinutes(posto.getProgrammazioneFilm().getFilm().getDurata()+30),
     				posto.getProgrammazioneFilm().getDataProgrammazione(),
     				posto.getProgrammazioneFilm().getSala().getId(),
-    				posto.getPosto().getTipo(),
-    				posto.getPosto().getFila(),
-    				posto.getPosto().getColonna(),
-    				prezzoService.calcolaPrezzoFinale(posto.getUtente(), posto.getProgrammazioneFilm().getFilm(), posto.getPosto())
+    				posto.getTipoPosto(),
+    				Integer.valueOf(posizioni[0]),
+    				Integer.valueOf(posizioni[1]),
+    				prezzoService.calcolaPrezzoFinale(posto.getUtente(), posto.getProgrammazioneFilm().getFilm(), posto.getTipoPosto())
     				));
     	}
     	return biglietti;

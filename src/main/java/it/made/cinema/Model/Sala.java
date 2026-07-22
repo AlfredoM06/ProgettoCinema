@@ -27,12 +27,7 @@ public class Sala {
 	@Column(length = 50, nullable = false)
 	private String formato;
 
-	@NotNull
-	@Column(nullable = false)
-	private Integer numero_posti;
-
-	@OneToMany(mappedBy = "sala")
-	private List<Posto> posti;
+	private String posti;
 
 	// relazione con programmazione
 	@OneToMany(mappedBy = "sala")

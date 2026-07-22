@@ -9,4 +9,5 @@ import it.made.cinema.Model.ProgrammazioneFilm;
 
 public interface IRepoProgrammazione extends JpaRepository<ProgrammazioneFilm, Integer> {
 	public List<ProgrammazioneFilm> findByDataProgrammazione (LocalDate dataProgrammazione);
+	
 }

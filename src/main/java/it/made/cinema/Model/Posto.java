@@ -27,14 +27,4 @@ public class Posto {
 	@NotEmpty
 	@Column(length=50, nullable=false)
 	private String tipo;
-	@NotNull
-	private Integer fila;
-	@NotNull
-	private Integer colonna;
-	@ManyToOne
-	@JoinColumn(name="id_sala", referencedColumnName="id")
-	private Sala sala;
-	@OneToOne
-	@JoinColumn(name = "id_postiOccupati", referencedColumnName = "id")
-	private PostiOccupati postiOccupati;
 }

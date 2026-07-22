@@ -17,15 +17,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class PostiOccupatiDTO implements Serializable {
-	private Integer id;
-	private String titolo;
-	private LocalTime inizio;
-	private LocalTime fine;
-	private LocalDate giorno;
-	private Integer sala;
-	private Integer tipoPosto;
-	private Integer fila;
-	private Integer colonna;
-	private Double prezzo;
+public class PostiDTO implements Serializable {
+	private String id;
+	private int tipo;
+	private Boolean occupato;
 }

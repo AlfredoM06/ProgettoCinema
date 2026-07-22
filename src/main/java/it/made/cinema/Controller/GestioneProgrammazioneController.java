@@ -1,15 +1,5 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.Film;
-import it.made.cinema.Model.ProgrammazioneFilm;
-import it.made.cinema.Model.DTO.ListaFilmDTO;
-import it.made.cinema.Model.DTO.ListaProgDTO;
-import it.made.cinema.Model.Utente;
-import it.made.cinema.Repository.IRepoProgrammazione;
-import it.made.cinema.Repository.IRepoUtenti;
-import it.made.cinema.Service.OrarioService;
-import jakarta.validation.Valid;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +10,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
+
+import it.made.cinema.Model.ProgrammazioneFilm;
+import it.made.cinema.Model.Utente;
+import it.made.cinema.Model.DTO.ListaProgDTO;
+import it.made.cinema.Repository.IRepoProgrammazione;
+import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Service.OrarioService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/gestioneProgrammazione")
