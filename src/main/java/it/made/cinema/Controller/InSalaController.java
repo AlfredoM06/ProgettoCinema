@@ -5,8 +5,10 @@ import it.made.cinema.Model.Film;
 import it.made.cinema.Model.GenereFilm;
 import it.made.cinema.Model.DTO.ListaGenereDTO;
 import it.made.cinema.Model.DTO.ListaProgDTO;
+import it.made.cinema.Model.DTO.PostiDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
+import it.made.cinema.Service.PostiService;
 import it.made.cinema.Service.PrezzoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,8 @@ public class InSalaController {
     private IRepoGeneri repoGeneri;
     @Autowired
     PrezzoService prezzoService;
+    @Autowired
+    PostiService postiService;
 
     //dettagli di un film
     @GetMapping("/dettagli/{id}")
@@ -71,6 +75,11 @@ public class InSalaController {
             generiDTO.add(new ListaGenereDTO(genere.getId(), genere.getNome()));
         }
         return generiDTO;
+    }
+    
+    @GetMapping("/salaAcquisto/{id}")
+    public @ResponseBody PostiDTO[][] listaPosti(@PathVariable("id") Integer id){
+    	return postiService.getPosti(id);
     }
 
 }

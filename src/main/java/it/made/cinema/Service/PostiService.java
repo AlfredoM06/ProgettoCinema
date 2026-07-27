@@ -24,18 +24,13 @@ public class PostiService {
 	@Autowired
 	IRepoProgrammazione repoProgrammazione;
 	
-	public PostiDTO[][] getPosti(Integer id, Integer id_programmazione){
-		Optional<Sala> salaOpt = repoSala.findById(id);
-        if (salaOpt.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala non trovata");
-        }
-        Sala sala = salaOpt.get();
-		String posti = sala.getPosti();
-		Optional<ProgrammazioneFilm> programmazioneOpt = repoProgrammazione.findById(id);
+	public PostiDTO[][] getPosti(Integer id_programmazione){
+		Optional<ProgrammazioneFilm> programmazioneOpt = repoProgrammazione.findById(id_programmazione);
         if (programmazioneOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Programmazione non trovata");
         }
         ProgrammazioneFilm programmazione = programmazioneOpt.get();
+    	String posti = programmazione.getSala().getPosti();
         List<PostiOccupati> postiOccupati = programmazione.getListaPostiOccupati();
         PostiDTO[][] matricePosti = new PostiDTO[10][10];
         int indiceX = 0;
