@@ -29,9 +29,9 @@ public class PuntiService {
         } else {
             punti = (int) (prezzoFinale * 10);
         }
-
         return  punti;
     }
+    // acquisto membership
     public Integer puntiAcquisto(Utente utente){
         Integer punti = 0;
         if (utente.getAcquistoMembership().isEqual(LocalDate.now())){

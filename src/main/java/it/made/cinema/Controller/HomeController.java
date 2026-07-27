@@ -21,33 +21,21 @@ public class HomeController {
     @Autowired
     IRepoOfferte repoOfferte;
 
-    public HomeController() {
-    }
-
     //log in da fare
+    // bisogna fare un filtro per visualizzare i film in evidenza da decidere che attributo assegnargli soluzione = fare in base ai biglietti aquistati come non lo so e non lo voglio sapere
+    // e nel carousel grande da filtrare negli ultimi 7 appena usciti.
 
     //lista dei film, lista offerte , lista film in Evidenza  da finire
     @GetMapping
     private String home(Model model) {
         List<Film> filmRecenti = repoFilm.findTop7ByOrderByDataDiUscitaDesc();
         List<Offerta> top3Offerte = repoOfferte.findTop3ByOrderByDataInizioDesc();
-        //List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
-       // model.addAttribute("inEvidenza", filmInEvidenza);
+        List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
+        model.addAttribute("inEvidenza", filmInEvidenza);
         model.addAttribute("filmRecenti", filmRecenti);
         model.addAttribute("top3", top3Offerte);
         return "Home";
     }
-
-    // da completare film in evidenza
-    /*@GetMapping("/inEvidenza")
-    private String homeEvidenza(Model model){
-        List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
-        model.addAttribute("inEvidenza", filmInEvidenza);
-        return ;
-    }*/
-
-    // bisogna fare un filtro per visualizzare i film in evidenza da decidere che attributo assegnargli soluzione = fare in base ai biglietti aquistati come non lo so e non lo voglio sapere
-    // e nel carousel grande da filtrare negli ultimi 7 appena usciti.
 
     //dettagli dei film
     @GetMapping("/dettagli/{id}")

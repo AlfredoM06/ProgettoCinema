@@ -123,4 +123,8 @@ public class GestioneProgrammazioneController {
                 Boolean.TRUE.equals(orarioService.oreMancanti(programmazione.getDataProgrammazione(), programmazione.getOrario()));
 
     }
+
+    // quando si clicca su di una programmazione di un film, ti porta alla pagina della "sala" in cui vai a restituire la matrice che hai creato con il service
+
+
 }

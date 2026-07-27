@@ -31,16 +31,12 @@ public class PaginaUtenteController {
 
     @Autowired
     IRepoUtenti repoUtenti;
-    
     @Autowired
     IRepoPostiOccupati repoPO;
-
     @Autowired
     PrezzoService prezzoService;
-    
     @Autowired
     IRepoOfferte repoOfferte;
-    
     @Autowired
     IRepoAcquisti repoAcquisti;
     
@@ -50,6 +46,13 @@ public class PaginaUtenteController {
     }
 
     //                  DA FARE:
+    //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
+    // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
+    // (Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)
+    // (soluzione emilio la parte di impedire agli altri di prenotare se non hanno la carte da far fare a erica tramite un if che mostra solo a chi è tesserato la possibilità di prendersi quei posti, erica si richiama un metodo che gli facciamo noi
+    // in cui calcoliamo se mancano effettivamente 4 ore all'inizio dell'anteprima e vedere se è tesserato o meno)
+
+    //                  FATTI:
     //1) I biglietti prenotati e acquistati con i relativi dati i quali verranno cancellati dopo 1 settimana per eventuali rimborsi.
     // va aggiunto attributo in posti occupati che lega utente con posto occupato (tramite id utente) tramite l'id posto occupato andiamo in programmazione e vediamo quale film ha prenotato/acquistato.
     @GetMapping("/acquisti/{id}")
@@ -58,8 +61,7 @@ public class PaginaUtenteController {
     	List<PostiOccupatiDTO> biglietti = new ArrayList<>();
     	for (PostiOccupati posto:postiOccupati) {
     		String[] posizioni = posto.getPosizione().split("_");
-    		
-    		
+
     		biglietti.add(new PostiOccupatiDTO(
     				posto.getId(),
     				posto.getProgrammazioneFilm().getFilm().getTitolo(),
@@ -70,14 +72,13 @@ public class PaginaUtenteController {
     				posto.getTipoPosto(),
     				Integer.valueOf(posizioni[0]),
     				Integer.valueOf(posizioni[1]),
-    				prezzoService.calcolaPrezzoFinale(posto.getUtente(), posto.getProgrammazioneFilm().getFilm(), posto.getTipoPosto())
-    				));
+    				prezzoService.calcolaPrezzoFinale(posto.getUtente(), posto.getProgrammazioneFilm().getFilm(), posto.getTipoPosto(), false)
+    		));
     	}
     	return biglietti;
     }
 
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
-    
     @GetMapping("acquistiOfferte/{id}")
     public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, @RequestParam(required=false) String genere){
     	List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(id, genere);
@@ -92,13 +93,6 @@ public class PaginaUtenteController {
     	}
     	return acquisti;
     }
-    //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
-    // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
-    // (Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)
-    // (soluzione emilio la parte di impedire agli altri di prenotare se non hanno la carte da far fare a erica tramite un if che mostra solo a chi è tesserato la possibilità di prendersi quei posti, erica si richiama un metodo che gli facciamo noi
-    // in cui calcoliamo se mancano effettivamente 4 ore all'inizio dell'anteprima e vedere se è tesserato o meno)
-
-    //                  FATTI:
 
     //2) Se ha acquistato una card(ricaricabile) e o abbonamento.
     @GetMapping("/abbonamento/{id}")
@@ -158,5 +152,4 @@ public class PaginaUtenteController {
     // Le carte ricariabili saranno ad uso singolo: nel senso che se scade o finisci gli usi limitati, le opzioni sono due:
     // op 1 si rinnova la carta, op 2 si cambia tipo di carta.
     // Se ad esempio passo da basic a plus sarà attiva solo la plus tipo piano di netflix.
-
 }

@@ -8,7 +8,7 @@ INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, prezzo, scadenz
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, prezzo, scadenza, distribuzione, formato, regista, titolo, img_cover, img_logo, img_poster, lingue, `cast`, descrizione) VALUES (0, '2026-08-13', 125, 6, '2026/10/24', 'Universal Pictures', 'Standard', 'Dean DeBlois', 'Dragon Trainer', '/img/dragontrainer_cover.jpg', '/img/dragontrainer_logo.png', '/img/dragontrainer_poster.jpg', 'ita', 'Mason Thames, Nico Parker, Gerard Butler, Nick Frost, Julian Dennison, Gabriel Howell, Bronwyn James, Harry Trevaldwyn', 'Il villaggio vichingo di Berk è frequentemente attaccato dai draghi, che rubano il bestiame e mettono in pericolo i suoi abitanti. Hiccup, il figlio sedicenne del capo Stoick l Immenso, non essendo fisicamente forte come gli altri suoi pari, è relegato nella forgia del villaggio, creando dispositivi meccanici. Durante un incursione dei draghi, il ragazzo abbatte un drago raro, la Furia Buia. Determinato a dimostrare il suo valore a sé stesso e alla tribù, Hiccup trova la creatura intrappolata, ma esita a finirla e alla fine la libera, sorprendendosi quando il drago lo risparmia prima di fuggire.');
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, prezzo, scadenza, distribuzione, formato, regista, titolo, img_cover, img_logo, img_poster, lingue, `cast`, descrizione) VALUES (0, '2026-08-22', 130, 6, '2026/10/6', 'Warner Bros. Pictures', 'Standard', 'James Gunn', 'Superman', '/img/supermen_cover.jpg', '/img/Superman_2025_logo.png', '/img/superman.jpg', 'ita', 'David Corenswet, Rachel Brosnahan, Nicholas Hoult', 'Superman, è già un eroe affermato, ma non ancora del tutto compreso. Sin dalle prime sequenze, si trova ad affrontare una creatura mostruosa, pilotata da remoto dal geniale e spietato Lex Luthor, deciso a distruggere l alieno venuto da Krypton e conquistare un paese mediorientale ricco di petrolio. Chiedere aiuto alla giornalista Lois Lane e al team di eroi per scongiurare i piani malefici di Lex.');
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, prezzo, scadenza, distribuzione, formato, regista, titolo, img_cover, img_logo, img_poster, lingue, `cast`, descrizione) VALUES (0, '2026-08-14', 110, 6, '2026/09/18', 'Warner Bros. Pictures', 'Standard', 'Zach Lipovsky, Adam Stein', 'Final Destination: Bloodlines', '/img/final_destination_cover.png', '/img/final_destination_logo.webp', '/img/final_destination_poster.jpg', 'ita', 'Kaitlyn Santa Juana, Teo Briones, Brec Bassinger', 'Tormentata da un incubo violento e ricorrente che ha a che fare con il disastro dello Skyview dove era presenta nonna Iris avvenuto cinquant anni prima, La studentessa universitaria torna a casa alla ricerca dell unica persona che potrebbe spezzare il ciclo della morte e salvare la sua famiglia dal terribile destino che inevitabilmente li attende. Dai creatori di Final Destination, Bloodlines ripercorre tutta la saga, da dove è iniziato.');
-
+-- import nuovo = INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '');
 --generi
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Anime');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Azione');
@@ -36,17 +36,21 @@ INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome,
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, prezzo, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-16', 7, 'menu', 'Spiderman Menu', 'cosa più a caso dell''altra', '', '');
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-19', 'evento', 'Carte Disney Lorcana', 'carte collezionabili', '', '');
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_dettaglio) VALUES ('2026-06-19', '2026-10-22', 'anteprima', 'Master of Universe Poster', 'stacce', '', '');
+--  INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, id_film, prezzo, genere, nome, descrizione, img_banner, img_banner_top_offerte, img_dettaglio) VALUES('', '', 0, 0, '', '', '', '', '', '');
+
 
 --posti  38 standard, 10 vip, 2 disabili
 INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 1, 7, 'Standard');
 INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 2, 9.5, 'V.I.P.');
 INSERT INTO db_cinema.posti (colonna, fila, prezzo_posto, tipo) VALUES(1, 3, 5, 'Disabili');
+-- INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES(0, '');
 
 --sale
 INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ('Standard',1111111111111111111111111111111111111111111111111111111111110222222220022222222011111111113111111113, 1); -- 1
 INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ('3D',0000000000311100111311110011111111001111111100111122220022222222002222111100111111110011111111001111, 2); -- 2
 INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ('IMAX',0311101130111110111111111011111111101111111110111111111011110022202200002220220000222022003111101113, 3); -- 3
 INSERT INTO db_cinema.sale (numero_posti, formato) VALUES ('4K',0000111111222011111122201111112220111111000011111100000000001111111111111111111100000000003131111313, 4 ); -- 4
+-- INSERT INTO db_cinema.sale (formato, posti) VALUES('', '');
 
 --programmazione films
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 3, 2, 23, '21:30');
@@ -55,6 +59,8 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 9, 3, 25, '23:30');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 2, 1, 40, '22:00');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 4, 4, 39, '19:30');
+-- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id, id_film, id_sala, n_prenotazioni, orario, nome) VALUES('', 0, 0, 0, 0, '', '');
+
 
 --ruoli
 --INSERT INTO db_cinema.ruoli

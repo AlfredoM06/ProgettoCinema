@@ -31,6 +31,6 @@ public class Lingua {
 	@Column
 	private String nome;
 	
-	@OneToMany(mappedBy="Lìlingua")
+	@OneToMany(mappedBy="lingua")
 	private List<CrossFilmFormatoLingua> crossFilmFormatoLingua;
 }
