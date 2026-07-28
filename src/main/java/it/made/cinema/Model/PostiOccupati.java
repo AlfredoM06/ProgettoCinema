@@ -17,6 +17,7 @@ public class PostiOccupati {
     private Integer id;
     @Column
     private Boolean occupato;
+    private Double prezzo;
     //relazione con tabPonte
     @ManyToOne
     @JoinColumn(name = "id_programmazioneFilm", nullable = false)

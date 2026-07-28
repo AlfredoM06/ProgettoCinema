@@ -24,6 +24,8 @@ public class Partnership {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY )
 	private Integer id;
+	//variabile momentanea
+	private String nome;
 	@Column(length=1000, nullable=false)
 	private String img_banner;
 	@OneToOne(mappedBy="partnership")

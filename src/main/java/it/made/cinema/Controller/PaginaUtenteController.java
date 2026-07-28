@@ -72,7 +72,7 @@ public class PaginaUtenteController {
     				posto.getTipoPosto(),
     				Integer.valueOf(posizioni[0]),
     				Integer.valueOf(posizioni[1]),
-    				prezzoService.calcolaPrezzoFinale(posto.getUtente(), posto.getProgrammazioneFilm().getFilm(), posto.getTipoPosto(), false)
+                    posto.getPrezzo()
     		));
     	}
     	return biglietti;

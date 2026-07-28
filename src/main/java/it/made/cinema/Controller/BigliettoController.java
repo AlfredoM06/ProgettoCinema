@@ -2,6 +2,9 @@ package it.made.cinema.Controller;
 
 import it.made.cinema.Model.*;
 import it.made.cinema.Model.DTO.AcquistoDTO;
+import it.made.cinema.Model.DTO.BigliettoAcquistatoDTO;
+import it.made.cinema.Model.DTO.PostiDTO;
+import it.made.cinema.Model.DTO.ScontrinoDTO;
 import it.made.cinema.Repository.*;
 import it.made.cinema.Service.PrezzoService;
 import it.made.cinema.Service.PuntiService;
@@ -27,7 +30,9 @@ public class BigliettoController {
     PrezzoService prezzoService;
     @Autowired
     PuntiService puntiService;
-
+    @Autowired
+    IRepoPostiOccupati postiOccupati;
+    /*
     // tipi.add((int) c);  char è una specializzazione di int quindi puoi up-castarlo nel suo tipo generico ovvero int
     @GetMapping("/prezzoBiglietto/{idFilm}/{idUtente}/{tipi}")
     @ResponseBody
@@ -38,37 +43,56 @@ public class BigliettoController {
 
         return prezzoService.calcolaPrezzoFinale(utente, film, tipi, false);
      }
-
+    */
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra)
     @PostMapping("/acquistoBiglietto")
-    public @ResponseBody Integer acquistoBiglietto(@RequestBody AcquistoDTO acquistoBiglietto) {
+    public @ResponseBody ScontrinoDTO acquistoBiglietto(@RequestBody AcquistoDTO acquistoBiglietto) {
         Film film = repoFilm.findById(acquistoBiglietto.getId_film()).get();
         Utente utente = repoUtenti.findById(acquistoBiglietto.getId_utente()).get();
         ProgrammazioneFilm programmazioneFilm = repoProgrammazione.findById(acquistoBiglietto.getId_programmazione()).get();
-        Double prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, acquistoBiglietto.getPostiDTO().getTipo(), true);
-        Boolean partnership = null;
+        Integer puntiCarta = utente.getPuntiMembership();
+        Double prezzoTotale = 0d;
+        ScontrinoDTO scontrino = new ScontrinoDTO();
+        for (PostiDTO posto: acquistoBiglietto.getListaPostiDTO()){
+            Double prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, posto.getTipo(), puntiCarta);
+            prezzoTotale += prezzoFinale;
+            if (acquistoBiglietto.getAcquisto()){
+                // creare il posto occupato / biglietto
+                PostiOccupati biglietto = new PostiOccupati();
+                biglietto.setOccupato(true);
+                biglietto.setPosizione(posto.getId());
+                biglietto.setUtente(utente);
+                biglietto.setProgrammazioneFilm(programmazioneFilm);
+                biglietto.setTipoPosto(posto.getTipo());
+                biglietto.setPrezzo(prezzoFinale);
+                postiOccupati.save(biglietto);
+            }
 
+            BigliettoAcquistatoDTO bigliettoAcquistato = new BigliettoAcquistatoDTO();
+            bigliettoAcquistato.setPrezzoBiglietto(prezzoFinale);
+            bigliettoAcquistato.setPosizione(posto.getId());
+            bigliettoAcquistato.setTipo(posto.getTipo());
+
+            scontrino.getBigliettiAcquistati().add(bigliettoAcquistato);
+        }
+
+        scontrino.setPrezzoTotale(prezzoTotale);
+
+        Boolean partnership = null;
         //controllo se il film è sponsorizzato
-        if (film.getPartnership().equals(true)) {
+        if (!film.getPartnership().getId().equals(0)) {
             partnership = Boolean.TRUE;
         }
-        Integer punti = puntiService.puntiBiglietto(prezzoFinale, partnership);
 
-        // aggiornare repo utente con i punti nuovi facendo get punti + punti
-        utente.setPuntiMembership(utente.getPuntiMembership()+punti);
-        repoUtenti.save(utente);
+        Integer punti = puntiService.puntiBiglietto(prezzoTotale, partnership);
+        scontrino.setPuntiGuadagnati(punti);
 
-        // creare il posto occupato / biglietto
-        PostiOccupati biglietto = new PostiOccupati();
-        biglietto.setOccupato(true);
-        biglietto.setPosizione(acquistoBiglietto.getPostiDTO().getId());
-        biglietto.setUtente(utente);
-        biglietto.setProgrammazioneFilm(programmazioneFilm);
-        biglietto.setTipoPosto(acquistoBiglietto.getPostiDTO().getTipo());
+        if (acquistoBiglietto.getAcquisto()){
+            // aggiornare repo utente con i punti nuovi facendo get punti + punti
+            utente.setPuntiMembership(puntiCarta+punti);
+            repoUtenti.save(utente);
+        }
 
-        // return dto dell'acquisto
-        // va aggiunto in posti occupati un attributo prezzo che setto qui e lo salvo in modo che nel metodo di dom del biglietto non serve il calcolo ma si richiama il prezzo settato qua
-
-        return null;
+        return scontrino;
     }
 }
