@@ -15,6 +15,10 @@ INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership,
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-14', 110, null, 6, '2026/09/18', 'Warner Bros. Pictures', 'Zach Lipovsky, Adam Stein', 'Final Destination: Bloodlines', '/img/final_destination_cover.png', '/img/final_destination_logo.webp', '/img/final_destination_poster.jpg', 'Kaitlyn Santa Juana, Teo Briones, Brec Bassinger', 'Tormentata da un incubo violento e ricorrente che ha a che fare con il disastro dello Skyview dove era presenta nonna Iris avvenuto cinquant anni prima, La studentessa universitaria torna a casa alla ricerca dell unica persona che potrebbe spezzare il ciclo della morte e salvare la sua famiglia dal terribile destino che inevitabilmente li attende. Dai creatori di Final Destination, Bloodlines ripercorre tutta la saga, da dove è iniziato.');
 -- import nuovo = INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '', 0, 0, 0, '', '', '', '', '', '', '', '', '');
 
+
+-- cross lingua e formato
+-- INSERT INTO db_cinema.cross_formato_lingua (id, id_film, id_formato, id_lingua) VALUES(0, 0, 0, 0);
+
 --generi
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Anime');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Azione');
@@ -53,9 +57,9 @@ INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES(5, 'Disabili');
 
 --sale
 INSERT INTO db_cinema.sale (formato, posti) VALUES ('Standard',1111111111111111111111111111111111111111111111111111111111110222222220022222222011111111113111111113); -- 1
-INSERT INTO db_cinema.sale (foramto, posti) VALUES ('3D',0000000000311100111311110011111111001111111100111122220022222222002222111100111111110011111111001111); -- 2
-INSERT INTO db_cinema.sale (foramto, posti) VALUES ('IMAX',0311101130111110111111111011111111101111111110111111111011110022202200002220220000222022003111101113); -- 3
-INSERT INTO db_cinema.sale (foramto, posti) VALUES ('4K',0000111111222011111122201111112220111111000011111100000000001111111111111111111100000000003131111313); -- 4
+INSERT INTO db_cinema.sale (formato, posti) VALUES ('3D',0000000000311100111311110011111111001111111100111122220022222222002222111100111111110011111111001111); -- 2
+INSERT INTO db_cinema.sale (formato, posti) VALUES ('IMAX',0311101130111110111111111011111111101111111110111111111011110022202200002220220000222022003111101113); -- 3
+INSERT INTO db_cinema.sale (formato, posti) VALUES ('4K',0000111111222011111122201111112220111111000011111100000000001111111111111111111100000000003131111313); -- 4
 -- INSERT INTO db_cinema.sale (formato, posti) VALUES('', '');
 
 --programmazione films
