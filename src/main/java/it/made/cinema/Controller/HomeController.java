@@ -1,10 +1,7 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.DTO.ListaFilmRecentiDTO;
-import it.made.cinema.Model.DTO.ListaGenereDTO;
-import it.made.cinema.Model.Film;
-import it.made.cinema.Model.GenereFilm;
-import it.made.cinema.Model.Offerta;
+import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.*;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoOfferte;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,22 +40,6 @@ public class HomeController {
         model.addAttribute("filmRecenti", filmRecentiDTO);
         return "Home";
     }
-
-    //dettagli dei film
-    @GetMapping("/dettagli/{id}")
-    private String dettagliHome(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("film", repoFilm.findById(id).get());
-        return "filmDettaglio";
-    }
-
-    //da fare forse dettagli dei gadgets
-    @GetMapping("/dettagliOfferte/{idOfferte}")
-    private String dettagliHomeOfferte(@PathVariable("idOfferte") Integer id, Model model){
-        model.addAttribute("offerteDettagli", repoOfferte.findById(id).get());
-        return "offertaDettaglio";
-    }
-
-
 
     /*
     @GetMapping("/dettagli")

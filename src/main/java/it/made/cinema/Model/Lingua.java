@@ -33,4 +33,6 @@ public class Lingua {
 	
 	@OneToMany(mappedBy="lingua")
 	private List<CrossFilmFormatoLingua> crossFilmFormatoLingua;
+
+
 }

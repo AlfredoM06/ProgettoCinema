@@ -1,11 +1,7 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.DTO.ListaFilmDTO;
-import it.made.cinema.Model.Film;
-import it.made.cinema.Model.GenereFilm;
-import it.made.cinema.Model.DTO.ListaGenereDTO;
-import it.made.cinema.Model.DTO.ListaProgDTO;
-import it.made.cinema.Model.DTO.PostiDTO;
+import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.*;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Service.PostiService;
@@ -34,18 +30,79 @@ public class InSalaController {
     @Autowired
     PostiService postiService;
 
-    //dettagli di un film
-    @GetMapping("/dettagli/{id}")
-    public String dettFilm(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("film", repoFilm.findById(id).get());
-        return "filmDettaglio";
-    }
-
     //index
     @GetMapping
     public String index(Model model) {
         List<Film> films = repoFilm.findAll();
         return "inSala";
+    }
+
+    //dettagli di un film
+    @GetMapping("/dettagli/{id}")
+    private String dettagliHome(@PathVariable("id") Integer id, Model model) {
+        System.out.println("questo è l'id del film: " + id);
+        Film film = repoFilm.findById(id).get();
+
+        FilmDTO filmDTO = new FilmDTO();
+        filmDTO.setId(id);
+        filmDTO.setCast(film.getCast());
+        filmDTO.setDescrizione(film.getDescrizione());
+        filmDTO.setDurata(film.getDurata());
+        filmDTO.setDistribuzione(film.getDistribuzione());
+        filmDTO.setDataDiUscita(film.getDataDiUscita());
+        filmDTO.setPrezzo(film.getPrezzo());
+        filmDTO.setRegista(film.getRegista());
+        filmDTO.setTitolo(film.getTitolo());
+        filmDTO.setImg_poster(film.getImg_poster());
+        filmDTO.setScadenza(film.getScadenza());
+        List<ListaOffertaDTO> listaOfferte = new ArrayList<>();
+        for (Offerta o : film.getOfferte()){
+            ListaOffertaDTO offerta = new ListaOffertaDTO();
+            offerta.setId(o.getId());
+            offerta.setDescrizione(o.getDescrizione());
+            offerta.setNome(o.getNome());
+            offerta.setGenere(o.getGenere());
+            offerta.setImg_banner(o.getImgBanner());
+            listaOfferte.add(offerta);
+        }
+        filmDTO.setOfferte(listaOfferte);
+        List<ListaGenereDTO> listaGeneri = new ArrayList<>();
+        for (GenereFilm g : film.getGeneri()){
+            ListaGenereDTO genere = new ListaGenereDTO();
+            genere.setId(g.getId());
+            genere.setNome(g.getNome());
+            listaGeneri.add(genere);
+        }
+        filmDTO.setGeneri(listaGeneri);
+        List<ListaProgDTO> listaProgrammazioni = new ArrayList<>();
+        for (ProgrammazioneFilm p : film.getProgrammazioni()){
+            ListaProgDTO programmazione = new ListaProgDTO();
+            programmazione.setId(p.getId());
+            programmazione.setPrezzo(film.getPrezzo());
+            programmazione.setFormato(p.getSala().getFormato());
+            programmazione.setId_film(film.getId());
+            programmazione.setId_sala(p.getSala().getId());
+            programmazione.setOrarioInizio(p.getOrario());
+            programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
+            listaProgrammazioni.add(programmazione);
+        }
+        filmDTO.setProgrammazioni(listaProgrammazioni);
+        List<String> lingue = new ArrayList<>();
+        List<String> formati = new ArrayList<>();
+        for (CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()){
+            if (!lingue.contains(c.getLingua().getNome())){
+                lingue.add(c.getLingua().getNome());
+            }
+            if (!formati.contains(c.getFormato().getNome())){
+                formati.add(c.getFormato().getNome());
+            }
+        }
+        filmDTO.setFormati(formati);
+        filmDTO.setLingue(lingue);
+
+
+        model.addAttribute("film", filmDTO);
+        return "filmDettaglio";
     }
 
     //filtri per la pagina dell'insala e la lista intera

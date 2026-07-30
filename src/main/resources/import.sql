@@ -26,7 +26,7 @@ INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership,
  INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(9, 1, 1);
 
 -- formato
- INSERT INTO db_cinema.formato (nome) VALUES('2D');
+ INSERT INTO db_cinema.formato (nome) VALUES('Standard');
  INSERT INTO db_cinema.formato (nome) VALUES('3D');
  INSERT INTO db_cinema.formato (nome) VALUES('4K');
  INSERT INTO db_cinema.formato (nome) VALUES('IMAX');
