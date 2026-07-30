@@ -21,7 +21,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter @Setter
 @ToString @EqualsAndHashCode
-@Table(name = "programmazioneDeiFilm")
+@Table(name = "lingue")
 public class Lingua {
 	
 	@Id

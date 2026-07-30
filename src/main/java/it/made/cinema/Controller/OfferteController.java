@@ -51,7 +51,7 @@ public class OfferteController {
     @GetMapping("/top3")
     public @ResponseBody List<ListaTop3DTO> top3Offerte() {
         List<Offerta> offerte = null;
-        offerte = repoOfferte.findTop3ByOrderByDataInizioDesc();
+        offerte = repoOfferte.findTop3ByOrderByGenereAsc();
         List<ListaTop3DTO> top3Dto = new ArrayList<ListaTop3DTO>();
         for (Offerta offerta : offerte) {
             top3Dto.add(new ListaTop3DTO(offerta.getId(), offerta.getNome(), offerta.getDataInizio(), offerta.getImgBanner()));

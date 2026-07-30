@@ -1,11 +1,10 @@
 -- Partnership
---INSERT INTO db_cinema.partnerships (id, img_banner, nome) VALUES(0, '', 'no partner');
+INSERT INTO db_cinema.partnerships (img_banner, nome) VALUES('', 'no partner');
 INSERT INTO db_cinema.partnerships (img_banner, nome) VALUES('', 'prova');
 
-
 --film
-INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-25', 114, null, 6, '2026-09-10', 'Paramount Pictures', 'Kevin Williamson', 'Scream 7', '/img/scream7_cover.jpg', '/img/scream7_logo.png', '/img/scream7_poster.jpg', 'Neve Campbell, Courteney Cox, Isabel May, Jasmin Savoy Brown, Mason Gooding', 'quando un nuovo killer Ghostface semina il terrore nella tranquilla città dove Sidney Prescott ha ricostruito la sua vita, i suoi incubi più oscuri diventano realtà: sua figlia diventa il prossimo bersaglio. Determinata a proteggere la sua famiglia, Sidney dovrà affrontare gli orrori del suo passato.');
-INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-02', 135, null, 6, '2026-09-12', 'Universal Pictures', 'Gareth Edwards', 'Jurassic World – Rebirth', '/img/jurassicworld_cover.jpg', '/img/jurassicworld_logo.png', '/img/jurassicworld_poster.webp', 'Scarlett Johansson, Mahershala Ali, Jonathan Bailey', 'Diciassette anni dopo dagli eventi di Jurassic world Dominiion, nel 2027,il pianeta si trova profondamente cambiato. L''ambiente terrestre si è rivelato in gran parte inadatto alla sopravvivenza delle specie preistoriche riportate in vita. La maggior parte dei dinosauri è morta o stata abbattuta; quelli sopravvissuti si rifugiano in poche aree remote, per lo più tropicali, dove le condizioni naturali ricordano i loro antichi habitat, l''accesso alle quali è stato vietato dalle autorità.');
+INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-25', 114, 2, 6, '2026-09-10', 'Paramount Pictures', 'Kevin Williamson', 'Scream 7', '/img/scream7_cover.jpg', '/img/scream7_logo.png', '/img/scream7_poster.jpg', 'Neve Campbell, Courteney Cox, Isabel May, Jasmin Savoy Brown, Mason Gooding', 'quando un nuovo killer Ghostface semina il terrore nella tranquilla città dove Sidney Prescott ha ricostruito la sua vita, i suoi incubi più oscuri diventano realtà: sua figlia diventa il prossimo bersaglio. Determinata a proteggere la sua famiglia, Sidney dovrà affrontare gli orrori del suo passato.');
+INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-02', 135, 1, 6, '2026-09-12', 'Universal Pictures', 'Gareth Edwards', 'Jurassic World – Rebirth', '/img/jurassicworld_cover.jpg', '/img/jurassicworld_logo.png', '/img/jurassicworld_poster.webp', 'Scarlett Johansson, Mahershala Ali, Jonathan Bailey', 'Diciassette anni dopo dagli eventi di Jurassic world Dominiion, nel 2027,il pianeta si trova profondamente cambiato. L''ambiente terrestre si è rivelato in gran parte inadatto alla sopravvivenza delle specie preistoriche riportate in vita. La maggior parte dei dinosauri è morta o stata abbattuta; quelli sopravvissuti si rifugiano in poche aree remote, per lo più tropicali, dove le condizioni naturali ricordano i loro antichi habitat, l''accesso alle quali è stato vietato dalle autorità.');
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-15', 192, null, 6, '2026-10-12', '20th Century Studios', 'James Cameron', 'Avatar – La via dell’acqua', '/img/avatar2_cover.jpg', '/img/avatar2_logo.png', '/img/avatar2_poster.png', 'Sam Worthington, Zoe Saldaña, Sigourney Weaver', 'ake Sully è il capo del clan degli Omaticaya e ha avuto tre figli con Neytiri: Neteyam, Lo''ak e Tuktirey, detta "Tuk". I due, inoltre, hanno adottato una giovane Na''vi di nome Kiri, concepita inspiegabilmente dall''Avatar della defunta dottoressa Grace Augustine, e si occupano di un ragazzo umano di nome Miles Socorro, detto "Spider", figlio del defunto colonnello Miles Quaritch, nato e sempre vissuto su Pandora con gli scienziati umani e la famiglia Sully, che si comporta come un Na''vi.');
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2021-06-08', 155, null, 6, '2026-10-20', 'Warner Bros. Pictures', 'Denis Villeneuve', 'Dune (Parte Uno)', '/img/dune_cover.jpg', '/img/dune_logo.png', '/img/dune_poster.jpg', 'Timothée Chalamet, Rebecca Ferguson, Oscar Isaac', 'In un distante futuro dell''umanità esiste un pianeta chiamato Arrakis, detto "Dune". Questo pianeta, completamente sabbioso, è l''unica fonte della sostanza più preziosa dell''universo, la "spezia": essa è una sostanza psichedelica simile a una polvere luccicante e presente nelle sabbie che coprono il pianeta, che conferisce il dono della premonizione e amplifica le capacità mentali, rendendo possibile l''utilizzo dei macchinari per il viaggio interstellare; è inoltre ritenuta sacra dai nativi di Dune, i Fremen, per via degli effetti visionari che ha sugli umani. Un giorno l''imperatore Shaddam Corrino IV toglie il controllo del pianeta Arrakis alla crudele casata Harkonnen per darlo nelle mani della nobile famiglia Atreides, la cui popolarità continua a crescere nel resto dell''Imperium.');
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-14', 108, null, 6, '2026-09-30', 'Walt Disney Studios Motion Pictures', 'Dean Fleischer Camp', 'Lilo & Stitch (live-action)', '/img/lilo_cover.jpg', '/img/lilo_logo.png', '/img/lilo_poster.jpg', 'Maia Kealoha, Sydney Agudong, Chris Sanders', 'Rivisitazione in live-action del classico d''animazione Disney del 2002, “Lilo & Stitch” è la storia divertente e commovente di una ragazza hawaiana solitaria e dell''alieno fuggitivo che l''aiuta a riparare la sua famiglia distrutta.');
@@ -15,9 +14,27 @@ INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership,
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-14', 110, null, 6, '2026/09/18', 'Warner Bros. Pictures', 'Zach Lipovsky, Adam Stein', 'Final Destination: Bloodlines', '/img/final_destination_cover.png', '/img/final_destination_logo.webp', '/img/final_destination_poster.jpg', 'Kaitlyn Santa Juana, Teo Briones, Brec Bassinger', 'Tormentata da un incubo violento e ricorrente che ha a che fare con il disastro dello Skyview dove era presenta nonna Iris avvenuto cinquant anni prima, La studentessa universitaria torna a casa alla ricerca dell unica persona che potrebbe spezzare il ciclo della morte e salvare la sua famiglia dal terribile destino che inevitabilmente li attende. Dai creatori di Final Destination, Bloodlines ripercorre tutta la saga, da dove è iniziato.');
 -- import nuovo = INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '', 0, 0, 0, '', '', '', '', '', '', '', '', '');
 
-
 -- cross lingua e formato
--- INSERT INTO db_cinema.cross_formato_lingua (id, id_film, id_formato, id_lingua) VALUES(0, 0, 0, 0);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(1, 1, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(2, 2, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(3, 3, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(4, 4, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(5, 1, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(6, 2, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(7, 3, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(8, 4, 1);
+ INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(9, 1, 1);
+
+-- formato
+ INSERT INTO db_cinema.formato (nome) VALUES('2D');
+ INSERT INTO db_cinema.formato (nome) VALUES('3D');
+ INSERT INTO db_cinema.formato (nome) VALUES('4K');
+ INSERT INTO db_cinema.formato (nome) VALUES('IMAX');
+
+-- lingua
+INSERT INTO db_cinema.lingue (nome) VALUES('ITA');
+--INSERT INTO db_cinema.lingue (nome) VALUES('');
+
 
 --generi
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Anime');
@@ -48,7 +65,6 @@ INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descriz
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, genere, nome, descrizione, img_banner, img_banner_top_offerte, img_dettaglio) VALUES ('2026-06-19', '2026-10-22', 'anteprima', 'Master of Universe Poster', 'stacce', '','', '');
 --  INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, id_film, prezzo, genere, nome, descrizione, img_banner, img_banner_top_offerte, img_dettaglio) VALUES('', '', 0, 0, '', '', '', '', '', '');
 
-
 --posti  
 INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES( 7, 'Standard');
 INSERT INTO db_cinema.posti (prezzo_posto, tipo) VALUES( 9.5, 'V.I.P.');
@@ -71,7 +87,6 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 4, 4, 39, '19:30');
 -- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('', 0, 0, 0, 0, '', '');
 
-
 --ruoli
 --INSERT INTO db_cinema.ruoli
 --(nome)
@@ -82,3 +97,5 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 --(membership, password, ruolo, username, email)
 --VALUES(0, '', '', '', '');
 
+
+--INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, ruolo, username, email, nome_carta) VALUES('', 0, 0, '', '', '', 0, 0, 0, '', '', '', '', '', '', '');

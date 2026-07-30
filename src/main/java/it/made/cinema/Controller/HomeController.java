@@ -38,8 +38,8 @@ public class HomeController {
             filmRecentiDTO.add(new ListaFilmRecentiDTO(recente.getId(), recente.getTitolo(), recente.getImg_poster(), recente.getDataDiUscita(), recente.getDescrizione(), recente.getDurata(), recente.getImg_cover(), recente.getImg_logo()));
         }
 
-//        List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
-//        model.addAttribute("inEvidenza", filmInEvidenza);
+        //List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
+        //model.addAttribute("inEvidenza", filmInEvidenza);
         model.addAttribute("filmRecenti", filmRecentiDTO);
         return "Home";
     }

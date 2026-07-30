@@ -13,9 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequestMapping("/biglietto")
 public class BigliettoController {
@@ -32,6 +29,7 @@ public class BigliettoController {
     PuntiService puntiService;
     @Autowired
     IRepoPostiOccupati postiOccupati;
+
     /*
     // tipi.add((int) c);  char è una specializzazione di int quindi puoi up-castarlo nel suo tipo generico ovvero int
     @GetMapping("/prezzoBiglietto/{idFilm}/{idUtente}/{tipi}")
@@ -44,6 +42,7 @@ public class BigliettoController {
         return prezzoService.calcolaPrezzoFinale(utente, film, tipi, false);
      }
     */
+
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra)
     @PostMapping("/acquistoBiglietto")
     public @ResponseBody ScontrinoDTO acquistoBiglietto(@RequestBody AcquistoDTO acquistoBiglietto) {
@@ -80,7 +79,7 @@ public class BigliettoController {
 
         Boolean partnership = null;
         //controllo se il film è sponsorizzato
-        if (!film.getPartnership().getId().equals(0)) {
+        if (!film.getPartnership().getId().equals(1)) {
             partnership = Boolean.TRUE;
         }
 

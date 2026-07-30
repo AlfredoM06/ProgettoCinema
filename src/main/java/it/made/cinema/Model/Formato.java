@@ -21,7 +21,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter @Setter
 @ToString @EqualsAndHashCode
-@Table(name = "formato")
+@Table(name = "formati")
 public class Formato {
 	
 	@Id
