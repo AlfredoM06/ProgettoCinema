@@ -1,6 +1,9 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.DTO.ListaFilmRecentiDTO;
+import it.made.cinema.Model.DTO.ListaGenereDTO;
 import it.made.cinema.Model.Film;
+import it.made.cinema.Model.GenereFilm;
 import it.made.cinema.Model.Offerta;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoOfferte;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,11 +33,14 @@ public class HomeController {
     @GetMapping
     private String home(Model model) {
         List<Film> filmRecenti = repoFilm.findTop7ByOrderByDataDiUscitaDesc();
-        List<Offerta> top3Offerte = repoOfferte.findTop3ByOrderByDataInizioDesc();
-        List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
-        model.addAttribute("inEvidenza", filmInEvidenza);
-        model.addAttribute("filmRecenti", filmRecenti);
-        model.addAttribute("top3", top3Offerte);
+        List<ListaFilmRecentiDTO> filmRecentiDTO = new ArrayList<>();
+        for (Film recente : filmRecenti) {
+            filmRecentiDTO.add(new ListaFilmRecentiDTO(recente.getId(), recente.getTitolo(), recente.getImg_poster(), recente.getDataDiUscita(), recente.getDescrizione(), recente.getDurata(), recente.getImg_cover(), recente.getImg_logo()));
+        }
+
+//        List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
+//        model.addAttribute("inEvidenza", filmInEvidenza);
+        model.addAttribute("filmRecenti", filmRecentiDTO);
         return "Home";
     }
 

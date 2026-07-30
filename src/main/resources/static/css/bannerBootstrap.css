@@ -6,7 +6,6 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: url("../img/dragontrainer_cover.jpg") no-repeat;
 	background-size: cover;
 	background-position: center;
 	overflow: hidden;
@@ -58,7 +57,7 @@
 	font-size: 30px;
 }
 
-.banner .content h4 span {
+.banner .content h4 > span {
 	padding: 0 10px;
 	border-right: 1px solid rgba(255, 255, 255, 0.5);
 	animation: 2s anim-lineUp ease-out none;

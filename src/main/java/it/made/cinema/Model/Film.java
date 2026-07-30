@@ -80,7 +80,7 @@ public class Film implements Serializable {
 	@Column(nullable = false)
 	private boolean archiviato;
 
-	@OneToMany(mappedBy="film")
+	@OneToMany(mappedBy="film" , fetch = FetchType.LAZY)
 	private List<Offerta> offerte;
 
 	@ManyToMany(fetch = FetchType.EAGER)

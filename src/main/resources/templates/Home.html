@@ -36,136 +36,37 @@
     <div th:replace="fragments/navbar :: anonimo"></div>
 </header>
 <!--BANNER-->
-<div class="banner">
-    <div class="content Dragon active">
-        <img src="./img/dragontrainer_logo.png" alt="" class="titolo">
+<div class="banner" th:style="'background: url(' + ${filmRecenti[0].img_cover} + ') no-repeat center/cover'">
+<!--    CONTENT-->
+    <div th:each="film, iterStat : ${filmRecenti}"
+         th:class="'content ' + (${iterStat.first} ? 'active' : '')"
+         th:attr="data-film=${film.id}">
+
+        <img th:src="${film.img_logo}" alt="Logo Film" class="titolo">
         <h4>
-            <span>2025</span><span><i>+8</i></span><span>2h 5min</span><span>Fantastico</span>
+            <span th:text="${#temporals.year(film.dataDiUscita)}"></span>
+<!--            <span><i th:text="${film.classificazione}"></i></span>-->
+            <span>
+                <span th:text="${film.durata.intValue() / 60} + 'h'"></span>
+                <span th:text="${film.durata.intValue() % 60} + 'min'"></span>
+            </span>
+<!--            <span th:text="${film.generi}"></span>-->
         </h4>
-        <p>
-            Hiccup sfida la tradizione vichinga facendo amicizia con un drago di nome Sdentato.
-            Tuttavia, quando emerge un'antica minaccia che mette in pericolo entrambe le specie,
-            l'amicizia di Hiccup con Sdentato diventa la chiave per forgiare un nuovo futuro.
-        </p>
+        <p th:text="${film.descrizione}"></p>
+
         <div class="button">
             <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
-            <a href="#"><i class="bi bi-plus-lg"></i>Scopri di più</a>
-        </div>
-    </div>
-    <div class="content Lilo">
-        <img src="./img/lilo_logo.png" alt="" class="titolo">
-        <h4>
-            <span>2025</span><span><i style="background-color: #dc143c;">+8</i></span><span>1h
-          48min</span><span>Famiglia</span>
-        </h4>
-        <p>
-            Rivisitazione in live-action del classico d'animazione Disney del 2002,
-            “Lilo & Stitch” è la storia divertente e commovente di una ragazza hawaiana solitaria e
-            dell'alieno fuggitivo che l'aiuta a riparare la sua famiglia distrutta.
-        </p>
-        <div class="button">
-            <a href="#"></i>Trailer</a>
-            <a href="#"></i>Prenota</a>
-        </div>
-    </div>
-    <div class="content Superman">
-        <img src="/img/Superman_2025_logo.png" alt="" class="titolo">
-        <h4>
-            <span>2025</span><span><i>+13</i></span><span>2h 9min</span><span>Fantasy</span>
-        </h4>
-        <p>
-            Superman, è già un eroe affermato, ma non ancora del tutto compreso. Sin dalle prime sequenze, si trova ad
-            affrontare una creatura mostruosa,
-            pilotata da remoto dal geniale e spietato Lex Luthor, deciso a distruggere l'alieno venuto da Krypton e
-            conquistare un paese mediorientale ricco di petrolio.
-            Chiedere aiuto alla giornalista Lois Lane e al team di eroi per scongiurare i piani malefici di Lex.
-        </p>
-        <div class="button">
-            <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
-            <a href="#"><i class="bi bi-plus-lg"></i>Prenota</a>
-        </div>
-    </div>
-    <div class="content Fantastici4">
-        <img src="/img/fantastici4_logo.png" alt="" class="titolo">
-        <h4>
-            <span>2025</span><span><i>+13</i></span><span>2h 10min</span><span>Fantascienza</span>
-        </h4>
-        <p>
-            Sullo sfondo vibrante di un mondo retro-futuristico ispirato agli anni '60, “I Fantastici 4: Gli Inizi”
-            presenta
-            la prima famiglia Marvel: che si troveranno
-            ad affrontare la sfida più ardua. Costretti a bilanciare il loro ruolo di eroi con la forza del loro legame
-            familiare, devono difendere la Terra
-            da un famelico dio dello spazio chiamato Galactus (Ralph Ineson) e dal suo enigmatico Araldo, Silver Surfer
-            (Julia Garner).
-        </p>
-        <div class="button">
-            <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
-            <a href="#"><i class="bi bi-plus-lg"></i>Prenota</a>
-        </div>
-    </div>
-    <div class="content Final">
-        <img src="./img/final_destination_logo.webp" alt="" class="titolo">
-        <h4>
-            <span>2025</span><span><i>+16</i></span><span>1h 50min</span><span>Horror</span>
-        </h4>
-        <p>
-            Tormentata da un incubo violento e ricorrente che ha a che fare con il disastro dello Skyview dove era
-            presenta
-            nonna Iris avvenuto cinquant'anni prima,
-            La studentessa universitaria torna a casa alla ricerca dell'unica persona che potrebbe spezzare il ciclo
-            della
-            morte e salvare la sua famiglia dal terribile
-            destino che inevitabilmente li attende.
-            Dai creatori di Final Destination, Bloodlines ripercorre tutta la saga, da dove è iniziato.
-        </p>
-        <div class="button">
-            <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
-            <a href="#"><i class="bi bi-plus-lg"></i>Prenota</a>
-        </div>
-    </div>
-    <div class="content Jurassic">
-        <img src="./img/jurassicworld_logo.png" alt="" class="titolo">
-        <h4>
-            <span>2005</span><span><i>+12</i></span><span>2h 13min</span><span>Fantascienza</span>
-        </h4>
-        <p>
-            Diciassette anni dopo dagli eventi di Jurassic world Dominiion, nel 2027,il pianeta si trova profondamente
-            cambiato.
-            L'ambiente terrestre si è rivelato in gran parte inadatto alla sopravvivenza delle specie preistoriche
-            riportate
-            in vita.
-            La maggior parte dei dinosauri è morta o stata abbattuta; quelli sopravvissuti si rifugiano in poche aree
-            remote, per lo più tropicali,
-            dove le condizioni naturali ricordano i loro antichi habitat, l'accesso alle quali è stato vietato dalle
-            autorità.
-        </p>
-        <div class="button">
-            <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
-            <a href="#"><i class="bi bi-plus-lg"></i>Prenota</a>
+            <a th:href="@{'/dettagli/' + ${film.id}}"><i class="bi bi-plus-lg"></i>Scopri di più</a>
         </div>
     </div>
 
     <!--immagini del banner, si inseriscono i poster e le cover-->
     <div class="carousel-box">
         <div class="carusel">
-            <div class="carusel-item" onclick="cambioBg('dragontrainer_cover.jpg','Dragon')"
-                 style="background-image: url(./img/dragontrainer_poster.jpg);">
-            </div>
-            <div class="carusel-item" onclick="cambioBg('lilo_cover.jpg','Lilo')"
-                 style="background-image: url(./img/lilo_poster.jpg);">
-            </div>
-            <div class="carusel-item" onclick="cambioBg('superman_cover.jpg','Superman')"
-                 style="background-image: url(./img/superman.jpg);">
-            </div>
-            <div class="carusel-item" onclick="cambioBg('fantastici4_copertina.jpg','Fantastici4')"
-                 style="background-image: url(./img/fantastici4_poster.jpg);">
-            </div>
-            <div class="carusel-item" onclick="cambioBg('final destination_cover.png','Final')"
-                 style="background-image: url(./img/final\ destination_poster.jpg);">
-            </div>
-            <div class="carusel-item" onclick="cambioBg('jurassicworld_cover.jpg','Jurassic')"
-                 style="background-image: url(./img/jurassicworld_poster.webp);">
+            <div class="carusel-item"
+                 th:each="film : ${filmRecenti}"
+                 th:style="'background-image: url(' + ${film.img_poster} + ')'"
+                 th:attr="onclick=|cambioBg('${film.img_cover}', ${film.id})|">
             </div>
         </div>
 
@@ -415,16 +316,16 @@
     // SCRIPT PER I CAROSELLI
 
     // BANNER PRINCIPALE
-    function cambioBg(Bg, titolo) {
+    function cambioBg(bg, filmId) {
       let banner = document.querySelector('.banner');
       let contenuti = document.querySelectorAll('.content');
-      banner.style.background = `url("./img/${Bg}")`;
+      banner.style.background = `url('${bg}') center/cover no-repeat`;
       banner.style.backgroundSize = 'cover';
       banner.style.backgroundPosition = 'center';
 
       contenuti.forEach(content => {
         content.classList.remove('active');
-        if (content.classList.contains(titolo)) {
+        if (content.dataset.film == filmId) {
           content.classList.add('active')
         }
       });

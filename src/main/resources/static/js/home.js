@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("current").textContent = swiper.currentPage;
     });
 
-    // CARD TOP 3
+    // OFFERTE TOP 3
     fetch("/offerte/top3")
         .then(response => response.json())
         .then(data => {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     ${offerta.nome}
                                 </h5>
 
-                                <a href="/offerte/dettagli/${offerta.id}">
+                                <a href="/offerte/dettagliOfferte/${offerta.id}">
                                     Leggi di più
                                 </a>
 
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-    // helper per formattare la data
+    // format data x offerte
     function formatDate(dateString) {
         let [year, month, day] = dateString.split("-");
 
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-//    BANNER SCORRIMENTO
+//    BANNER SCORRIMENTO X CINEFANS
     const bannerImages = [
         "/img/banner_homepage.webp",
         "/img/banner_homepage2.webp",

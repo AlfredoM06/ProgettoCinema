@@ -4,6 +4,7 @@ package it.made.cinema.Model.DTO;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
