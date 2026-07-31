@@ -79,6 +79,7 @@ INSERT INTO db_cinema.sale (formato, posti) VALUES ('4K',00001111112220111111222
 
 --programmazione films
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 3, 2, 23, '21:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('1-08-2026', 3, 2, 23, '21:30');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 5, 1, 30, '20:00');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 7, 4, 32, '20:10');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 9, 3, 25, '23:30');
