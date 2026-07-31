@@ -4,6 +4,7 @@ import it.made.cinema.Model.*;
 import it.made.cinema.Model.DTO.*;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
+import it.made.cinema.Repository.IRepoProgrammazione;
 import it.made.cinema.Service.PostiService;
 import it.made.cinema.Service.PrezzoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Controller
 @RequestMapping("/inSala")
 public class InSalaController {
-    //lista di film
-    //barra di ricerca
-    //da vedere come si fa
+    // nozione = new LinkedList<>(); //è la stessa cosa di una lista ma mantiene l'ordine degli oggetti
     @Autowired
     private IRepoFilm repoFilm;
     @Autowired
@@ -29,6 +27,8 @@ public class InSalaController {
     PrezzoService prezzoService;
     @Autowired
     PostiService postiService;
+    @Autowired
+    IRepoProgrammazione repoProgrammazione;
 
     //index
     @GetMapping
@@ -74,8 +74,33 @@ public class InSalaController {
             listaGeneri.add(genere);
         }
         filmDTO.setGeneri(listaGeneri);
-        List<ListaProgDTO> listaProgrammazioni = new ArrayList<>();
-        for (ProgrammazioneFilm p : film.getProgrammazioni()){
+        Map<LocalDate, List<ListaProgDTO>> listaProgrammazioni = new HashMap<>();
+        List<LocalDate> dates = new ArrayList<>();
+        LocalDate oggi = LocalDate.now();
+        for (int i = 0; i < 7; i++) {
+            dates.add(oggi.plusDays(i)); //For per valorizzare i giorni per non fare più volte il for
+        }
+        // programmazioniS = separate programmazioniT = tutte a partire da oggi
+        for (LocalDate d : dates ){
+            List<ListaProgDTO> programmazioniS = new ArrayList<>();
+            List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmId(d, film.getId());
+            for (ProgrammazioneFilm p : programmazioni){
+                ListaProgDTO programmazione = new ListaProgDTO();
+                programmazione.setId(p.getId());
+                programmazione.setPrezzo(film.getPrezzo());
+                programmazione.setFormato(p.getSala().getFormato());
+                programmazione.setId_film(film.getId());
+                programmazione.setId_sala(p.getSala().getId());
+                programmazione.setOrarioInizio(p.getOrario());
+                programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
+                programmazioniS.add(programmazione);
+            }
+            listaProgrammazioni.put(d, programmazioniS);
+        }
+        filmDTO.setProgrammazioni(listaProgrammazioni);
+        List<ListaProgDTO> programmazioniT = new ArrayList<>();
+        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAfterAndFilmId(LocalDate.now(), film.getId());
+        for (ProgrammazioneFilm p : programmazioni){
             ListaProgDTO programmazione = new ListaProgDTO();
             programmazione.setId(p.getId());
             programmazione.setPrezzo(film.getPrezzo());
@@ -84,9 +109,10 @@ public class InSalaController {
             programmazione.setId_sala(p.getSala().getId());
             programmazione.setOrarioInizio(p.getOrario());
             programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
-            listaProgrammazioni.add(programmazione);
+            programmazioniT.add(programmazione);
         }
-        filmDTO.setProgrammazioni(listaProgrammazioni);
+        filmDTO.setTutte(programmazioniT);
+
         List<String> lingue = new ArrayList<>();
         List<String> formati = new ArrayList<>();
         for (CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()){

@@ -8,6 +8,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +30,8 @@ public class FilmDTO implements Serializable {
     private LocalDate scadenza;
     private List<ListaOffertaDTO> offerte;
     private List<ListaGenereDTO> generi;
-    private List<ListaProgDTO> programmazioni;
+    private List<ListaProgDTO> tutte;
+    private Map<LocalDate, List<ListaProgDTO>> programmazioni;
     private List<String> formati;
     private List<String> lingue;
 }

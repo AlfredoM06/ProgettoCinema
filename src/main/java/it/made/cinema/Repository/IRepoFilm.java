@@ -22,4 +22,5 @@ public interface IRepoFilm extends JpaRepository<Film, Integer> {
     //mettere query per fare la ricerca dei film in evidenza contando quanti posti sono stati occupati che equivalgono ai biglietti comprati
     @Query(value = "SELECT f.*, COUNT(po.id) AS posti_occupati FROM posti_occupati po, programmazione_dei_film pdf, films f WHERE pdf.id_film = f.id AND po.id_programmazione_film = pdf.id GROUP BY f.id ORDER BY posti_occupati DESC LIMIT 6", nativeQuery = true)
     public List<Film> findFilmEvidenza();
+
 }
