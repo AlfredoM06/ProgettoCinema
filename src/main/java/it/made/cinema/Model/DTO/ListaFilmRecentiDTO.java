@@ -21,5 +21,5 @@ public class ListaFilmRecentiDTO {
     private Integer durata;
     private String img_cover;
     private String img_logo;
-//    private List<GenereFilm> generi;
+    private List<ListaGenereDTO> generi;
 }

@@ -32,7 +32,24 @@ public class HomeController {
         List<Film> filmRecenti = repoFilm.findTop7ByOrderByDataDiUscitaDesc();
         List<ListaFilmRecentiDTO> filmRecentiDTO = new ArrayList<>();
         for (Film recente : filmRecenti) {
-            filmRecentiDTO.add(new ListaFilmRecentiDTO(recente.getId(), recente.getTitolo(), recente.getImg_poster(), recente.getDataDiUscita(), recente.getDescrizione(), recente.getDurata(), recente.getImg_cover(), recente.getImg_logo()));
+            ListaFilmRecentiDTO listaRecenti = new ListaFilmRecentiDTO();
+            listaRecenti.setId(recente.getId());
+            listaRecenti.setDescrizione(recente.getDescrizione());
+            listaRecenti.setDurata(recente.getDurata());
+            listaRecenti.setTitolo(recente.getTitolo());
+            listaRecenti.setImg_cover(recente.getImg_cover());
+            listaRecenti.setImg_logo(recente.getImg_logo());
+            listaRecenti.setDataDiUscita(recente.getDataDiUscita());
+            listaRecenti.setImg_poster(recente.getImg_poster());
+            List<ListaGenereDTO> listaGenere = new ArrayList<>();
+            for ( GenereFilm g : recente.getGeneri()) {
+                ListaGenereDTO listaGenDTO = new ListaGenereDTO();
+                listaGenDTO.setId(g.getId());
+                listaGenDTO.setNome(g.getNome());
+                listaGenere.add(listaGenDTO);
+            }
+            listaRecenti.setGeneri(listaGenere);
+            filmRecentiDTO.add(listaRecenti);
         }
 
         //List<Film> filmInEvidenza = repoFilm.findFilmEvidenza();
