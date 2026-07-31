@@ -25,9 +25,8 @@ article {
 .col-md-2,
 .col-md-3,
 .col-md-6 {
-    display: block;
+    display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .value {

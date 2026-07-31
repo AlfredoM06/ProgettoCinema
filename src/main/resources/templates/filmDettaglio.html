@@ -62,45 +62,38 @@
                 <!-- TABS -->
                 <div class="cinema-tabs-wrapper">
                     <div class="cinema-line"></div>
-                    <ul class="nav nav-pills cinema-tabs mb-3" id="cinemaTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#oggi">
+                    <ul class="nav nav-pills cinema-tabs mb-3" id="cinemaTabs">
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#domani">
+                            <button class="nav-link active giorno" type="button" data-index="0">Oggi</button>
+                        </li>
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lun">
+                            <button class="nav-link giorno" type="button" data-index="1">Domani</button>
+                        </li>
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#mar">
+                            <button class="nav-link giorno" type="button" data-index="2">Mar</button>
+                        </li>
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#mer">
+                            <button class="nav-link giorno" type="button" data-index="3">Mer</button>
+                        </li>
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#gio">
+                            <button class="nav-link giorno" type="button" data-index="4">Gio</button>
+                        </li>
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ven">
+                            <button class="nav-link giorno" type="button" data-index="5">Ven</button>
+                        </li>
 
-                            </button>
-                        </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tutti">Tutti gli
-                                orari</button>
+                            <button class="nav-link giorno" type="button" data-index="6">Sab</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link giorno-tutti" type="button" data-tutti="true">Tutti</button>
                         </li>
                     </ul>
                     <div class="cinema-line"></div>
@@ -139,217 +132,10 @@
                         </div>
 
                         <!-- CARD GRID -->
-                        <section class="row">
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">18:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">21:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">4</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">IMAX</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">18:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">21:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">4</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">IMAX</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">18:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">21:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">4</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">IMAX</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">18:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">21:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">4</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">IMAX</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">18:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">21:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">4</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">IMAX</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">16:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">18:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">8</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">IMAX</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <article class="col-6 col-md-4 col-lg-3 show-column">
-                                <div class="show-card">
-                                    <!-- ORARIO -->
-                                    <div class="session-time">
-                                        <time class="start">18:40</time>
-                                        <span class="separator">-</span>
-                                        <time class="end">21:22</time>
-                                    </div>
-                                    <!-- SALA -->
-                                    <div class="meta-line">
-                                        <span class="label">Sala</span>
-                                        <span class="value">8</span>
-                                    </div>
-                                    <!-- PROIEZIONE -->
-                                    <div class="projection-line">
-                                        <span class="label">Proiezione</span>
-                                        <span class="value">2D</span>
-                                    </div>
-                                    <!-- PREZZO -->
-                                    <div class="price-line">
-                                        <span class="from">Da</span>
-                                        <strong class="price">6,99 €</strong>
-                                    </div>
-                                </div>
-                            </article>
-
+                        <section class="row" id="programmazione-container">
+<!--                            CONTENUTO-->
                         </section>
                     </div>
-
-                    <!-- DOMANI -->
-                    <div class="tab-pane fade" id="domani">
-                        <h4 class="text-white mb-3">Programmazione di domani</h4>
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <div class="card cinema-card">
-                                    <div class="card-body">
-                                        <h5>17:30</h5>
-                                        <p>Standard</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ALTRI GIORNI (esempio) -->
-                    <div class="tab-pane fade" id="lun">
-                        <h4 class="text-white">Lun</h4>
-                    </div>
-
-                    <div class="tab-pane fade" id="tutti">
-                        <h4 class="text-white">Tutti gli orari</h4>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -380,11 +166,15 @@
                 </div>
                 <div class="info-item">
                     <span class="label">Lingue</span>
-                    <span class="value uppercase" th:text="${film.lingue}"></span>
+                    <span th:each="lingua, stat : ${film.lingue}">
+                        <span th:text="${lingua}"></span><span th:if="${!stat.last}">, </span>
+                    </span>
                 </div>
                 <div class="info-item">
                     <span class="label">Disponibile</span>
-                    <span class="value" th:text="${film.formati}"></span>
+                    <span th:each="formato, stat : ${film.formati}">
+                        <span th:text="${formato}"></span><span th:if="${!stat.last}">, </span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -394,13 +184,18 @@
     <!-- OFFERTE -->
     <div th:replace="fragments/offerte-section :: offerteSection"></div>
 </main>
-</div>
+
 
 <!-- FOOTER -->
 <div th:replace="fragments/footer :: content"></div>
 <div th:replace="fragments/footer :: social"></div>
 <div th:replace="fragments/footer :: copyright"></div>
 
+<!--SCRIPT PER COLLEGARE IL JSON FRONT-END A JAVASCRIPT, perché thymeleaf è stupido-->
+<script th:inline="javascript">
+    const PROGRAMMAZIONI = /*[[${film.programmazioni}]]*/ {};
+    const TUTTE_PROGRAMMAZIONI = /*[[${film.tutte}]]*/ [];
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/titoloLinea.js"></script>

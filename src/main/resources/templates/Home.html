@@ -50,7 +50,9 @@
                 <span th:text="${film.durata.intValue() / 60} + 'h'"></span>
                 <span th:text="${film.durata.intValue() % 60} + 'min'"></span>
             </span>
-            <span th:text="${film.generi}"></span>
+            <span th:each="genere, stat : ${film.generi}">
+                <span th:text="${genere.nome}"></span><span th:if="${!stat.last}">
+            </span>
         </h4>
         <p th:text="${film.descrizione}"></p>
 
@@ -260,7 +262,7 @@
             </div>
         </div>
     </section>
-    <!-- MENU CINEMA -->
+    <!-- OFFERTA TOP -->
     <div th:replace="fragments/offerte-section :: offerteSection"></div>
     <!-- BANNER CINEMA HOMEPAGE -->
     <div class="cinema-banner">
