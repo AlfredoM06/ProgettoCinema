@@ -2,6 +2,16 @@
 INSERT INTO db_cinema.partnerships (img_banner, nome) VALUES('', 'no partner');
 INSERT INTO db_cinema.partnerships (img_banner, nome) VALUES('', 'prova');
 
+-- formato
+INSERT INTO db_cinema.formati (nome) VALUES('Standard');
+INSERT INTO db_cinema.formati (nome) VALUES('3D');
+INSERT INTO db_cinema.formati (nome) VALUES('4K');
+INSERT INTO db_cinema.formati (nome) VALUES('IMAX');
+
+-- lingua
+INSERT INTO db_cinema.lingue (nome) VALUES('ITA');
+--INSERT INTO db_cinema.lingue (nome) VALUES('');
+
 --film
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-25', 114, 2, 6, '2026-09-10', 'Paramount Pictures', 'Kevin Williamson', 'Scream 7', '/img/scream7_cover.jpg', '/img/scream7_logo.png', '/img/scream7_poster.jpg', 'Neve Campbell, Courteney Cox, Isabel May, Jasmin Savoy Brown, Mason Gooding', 'quando un nuovo killer Ghostface semina il terrore nella tranquilla città dove Sidney Prescott ha ricostruito la sua vita, i suoi incubi più oscuri diventano realtà: sua figlia diventa il prossimo bersaglio. Determinata a proteggere la sua famiglia, Sidney dovrà affrontare gli orrori del suo passato.');
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-02', 135, 1, 6, '2026-09-12', 'Universal Pictures', 'Gareth Edwards', 'Jurassic World – Rebirth', '/img/jurassicworld_cover.jpg', '/img/jurassicworld_logo.png', '/img/jurassicworld_poster.webp', 'Scarlett Johansson, Mahershala Ali, Jonathan Bailey', 'Diciassette anni dopo dagli eventi di Jurassic world Dominiion, nel 2027,il pianeta si trova profondamente cambiato. L''ambiente terrestre si è rivelato in gran parte inadatto alla sopravvivenza delle specie preistoriche riportate in vita. La maggior parte dei dinosauri è morta o stata abbattuta; quelli sopravvissuti si rifugiano in poche aree remote, per lo più tropicali, dove le condizioni naturali ricordano i loro antichi habitat, l''accesso alle quali è stato vietato dalle autorità.');
@@ -14,28 +24,6 @@ INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership,
 INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '2026-08-14', 110, null, 6, '2026/09/18', 'Warner Bros. Pictures', 'Zach Lipovsky, Adam Stein', 'Final Destination: Bloodlines', '/img/final_destination_cover.png', '/img/final_destination_logo.webp', '/img/final_destination_poster.jpg', 'Kaitlyn Santa Juana, Teo Briones, Brec Bassinger', 'Tormentata da un incubo violento e ricorrente che ha a che fare con il disastro dello Skyview dove era presenta nonna Iris avvenuto cinquant anni prima, La studentessa universitaria torna a casa alla ricerca dell unica persona che potrebbe spezzare il ciclo della morte e salvare la sua famiglia dal terribile destino che inevitabilmente li attende. Dai creatori di Final Destination, Bloodlines ripercorre tutta la saga, da dove è iniziato.');
 -- import nuovo = INSERT INTO db_cinema.films (archiviato, data_di_uscita, durata, id_partnership, prezzo, scadenza, distribuzione, regista, titolo, img_cover, img_logo, img_poster, `cast`, descrizione) VALUES (0, '', 0, 0, 0, '', '', '', '', '', '', '', '', '');
 
--- cross lingua e formato
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(1, 1, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(2, 2, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(3, 3, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(4, 4, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(5, 1, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(6, 2, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(7, 3, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(8, 4, 1);
- INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(9, 1, 1);
-
--- formato
- INSERT INTO db_cinema.formato (nome) VALUES('Standard');
- INSERT INTO db_cinema.formato (nome) VALUES('3D');
- INSERT INTO db_cinema.formato (nome) VALUES('4K');
- INSERT INTO db_cinema.formato (nome) VALUES('IMAX');
-
--- lingua
-INSERT INTO db_cinema.lingue (nome) VALUES('ITA');
---INSERT INTO db_cinema.lingue (nome) VALUES('');
-
-
 --generi
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Anime');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Azione');
@@ -47,16 +35,27 @@ INSERT INTO db_cinema.genere_films (nome) VALUES ('Romantici');
 INSERT INTO db_cinema.genere_films (nome) VALUES ('Thriller');
 
 --relazioni film/generi
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (1, 8);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (2, 2);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (3, 4);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (4, 2);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (5, 6);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (6, 4);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (6, 2);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (7, 4);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (8, 2);
-INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (9, 5);
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (1, 8); -- scream 7
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (2, 2); -- jurassic world
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (3, 4); -- avatar
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (4, 2); -- dune
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (5, 6); -- lilo e stitch
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (6, 4); -- mandalorian
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (6, 2); -- mandalorian
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (7, 4); -- dragon trainer
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (8, 2); -- superman
+INSERT INTO db_cinema.films_generi (id_film, id_genere) VALUES (9, 5); -- final destination
+
+-- cross lingua e formato
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(1, 1, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(2, 2, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(3, 3, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(4, 4, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(5, 1, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(6, 2, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(7, 3, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(8, 4, 1);
+INSERT INTO db_cinema.cross_formato_lingua (id_film, id_formato, id_lingua) VALUES(9, 1, 1);
 
 --offerte
 INSERT INTO db_cinema.offerte (data_inizio, data_scadenza, id_film, prezzo, genere, nome, descrizione, img_banner,  img_banner_top_offerte, img_dettaglio) VALUES ('2026-06-19', '2026-10-13', 1, 5.99, 'menu', 'Scream 7 Menu', 'cosa a caso', '','', '');
