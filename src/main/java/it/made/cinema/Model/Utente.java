@@ -38,9 +38,6 @@ public class Utente {
 	@NotEmpty
 	@Column(length=70, nullable=false)
 	private String email;
-	@NotEmpty
-	@Column(length=50, nullable=false)
-	private String ruolo;
 	@Column(nullable=false)
 	private Boolean membership;//carta punti
 	@NotEmpty
@@ -72,4 +69,7 @@ public class Utente {
 	private List<PostiOccupati> postiOccupati;
 	@OneToMany(mappedBy="utente")
 	private List<AcquistiGadget> acquistiGadget;
+	@ManyToOne
+	@JoinColumn(name ="id_ruolo")
+	private Ruolo ruolo;
 }
