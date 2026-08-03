@@ -1,19 +1,38 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.*;
-import it.made.cinema.Model.DTO.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import Scheduler.LocalDateComparator;
+import it.made.cinema.Model.CrossFilmFormatoLingua;
+import it.made.cinema.Model.Film;
+import it.made.cinema.Model.GenereFilm;
+import it.made.cinema.Model.Offerta;
+import it.made.cinema.Model.ProgrammazioneFilm;
+import it.made.cinema.Model.DTO.FilmDTO;
+import it.made.cinema.Model.DTO.ListaFilmDTO;
+import it.made.cinema.Model.DTO.ListaGenereDTO;
+import it.made.cinema.Model.DTO.ListaOffertaDTO;
+import it.made.cinema.Model.DTO.ListaProgDTO;
+import it.made.cinema.Model.DTO.PostiDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Repository.IRepoProgrammazione;
 import it.made.cinema.Service.PostiService;
 import it.made.cinema.Service.PrezzoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.*;
 
 @Controller
 @RequestMapping("/inSala")
@@ -98,7 +117,8 @@ public class InSalaController {
             listaProgrammazioni.put(d, programmazioniS);
         }
         filmDTO.setProgrammazioni(listaProgrammazioni);
-        List<ListaProgDTO> programmazioniT = new ArrayList<>();
+        //List<ListaProgDTO> programmazioniT = new ArrayList<>();
+        Map<LocalDate, List<ListaProgDTO>> mapTutti = new TreeMap<>(new LocalDateComparator());
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneGreaterThanEqualAndFilmId(LocalDate.now(), film.getId());
         for (ProgrammazioneFilm p : programmazioni){
             ListaProgDTO programmazione = new ListaProgDTO();
@@ -109,9 +129,16 @@ public class InSalaController {
             programmazione.setId_sala(p.getSala().getId());
             programmazione.setOrarioInizio(p.getOrario());
             programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
-            programmazioniT.add(programmazione);
+            if(mapTutti.containsKey(p.getDataProgrammazione())) {
+            	mapTutti.get(p.getDataProgrammazione()).add(programmazione);
+            }
+            else {
+            	List<ListaProgDTO> programmazioniT = new ArrayList<>();
+            	programmazioniT.add(programmazione);
+            	mapTutti.put(p.getDataProgrammazione(), programmazioniT);
+            }
         }
-        filmDTO.setTutte(programmazioniT);
+        filmDTO.setTutte(mapTutti);
 
         List<String> lingue = new ArrayList<>();
         List<String> formati = new ArrayList<>();

@@ -30,7 +30,7 @@ public class FilmDTO implements Serializable {
     private LocalDate scadenza;
     private List<ListaOffertaDTO> offerte;
     private List<ListaGenereDTO> generi;
-    private List<ListaProgDTO> tutte;
+    private Map<LocalDate, List<ListaProgDTO>> tutte;
     private Map<LocalDate, List<ListaProgDTO>> programmazioni;
     private List<String> formati;
     private List<String> lingue;
