@@ -99,7 +99,7 @@ public class InSalaController {
         }
         filmDTO.setProgrammazioni(listaProgrammazioni);
         List<ListaProgDTO> programmazioniT = new ArrayList<>();
-        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAfterAndFilmId(LocalDate.now(), film.getId());
+        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneGreaterThanEqualAndFilmId(LocalDate.now(), film.getId());
         for (ProgrammazioneFilm p : programmazioni){
             ListaProgDTO programmazione = new ListaProgDTO();
             programmazione.setId(p.getId());
