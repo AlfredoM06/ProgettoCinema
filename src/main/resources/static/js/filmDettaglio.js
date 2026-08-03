@@ -45,7 +45,7 @@ dayButtons.forEach((btn,index)=>{
 */
 
 let oggi = formatDate(new Date());
-renderProgrammazioni(PROGRAMMAZIONI[oggi]);
+renderProgrammazioni(PROGRAMMAZIONI[oggi], "OGGI");
 
 /*
     ======================================
@@ -59,6 +59,17 @@ renderProgrammazioni(PROGRAMMAZIONI[oggi]);
         let day = String(date.getDate()).padStart(2,"0");
 
         return `${year}-${month}-${day}`;
+    }
+
+    function formatHeaderDate(date){
+        const giorni = ["DOMENICA","LUNEDI","MARTEDI","MERCOLEDI","GIOVEDI","VENERDI","SABATO"];
+        const mesi = ["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
+
+        let giornoSettimana = giorni[date.getDay()];
+        let giorno = date.getDate();
+        let mese = mesi[date.getMonth()];
+
+        return `${giornoSettimana}, ${giorno} ${mese}`;
     }
 /*
 ======================================
@@ -75,12 +86,20 @@ dayButtons.forEach(button=>{
 
         let index = Number(this.dataset.index);
         let data = new Date();
+        let titolo;
 
         data.setDate(data.getDate()+index);
+
+        if(index === 0){
+                    titolo = "OGGI";
+                } else {
+                    titolo = formatHeaderDate(data);
+                }
+
         let chiave = formatDate(data);
 
         renderProgrammazioni(
-            PROGRAMMAZIONI[chiave]
+            PROGRAMMAZIONI[chiave], titolo
         );
     });
 });
@@ -98,9 +117,7 @@ tuttiButton.addEventListener("click",()=>{
 
     tuttiButton.classList.add("active");
 
-    renderProgrammazioni(
-        TUTTE_PROGRAMMAZIONI
-    );
+    renderTutteProgrammazioni(TUTTE_PROGRAMMAZIONI);
 });
 
     /*
@@ -152,6 +169,91 @@ tuttiButton.addEventListener("click",()=>{
             );
         });
 
+        /*
+        ======================================
+              HEADER DINAMICO X BOTTONI
+        ======================================
+        */
+        function creaHeaderProgrammazione(titolo){
+
+            return `
+                <div class="show-header mb-3">
+                    <div class="show-left">
+                        <span class="show-label">
+                            PROSSIMI SPETTACOLI PER
+                        </span>
+
+                        <time class="show-time">
+                            ${titolo}
+                        </time>
+                    </div>
+
+                    <p class="show-note">
+                        1€ in meno se acquisti online
+                    </p>
+                </div>
+            `;
+        }
+        /*
+        ======================================
+           RENDER CARD PROGRAMMAZIONI
+        ======================================
+        */
+        function creaCardProgrammazione(prog){
+
+        return `
+            <article class="col-6 col-md-4 col-lg-3 show-column">
+                <div class="show-card">
+                    <div class="session-time">
+                        <time class="start">
+                            ${prog.orarioInizio.substring(0,5)}
+                        </time>
+
+                        <span class="separator">
+                            -
+                        </span>
+
+                        <time class="end">
+                            ${prog.orarioFine.substring(0,5)}
+                        </time>
+                    </div>
+
+
+                <div class="meta-line">
+                    <span class="label">
+                        Sala
+                    </span>
+
+                    <span class="value">
+                        ${prog.id_sala}
+                    </span>
+                </div>
+
+
+                <div class="projection-line">
+                    <span class="label">
+                        Proiezione
+                    </span>
+
+                    <span class="value">
+                        ${prog.formato}
+                    </span>
+                </div>
+
+
+                <div class="price-line">
+                    <span class="from">
+                        Da
+                    </span>
+                    <strong class="price">
+                        ${Number(prog.prezzo).toFixed(2).replace(".",",")} €
+                    </strong>
+                </div>
+            </div>
+        </article>
+        `;
+        }
+
 
             /*
             ======================================
@@ -159,9 +261,41 @@ tuttiButton.addEventListener("click",()=>{
             ======================================
             */
 
-            function renderProgrammazioni(lista){
+            function renderProgrammazioni(lista, titolo){
 
-                let container = document.getElementById("programmazione-container");
+                let container = document.getElementById("programmazione-list");
+
+                if(!container){
+                    return;
+                }
+
+                container.innerHTML="";
+                    if(!lista || lista.length===0){
+                        container.innerHTML=`
+
+                        <div class="text-white">
+                            Nessuna programmazione disponibile
+                         </div>
+                    `;
+                return;
+            }
+
+            container.innerHTML += creaHeaderProgrammazione(titolo);
+
+            lista.forEach(prog=>{
+                container.innerHTML += creaCardProgrammazione(prog);
+            });
+
+            }
+
+            /*
+             ======================================
+                RENDER CARD PROGRAMMAZIONI TUTTI
+             ======================================
+             */
+            function renderTutteProgrammazioni(mappa){
+
+                let container = document.getElementById("programmazione-list");
 
                 if(!container){
                     return;
@@ -169,68 +303,21 @@ tuttiButton.addEventListener("click",()=>{
 
                 container.innerHTML = "";
 
-                if(!lista || lista.length === 0){
-                    container.innerHTML = `
-                        <div class="text-white">
-                            Nessuna programmazione disponibile
-                        </div>
-                    `;
-                    return;
-                }
-                lista.forEach(prog => {
-                    let card = `
-                    <article class="col-6 col-md-4 col-lg-3 show-column">
-                        <div class="show-card">
-                            <div class="session-time">
-                                <time class="start">
-                                    ${prog.orarioInizio}
-                                </time>
-                                <span class="separator">
-                                    -
-                                </span>
-                                <time class="end">
-                                    ${prog.orarioFine}
-                                </time>
-                            </div>
+                Object.entries(mappa).forEach(([data, programmi])=>{
+                    if(programmi.length === 0){
+                                return;
+                            }
 
-                            <div class="meta-line">
-                                <span class="label">
-                                    Sala
-                                </span>
+                    let giorno = new Date(data);
+                    container.innerHTML += creaHeaderProgrammazione(formatHeaderDate(giorno));
 
-                                <span class="value">
-                                    ${prog.idSala}
-                                </span>
-                            </div>
-
-                            <div class="projection-line">
-                                <span class="label">
-                                    Proiezione
-                                </span>
-                                <span class="value">
-                                    ${prog.formato.nome}
-                                </span>
-                            </div>
-
-                            <div class="price-line">
-                                <span class="from">
-                                    Da
-                                </span>
-                                <strong class="price">
-                                    ${prog.prezzo} €
-                                </strong>
-                            </div>
-                        </div>
-                    </article>
-                    `;
-
-                    container.innerHTML += card;
+                    programmi.forEach(prog=>{
+                        container.innerHTML += creaCardProgrammazione(prog);
+                    });
                 });
             }
-        console.log(PROGRAMMAZIONI);
+
+        console.log( PROGRAMMAZIONI);
         console.log(TUTTE_PROGRAMMAZIONI);
         console.log(oggi);
-        console.log(buttons);
-        console.log(dayButtons);
-        console.log(tuttiButton);
 });
