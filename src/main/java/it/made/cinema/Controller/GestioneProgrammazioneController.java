@@ -125,6 +125,19 @@ public class GestioneProgrammazioneController {
     }
 
     // quando si clicca su di una programmazione di un film, ti porta alla pagina della "sala" in cui vai a restituire la matrice che hai creato con il service
+    @GetMapping("/dettagliProgrammazione/{id}")
+    public String programmazione(@PathVariable("id") Integer id, Model model){
 
+        ProgrammazioneFilm programmazione = repoProgrammazione.findById(id).get();
+        model.addAttribute("titolo", programmazione.getFilm().getTitolo());
+        model.addAttribute("poster", programmazione.getFilm().getImg_poster());
+        model.addAttribute("sala", programmazione.getSala());
+        model.addAttribute("formato", programmazione.getSala().getFormato());
+        model.addAttribute("data", programmazione.getDataProgrammazione());
+        model.addAttribute("inizio", programmazione.getOrario());
+        model.addAttribute("fine", programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata() + 30));
+
+        return "redirect: /biglietto";
+    }
 
 }
