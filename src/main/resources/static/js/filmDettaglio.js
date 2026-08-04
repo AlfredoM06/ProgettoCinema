@@ -202,7 +202,7 @@ tuttiButton.addEventListener("click",()=>{
         function creaCardProgrammazione(prog){
 
         return `
-            <article class="col-6 col-md-4 col-lg-3 show-column">
+            <article class="col-6 col-md-4 col-lg-3 show-column" data-id="${prog.id}">
                 <div class="show-card">
                     <div class="session-time">
                         <time class="start">
@@ -317,7 +317,21 @@ tuttiButton.addEventListener("click",()=>{
                 });
             }
 
-        console.log( PROGRAMMAZIONI);
+            /*
+            ======================================
+                CLICK DELLA CARD
+            ======================================
+            */
+            document.addEventListener("click", function(e){
+
+                let card = e.target.closest(".show-column");
+                if(!card) return;
+                let idProgrammazione = card.dataset.id;
+                window.location.href = `/gestioneProgrammazione/dettagliProgrammazione/${idProgrammazione}`;
+
+            });
+
+        console.log(PROGRAMMAZIONI);
         console.log(TUTTE_PROGRAMMAZIONI);
         console.log(oggi);
 });

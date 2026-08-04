@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,7 @@
             <!-- POSTER -->
             <div class="col-md-1">
                 <div class="poster-box">
-                    <img src="./img/mandalorian_grogu_poster.jpg">
+                    <img th:src="${poster}" alt="poster">
                 </div>
             </div>
 
@@ -50,19 +50,22 @@
 
                 <h2 class="film-subtitle">ACQUISTA ORA</h2>
 
-                <h1 class="film-title">STAR WARS: THE MANDALORIAN AND GROGU</h1>
+                <h1 class="film-title" th:text="${titolo}"></h1>
 
                 <hr>
 
                 <div class="film-meta">
                     <span>Siediti & Guarda</span>
-                    <span>Sala 11</span>
-                    <span class="proiezione">IMAX</span>
+                    <span>Sala</span>
+                    <span th:text="${sala}"></span>
+                    <span class="proiezione" th:text="${formato}"></span>
                 </div>
 
                 <div class="film-time">
-                    <div class="time-info">
-                        02 Giugno 2026 • 21:30 - 23:45
+                    <div class="time-info"
+                        th:text="${#temporals.format(data, 'dd MMMM yyyy', T(java.util.Locale).ITALIAN)} + ' • ' +
+                        ${#temporals.format(inizio, 'HH:mm')} + ' - ' +
+                        ${#temporals.format(fine, 'HH:mm')}"></div>
                     </div>
 
                     <button class="btn-change"><i class="fa-regular fa-clock"></i>Cambia orario</button>

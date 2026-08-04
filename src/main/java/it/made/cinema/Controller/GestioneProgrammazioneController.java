@@ -137,7 +137,7 @@ public class GestioneProgrammazioneController {
         model.addAttribute("inizio", programmazione.getOrario());
         model.addAttribute("fine", programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata() + 30));
 
-        return "redirect: /biglietto";
+        return "redirect:/biglietto";
     }
 
 }
