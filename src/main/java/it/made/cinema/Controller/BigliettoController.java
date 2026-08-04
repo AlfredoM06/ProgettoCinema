@@ -30,12 +30,6 @@ public class BigliettoController {
     @Autowired
     IRepoPostiOccupati postiOccupati;
 
-    @GetMapping
-    public String acquisto() {
-        return "prenotazioneBiglietto";
-    }
-
-
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra)
     @PostMapping("/acquistoBiglietto")
     public @ResponseBody ScontrinoDTO acquistoBiglietto(@RequestBody AcquistoDTO acquistoBiglietto) {

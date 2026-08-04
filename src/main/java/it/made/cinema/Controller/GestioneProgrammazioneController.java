@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import it.made.cinema.Model.Film;
+import it.made.cinema.Model.Sala;
+import it.made.cinema.Repository.IRepoFilm;
+import it.made.cinema.Repository.IRepoSala;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -38,6 +42,13 @@ public class GestioneProgrammazioneController {
 
     @Autowired
     IRepoUtenti repoUtenti;
+
+    @Autowired
+    IRepoFilm repoFilm;
+
+    @Autowired
+    IRepoSala repoSala;
+
 
     @GetMapping
     public String gestioneProgrammazione(Model model) {
@@ -125,19 +136,21 @@ public class GestioneProgrammazioneController {
     }
 
     // quando si clicca su di una programmazione di un film, ti porta alla pagina della "sala" in cui vai a restituire la matrice che hai creato con il service
-    @GetMapping("/dettagliProgrammazione/{id}")
-    public String programmazione(@PathVariable("id") Integer id, Model model){
+    @GetMapping("/dettagliProgrammazione/{idProgrammazione}")
+    public String programmazione(@PathVariable Integer idProgrammazione, Model model){
 
-        ProgrammazioneFilm programmazione = repoProgrammazione.findById(id).get();
-        model.addAttribute("titolo", programmazione.getFilm().getTitolo());
-        model.addAttribute("poster", programmazione.getFilm().getImg_poster());
-        model.addAttribute("sala", programmazione.getSala());
-        model.addAttribute("formato", programmazione.getSala().getFormato());
+        ProgrammazioneFilm programmazione = repoProgrammazione.findById(idProgrammazione).get();
+        Film film = repoFilm.findById(programmazione.getFilm().getId()).get();
+        Sala sala = repoSala.findById(programmazione.getSala().getId()).get();
+        model.addAttribute("titolo", film.getTitolo());
+        model.addAttribute("poster", film.getImg_poster());
+        model.addAttribute("sala", sala.getId());
+        model.addAttribute("formato", sala.getFormato());
         model.addAttribute("data", programmazione.getDataProgrammazione());
         model.addAttribute("inizio", programmazione.getOrario());
-        model.addAttribute("fine", programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata() + 30));
+        model.addAttribute("fine", programmazione.getOrario().plusMinutes(film.getDurata() + 30));
 
-        return "redirect:/biglietto";
+        return "prenotazioneBiglietto";
     }
 
 }
