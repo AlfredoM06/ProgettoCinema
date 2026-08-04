@@ -30,18 +30,11 @@ public class BigliettoController {
     @Autowired
     IRepoPostiOccupati postiOccupati;
 
-    /*
-    // tipi.add((int) c);  char è una specializzazione di int quindi puoi up-castarlo nel suo tipo generico ovvero int
-    @GetMapping("/prezzoBiglietto/{idFilm}/{idUtente}/{tipi}")
-    @ResponseBody
-    public Double prezzoBiglietto(@PathVariable Integer idFilm, @PathVariable Integer idUtente, @PathVariable Integer tipi) {
+    @GetMapping
+    public String acquisto() {
+        return "prenotazioneBiglietto";
+    }
 
-        Film film = repoFilm.findById(idFilm).get(); //film scelto
-        Utente utente = repoUtenti.findById(idUtente).get(); //utente loggato
-
-        return prezzoService.calcolaPrezzoFinale(utente, film, tipi, false);
-     }
-    */
 
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra)
     @PostMapping("/acquistoBiglietto")
@@ -52,10 +45,10 @@ public class BigliettoController {
         Integer puntiCarta = utente.getPuntiMembership();
         Double prezzoTotale = 0d;
         ScontrinoDTO scontrino = new ScontrinoDTO();
-        for (PostiDTO posto: acquistoBiglietto.getListaPostiDTO()){
+        for (PostiDTO posto : acquistoBiglietto.getListaPostiDTO()) {
             Double prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, posto.getTipo(), puntiCarta);
             prezzoTotale += prezzoFinale;
-            if (acquistoBiglietto.getAcquisto()){
+            if (acquistoBiglietto.getAcquisto()) {
                 // creare il posto occupato / biglietto
                 PostiOccupati biglietto = new PostiOccupati();
                 biglietto.setOccupato(true);
@@ -86,9 +79,9 @@ public class BigliettoController {
         Integer punti = puntiService.puntiBiglietto(prezzoTotale, partnership);
         scontrino.setPuntiGuadagnati(punti);
 
-        if (acquistoBiglietto.getAcquisto()){
+        if (acquistoBiglietto.getAcquisto()) {
             // aggiornare repo utente con i punti nuovi facendo get punti + punti
-            utente.setPuntiMembership(puntiCarta+punti);
+            utente.setPuntiMembership(puntiCarta + punti);
             repoUtenti.save(utente);
         }
 

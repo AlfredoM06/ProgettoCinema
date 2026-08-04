@@ -96,7 +96,6 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-03', 8, 1, 23, '23:00');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-04', 8, 1, 23, '23:40');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-05', 8, 1, 23, '23:00');
-
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-04', 9, 2, 23, '19:30');
 
 -- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('', 0, 0, 0, 0, '', '');
