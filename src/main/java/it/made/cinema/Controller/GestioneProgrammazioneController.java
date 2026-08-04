@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import it.made.cinema.Model.Film;
-import it.made.cinema.Model.Sala;
-import it.made.cinema.Repository.IRepoFilm;
-import it.made.cinema.Repository.IRepoSala;
+import it.made.cinema.Model.*;
+import it.made.cinema.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -23,11 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
-import it.made.cinema.Model.ProgrammazioneFilm;
-import it.made.cinema.Model.Utente;
 import it.made.cinema.Model.DTO.ListaProgDTO;
-import it.made.cinema.Repository.IRepoProgrammazione;
-import it.made.cinema.Repository.IRepoUtenti;
 import it.made.cinema.Service.OrarioService;
 import jakarta.validation.Valid;
 
@@ -48,6 +42,9 @@ public class GestioneProgrammazioneController {
 
     @Autowired
     IRepoSala repoSala;
+
+    @Autowired
+    IRepoPosto repoPosto;
 
 
     @GetMapping
@@ -142,6 +139,8 @@ public class GestioneProgrammazioneController {
         ProgrammazioneFilm programmazione = repoProgrammazione.findById(idProgrammazione).get();
         Film film = repoFilm.findById(programmazione.getFilm().getId()).get();
         Sala sala = repoSala.findById(programmazione.getSala().getId()).get();
+        List<Posto> posti = repoPosto.findAll();
+        model.addAttribute("posti", posti);
         model.addAttribute("titolo", film.getTitolo());
         model.addAttribute("poster", film.getImg_poster());
         model.addAttribute("sala", sala.getId());

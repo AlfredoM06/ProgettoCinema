@@ -191,5 +191,4 @@ public class InSalaController {
     public @ResponseBody PostiDTO[][] listaPosti(@PathVariable("id") Integer id){
     	return postiService.getPosti(id);
     }
-
 }
