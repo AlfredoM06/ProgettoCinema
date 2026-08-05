@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/root.css">
     <link rel="stylesheet" href="/css/prenotazioneBiglietto.css">
 
-    <title>Prenotare-il-biglietto</title>
+    <title>Acquisto</title>
 </head>
 
 <body>
@@ -33,234 +33,290 @@
     </div>
 </header>
 
-<!-- HERO (ATTACCATO ALLA NAVBAR) -->
-<section class="hero-film">
-    <div class="container">
-        <div class="row hero-row">
+<div id="main-content">
+    <!-- HERO (ATTACCATO ALLA NAVBAR) -->
+    <section class="hero-film">
+        <div class="container">
+            <div class="row hero-row">
 
-            <!-- POSTER -->
-            <div class="col-md-1">
-                <div class="poster-box">
-                    <img th:src="${poster}" alt="poster">
-                </div>
-            </div>
-
-            <!-- INFO -->
-            <div class="col-md-10">
-
-                <h2 class="film-subtitle">ACQUISTA ORA</h2>
-
-                <h1 class="film-title" th:text="${titolo}"></h1>
-
-                <hr>
-
-                <div class="film-meta">
-                    <span>Siediti & Guarda</span>
-                    <span>Sala</span>
-                    <span th:text="${sala}"></span>
-                    <span class="proiezione" th:text="${formato}"></span>
+                <!-- POSTER -->
+                <div class="col-md-1">
+                    <div class="poster-box">
+                        <img th:src="${poster}" alt="poster">
+                    </div>
                 </div>
 
-                <div class="film-time">
-                    <div class="time-info"
-                        th:text="${#temporals.format(data, 'dd MMMM yyyy', T(java.util.Locale).ITALIAN)} + ' • ' +
+                <!-- INFO -->
+                <div class="col-md-10">
+
+                    <h2 class="film-subtitle">ACQUISTA ORA</h2>
+
+                    <h1 class="film-title" th:text="${titolo}"></h1>
+
+                    <hr>
+
+                    <div class="film-meta">
+                        <span>Siediti & Guarda</span>
+                        <span>Sala</span>
+                        <span th:text="${sala}"></span>
+                        <span class="proiezione" th:text="${formato}"></span>
+                    </div>
+
+                    <div class="film-time">
+                        <div class="time-info" th:text="${#temporals.format(data, 'dd MMMM yyyy', T(java.util.Locale).ITALIAN)} + ' • ' +
                         ${#temporals.format(inizio, 'HH:mm')} + ' - ' +
-                        ${#temporals.format(fine, 'HH:mm')}"></div>
+                        ${#temporals.format(fine, 'HH:mm')}">
+                        </div>
+                        <button class="btn-change"><i class="fa-regular fa-clock"></i>Cambia orario</button>
                     </div>
-
-                    <button class="btn-change"><i class="fa-regular fa-clock"></i>Cambia orario</button>
                 </div>
-
             </div>
         </div>
-</section>
+    </section>
 
-<!-- SEZIONE POSTI -->
-<main class="container-fluid cinema-main">
+    <!-- SEZIONE POSTI -->
+    <main class="container-fluid cinema-main">
 
-    <div class="row">
+        <div class="row">
 
-        <!-- COLONNA SINISTRA -->
-        <div class="col-md-9 cinema-left">
+            <!-- COLONNA SINISTRA -->
+            <div class="col-md-9 cinema-left">
 
-            <div class="cinema-inner">
-                <button class="back-btn" data-bs-toggle="modal" data-bs-target="#exitModal">
-                    <i class="fa-solid fa-chevron-left"></i>
-                    <span>Vedi tutti i film</span>
-                </button>
-                <!-- BOX SALA -->
-                <div class="cinema-box">
+                <div class="cinema-inner">
+                    <button class="back-btn" data-bs-toggle="modal" data-bs-target="#exitModal">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Vedi tutti i film</span>
+                    </button>
+                    <!-- BOX SALA -->
+                    <div class="cinema-box">
 
-                    <!-- SCHERMO -->
-                    <div class="screen-wrapper">
-                        <div class="screen-shadow"></div>
-                        <div class="screen"></div>
+                        <!-- SCHERMO -->
+                        <div class="screen-wrapper">
+                            <div class="screen-shadow"></div>
+                            <div class="screen"></div>
+                        </div>
+                        <div class="hall-title">
+                            SALA <span th:text="${sala}"></span>
+                        </div>
+                        <!-- POSTI -->
+                        <div id="seats" class="seats-grid"></div>
+
                     </div>
-                    <h3 class="hall-title">SALA 9</h3>
 
-                    <!-- POSTI -->
-                    <div id="seats" class="seats-grid"></div>
-
-                </div>
-
-                <!-- LEGENDA -->
-                <div class="legend text-center">
+                    <!-- LEGENDA -->
                     <div class="legend text-center">
+                        <div class="legend text-center">
 
-                        <button class="legend-btn" data-type="vip">
-                            <img src="/img/vip_prenotabile.svg" class="legend-icon">
-                            <span>Vip</span>
-                            <span class="legend-price"></span>
-                        </button>
+                            <button class="legend-btn" data-type="vip">
+                                <img src="/img/vip_prenotabile.svg" class="legend-icon">
+                                <span>Vip</span>
+                                <span class="legend-price"></span>
+                            </button>
 
-                        <button class="legend-btn" data-type="green">
-                            <img src="/img/verde_prenotabile.svg" class="legend-icon">
-                            <span>Verde</span>
-                            <span class="legend-price"></span>
-                        </button>
+                            <button class="legend-btn" data-type="green">
+                                <img src="/img/verde_prenotabile.svg" class="legend-icon">
+                                <span>GREEN</span>
+                                <span class="legend-price"></span>
+                            </button>
 
-                        <button class="legend-btn" data-type="disabled">
-                            <img src="/img/disabili_prenotabile.svg" class="legend-icon">
-                            <span>Disabili</span>
-                            <span class="legend-price"></span>
-                        </button>
+                            <button class="legend-btn" data-type="disabled">
+                                <img src="/img/disabili_prenotabile.svg" class="legend-icon">
+                                <span>Disabled</span>
+                                <span class="legend-price"></span>
+                            </button>
 
+                        </div>
                     </div>
+
                 </div>
 
             </div>
 
-        </div>
+            <!-- COLONNA DESTRA -->
+            <div class="col-md-3 cinema-right">
 
-        <!-- COLONNA DESTRA -->
-        <div class="col-md-3 cinema-right">
+                <div class="scroll-area">
 
-            <div class="scroll-area">
+                    <!-- INFO DINAMICHE -->
+                    <div id="selection-info" class="selection-info hidden">
 
-                <!-- INFO DINAMICHE -->
-                <div id="selection-info" class="selection-info hidden">
+                        <div class="quantity-row">
+                            <span>Quanti posti?</span>
 
-                    <div class="quantity-row">
-                        <span>Quanti posti?</span>
+                            <button id="minus">-</button>
+                            <span id="seat-count">1</span>
+                            <button id="plus">+</button>
+                        </div>
 
-                        <button id="minus">-</button>
-                        <span id="seat-count">1</span>
-                        <button id="plus">+</button>
+                        <div id="selected-summary" class="selected-summary hidden"></div>
+
+                    </div>
+                    <div id="promo-box" class="promo-box hidden">
+
+                        <p>
+                            Per ogni biglietto acquistato è previsto un diritto di prevendita
+                            a partire da 1,29€. L’importo verrà calcolato, prima del pagamento,
+                            nella schermata di riepilogo finale.
+                        </p>
+
+                        <h4 class="promo-title">
+                            AGGIUNGI PROMO / VOUCHER
+                        </h4>
+
+                        <input type="text" class="promo-input" placeholder="inserisci il codice">
+
+                        <div class="promo-btn-wrapper">
+                            <button class="add-btn">
+                                aggiungi
+                            </button>
+                        </div>
+
                     </div>
 
-                    <div id="selected-summary" class="selected-summary hidden"></div>
+                    <!-- RIEPILOGO BIGLIETTI -->
+                    <div id="ticket-summary">
+                        <p>I biglietti per i disabili sono acquistabili online, e in sede verrà richiesto un documento che
+                            attesti la prorpia invalidità.
+                            Il cinema è molto severo riguardo la frode, se in sede verrà verificato che il cliente non ha i
+                            requisiti di invalidità,
+                            non verrà effettuato nessun rimborso e verrà segnalato con un supplemento e invitato a comprare
+                            un nuovo biglietto per entrare in sala.
+                        </p>
+                        <p>Per le proiezioni con certificato VM14 e VM18 porta con te un documento di riconoscimento,
+                            potremmo
+                            chiedertelo prima dell'ingresso in sala.</p>
+                        <p>Il biglietto 3D comprende l’occhialino che verrà consegnato all’ingresso della sala.</p>
+                        <p>Con The Space Card puoi utilizzare al massimo 3 ingressi al giorno. L'utilizzo della The Space
+                            Card può
+                            essere soggetto a limitazioni di giorno, orario e spettacolo. </p>
+                        <p>La vendita dei biglietti online non rientra nella direttiva sulla vendita a distanza con diritto
+                            di
+                            recesso.</p>
+                    </div>
+                </div>
+
+                <!-- CHECKOUT -->
+                <div class="checkout-box hidden">
+
+                    <div class="checkout-row">
+                        <span>Biglietti</span>
+                        <span id="total-tickets">0</span>
+                    </div>
+
+
+                    <div class="checkout-total">
+                        <span>Totale</span>
+                        <span>
+                <span id="total-price">0</span>€
+              </span>
+                    </div>
+
+
+                    <button class="btn-checkout">
+                        Verifica e prosegui
+                    </button>
 
                 </div>
-                <div id="promo-box" class="promo-box hidden">
+            </div>
 
+            <!--        FOOTER-->
+            <footer class="custom-footer">
+                <div class="footer-security">
+                    <div class="footer-title">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <h1>Pagamento sicuro</h1>
+                    </div>
                     <p>
-                        Per ogni biglietto acquistato è previsto un diritto di prevendita
-                        a partire da 1,29€. L’importo verrà calcolato, prima del pagamento,
-                        nella schermata di riepilogo finale.
+                        Questo checkout è sicuro e completamente certificato PCI,
+                        permettendoti di pagare il tuo ordine utilizzando una carta
+                        di debito o di credito in completa sicurezza.
                     </p>
+                </div>
+            </footer>
 
-                    <h4 class="promo-title">
-                        AGGIUNGI PROMO / VOUCHER
-                    </h4>
+        </div>
+    </main>
 
-                    <input type="text" class="promo-input" placeholder="inserisci il codice">
+    <!-- MODALE DI USCITA  -->
 
-                    <div class="promo-btn-wrapper">
-                        <button class="add-btn">
-                            aggiungi
-                        </button>
-                    </div>
+    <div class="modal fade" id="exitModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content exit-modal">
 
+                <div class="modal-header justify-content-center">
+                    <h2 class="modal-title text-uppercase">
+                        VUOI USCIRE DALLA SELEZIONE?
+                    </h2>
                 </div>
 
-                <!-- RIEPILOGO BIGLIETTI -->
-                <div id="ticket-summary">
-                    <p>I biglietti per i disabili sono acquistabili online, e in sede verrà richiesto un documento che attesti la prorpia invalidità.
-                        Il cinema è molto severo riguardo la frode, se in sede verrà verificato che il cliente non ha i requisiti di invalidità,
-                        non verrà effettuato nessun rimborso e verrà segnalato con un supplemento e invitato a comprare un nuovo biglietto per entrare in sala.
-                    </p>
-                    <p>Per le proiezioni con certificato VM14 e VM18 porta con te un documento di riconoscimento, potremmo
-                        chiedertelo prima dell'ingresso in sala.</p>
-                    <p>Il biglietto 3D comprende l’occhialino che verrà consegnato all’ingresso della sala.</p>
-                    <p>Con The Space Card puoi utilizzare al massimo 3 ingressi al giorno. L'utilizzo della The Space Card può
-                        essere soggetto a limitazioni di giorno, orario e spettacolo. </p>
-                    <p>La vendita dei biglietti online non rientra nella direttiva sulla vendita a distanza con diritto di
-                        recesso.</p>
-                </div>
-            </div>
-
-            <!-- CHECKOUT -->
-            <div class="checkout-box hidden">
-
-                <div class="checkout-row">
-                    <span>Biglietti</span>
-                    <span id="total-tickets">0</span>
+                <div class="modal-body text-center">
+                    <p>Lasciando la pagina, perderai le tue scelte</p>
                 </div>
 
+                <div class="modal-footer flex-column">
 
-                <div class="checkout-total">
-                    <span>Totale</span>
-                    <span>
-              <span id="total-price">0</span>€
-            </span>
+                    <a href="#" class="keep-selection">
+                        Mantieni la mia selezione
+                    </a>
+
+                    <a href="./inSala.html" class="exit-btn text-uppercase">
+                        Esci
+                    </a>
+
                 </div>
-
-
-                <button class="btn-checkout">
-                    Verifica e prosegui
-                </button>
 
             </div>
         </div>
-        <footer class="custom-footer">
-            <div class="container">
-                <p class="footer-text">Questo checkout è sicuro e completamente certificato PCI, permettendoti di pagare il
-                    tuo ordine utilizzando una carta di debito o di credito in completa sicurezza</p>
-            </div>
-        </footer>
     </div>
-</main>
+    <!--MODAL SESSION-->
+    <div class="modal fade" id="sessionExpiredModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content exit-modal">
 
-<!-- MODALE DI USCITA  -->
+                <div class="modal-header justify-content-center">
+                    <h2 class="modal-title text-uppercase">
+                        LA TUA SESSIONE È SCADUTA
+                    </h2>
+                </div>
 
-<div class="modal fade" id="exitModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content exit-modal">
+                <div class="modal-body text-center">
+                    <p>
+                        Non preoccuparti, ricominciare è facile
+                    </p>
+                </div>
 
-            <div class="modal-header justify-content-center">
-                <h2 class="modal-title text-uppercase">
-                    VUOI USCIRE DALLA SELEZIONE?
-                </h2>
-            </div>
-
-            <div class="modal-body text-center">
-                <p>Lasciando la pagina, perderai le tue scelte</p>
-            </div>
-
-            <div class="modal-footer flex-column">
-
-                <a href="#" class="keep-selection">
-                    Mantieni la mia selezione
-                </a>
-
-                <a href="./inSala.html" class="exit-btn text-uppercase">
-                    Esci
-                </a>
+                <div class="modal-footer flex-column">
+                    <button class="exit-btn text-uppercase" id="restore-session">
+                        Ripristina la mia sessione
+                    </button>
+                </div>
 
             </div>
-
         </div>
     </div>
+
 </div>
 
+<div id="success-message" class="success-message hidden">
 
+    <h1>
+        Acquisto effettuato!
+    </h1>
+
+    <p>
+        Il tuo acquisto è stato completato con successo.
+    </p>
+
+    <p>
+        Verrai reindirizzato ai tuoi Biglietti tra pochi secondi...
+    </p>
+
+</div>
 <script th:inline="javascript">
-    console.log("idSala thymeleaf:", [[${sala}]]);
-    const ID_SALA = [[${sala}]];
-    const ID_PROGRAMMAZIONE = [[${idProgrammazione}]];
-    const FILM_ID = [[${idFilm}]];
-    const USER_ID = [[${idUtente}]];
-    const POSTI = /*[[${posti}]]*/ [];
+    const ID_SALA = [[${ sala }]];
+    const ID_PROGRAMMAZIONE = [[${ idProgrammazione }]];
+    const POSTI = /*[[${posti}]]*/[];
+
 </script>
 <script src="/js/prenotazioneBiglietto.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
