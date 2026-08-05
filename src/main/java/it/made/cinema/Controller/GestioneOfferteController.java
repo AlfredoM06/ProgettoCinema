@@ -22,46 +22,46 @@ public class GestioneOfferteController {
     public String gestioneOfferte(Model model){
         List<Offerta> listaOfferte = repoOfferte.findAll();
         model.addAttribute("lista", listaOfferte);
-        return "gestionale-offerte";
+        return "Admin";
     }
 
     //form per la crezione
     @GetMapping("/formOfferta")
     public String formOfferta(Model model) {
         model.addAttribute("offerta", new Offerta());
-        return "gestionale-offerte";
+        return "Admin";
     }
 
     @PostMapping("/formOfferta")
     public String salvaForm(@ModelAttribute("offerta") Offerta formOfferta, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "gestionale-offerte";
+            return "Admin";
         }
         repoOfferte.save(formOfferta);
-        return "redirect:/gestionale-offerte";
+        return "redirect:/Admin";
     }
 
     //modifica
     @GetMapping("/modifica/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("offerta", repoOfferte.findById(id).get());
-        return "gestionale-offerte/modifica";
+        return "Admin/modifica";
     }
 
     @PostMapping("/modifica/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Offerta formOfferta, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "gestionale-offerte/modifica";
+            return "Admin/modifica";
         }
         repoOfferte.save(formOfferta);
-        return "redirect:/gestionale-offerte";
+        return "redirect:/Admin";
     }
 
     //elimina
     @PostMapping("/cancella/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoOfferte.deleteById(id);
-        return "redirect:/gestionale-offerte";
+        return "redirect:/Admin";
     }
 
 
