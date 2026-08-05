@@ -38,7 +38,7 @@ public class PostiService {
         for(int i=0; i<posti.length();i++) {
         	PostiDTO postoSala = new PostiDTO();
         	postoSala.setId(indiceX+"_"+indiceY);
-        	postoSala.setTipo(posti.charAt(i));
+        	postoSala.setTipo(Integer.parseInt(String.valueOf(posti.charAt(i))));
         	postoSala.setOccupato(false);
         	if(!postiOccupati.isEmpty()) {
         		for(PostiOccupati posto:postiOccupati) {
@@ -55,7 +55,7 @@ public class PostiService {
         		indiceX++;
         	}
         	if(indiceX>9) {
-        		return null;
+				break;
         	}
         }
 		return matricePosti;
