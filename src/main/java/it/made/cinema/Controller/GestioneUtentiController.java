@@ -24,45 +24,45 @@ public class GestioneUtentiController {
     public String gestioneUtenti(Model model){
     	List<Utente> listaUtenti= repoUtenti.findAll();
     	model.addAttribute("listaUtenti", listaUtenti);
-        return "";
+        return "Admin";
     }
 
     @GetMapping("/formUtente")
     public String formUtente(Model model) {
         model.addAttribute("utente", new Utente());
-        return "";
+        return "Admin";
     }
 
     @PostMapping("/formUtente")
     public String salvaForm(@ModelAttribute("utente") Utente formUtente, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "";
+            return "Admin";
         }
         repoUtenti.save(formUtente);
-        return "";
+        return "redirect:/Admin";
     }
 
     //modifica
-    @GetMapping("/modifica/{id}")
+    @GetMapping("/modificaUtente/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("offerta", repoUtenti.findById(id).get());
-        return "";
+        return "Admin";
     }
 
-    @PostMapping("/modifica/{id}")
+    @PostMapping("/modificaUtente/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Utente formUtente, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "";
+            return "Admin/modificaUtente";
         }
         repoUtenti.save(formUtente);
-        return "";
+        return "redirect:/Admin";
     }
 
     //elimina
-    @PostMapping("/cancella/{id}")
+    @PostMapping("/cancellaUtente/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoUtenti.deleteById(id);
-        return "";
+        return "redirect:/Admin";
     }
 
 }

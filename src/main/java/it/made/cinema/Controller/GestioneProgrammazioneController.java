@@ -51,47 +51,47 @@ public class GestioneProgrammazioneController {
     public String gestioneProgrammazione(Model model) {
         List<ProgrammazioneFilm> listaProgrammazione = repoProgrammazione.findAll();
         model.addAttribute("listaProgrammazione", listaProgrammazione);
-        return "";
+        return "Admin";
     }
 
     //form per la crezione
     @GetMapping("/formProgrammazione")
     public String formPartner(Model model) {
         model.addAttribute("programmazione", new ProgrammazioneFilm());
-        return "";
+        return "Admin";
     }
 
     @PostMapping("/formProgrammazione")
     public String salvaForm(@ModelAttribute("programmazione") ProgrammazioneFilm formProgrammazione, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "";
+            return "Admin";
         }
         repoProgrammazione.save(formProgrammazione);
-        return "";
+        return "redirect:/Admin";
     }
 
     //modifica
-    @GetMapping("/modifica/{id}")
+    @GetMapping("/modificaProgrammazione/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
         //passare tutti i dati necessari con le repo
         model.addAttribute("programmazione", repoProgrammazione.findById(id).get());
-        return "";
+        return "Admin";
     }
 
-    @PostMapping("/modifica/{id}")
+    @PostMapping("/modificaProgrammazione/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") ProgrammazioneFilm formProgrammazione, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "";
+            return "Admin/modificaProgrammazione";
         }
         repoProgrammazione.save(formProgrammazione);
-        return "";
+        return "redirect:/Admin";
     }
 
     //elimina
-    @PostMapping("/cancella/{id}")
+    @PostMapping("/cancellaProgrammazione/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoProgrammazione.deleteById(id);
-        return "";
+        return "redirect:/Admin";
     }
 
     @GetMapping("/programmazione")

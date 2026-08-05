@@ -42,23 +42,23 @@ public class GestioneOfferteController {
     }
 
     //modifica
-    @GetMapping("/modifica/{id}")
+    @GetMapping("/modificaOfferta/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("offerta", repoOfferte.findById(id).get());
-        return "Admin/modifica";
+        return "Admin/modificaOfferta";
     }
 
-    @PostMapping("/modifica/{id}")
+    @PostMapping("/modificaOfferta/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Offerta formOfferta, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "Admin/modifica";
+            return "Admin/modificaOfferta";
         }
         repoOfferte.save(formOfferta);
         return "redirect:/Admin";
     }
 
     //elimina
-    @PostMapping("/cancella/{id}")
+    @PostMapping("/cancellaOfferta/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoOfferte.deleteById(id);
         return "redirect:/Admin";

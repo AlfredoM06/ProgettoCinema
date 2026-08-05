@@ -26,45 +26,45 @@ public class GestionePartnershipController {
     public String gestionePartnership(Model model){
         List<Partnership> listaPartnership = repoPartnership.findAll();
         model.addAttribute("listaPartnership", listaPartnership);
-        return "";
+        return "Admin";
     }
 
     //form per la crezione
     @GetMapping("/formPartner")
     public String formPartner(Model model) {
         model.addAttribute("partner", new Partnership());
-        return "";
+        return "Admin";
     }
 
     @PostMapping("/formPartner")
     public String salvaForm(@ModelAttribute("partner") Partnership formPartner, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "";
+            return "Admin";
         }
         repoPartnership.save(formPartner);
-        return "";
+        return "redirect:/Admin";
     }
 
     //modifica
-    @GetMapping("/modifica/{id}")
+    @GetMapping("/modificaPartner/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("offerta", repoPartnership.findById(id).get());
-        return "";
+        return "Admin/modificaPartner";
     }
 
-    @PostMapping("/modifica/{id}")
+    @PostMapping("/modificaPartner/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Partnership formPartner, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "";
+            return "Admin/modificaPartner";
         }
         repoPartnership.save(formPartner);
-        return "";
+        return "redirect:/Admin";
     }
 
     //elimina
-    @PostMapping("/cancella/{id}")
+    @PostMapping("/cancellaPartner/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoPartnership.deleteById(id);
-        return "";
+        return "redirect:/Admin";
     }
 }

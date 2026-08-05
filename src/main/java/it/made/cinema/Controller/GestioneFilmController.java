@@ -29,44 +29,44 @@ public class GestioneFilmController {
 
     //form
     //da fare validazioni form
-    @GetMapping("/form")
+    @GetMapping("/formFilm")
     public String form(Model model) {
         model.addAttribute("film", new Film());
-        return "/GestioneFilm";
+        return "/Admin";
     }
 
-    @PostMapping("/form")
+    @PostMapping("/formFilm")
     public String salvaForm(@ModelAttribute("film") Film formFilm, Model model) {
         repoFilm.save(formFilm);
-        return "redirect:/GestioneFilm";
+        return "redirect:/Admin";
     }
 
     @GetMapping
     public String listaArchivio(Model model) {
         List<Film> lista = repoFilm.findAll();
         model.addAttribute("list", lista);
-        return "GestioneFilm";
+        return "Admin";
     }
 
-    @GetMapping("/modifica/{id}")
+    @GetMapping("/modificaFilm/{id}")
     public String modifica(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("film", repoFilm.findById(id).get());
-        return "GestioneFilm/modifica";
+        return "Admin/modificaFilm";
     }
 
-    @PostMapping("/modifica/{id}")
+    @PostMapping("/modificaFilm/{id}")
     public String aggiorna(@Valid @ModelAttribute("film") Film formFilm, BindingResult bindinResult, Model model) {
         if (bindinResult.hasErrors()) {
-            return "GestioneFilm/modifica";
+            return "Admin/modificaFilm";
         }
         repoFilm.save(formFilm);
-        return "redirect:/GestioneFilm";
+        return "redirect:/Admin";
     }
 
-    @PostMapping("/cancella/{id}")
+    @PostMapping("/cancellaFilm/{id}")
     public String cancella(@PathVariable("id") Integer id) {
         repoFilm.deleteById(id);
-        return "redirect:/GestioneFilm";
+        return "redirect:/Admin";
     }
     //da fare:
     //modifica per far tornare disponibile un film da fare in thymeleaf
