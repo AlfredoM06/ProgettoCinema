@@ -1,13 +1,17 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
+<!-- ============================================================
+     FRAGMENT: logo +
+     ============================================================ -->
 <div th:fragment="logo">
     <a th:href="@{/}">
         <img class="logo" th:src="@{/img/Cinema_Logo.png}">
     </a>
 </div>
-
+<!-- ============================================================
+     FRAGMENT: menù +
+     ============================================================ -->
 <ul class="nav" th:fragment="menu">
     <li><a th:href="@{/inSala}">In Sala</a></li>
     <li><a th:href="@{/prossimamente}">Prossimamente</a></li>
@@ -15,13 +19,17 @@
     <li><a th:href="@{/offerte}">Offerte</a></li>
     <li><a th:href="@{/cinefans}">CineFans</a></li>
 </ul>
-
+<!-- ============================================================
+     FRAGMENT: anonimo
+     ============================================================ -->
 <ul class="navbar-nav" th:fragment="anonimo">
     <li>
         <a class="nav-link" th:href="@{/SignIn}">Accedi</a>
     </li>
 </ul>
-
+<!-- ============================================================
+     FRAGMENT: utente
+     ============================================================ -->
 <ul class="navbar-nav" th:fragment="user">
 
     <li class="nav-item dropdown">
@@ -45,7 +53,9 @@
     </li>
 
 </ul>
-
+<!-- ============================================================
+     FRAGMENT: admin
+     ============================================================ -->
 <ul class="navbar-nav" th:fragment="admin">
 
     <li class="nav-item dropdown">

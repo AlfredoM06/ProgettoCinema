@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/carrello.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/freccia.css}">
+
+    <title>Carrello</title>
+</head>
+
+<body>
+<!-- NAVBAR -->
+<header id="return">
+    <div th:replace="fragments/navbar :: logo"></div>
+    <div th:replace="fragments/navbar :: menu"></div>
+    <div th:replace="fragments/navbar :: utente"></div>
+</header>
+
+<!-- CONTENUTO -->
+<main class="cart-main">
+
+    <div class="container cart-container">
+
+        <div class="row">
+            <!-- PRODOTTI -->
+            <section class="col-lg-7">
+                <section class="cart-box">
+                    <article class="cart-item">
+
+                        <figure class="cart-img">
+                            <img src="/img/menu michael.jpg" alt="Interstellar poster">
+                        </figure>
+
+                        <div class="cart-info">
+                            <div>
+                                <h2 class="product-title">
+                                    Interstellar
+                                </h2>
+                            </div>
+
+                            <div class="price-box">
+                                <strong class="final-price">
+                                    13.80€
+                                </strong>
+                                <span class="old-price">
+                                        15.00€
+                                    </span>
+                                <span class="discount-badge">
+                                        -8%
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="quantity-box">
+
+                            <div class="counter">
+                                <button type="button" class="quantity-btn">
+                                    <span>-</span>
+                                </button>
+                                <span>1</span>
+                                <button type="button" class="quantity-btn">
+                                    <span>+</span>
+                                </button>
+                            </div>
+
+                            <button class="remove-btn" type="button">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+                <p class="empty-cart hidden">
+                    Il tuo carrello è vuoto
+                </p>
+
+            </section>
+
+
+            <!-- 🔵 ASIDE -->
+            <aside class="col-lg-5">
+
+                <!-- UTENTE -->
+                <section class="user-box">
+
+                    <div class="user-header">
+                        <p>
+                            Ciao <strong>Erica</strong>,
+                        </p>
+
+                        <img class="points-card" src="/img/card_myS&G.webp" alt="Carta punti">
+                    </div>
+
+                    <p class="points-box">
+                        Il tuo carello può farti guadagnare <strong>120 punti</strong>
+                    </p>
+
+                </section>
+
+
+                <!-- RIEPILOGO -->
+                <section class="summary-box">
+
+                    <h2>Riepilogo</h2>
+
+                    <dl class="container-summary">
+                        <div class="summary-row">
+                            <dt>Prezzo di riferimento</dt>
+                            <dd>15€</dd>
+                        </div>
+
+                        <div class="summary-row discount">
+                            <dt>Sconto</dt>
+                            <dd>-1.20€</dd>
+                        </div>
+
+                        <div class="summary-row total">
+                            <dt>Subtotale</dt>
+                            <dd>13.80€</dd>
+                        </div>
+                    </dl>
+
+                    <button class="btn-checkout w-100">
+                        Acquista Ora
+                    </button>
+
+                </section>
+            </aside>
+        </div>
+    </div>
+</main>
+<!-- FOOTER -->
+<div th:replace="fragments/footer :: newsletter"></div>
+<div th:replace="fragments/footer :: content"></div>
+<div th:replace="fragments/footer :: social"></div>
+<div th:replace="fragments/footer :: copyright"></div>
+
+<!--SCRIPT-->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script src="./js/freccia.js"></script>
+</body>
+
+</html>

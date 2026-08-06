@@ -85,17 +85,18 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 2, 1, 40, '22:00');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 4, 4, 39, '19:30');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 1, 2, 23, '18:30');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-05', 2, 1, 23, '19:30');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-03', 2, 1, 23, '19:00');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-04', 3, 3, 23, '17:30');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-06', 4, 3, 23, '20:30');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-04', 5, 4, 23, '21:30');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-03', 6, 2, 23, '19:00');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-07', 7, 1, 23, '18:00');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-03', 8, 1, 23, '23:00');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-04', 8, 1, 23, '23:40');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-05', 8, 1, 23, '23:00');
-INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-04', 9, 2, 23, '19:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-12', 2, 1, 23, '19:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-15', 2, 1, 23, '19:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-16', 3, 3, 23, '17:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-10', 4, 3, 23, '20:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-14', 5, 4, 23, '21:30');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-17', 6, 2, 23, '19:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-18', 7, 1, 23, '18:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-08', 8, 1, 23, '18:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-08', 8, 1, 23, '23:40');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-09', 8, 1, 23, '23:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-11', 8, 1, 23, '23:00');
+INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-11', 9, 2, 23, '19:30');
 
 -- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('', 0, 0, 0, 0, '', '');
 
