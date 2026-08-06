@@ -13,4 +13,9 @@ public class MembershipController {
         return "membership";
     }
 
+    // acquisto della membership , il resto dei metodi sono nei service e nel biglietto controller
+
+    //fare acquisto
+
+
 }

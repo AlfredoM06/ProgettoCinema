@@ -29,7 +29,6 @@ public class PrezzoService {
             case 3 -> prezzoPosto = 5.0;
             default -> prezzoPosto = 7.0; // normale
         }
-
         // Sconto membership
         if (punti >= 800) {
             punti -= 800;
@@ -55,19 +54,6 @@ public class PrezzoService {
         }
         return prezzoOfferta;
     }
-
-        /*public  Double calcolaPrezzoFilm(Film film, Utente utente){
-            Double prezzoFilm = film.getPrezzo();
-            if (utente.getPuntiMembership() >= 400){
-                prezzoFilm = 0.0;
-                return prezzoFilm;
-            } else if (Boolean.TRUE.equals(utente.getMembership())) {
-                prezzoFilm = 5.0;
-                return prezzoFilm;
-            }
-
-            return prezzoFilm;
-        }*/
 
 
 }

@@ -18,6 +18,12 @@ import java.util.List;
 @RequestMapping("/admin/gestionePartnership")
 public class GestionePartnershipController {
 
+
+
+    // da vedere se eliminarlo o meno
+
+
+
     @Autowired
     IRepoPartnership repoPartnership;
     //Form aggiunta, modifica e elimina
