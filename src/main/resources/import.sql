@@ -101,14 +101,11 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 -- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('', 0, 0, 0, 0, '', '');
 
 --ruoli
---INSERT INTO db_cinema.ruoli
---(nome)
---VALUES('');
+INSERT INTO db_cinema.ruoli (nome) VALUES('Admin');
+INSERT INTO db_cinema.ruoli (nome) VALUES('User');
 
 --utenti
---INSERT INTO db_cinema.utenti
---(membership, password, ruolo, username, email)
---VALUES(0, '', '', '', '');
-
-
+--INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, ruolo, username, email, nome_carta) VALUES('', 0, 0, '', '', '', 0, 0, 0, '', '', '', '', '', '', '');
+--INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, ruolo, username, email, nome_carta) VALUES('', 0, 0, '', '', '', 0, 0, 0, '', '', '', '', '', '', '');
+--INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, ruolo, username, email, nome_carta) VALUES('', 0, 0, '', '', '', 0, 0, 0, '', '', '', '', '', '', '');
 --INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, ruolo, username, email, nome_carta) VALUES('', 0, 0, '', '', '', 0, 0, 0, '', '', '', '', '', '', '');
