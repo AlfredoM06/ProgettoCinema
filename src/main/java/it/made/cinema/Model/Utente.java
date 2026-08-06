@@ -43,21 +43,21 @@ public class Utente {
 	@NotEmpty
 	@Column(nullable=false)
 	private Integer puntiMembership;
-	@NotNull
+	@Column
 	private LocalDate acquistoMembership;
 	@Column(nullable = false)
 	private Boolean cartaRicaricabile;
-	@NotEmpty
-	@Column(length=100,nullable=false)
+	
+	@Column(length=100)
 	private String nomeCarta;
-	@NotEmpty
-	@Column(nullable=false)
+
+	@Column
 	private LocalDate dataAcquisto;
-	@NotEmpty
-	@Column(nullable=false)
+
+	@Column
 	private LocalDate dataScadenza;
 	@NotEmpty
-	@Column(nullable=false)
+	@Column
 	private Integer utilizziCard;
 	@NotEmpty
 	@Column(nullable=false)
