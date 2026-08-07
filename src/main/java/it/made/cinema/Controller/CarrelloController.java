@@ -1,28 +1,33 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.Carello;
+import it.made.cinema.Model.Carrello;
 import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.Utente;
-import it.made.cinema.Repository.IRepoCarello;
+import it.made.cinema.Model.DTO.CarrelloDTO;
+import it.made.cinema.Model.DTO.ListaOffertaDTO;
+import it.made.cinema.Repository.IRepoCarrello;
 import it.made.cinema.Repository.IRepoOfferte;
 import it.made.cinema.Repository.IRepoUtenti;
 import it.made.cinema.Service.PrezzoService;
 import it.made.cinema.Service.PuntiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/carello")
-public class CarelloController {
+@RequestMapping("/carrello")
+public class CarrelloController {
 
     @Autowired
     IRepoUtenti repoUtenti;
 
     @Autowired
-    IRepoCarello repoCarello;
+    IRepoCarrello repoCarrello;
 
     @Autowired
     IRepoOfferte repoOfferte;
@@ -31,17 +36,30 @@ public class CarelloController {
     PrezzoService prezzoService;
 
     //Se l'utente non ha il carello adesso con questo metodo c'è l'ha
-    private Carello creaCarello( Utente utente){
-        Carello carello = new Carello();
+    private Carrello creaCarrello( Utente utente){
+        Carrello carrello = new Carrello();
 
-        carello.setUtente(utente);
-        repoCarello.save(carello);
-    return carello;
+        carrello.setUtente(utente);
+        repoCarrello.save(carrello);
+    return carrello;
     }
 
     //mostrare carello
-    @GetMapping String carello(){
-        return "carello";
+    @GetMapping String carrello(Model model, Integer idUtente){
+    	 Utente utente = repoUtenti.findById(idUtente).get();
+         Carrello carrello = repoCarrello.findaByUtente(utente);
+         if (carrello==null){
+             carrello = creaCarrello(utente);
+         }
+         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
+         for (Offerta offerta : carrello.getListaOfferte()) {
+             offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo()));
+         }
+         CarrelloDTO carello =new CarrelloDTO();
+         carello.setListaOfferta(offerteDTO);
+         carello.setId(carrello.getId());
+         model.addAttribute("carrello",carello);
+        return "carrello";
     }
 
     //metodo per aggiungere al carello
@@ -49,30 +67,30 @@ public class CarelloController {
     @ResponseBody
     private Boolean aggiungi(@RequestParam Integer idUtente, @RequestParam Integer idOfferta){
         Utente utente = repoUtenti.findById(idUtente).get();
-        Carello carello = repoCarello.findaByUtente(utente);
+        Carrello carello = repoCarrello.findaByUtente(utente);
         if (carello==null){
-            carello = creaCarello(utente);
+            carello = creaCarrello(utente);
         }
         Offerta offerta = repoOfferte.findById(idOfferta).get();
         carello.getListaOfferte().add(offerta);
-        repoCarello.save(carello);
+        repoCarrello.save(carello);
         return true;
     }
 
     //metodo per togliere
     @PostMapping("elimina/{idCarello}/{idOfferta}")
     @ResponseBody
-    private Boolean elimina(@RequestParam Integer idCarello, @RequestParam Integer idOfferta){
-        Carello carello = repoCarello.findById(idCarello).get();
+    private Boolean elimina(@RequestParam Integer idCarrello, @RequestParam Integer idOfferta){
+        Carrello carrello = repoCarrello.findById(idCarrello).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
 
-        for (Offerta o : carello.getListaOfferte()){
+        for (Offerta o : carrello.getListaOfferte()){
             if (o.equals(offerta)){
-                carello.getListaOfferte().remove(o);
+                carrello.getListaOfferte().remove(o);
                 break;
             }
         }
-        repoCarello.save(carello);
+        repoCarrello.save(carrello);
 
         return true;
     }

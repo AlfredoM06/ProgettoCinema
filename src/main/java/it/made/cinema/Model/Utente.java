@@ -74,5 +74,5 @@ public class Utente {
 	private NomeCarta nomeCarta;
 	@OneToOne
 	@JoinColumn(name="id_carello", referencedColumnName="id")
-	private Carello carello;
+	private Carrello carello;
 }

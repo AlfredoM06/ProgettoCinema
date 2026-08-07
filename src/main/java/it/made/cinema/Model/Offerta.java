@@ -50,5 +50,5 @@ public class Offerta {
 	@OneToMany(mappedBy="offerta")
 	private List<AcquistiGadget> acquistiGadget;
 	@ManyToMany(mappedBy="carello")
-	private List<Carello> carelli;
+	private List<Carrello> carelli;
 }
