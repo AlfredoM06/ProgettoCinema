@@ -47,9 +47,6 @@ public class Utente {
 	private LocalDate acquistoMembership;
 	@Column(nullable = false)
 	private Boolean cartaRicaricabile;
-	
-	@Column(length=100)
-	private String nomeCarta;
 
 	@Column
 	private LocalDate dataAcquisto;
@@ -72,4 +69,7 @@ public class Utente {
 	@ManyToOne
 	@JoinColumn(name ="id_ruolo")
 	private Ruolo ruolo;
+	@ManyToOne
+	@JoinColumn(name ="id_nomeCarta")
+	private NomeCarta nomeCarta;
 }
