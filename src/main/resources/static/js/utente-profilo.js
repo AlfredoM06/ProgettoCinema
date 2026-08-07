@@ -1,99 +1,165 @@
-const buttons = document.querySelectorAll(".menu-btn");
-const sections = document.querySelectorAll(".content-section");
+document.addEventListener("DOMContentLoaded", () => {
 
-// =========================
-// NAVIGAZIONE
-// =========================
-function showSection(target) {
-    sections.forEach(sec => sec.style.display = "none");
+    let buttons = document.querySelectorAll(".menu-btn");
+    let sections = document.querySelectorAll(".content-section");
 
-    const active = document.getElementById(target);
-    if (active) active.style.display = "block";
+    // =========================
+    // NAVIGAZIONE
+    // =========================
 
-    buttons.forEach(b => b.classList.remove("active"));
-    const btn = document.querySelector(`[data-target="${target}"]`);
-    if (btn) btn.classList.add("active");
-}
+    function showSection(target) {
+        sections.forEach(sec => {
+            sec.style.display = "none";
+        });
 
-buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        showSection(btn.getAttribute("data-target"));
-    });
-});
+        let active = document.getElementById(target);
 
-document.querySelectorAll(".edit-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        showSection("profile");
-    });
-});
+        if (active) {
+            active.style.display = "block";
+        }
 
+        buttons.forEach(b => {
+            b.classList.remove("active");
+        });
 
-// =========================
-// SAVE LOGIC PER FORM (FIX PRINCIPALE)
-// =========================
+        let btn = document.querySelector(`[data-target="${target}"]`);
 
-function initFormSave(formId) {
-    const form = document.getElementById(formId);
-    if (!form) return;
+        if (btn) {
+            btn.classList.add("active");
+        }
 
-    const inputs = form.querySelectorAll(".form-control");
-    const saveBtn = form.querySelector(".save-btn");
+    }
 
-    if (!saveBtn) return;
-
-    setState(saveBtn, false);
-
-    inputs.forEach(input => {
-        input.addEventListener("input", () => {
-            setState(saveBtn, true);
+    buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            showSection(
+                btn.dataset.target
+            );
         });
     });
 
-    saveBtn.addEventListener("click", () => {
+
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            showSection("profile");
+        });
+    });
+
+
+    // =========================
+    // FORM SAVE LOGIC
+    // =========================
+
+
+    function setState(btn, active) {
+        if (!btn) return;
+
+        btn.classList.toggle(
+            "active",
+            active
+        );
+
+        btn.disabled = !active;
+    }
+
+
+
+    function initFormSave(formId) {
+
+        let form = document.getElementById(formId);
+
+        if (!form) return;
+
+        let inputs = form.querySelectorAll(".form-control");
+        let saveBtn = form.querySelector(".save-btn");
+
+        if (!saveBtn) return;
+
         setState(saveBtn, false);
-    });
-}
 
-function setState(btn, active) {
-    if (!btn) return;
+        inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                setState(saveBtn, true);
+            });
+        });
 
-    if (active) {
-        btn.classList.add("active");
-        btn.disabled = false;
-    } else {
-        btn.classList.remove("active");
-        btn.disabled = true;
+
+
+        saveBtn.addEventListener("click", () => {
+            setState(saveBtn, false);
+        });
+
     }
-}
+
+    initFormSave("sunto");
+    initFormSave("password");
+    initFormSave("details");
 
 
-// =========================
-// INIT (USA I TUOI ID REALI)
-// =========================
-initFormSave("sunto");
-initFormSave("password");
-initFormSave("details");
+    // =========================
+    // QR GENERATOR
+    // =========================
 
 
-// =========================
-// QR CODE (uguale)
-// =========================
-function generaCodiceMock(id) {
-    return `CIN-${id}-${Math.floor(1000 + Math.random() * 9000)}`;
-}
+    function generaCodiceMock(prefix, id) {
+        return `${prefix}-${id}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
 
-document.querySelectorAll(".qrcode").forEach(el => {
-    const id = el.getAttribute("data-id");
-    const codice = generaCodiceMock(id);
+    function generaQR(element, codice, size) {
+        new QRCode(element, {
+            text: codice,
+            width: size,
+            height: size
+        });
+    }
 
-    new QRCode(el, {
-        text: codice,
-        width: 120,
-        height: 120
+    // =========================
+    // QR TICKET
+    // =========================
+
+    document.querySelectorAll(".qrcode").forEach(el => {
+        let id = el.dataset.id;
+        let codice = generaCodiceMock(
+            "CIN",
+            id
+        );
+
+        generaQR(
+            el,
+            codice,
+            120
+        );
+
+        let codiceText = el.parentElement.querySelector(".codice");
+
+        if (codiceText) {
+            codiceText.textContent = codice;
+        }
     });
 
-    const codiceText = el.parentElement.querySelector(".codice");
-    if (codiceText) {
-        codiceText.innerText = codice;
-    }
+
+    // =========================
+    // QR MENU
+    // =========================
+
+
+    document.querySelectorAll(".menu-qrcode").forEach(el => {
+        let id = el.dataset.id;
+        let codice = generaCodiceMock(
+            "MEN",
+            id
+        );
+
+        generaQR(
+            el,
+            codice,
+            160
+        );
+
+        let codiceText = el.parentElement.querySelector(".menu-code");
+
+        if (codiceText) {
+            codiceText.textContent = codice;
+        }
+    });
 });

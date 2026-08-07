@@ -61,6 +61,13 @@
                         </li>
 
                         <li>
+                            <button class="menu-btn" data-target="menus">
+                                <img src="/img/menus_icon.svg" alt="user_tickets">
+                                <span>I miei menù</span>
+                            </button>
+                        </li>
+
+                        <li>
                             <button class="menu-btn" data-target="cards">
                                 <img src="/img/user_voucher.svg" alt="user_card_voucher">
                                 <span>Card e voucher</span>
@@ -77,13 +84,6 @@
                             <button class="menu-btn" data-target="profile">
                                 <img src="/img/user_detail.svg" alt="user_detail">
                                 <span>Dettagli personali</span>
-                            </button>
-                        </li>
-
-                        <li>
-                            <button class="menu-btn" data-target="social">
-                                <img src="img/user_social.svg" alt="user_social">
-                                <span>Account e Social Media</span>
                             </button>
                         </li>
 
@@ -314,6 +314,66 @@
                             </div>
 
                         </div>
+                    </section>
+
+                    <!-- ========================= -->
+                    <!-- I MIEI MENU -->
+                    <!-- ========================= -->
+                    <section class="content-section" id="menus" style="display:none;">
+                        <div class="page-title">
+                            <img src="img/menus_icon.svg" alt="menù">
+                            <h1>I miei menù</h1>
+                        </div>
+                        <div class="row g-4">
+
+                            <!-- MENU CARD -->
+                            <div class="col-12">
+                                <article class="menu-card">
+
+                                    <!-- IMMAGINE -->
+                                    <figure class="menu-img">
+                                        <img src="./img/mandalorian_grogu_cover.jpg" alt="menu">
+                                    </figure>
+
+                                    <!-- CONTENUTO -->
+                                    <div class="menu-content">
+
+                                        <!-- HEADER -->
+                                        <div class="menu-header">
+                                            <h2 class="section-title">Menù Spiderman No Way Home</h2>
+                                        </div>
+
+                                        <!-- INFO -->
+                                        <div class="menu-info">
+
+                                            <div class="menu-field">
+                                                <span class="menu-label">Quantità</span>
+                                                <span class="menu-value">2</span>
+                                            </div>
+
+                                            <div class="menu-field">
+                                                <span class="menu-label">Prezzo</span>
+                                                <span class="menu-value menu-price">€12.00</span>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- DATA SOTTO -->
+                                        <span class="menu-date">12/07/2026</span>
+
+                                    </div>
+
+                                    <!-- QR -->
+                                    <div class="menu-qr-wrapper">
+                                        <div class="menu-qrcode" data-id="101"></div>
+                                        <p class="menu-code"></p>
+                                    </div>
+
+                                </article>
+                            </div>
+
+                        </div>
+
                     </section>
 
                     <!-- ========================= -->
@@ -553,65 +613,9 @@
                     </div>
 
                     <!-- ========================= -->
-                    <!-- ACCOUNT E SOCIAL -->
-                    <!-- ========================= -->
-                    <div class="content-section" id="social" style="display:none;">
-                        <div class="page-title">
-                            <img src="img/user_social.svg" alt="">
-                            <h1>Account e Social</h1>
-                        </div>
-                        <div class="social-wrapper">
-
-                            <p class="social-text">
-                                Collega i tuoi account social e accedi facilmente al tuo account The Space
-                            </p>
-
-                            <!-- SOCIAL LIST -->
-                            <ul class="social-list">
-
-                                <li class="social-item bordered">
-                                    <figure class="social-left">
-                                        <img th:src="@{img/facebook_icon.svg.webp}" alt="Facebook">
-                                        <span>Facebook</span>
-                                    </figure>
-
-                                    <button type="button" class="save-btn-marketing connect-btn">
-                                        Collega
-                                    </button>
-                                </li>
-
-                                <li class="social-item bordered">
-                                    <figure class="social-left">
-                                        <img th:src="@{img/apple.svg}" alt="Apple">
-                                        <span>Apple</span>
-                                    </figure>
-
-                                    <button type="button" class="save-btn-marketing connect-btn">
-                                        Collega
-                                    </button>
-                                </li>
-
-                                <li class="social-item">
-                                    <figure class="social-left">
-                                        <img th:src="@{/img/Google.svg.webp}" alt="Google">
-                                        <span>Google</span>
-                                    </figure>
-
-                                    <button type="button" class="save-btn-marketing connect-btn">
-                                        Collega
-                                    </button>
-                                </li>
-
-                                <p class="social-text">Per disconnettere questo account social, ti preghiamo di creare prima una password in Dettagli personali</p>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <!-- ========================= -->
                     <!-- MARKETING -->
                     <!-- ========================= -->
-                    <div class="content-section" id="marketing" style="display:none;">
+                    <section class="content-section" id="marketing" style="display:none;">
                         <div class="page-title">
                             <img src="img/user_marketing.svg" alt="">
                             <h1>Preferenze di Marketing</h1>
@@ -665,13 +669,13 @@
 
                         </div>
 
-                    </div>
+                    </section>
 
                 </div>
             </main>
         </div>
-        </div>
     </div>
+
 
     <!-- FOOTER -->
     <div th:replace="fragments/footer :: content"></div>
