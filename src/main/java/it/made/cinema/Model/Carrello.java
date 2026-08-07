@@ -19,11 +19,11 @@ public class Carrello {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(mappedBy = "carello")
+    @OneToOne(mappedBy = "carrello")
     private Utente utente;
 
     @ManyToMany
-    @JoinTable(name="offerta", joinColumns=@JoinColumn(name="id_carello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
+    @JoinTable(name="offerta", joinColumns=@JoinColumn(name="id_carrello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
     private List<Offerta> listaOfferte;
 
 }
