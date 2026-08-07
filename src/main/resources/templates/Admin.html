@@ -66,6 +66,9 @@
                         <button class="menu-btn" data-target="film">
                             Gestionale Film
                         </button>
+                        <button class="menu-btn" data-target="programmazione">
+                            Gestionale Programmazione
+                        </button>
                         <button class="menu-btn" data-target="tabsOfferte">
                             Gestionale Offerte
                         </button>
@@ -141,6 +144,21 @@
                         <section th:replace="~{fragments/gestionali :: formFilm}"></section>
                         <!-- TABELLA FILM  -->
                         <section th:replace="~{fragments/gestionali :: tabellaFilm}" ></section>
+                    </div>
+                </section>
+
+                <!--GESTIONALE PRODOTTI PROGRAMMAZIONE-->
+                <section class="content-section" id="programmazione" style="display:none;">
+                    <div class="page-title">
+                        <img th:src="@{/img/adming_managment.svg}" alt="gestionale_programmazione">
+                        <h1>Gestionale Programmazione</h1>
+                    </div>
+                    <!-- WRAPPER -->
+                    <div class="admin-panel">
+                        <!--FORM OFFERTE-->
+                        <section th:replace="~{fragments/gestionali :: formProgrammazione}"></section>
+                        <!-- TABELLA OFFERTE  -->
+                        <section th:replace="~{fragments/gestionali :: tabellaProgrammazione}" ></section>
                     </div>
                 </section>
 
@@ -224,6 +242,15 @@
 
         if (!$.fn.DataTable.isDataTable('#example4')) {
             $('#tableUsers').DataTable({
+                dom:
+                    "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
+                    "<'row'<'col-12'tr>>" +
+                    "<'row mt-3'<'col-md-5'i><'col-md-7'p>>"
+            });
+        }
+
+        if (!$.fn.DataTable.isDataTable('#example5')) {
+            $('#tableScheduling').DataTable({
                 dom:
                     "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
                     "<'row'<'col-12'tr>>" +
