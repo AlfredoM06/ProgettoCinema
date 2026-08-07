@@ -72,4 +72,7 @@ public class Utente {
 	@ManyToOne
 	@JoinColumn(name ="id_nomeCarta")
 	private NomeCarta nomeCarta;
+	@OneToOne
+	@JoinColumn(name="id_carello", referencedColumnName="id")
+	private Carello carello;
 }
