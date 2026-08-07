@@ -90,6 +90,125 @@
     </div>
 </section>
 
+<!-- ============================================================
+     FRAGMENT: FORM PROGRAMMAZIONE
+     Uso: <main th:replace="~{fragments/gestionali :: formProgrammazione}">
+     ============================================================ -->
+
+        <section class="page-main" th:fragment="formProgrammazione">
+            <div class="container formFilm">
+
+                <form class="row g-4">
+                    <!-- SINISTRA -->
+                    <div class="col-md-6 form-section">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Film
+                            </label>
+                            <select class="form-select">
+                                <option selected disabled>
+                                    Seleziona film...
+                                </option>
+                                <option>
+                                    Film esempio 1
+                                </option>
+                                <option>
+                                    Film esempio 2
+                                </option>
+                                <option>
+                                    Film esempio 3
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Data programmazione
+                            </label>
+                            <input type="date" class="form-control">
+                        </div>
+
+                    </div>
+
+                    <!-- DESTRA SALE -->
+                    <div class="col-md-6 form-section">
+                        <label class="form-label d-block">
+                            Sala
+                        </label>
+
+                        <div class="row sale-wrapper">
+
+                            <!-- sale sinistra -->
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sala"
+                                           value="1">
+
+                                    <label class="form-check-label">
+                                        Sala 1
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sala"
+                                           value="2">
+
+                                    <label class="form-check-label">
+                                        Sala 2
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- sale destra -->
+                            <div class="col-6">
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sala"
+                                           value="3">
+
+                                    <label class="form-check-label">
+                                        Sala 3
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sala"
+                                           value="4">
+
+                                    <label class="form-check-label">
+                                        Sala 4
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ORARI -->
+                    <div class="col-12">
+                        <h2 class="programmazione-title">
+                            Orari disponibili
+                        </h2>
+
+                        <div class="orari-grid">
+                            <!-- qui poi li generiamo da JS -->
+                        </div>
+                    </div>
+
+                    <!-- BOTTONI -->
+                    <div class="col-12 form-actions">
+                        <button type="submit" class="btn btn-outline-warning">
+                            Conferma
+                        </button>
+
+                        <button type="reset" class="btn btn-outline-danger">
+                            Annulla
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
 
 <!-- ============================================================
      FRAGMENT: FORM FILM
@@ -456,9 +575,74 @@
             </table>
         </div>
     </div>
-    </div>
 </section>
 
+<!-- ============================================================
+     FRAGMENT: TABELLA PROGRAMMAZIONE
+     Uso: <section th:replace="~{fragments/gestionali :: tabellaProgrammazione}">
+     ============================================================ -->
+<section id="tabsScheduling" class="section-layout" th:fragment="tabellaProgrammazione">
+    <div class="container">
+
+        <h1 class="section-title h1">Database Programmazione</h1>
+
+        <div class="row" id="Scheduling">
+            <table id="tableScheduling" class="table table-striped dataTable-init">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titolo</th>
+                    <th>Sala</th>
+                    <th>Data</th>
+                    <th>Azioni</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Film</td>
+                    <td>Sala 1</td>
+                    <td>01/01/2025</td>
+                    <td>
+                        <div class="btn-group d-flex justify-content-center"
+                             role="group">
+                            <button type="button" class="btn btn-outline-success">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="fa-regular fa-folder-open"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>bruh</td>
+                    <td>breeeh</td>
+                    <td>05/01/2025</td>
+                    <td>
+                        <div class="btn-group d-flex justify-content-center"
+                             role="group">
+                            <button type="button" class="btn btn-outline-success">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <i class="fa-regular fa-folder-open"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 <!-- ============================================================
      FRAGMENT: TABELLA UTENTI

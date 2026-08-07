@@ -87,4 +87,46 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
+    // =========================
+    // GENERAZIONE ORARI PROGRAMMAZIONE
+    // =========================
+
+    let orariContainer = document.querySelector(".orari-grid");
+
+    if(orariContainer){
+        let start = 11 * 60;
+        let end = 25 * 60; // 01:00 del giorno dopo
+
+        for(let minuti = start; minuti <= end; minuti += 10){
+            let ore = Math.floor(minuti / 60);
+            let min = minuti % 60;
+
+            if(ore >= 24){
+                ore -= 24;
+            }
+
+            let oraFormattata =
+                String(ore).padStart(2,"0")
+                + ":" +
+                String(min).padStart(2,"0");
+
+            orariContainer.innerHTML += `
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="orari"
+                        value="${oraFormattata}"
+                        id="ora-${oraFormattata}">
+
+                    <label
+                        class="form-check-label"
+                        for="ora-${oraFormattata}">
+                        ${oraFormattata}
+                    </label>
+                </div>
+            `;
+        }
+
+    }
 });

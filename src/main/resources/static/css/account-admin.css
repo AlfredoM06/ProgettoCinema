@@ -237,4 +237,75 @@ dropdown-admin {
     font-weight: 400;
 }
 
+/* ========================= */
+/* PROGRAMMAZIONE */
+/* ========================= */
+
+.formProgrammazione {
+    background-color: var(--background-div);
+    border-top: 0.125rem solid var(--border-color);
+    border-bottom: 0.125rem solid var(--border-color);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    width: 100%;
+    max-width: 75rem;
+}
+
+.programmazione-title {
+    width: 100%;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--secondary);
+}
+
+
+/* sale */
+
+.sale-wrapper .col-6 {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+
+.orari-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(6, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+    background: var(--background-div);
+    padding: 1.5rem;
+    border-radius: .5rem;
+}
+
+
+.orari-grid .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+
+
+.orari-grid .form-check-label {
+    cursor: pointer;
+}
+
+
+#filmProgrammazione {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--secondary);
+}
+
+
+#filmProgrammazione option {
+    background: #111821;
+}
+
 

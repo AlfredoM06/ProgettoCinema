@@ -219,6 +219,11 @@ option:hover {
     font-weight: 500;
 }
 
+#tabsScheduling h1.section-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
 #tabsUsers h1.section-title {
     font-size: 2.5rem;
     font-weight: 500;
