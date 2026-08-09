@@ -49,6 +49,6 @@ public class Offerta {
 	private Film film;
 	@OneToMany(mappedBy="offerta")
 	private List<AcquistiGadget> acquistiGadget;
-	@ManyToMany(mappedBy="carello")
-	private List<Carrello> carelli;
+	@ManyToMany(mappedBy="listaOfferte")
+	private List<Carrello> carrelli;
 }

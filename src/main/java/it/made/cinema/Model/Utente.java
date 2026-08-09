@@ -73,6 +73,6 @@ public class Utente {
 	@JoinColumn(name ="id_nomeCarta")
 	private NomeCarta nomeCarta;
 	@OneToOne
-	@JoinColumn(name="id_carello", referencedColumnName="id")
-	private Carrello carello;
+	@JoinColumn(name="id_carrello", referencedColumnName="id")
+	private Carrello carrello;
 }
