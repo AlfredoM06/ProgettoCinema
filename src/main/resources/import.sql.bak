@@ -99,18 +99,32 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-11', 9, 2, 23, '19:30');
 
 -- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('', 0, 0, 0, 0, '', '');
+
 --nome carta
 INSERT INTO db_cinema.nomi_carta (nome) VALUES('CineFans Basic');
 INSERT INTO db_cinema.nomi_carta (nome) VALUES('CineFans Plus');
 INSERT INTO db_cinema.nomi_carta (nome) VALUES('All U CAN SEE');
+
 --ruoli
 INSERT INTO db_cinema.ruoli (nome) VALUES('Admin');
 INSERT INTO db_cinema.ruoli (nome) VALUES('User');
 
 --utenti
+<<<<<<< HEAD
 INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nomeCarta) VALUES('2026-08-06', 2025, 1, '2026-08-06', '1999-08-10', '2027-08-06', 1, 2000, 5, 'SF', 'Mirko', 'Magari', '1', 'Admin', 'Alfredomanfredi06@gmail.com', 3);
-INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nomeCarta) VALUES(null, 2025, 0, null, '1999-06-06', null, 0, 0, 0, 'Rossi', 'Mario', 'Si', '2', 'User', 'RossiMario@libero.it', 1);
+INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nomeCarta) VALUES(null, 2025, 0, null, '1999-06-06', null, 0, 0, 0, 'Rossi', 'Mario', 'Si', '2', 'User', 'RossiMario@libero.it', null);
 INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nomeCarta) VALUES('2026-08-06', 0, 1, '2026-08-06', '2000-08-10', '2027-08-06', 1, 1000, 5, 'Trepiccioni', 'Mario', 'prova123', 2, 'MarioIlPiccione', 'prova@gmail.com', 1);
 INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nomeCarta) VALUES('2026-08-06', 0, 1, '2026-08-06', '2001-04-27', '2027-08-06', 1, 1500, 5, 'Rossi', 'Ugo', 'pova123', 2, 'uross', 'prova2@gmail.com', 2);
 --INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, id, id_nome_carta, id_ruolo, membership, punti_membership, utilizzi_card, cognome, nome, password, username, email) VALUES('', 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', '', '');
 
+--nome carta
+INSERT INTO db_cinema.nomi_carta (nome) VALUES('CineFans Basic');
+INSERT INTO db_cinema.nomi_carta (nome) VALUES('CineFans Plus');
+INSERT INTO db_cinema.nomi_carta (nome) VALUES('All U CAN SEE');
+=======
+INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nome_carta) VALUES('2026-08-06', 2025, 1, '2026-08-06', '1999-08-07', '2027-08-06', 1, 2000, 5, 'SF', 'Mirko', 'Magari', '1', 'Admin', 'Alfredomanfredi06@gmail.com', 3);
+INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nome_carta) VALUES(null, 2025, 0, null, '1999-06-06', null, 0, 0, 0, 'Rossi', 'Mario', 'Si', '2', 'User', 'RossiMario@libero.it', 1);
+INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nome_carta) VALUES('2026-08-06', 0, 1, '2026-08-06', '2000-08-10', '2027-08-06', 1, 1000, 5, 'Trepiccioni', 'Mario', 'prova123', 2, 'MarioIlPiccione', 'prova@gmail.com', 1);
+INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, membership, punti_membership, utilizzi_card, cognome, nome, password, id_ruolo, username, email, id_nome_carta) VALUES('2026-08-06', 0, 1, '2026-08-06', '2001-04-27', '2027-08-06', 1, 1500, 5, 'Rossi', 'Ugo', 'pova123', 2, 'uross', 'prova2@gmail.com', 2);
+--INSERT INTO db_cinema.utenti (acquisto_membership, anno_ultima_mail_compleanno, carta_ricaricabile, data_acquisto, data_nascita, data_scadenza, id, id_nome_carta, id_ruolo, membership, punti_membership, utilizzi_card, cognome, nome, password, username, email) VALUES('', 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', '', '');
+>>>>>>> b8672a1e5e06785ed46a17cbca7cdef036116a49
