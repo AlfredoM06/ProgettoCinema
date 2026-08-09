@@ -46,7 +46,7 @@ public class CarrelloController {
 
     //mostrare carello
     @GetMapping String carrello(Model model, Integer idUtente){
-    	 Utente utente = repoUtenti.findById(idUtente).get();
+    	/* Utente utente = repoUtenti.findById(idUtente).get();
          Carrello carrello = repoCarrello.findByUtente(utente);
          if (carrello==null){
              carrello = creaCarrello(utente);
@@ -58,7 +58,7 @@ public class CarrelloController {
          CarrelloDTO carello =new CarrelloDTO();
          carello.setListaOfferta(offerteDTO);
          carello.setId(carrello.getId());
-         model.addAttribute("carrello",carello);
+         model.addAttribute("carrello",carello);*/
         return "carrello";
     }
 
