@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IRepoCarrello extends JpaRepository<Carrello, Integer> {
 
-    public Carrello findaByUtente(Utente utente);
+    public Carrello findByUtente(Utente utente);
 }

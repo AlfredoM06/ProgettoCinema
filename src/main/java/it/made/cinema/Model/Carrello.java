@@ -23,7 +23,7 @@ public class Carrello {
     private Utente utente;
 
     @ManyToMany
-    @JoinTable(name="offerta", joinColumns=@JoinColumn(name="id_carrello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
+    @JoinTable(name="carello_offerta", joinColumns=@JoinColumn(name="id_carrello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
     private List<Offerta> listaOfferte;
 
 }

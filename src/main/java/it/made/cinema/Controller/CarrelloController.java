@@ -47,7 +47,7 @@ public class CarrelloController {
     //mostrare carello
     @GetMapping String carrello(Model model, Integer idUtente){
     	 Utente utente = repoUtenti.findById(idUtente).get();
-         Carrello carrello = repoCarrello.findaByUtente(utente);
+         Carrello carrello = repoCarrello.findByUtente(utente);
          if (carrello==null){
              carrello = creaCarrello(utente);
          }
@@ -67,7 +67,7 @@ public class CarrelloController {
     @ResponseBody
     private Boolean aggiungi(@RequestParam Integer idUtente, @RequestParam Integer idOfferta){
         Utente utente = repoUtenti.findById(idUtente).get();
-        Carrello carello = repoCarrello.findaByUtente(utente);
+        Carrello carello = repoCarrello.findByUtente(utente);
         if (carello==null){
             carello = creaCarrello(utente);
         }
