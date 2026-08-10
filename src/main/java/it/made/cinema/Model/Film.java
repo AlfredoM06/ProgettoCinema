@@ -78,7 +78,7 @@ public class Film implements Serializable {
 
 	@NotNull
 	@Column(nullable = false)
-	private boolean archiviato;
+	private Boolean archiviato;
 
 	@OneToMany(mappedBy="film" , fetch = FetchType.LAZY)
 	private List<Offerta> offerte;

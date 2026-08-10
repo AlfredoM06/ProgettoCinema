@@ -10,6 +10,7 @@ INSERT INTO db_cinema.formati (nome) VALUES('IMAX');
 
 -- lingua
 INSERT INTO db_cinema.lingue (nome) VALUES('ITA');
+INSERT INTO db_cinema.lingue (nome) VALUES('ENG');
 --INSERT INTO db_cinema.lingue (nome) VALUES('');
 
 --film

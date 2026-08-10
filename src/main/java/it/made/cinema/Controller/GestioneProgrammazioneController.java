@@ -84,16 +84,16 @@ public class GestioneProgrammazioneController {
     }
 
     //elimina
-    /*@PostMapping("/cancellaProgrammazione/{idFilm}/{idSala}/{data}")
+    @PostMapping("/cancellaProgrammazione/{idFilm}/{idSala}/{data}")
     @ResponseBody
     public Boolean cancella(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
         for (ProgrammazioneFilm p : programmazioni){
-            repoPostiOccupati.deleteByIdProgrammazioneFilm(p.getId());
+            repoPostiOccupati.deleteByProgrammazioneFilm(p);
             repoProgrammazione.deleteById(p.getId());
         }
         return true;
-    }*/
+    }
 
     @GetMapping("/programmazione")
     public @ResponseBody List<ListaProgDTO> ricercaProgrammazione(@RequestParam(name = "Giorno", required = false) LocalDate dataProgrammazione) {
