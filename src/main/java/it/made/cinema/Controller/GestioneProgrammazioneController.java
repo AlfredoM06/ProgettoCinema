@@ -1,24 +1,18 @@
 package it.made.cinema.Controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalTime;
+import java.util.*;
 
 import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.SalvaProgrammazioneDTO;
 import it.made.cinema.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import it.made.cinema.Model.DTO.ListaProgDTO;
@@ -46,53 +40,60 @@ public class GestioneProgrammazioneController {
     @Autowired
     IRepoPosto repoPosto;
 
+    @Autowired
+    IRepoPostiOccupati repoPostiOccupati;
 
-    @GetMapping
-    public String gestioneProgrammazione(Model model) {
-        List<ProgrammazioneFilm> listaProgrammazione = repoProgrammazione.findAll();
-        model.addAttribute("listaProgrammazione", listaProgrammazione);
-        return "Admin";
-    }
+    @GetMapping("/getOrariPerSala/{idSala}/{data}")
+    @ResponseBody
+    public Map<?, ?> getOrariPerSala(@PathVariable Integer idSala,@PathVariable  LocalDate data) {
 
-    //form per la crezione
-    @GetMapping("/formProgrammazione")
-    public String formPartner(Model model) {
-        model.addAttribute("programmazione", new ProgrammazioneFilm());
-        return "Admin";
-    }
-
-    @PostMapping("/formProgrammazione")
-    public String salvaForm(@ModelAttribute("programmazione") ProgrammazioneFilm formProgrammazione, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin";
+        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndSalaId(data, idSala);
+        Map<LocalTime, Integer> result = new HashMap<>();
+        for (ProgrammazioneFilm p : programmazioni) {
+            result.put(p.getOrario(), p.getFilm().getDurata());
         }
-        repoProgrammazione.save(formProgrammazione);
-        return "redirect:/Admin";
+        return result;
+    }
+
+
+    @PostMapping("/salvaProgrammazione")
+    @ResponseBody
+    public Boolean salvaForm(@RequestBody SalvaProgrammazioneDTO dto) {
+        Film film = repoFilm.findById(dto.getIdFilm()).get();
+        Sala sala = repoSala.findById(dto.getIdSala()).get();
+        ProgrammazioneFilm programmazioneFilm = new ProgrammazioneFilm();
+        programmazioneFilm.setFilm(film);
+        programmazioneFilm.setSala(sala);
+        programmazioneFilm.setDataProgrammazione(dto.getData());
+        programmazioneFilm.setOrario(dto.getOrario());
+        repoProgrammazione.save(programmazioneFilm);
+        return true;
     }
 
     //modifica
-    @GetMapping("/modificaProgrammazione/{id}")
-    public String modifica(@PathVariable("id") Integer id, Model model) {
-        //passare tutti i dati necessari con le repo
-        model.addAttribute("programmazione", repoProgrammazione.findById(id).get());
-        return "Admin";
-    }
+    @GetMapping("/getOrari/{idFilm}/{idSala}/{data}")
+    @ResponseBody
+    public Map<?, ?> getOrari(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
 
-    @PostMapping("/modificaProgrammazione/{id}")
-    public String aggiorna(@Valid @ModelAttribute("film") ProgrammazioneFilm formProgrammazione, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin/modificaProgrammazione";
+        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
+        Map<LocalTime, Integer> result = new HashMap<>();
+        for (ProgrammazioneFilm p : programmazioni) {
+            result.put(p.getOrario(), p.getFilm().getDurata());
         }
-        repoProgrammazione.save(formProgrammazione);
-        return "redirect:/Admin";
+        return result;
     }
 
     //elimina
-    @PostMapping("/cancellaProgrammazione/{id}")
-    public String cancella(@PathVariable("id") Integer id) {
-        repoProgrammazione.deleteById(id);
-        return "redirect:/Admin";
-    }
+    /*@PostMapping("/cancellaProgrammazione/{idFilm}/{idSala}/{data}")
+    @ResponseBody
+    public Boolean cancella(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
+        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
+        for (ProgrammazioneFilm p : programmazioni){
+            repoPostiOccupati.deleteByIdProgrammazioneFilm(p.getId());
+            repoProgrammazione.deleteById(p.getId());
+        }
+        return true;
+    }*/
 
     @GetMapping("/programmazione")
     public @ResponseBody List<ListaProgDTO> ricercaProgrammazione(@RequestParam(name = "Giorno", required = false) LocalDate dataProgrammazione) {
@@ -134,7 +135,7 @@ public class GestioneProgrammazioneController {
 
     // quando si clicca su di una programmazione di un film, ti porta alla pagina della "sala" in cui vai a restituire la matrice che hai creato con il service
     @GetMapping("/dettagliProgrammazione/{idProgrammazione}")
-    public String programmazione(@PathVariable Integer idProgrammazione, Model model){
+    public String programmazione(@PathVariable Integer idProgrammazione, Model model) {
 
         ProgrammazioneFilm programmazione = repoProgrammazione.findById(idProgrammazione).get();
         Film film = repoFilm.findById(programmazione.getFilm().getId()).get();

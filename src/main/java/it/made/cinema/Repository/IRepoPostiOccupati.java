@@ -9,4 +9,5 @@ import it.made.cinema.Model.PostiOccupati;
 public interface IRepoPostiOccupati extends JpaRepository<PostiOccupati, Integer>  {
 
 	List<PostiOccupati> findByUtenteId(Integer id);
+	/*public void deleteByIdProgrammazioneFilm(Integer id);*/
 }

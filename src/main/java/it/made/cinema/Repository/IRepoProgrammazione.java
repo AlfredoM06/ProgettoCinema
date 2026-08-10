@@ -11,4 +11,6 @@ public interface IRepoProgrammazione extends JpaRepository<ProgrammazioneFilm, I
 	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmId (LocalDate dataProgrammazione, Integer id);
 	public List<ProgrammazioneFilm> findByDataProgrammazioneGreaterThanEqualAndFilmId(LocalDate dataProgrammazione, Integer id);
 	public List<ProgrammazioneFilm> findByDataProgrammazione(LocalDate dataProgrammazione);
+	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmIdAndSalaId(LocalDate dataProgrammazione, Integer idFilm, Integer idSala);
+	public List<ProgrammazioneFilm> findByDataProgrammazioneAndSalaId(LocalDate dataProgrammazione, Integer idSala);
 }
