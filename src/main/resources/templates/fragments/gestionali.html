@@ -13,7 +13,7 @@
      ============================================================ -->
 <section class="page-main" th:fragment="formOfferte">
     <div class="container formFilm">
-        <form class="row g-4">
+        <div class="row g-4">
 
             <!-- COLONNA SINISTRA -->
             <div class="col-md-6 form-section">
@@ -85,7 +85,7 @@
                 <button type="reset" class="btn btn-outline-danger">Annulla</button>
             </div>
 
-        </form>
+        </div>
 
     </div>
 </section>
@@ -98,14 +98,14 @@
         <section class="page-main" th:fragment="formProgrammazione">
             <div class="container formFilm">
 
-                <form class="row g-4">
+                <div class="row g-4">
                     <!-- SINISTRA -->
                     <div class="col-md-6 form-section">
                         <div class="form-group">
                             <label class="form-label">
                                 Film
                             </label>
-                            <select class="form-select">
+                            <select id="filmSalaProgrammazione" class="form-select">
                                 <option selected disabled>
                                     Seleziona film...
                                 </option>
@@ -125,7 +125,7 @@
                             <label class="form-label">
                                 Data programmazione
                             </label>
-                            <input type="date" class="form-control">
+                            <input id="dataProgrammazione" type="date" class="form-control">
                         </div>
 
                     </div>
@@ -136,51 +136,8 @@
                             Sala
                         </label>
 
-                        <div class="row sale-wrapper">
-
-                            <!-- sale sinistra -->
-                            <div class="col-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sala"
-                                           value="1">
-
-                                    <label class="form-check-label">
-                                        Sala 1
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sala"
-                                           value="2">
-
-                                    <label class="form-check-label">
-                                        Sala 2
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- sale destra -->
-                            <div class="col-6">
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sala"
-                                           value="3">
-
-                                    <label class="form-check-label">
-                                        Sala 3
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sala"
-                                           value="4">
-
-                                    <label class="form-check-label">
-                                        Sala 4
-                                    </label>
-                                </div>
-                            </div>
-
+                        <div class="row sale-wrapper" id="saleContainer">
+<!--                            CONTENUTO DINAMICO SALE-->
                         </div>
                     </div>
 
@@ -206,7 +163,7 @@
                         </button>
                     </div>
 
-                </form>
+                </div>
             </div>
         </section>
 
@@ -216,7 +173,7 @@
      ============================================================ -->
 <section class="page-main" th:fragment="formFilm">
     <div class="container formFilm">
-        <form class="row g-4">
+        <div class="row g-4">
 
             <!-- COLONNA SINISTRA -->
             <div class="col-md-6 form-section">
@@ -440,7 +397,7 @@
                 <button type="reset" class="btn btn-outline-danger">Annulla</button>
             </div>
 
-        </form>
+        </div>
 
     </div>
 </section>
@@ -452,7 +409,7 @@
      ============================================================ -->
 <section class="page-main" th:fragment="formUtenti">
     <div class="container formFilm">
-        <form class="row g-4">
+        <div class="row g-4">
 
             <!-- COLONNA SINISTRA -->
             <div class="col-md-6 form-section">
@@ -505,7 +462,7 @@
                 <button type="reset" class="btn btn-outline-danger">Annulla</button>
             </div>
 
-        </form>
+        </div>
 
     </div>
 </section>
@@ -628,9 +585,6 @@
                              role="group">
                             <button type="button" class="btn btn-outline-success">
                                 <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-folder-open"></i>
                             </button>
                             <button type="button" class="btn btn-outline-danger">
                                 <i class="fa-regular fa-trash-can"></i>
