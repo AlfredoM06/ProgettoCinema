@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.*;
+import it.made.cinema.Repository.IRepoSala;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,17 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Scheduler.LocalDateComparator;
-import it.made.cinema.Model.CrossFilmFormatoLingua;
-import it.made.cinema.Model.Film;
-import it.made.cinema.Model.GenereFilm;
-import it.made.cinema.Model.Offerta;
-import it.made.cinema.Model.ProgrammazioneFilm;
-import it.made.cinema.Model.DTO.FilmDTO;
-import it.made.cinema.Model.DTO.ListaFilmDTO;
-import it.made.cinema.Model.DTO.ListaGenereDTO;
-import it.made.cinema.Model.DTO.ListaOffertaDTO;
-import it.made.cinema.Model.DTO.ListaProgDTO;
-import it.made.cinema.Model.DTO.PostiDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Repository.IRepoProgrammazione;
@@ -48,12 +40,37 @@ public class InSalaController {
     PostiService postiService;
     @Autowired
     IRepoProgrammazione repoProgrammazione;
+    @Autowired
+    IRepoSala repoSala;
 
     //index
     @GetMapping
-    public String index(Model model) {
-        List<Film> films = repoFilm.findAll();
+    public String index() {
         return "inSala";
+    }
+
+    @GetMapping("/listaFilm")
+    @ResponseBody
+    public List<SelectFilmDTO> listaFilm(){
+        List<SelectFilmDTO> listaFilm = new ArrayList<>();
+        List<Film> films = repoFilm.findAll();
+        for (Film f : films){
+            listaFilm.add(new SelectFilmDTO(f.getId(), f.getTitolo(),f.getDurata()));
+        }
+        return listaFilm;
+    }
+
+    @GetMapping("/listaSale")
+    @ResponseBody
+    public Map<Integer, String> listaSale(){
+        Map<Integer, String> listaSale = new HashMap<>();
+        List<Sala> sale = repoSala.findAll();
+        for (Sala s : sale){
+            listaSale.put(s.getId(), "sala" + s.getId().toString());
+
+        }
+
+        return listaSale;
     }
 
     //dettagli di un film
@@ -167,7 +184,7 @@ public class InSalaController {
         } else if (idGenere != null && !idGenere.isEmpty()) {
             films = repoFilm.findByGenereFilm(idGenere);
         } else {
-            films = repoFilm.findAll();
+            films = repoFilm.findByArchiviatoFalse();
         }
         List<ListaFilmDTO> filmsDTO = new ArrayList<>();
         for (Film film : films) {
