@@ -13,6 +13,7 @@ import it.made.cinema.Repository.IRepoPartnership;
 import jakarta.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,7 @@ public class GestioneFilmController {
     @GetMapping("/salvaFilm")
     public @ResponseBody Boolean salvaFilm(@RequestBody FormFilmDTO dto) {
     	Film film = new Film();
+    	film.setId(dto.getId());
     	film.setTitolo(dto.getTitolo());
     	film.setDistribuzione(dto.getDistribuzione());
     	film.setDescrizione(dto.getSinossi());
@@ -100,34 +102,37 @@ public class GestioneFilmController {
     }
 
 
-    @GetMapping
-    public @ResponseBody Map<?,?> listaArchivio() {
-        List<Film> lista = repoFilm.findAll();
-        return null;
-    }
-
-    @GetMapping("/modificaFilm/{id}")
-    public String modifica(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("film", repoFilm.findById(id).get());
-        return "Admin/modificaFilm";
-    }
-
-    @PostMapping("/modificaFilm/{id}")
-    public String aggiorna(@Valid @ModelAttribute("film") Film formFilm, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin/modificaFilm";
-        }
-        repoFilm.save(formFilm);
-        return "redirect:/Admin";
+    @GetMapping("/listaArchivio")
+public @ResponseBody Map<?,?> listaArchivio(Boolean archiviato) {
+        List<Film> lista = repoFilm.findByArchiviato(archiviato);
+        Map<String, Object> films = new HashMap<String, Object>();
+        for(Film f:lista) {
+        	films.put("id",f.getId());
+        	films.put("titolo", f.getTitolo());
+        	films.put("distribuzione", f.getDistribuzione());
+        	films.put("dataUscita", f.getDataDiUscita());
+        } 
+        return films;
     }
 
     @PostMapping("/cancellaFilm/{id}")
-    public String cancella(@PathVariable("id") Integer id) {
+    public @ResponseBody Boolean cancella(@PathVariable("id") Integer id) {
         repoFilm.deleteById(id);
-        return "redirect:/Admin";
+        return true;
     }
-    //da fare:
-    //modifica per far tornare disponibile un film da fare in thymeleaf
+    @PostMapping("/archivia/{id}")
+    public @ResponseBody Boolean archivia(@PathVariable("id") Integer id) {
+        Film film = repoFilm.findById(id).get();
+        film.setArchiviato(!film.getArchiviato());
+        repoFilm.save(film);
+        return true;
+    }
+    @PostMapping("/cancellaPartnership/{id}")
+    public @ResponseBody Boolean cancellaPartnership(@PathVariable("id") Integer id) {
+    	Partnership partner = repoPartner.findByFilmId(id);
+    	repoPartner.deleteById(partner.getId());
+        return true;
+    }
 
 
 }

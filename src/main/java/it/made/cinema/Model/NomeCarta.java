@@ -29,6 +29,9 @@ public class NomeCarta {
 	private Integer id;
 	@Column
 	private String nome;
+	@Column
+	private Double prezzo;
 	@OneToMany(mappedBy="nomeCarta")
 	private List<Utente> utente;
+	
 }

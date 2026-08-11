@@ -1,11 +1,13 @@
 package it.made.cinema.Controller;
 
 import it.made.cinema.Model.Carrello;
+import it.made.cinema.Model.NomeCarta;
 import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Model.DTO.CarrelloDTO;
 import it.made.cinema.Model.DTO.ListaOffertaDTO;
 import it.made.cinema.Repository.IRepoCarrello;
+import it.made.cinema.Repository.IRepoCarta;
 import it.made.cinema.Repository.IRepoOfferte;
 import it.made.cinema.Repository.IRepoUtenti;
 import it.made.cinema.Service.PrezzoService;
@@ -31,6 +33,9 @@ public class CarrelloController {
 
     @Autowired
     IRepoOfferte repoOfferte;
+    
+    @Autowired
+    IRepoCarta repoCarta;
 
     @Autowired
     PrezzoService prezzoService;
@@ -46,7 +51,7 @@ public class CarrelloController {
 
     //mostrare carello
     @GetMapping String carrello(Model model, Integer idUtente){
-    	/* Utente utente = repoUtenti.findById(idUtente).get();
+    	 Utente utente = repoUtenti.findById(idUtente).get();
          Carrello carrello = repoCarrello.findByUtente(utente);
          if (carrello==null){
              carrello = creaCarrello(utente);
@@ -58,7 +63,7 @@ public class CarrelloController {
          CarrelloDTO carello =new CarrelloDTO();
          carello.setListaOfferta(offerteDTO);
          carello.setId(carrello.getId());
-         model.addAttribute("carrello",carello);*/
+         model.addAttribute("carrello",carello);
         return "carrello";
     }
 
@@ -96,14 +101,31 @@ public class CarrelloController {
     }
 
     //metodo per acquistare e salvare sul db
-    @GetMapping("acquista")
+    @GetMapping("/acquistaOfferta")
     @ResponseBody
-    private Double acquisto(Integer idUtente, Integer idOfferta){
+    private Double acquistaOfferta(Integer idUtente, Integer idOfferta){
         Utente utente = repoUtenti.findById(idUtente).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
         Double prezzo = 0d;
         prezzo = prezzoService.calcolaScontoOfferta(utente,offerta);
+        Carrello carello = repoCarrello.findByUtente(utente);
+        if(carello.getListaOfferte()==null) {
+        	carello.setListaOfferte(new ArrayList<>());
+        }
+        carello.getListaOfferte().add(offerta);
         return prezzo;
     }
-
+    @GetMapping("/acquistaCarta")
+    @ResponseBody
+    private Double acquistaCarta(Integer idUtente, Integer idCarta){
+        Utente utente = repoUtenti.findById(idUtente).get();
+        if(utente.getCartaRicaricabile()) {
+        	return -1d;
+        }
+        NomeCarta carta = repoCarta.findById(idCarta).get();
+        Double prezzo = carta.getPrezzo();
+        Carrello carello = repoCarrello.findByUtente(utente);
+        carello.setCarta(carta);
+        return prezzo;
+}
 }
