@@ -33,7 +33,7 @@ public class CarrelloController {
 
     @Autowired
     IRepoOfferte repoOfferte;
-    
+
     @Autowired
     IRepoCarta repoCarta;
 
@@ -41,39 +41,40 @@ public class CarrelloController {
     PrezzoService prezzoService;
 
     //Se l'utente non ha il carello adesso con questo metodo c'è l'ha
-    private Carrello creaCarrello( Utente utente){
+    private Carrello creaCarrello(Utente utente) {
         Carrello carrello = new Carrello();
 
         carrello.setUtente(utente);
         repoCarrello.save(carrello);
-    return carrello;
+        return carrello;
     }
 
     //mostrare carello
-    @GetMapping String carrello(Model model, Integer idUtente){
-    	 Utente utente = repoUtenti.findById(idUtente).get();
-         Carrello carrello = repoCarrello.findByUtente(utente);
-         if (carrello==null){
-             carrello = creaCarrello(utente);
-         }
-         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
-         for (Offerta offerta : carrello.getListaOfferte()) {
-             offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo()));
-         }
-         CarrelloDTO carello =new CarrelloDTO();
-         carello.setListaOfferta(offerteDTO);
-         carello.setId(carrello.getId());
-         model.addAttribute("carrello",carello);
+    @GetMapping
+    String carrello(Model model, Integer idUtente) {
+        Utente utente = repoUtenti.findById(idUtente).get();
+        Carrello carrello = repoCarrello.findByUtente(utente);
+        if (carrello == null) {
+            carrello = creaCarrello(utente);
+        }
+        List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
+        for (Offerta offerta : carrello.getListaOfferte()) {
+            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo()));
+        }
+        CarrelloDTO carello = new CarrelloDTO();
+        carello.setListaOfferta(offerteDTO);
+        carello.setId(carrello.getId());
+        model.addAttribute("carrello", carello);
         return "carrello";
     }
 
     //metodo per aggiungere al carello
     @PostMapping("aggiungi/{idUtente}/{idOfferta}")
     @ResponseBody
-    private Boolean aggiungi(@RequestParam Integer idUtente, @RequestParam Integer idOfferta){
+    private Boolean aggiungi(@RequestParam Integer idUtente, @RequestParam Integer idOfferta) {
         Utente utente = repoUtenti.findById(idUtente).get();
         Carrello carello = repoCarrello.findByUtente(utente);
-        if (carello==null){
+        if (carello == null) {
             carello = creaCarrello(utente);
         }
         Offerta offerta = repoOfferte.findById(idOfferta).get();
@@ -85,12 +86,12 @@ public class CarrelloController {
     //metodo per togliere
     @PostMapping("elimina/{idCarello}/{idOfferta}")
     @ResponseBody
-    private Boolean elimina(@RequestParam Integer idCarrello, @RequestParam Integer idOfferta){
+    private Boolean elimina(@RequestParam Integer idCarrello, @RequestParam Integer idOfferta) {
         Carrello carrello = repoCarrello.findById(idCarrello).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
 
-        for (Offerta o : carrello.getListaOfferte()){
-            if (o.equals(offerta)){
+        for (Offerta o : carrello.getListaOfferte()) {
+            if (o.equals(offerta)) {
                 carrello.getListaOfferte().remove(o);
                 break;
             }
@@ -103,29 +104,30 @@ public class CarrelloController {
     //metodo per acquistare e salvare sul db
     @GetMapping("/acquistaOfferta")
     @ResponseBody
-    private Double acquistaOfferta(Integer idUtente, Integer idOfferta){
+    private Double acquistaOfferta(Integer idUtente, Integer idOfferta) {
         Utente utente = repoUtenti.findById(idUtente).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
         Double prezzo = 0d;
-        prezzo = prezzoService.calcolaScontoOfferta(utente,offerta);
+        prezzo = prezzoService.calcolaScontoOfferta(utente, offerta);
         Carrello carello = repoCarrello.findByUtente(utente);
-        if(carello.getListaOfferte()==null) {
-        	carello.setListaOfferte(new ArrayList<>());
+        if (carello.getListaOfferte() == null) {
+            carello.setListaOfferte(new ArrayList<>());
         }
         carello.getListaOfferte().add(offerta);
         return prezzo;
     }
+
     @GetMapping("/acquistaCarta")
     @ResponseBody
-    private Double acquistaCarta(Integer idUtente, Integer idCarta){
+    private Double acquistaCarta(Integer idUtente, Integer idCarta) {
         Utente utente = repoUtenti.findById(idUtente).get();
-        if(utente.getCartaRicaricabile()) {
-        	return -1d;
+        if (utente.getCartaRicaricabile()) {
+            return -1d;
         }
         NomeCarta carta = repoCarta.findById(idCarta).get();
         Double prezzo = carta.getPrezzo();
         Carrello carello = repoCarrello.findByUtente(utente);
         carello.setCarta(carta);
         return prezzo;
-}
+    }
 }

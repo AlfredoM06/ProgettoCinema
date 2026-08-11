@@ -21,9 +21,9 @@ public class GestioneUtentiController {
     IRepoUtenti repoUtenti;
 
     @GetMapping
-    public String gestioneUtenti(Model model){
-    	List<Utente> listaUtenti= repoUtenti.findAll();
-    	model.addAttribute("listaUtenti", listaUtenti);
+    public String gestioneUtenti(Model model) {
+        List<Utente> listaUtenti = repoUtenti.findAll();
+        model.addAttribute("listaUtenti", listaUtenti);
         return "Admin";
     }
 

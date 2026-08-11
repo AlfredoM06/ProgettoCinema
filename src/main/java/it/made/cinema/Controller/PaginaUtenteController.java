@@ -39,7 +39,7 @@ public class PaginaUtenteController {
     IRepoOfferte repoOfferte;
     @Autowired
     IRepoAcquisti repoAcquisti;
-    
+
     @GetMapping
     public String paginaUtente() {
         return "utente-profilo";
@@ -56,42 +56,42 @@ public class PaginaUtenteController {
     //1) I biglietti prenotati e acquistati con i relativi dati i quali verranno cancellati dopo 1 settimana per eventuali rimborsi.
     // va aggiunto attributo in posti occupati che lega utente con posto occupato (tramite id utente) tramite l'id posto occupato andiamo in programmazione e vediamo quale film ha prenotato/acquistato.
     @GetMapping("/acquisti/{id}")
-    public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(@PathVariable Integer id){
-    	List<PostiOccupati> postiOccupati = repoPO.findByUtenteId(id);
-    	List<PostiOccupatiDTO> biglietti = new ArrayList<>();
-    	for (PostiOccupati posto:postiOccupati) {
-    		String[] posizioni = posto.getPosizione().split("_");
+    public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(@PathVariable Integer id) {
+        List<PostiOccupati> postiOccupati = repoPO.findByUtenteId(id);
+        List<PostiOccupatiDTO> biglietti = new ArrayList<>();
+        for (PostiOccupati posto : postiOccupati) {
+            String[] posizioni = posto.getPosizione().split("_");
 
-    		biglietti.add(new PostiOccupatiDTO(
-    				posto.getId(),
-    				posto.getProgrammazioneFilm().getFilm().getTitolo(),
-    				posto.getProgrammazioneFilm().getOrario(),
-    				posto.getProgrammazioneFilm().getOrario().plusMinutes(posto.getProgrammazioneFilm().getFilm().getDurata()+30),
-    				posto.getProgrammazioneFilm().getDataProgrammazione(),
-    				posto.getProgrammazioneFilm().getSala().getId(),
-    				posto.getTipoPosto(),
-    				Integer.valueOf(posizioni[0]),
-    				Integer.valueOf(posizioni[1]),
+            biglietti.add(new PostiOccupatiDTO(
+                    posto.getId(),
+                    posto.getProgrammazioneFilm().getFilm().getTitolo(),
+                    posto.getProgrammazioneFilm().getOrario(),
+                    posto.getProgrammazioneFilm().getOrario().plusMinutes(posto.getProgrammazioneFilm().getFilm().getDurata() + 30),
+                    posto.getProgrammazioneFilm().getDataProgrammazione(),
+                    posto.getProgrammazioneFilm().getSala().getId(),
+                    posto.getTipoPosto(),
+                    Integer.valueOf(posizioni[0]),
+                    Integer.valueOf(posizioni[1]),
                     posto.getPrezzo()
-    		));
-    	}
-    	return biglietti;
+            ));
+        }
+        return biglietti;
     }
 
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
     @GetMapping("acquistiOfferte/{id}")
-    public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, @RequestParam(required=false) String genere){
-    	List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(id, genere);
-    	List<OfferteDTO> acquisti = new ArrayList<>();
-    	for(AcquistiGadget acquisto:acquistiGadget) {
-    		acquisti.add(new OfferteDTO(
-    				acquisto.getId(),
-    				acquisto.getOfferta().getNome(),
-    				acquisto.getOfferta().getImgBanner(),
-    				acquisto.getDataAcquisto()
-    				));
-    	}
-    	return acquisti;
+    public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, @RequestParam(required = false) String genere) {
+        List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(id, genere);
+        List<OfferteDTO> acquisti = new ArrayList<>();
+        for (AcquistiGadget acquisto : acquistiGadget) {
+            acquisti.add(new OfferteDTO(
+                    acquisto.getId(),
+                    acquisto.getOfferta().getNome(),
+                    acquisto.getOfferta().getImgBanner(),
+                    acquisto.getDataAcquisto()
+            ));
+        }
+        return acquisti;
     }
 
     //2) Se ha acquistato una card(ricaricabile) e o abbonamento.

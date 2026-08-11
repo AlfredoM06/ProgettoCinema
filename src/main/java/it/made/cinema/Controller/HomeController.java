@@ -42,7 +42,7 @@ public class HomeController {
             listaRecenti.setDataDiUscita(recente.getDataDiUscita());
             listaRecenti.setImg_poster(recente.getImg_poster());
             List<ListaGenereDTO> listaGenere = new ArrayList<>();
-            for ( GenereFilm g : recente.getGeneri()) {
+            for (GenereFilm g : recente.getGeneri()) {
                 ListaGenereDTO listaGenDTO = new ListaGenereDTO();
                 listaGenDTO.setId(g.getId());
                 listaGenDTO.setNome(g.getNome());

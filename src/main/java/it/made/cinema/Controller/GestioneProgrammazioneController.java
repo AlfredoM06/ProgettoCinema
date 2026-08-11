@@ -45,7 +45,7 @@ public class GestioneProgrammazioneController {
 
     @GetMapping("/getOrariPerSala/{idSala}/{data}")
     @ResponseBody
-    public Map<?, ?> getOrariPerSala(@PathVariable Integer idSala,@PathVariable  LocalDate data) {
+    public Map<?, ?> getOrariPerSala(@PathVariable Integer idSala, @PathVariable LocalDate data) {
 
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndSalaId(data, idSala);
         Map<LocalTime, Integer> result = new HashMap<>();
@@ -88,7 +88,7 @@ public class GestioneProgrammazioneController {
     @ResponseBody
     public Boolean cancella(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
-        for (ProgrammazioneFilm p : programmazioni){
+        for (ProgrammazioneFilm p : programmazioni) {
             repoPostiOccupati.deleteByProgrammazioneFilm(p);
             repoProgrammazione.deleteById(p.getId());
         }

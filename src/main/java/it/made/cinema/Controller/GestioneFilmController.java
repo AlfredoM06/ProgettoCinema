@@ -38,10 +38,10 @@ public class GestioneFilmController {
 
     @Autowired
     IRepoFilm repoFilm;
-    
+
     @Autowired
     IRepoGeneri repoGeneri;
-    
+
     @Autowired
     IRepoPartnership repoPartner;
     //Film film;
@@ -50,68 +50,68 @@ public class GestioneFilmController {
     //da fare validazioni form
     @GetMapping("/salvaFilm")
     public @ResponseBody Boolean salvaFilm(@RequestBody FormFilmDTO dto) {
-    	Film film = new Film();
-    	film.setId(dto.getId());
-    	film.setTitolo(dto.getTitolo());
-    	film.setDistribuzione(dto.getDistribuzione());
-    	film.setDescrizione(dto.getSinossi());
-    	List<GenereFilm> generi = new ArrayList<>();
-    	for(Integer g:dto.getGenere()) {
-    		generi.add(repoGeneri.findById(g).get());
-    	}
-    	film.setGeneri(generi);
-    	film.setDataDiUscita(dto.getDataUscita());
-    	film.setDurata(dto.getDurata());
-    	film.setPrezzo(dto.getPrezzo());
-    	Lingua italiano= new Lingua(); // potrebbe rompersi, spostare dopo il salvataggio in caso
-    	italiano.setId(1);
-    	Lingua inglese= new Lingua();
-    	inglese.setId(2);
-    	List<CrossFilmFormatoLingua> cross= new ArrayList<>();
-    	for(Integer f:dto.getItaliano()) {
-    		Formato formato = new Formato();
-    		formato.setId(f);
-    		CrossFilmFormatoLingua c= new CrossFilmFormatoLingua();
-    		c.setFormato(formato);
-    		c.setLingua(italiano);
-    		c.setFilm(film);
-    		cross.add(c);
-    	}
-    	for(Integer f:dto.getInglese()) {
-    		Formato formato = new Formato();
-    		formato.setId(f);
-    		CrossFilmFormatoLingua c= new CrossFilmFormatoLingua();
-    		c.setFormato(formato);
-    		c.setLingua(inglese);
-    		c.setFilm(film);
-    		cross.add(c);
-    	}
-    	film.setCrossFilmFormatoLingua(cross);
-    	film.setImg_cover(dto.getImgCopertina());
-    	film.setImg_poster(dto.getImgLocandina());
-    	film.setImg_logo(dto.getImgLogo());
-    	if(dto.getPartnership()) {
-    		Partnership partner= new Partnership();
-    		partner.setImg_banner(dto.getImgPartnership());
-    		partner.setNome(dto.getTitolo());
-    		film.setPartnership(partner);
-    	}
-    	film.setArchiviato(dto.getArchiviato());
-    	repoFilm.save(film);
+        Film film = new Film();
+        film.setId(dto.getId());
+        film.setTitolo(dto.getTitolo());
+        film.setDistribuzione(dto.getDistribuzione());
+        film.setDescrizione(dto.getSinossi());
+        List<GenereFilm> generi = new ArrayList<>();
+        for (Integer g : dto.getGenere()) {
+            generi.add(repoGeneri.findById(g).get());
+        }
+        film.setGeneri(generi);
+        film.setDataDiUscita(dto.getDataUscita());
+        film.setDurata(dto.getDurata());
+        film.setPrezzo(dto.getPrezzo());
+        Lingua italiano = new Lingua(); // potrebbe rompersi, spostare dopo il salvataggio in caso
+        italiano.setId(1);
+        Lingua inglese = new Lingua();
+        inglese.setId(2);
+        List<CrossFilmFormatoLingua> cross = new ArrayList<>();
+        for (Integer f : dto.getItaliano()) {
+            Formato formato = new Formato();
+            formato.setId(f);
+            CrossFilmFormatoLingua c = new CrossFilmFormatoLingua();
+            c.setFormato(formato);
+            c.setLingua(italiano);
+            c.setFilm(film);
+            cross.add(c);
+        }
+        for (Integer f : dto.getInglese()) {
+            Formato formato = new Formato();
+            formato.setId(f);
+            CrossFilmFormatoLingua c = new CrossFilmFormatoLingua();
+            c.setFormato(formato);
+            c.setLingua(inglese);
+            c.setFilm(film);
+            cross.add(c);
+        }
+        film.setCrossFilmFormatoLingua(cross);
+        film.setImg_cover(dto.getImgCopertina());
+        film.setImg_poster(dto.getImgLocandina());
+        film.setImg_logo(dto.getImgLogo());
+        if (dto.getPartnership()) {
+            Partnership partner = new Partnership();
+            partner.setImg_banner(dto.getImgPartnership());
+            partner.setNome(dto.getTitolo());
+            film.setPartnership(partner);
+        }
+        film.setArchiviato(dto.getArchiviato());
+        repoFilm.save(film);
         return true;
     }
 
 
     @GetMapping("/listaArchivio")
-public @ResponseBody Map<?,?> listaArchivio(Boolean archiviato) {
+    public @ResponseBody Map<?, ?> listaArchivio(Boolean archiviato) {
         List<Film> lista = repoFilm.findByArchiviato(archiviato);
         Map<String, Object> films = new HashMap<String, Object>();
-        for(Film f:lista) {
-        	films.put("id",f.getId());
-        	films.put("titolo", f.getTitolo());
-        	films.put("distribuzione", f.getDistribuzione());
-        	films.put("dataUscita", f.getDataDiUscita());
-        } 
+        for (Film f : lista) {
+            films.put("id", f.getId());
+            films.put("titolo", f.getTitolo());
+            films.put("distribuzione", f.getDistribuzione());
+            films.put("dataUscita", f.getDataDiUscita());
+        }
         return films;
     }
 
@@ -120,6 +120,7 @@ public @ResponseBody Map<?,?> listaArchivio(Boolean archiviato) {
         repoFilm.deleteById(id);
         return true;
     }
+
     @PostMapping("/archivia/{id}")
     public @ResponseBody Boolean archivia(@PathVariable("id") Integer id) {
         Film film = repoFilm.findById(id).get();
@@ -127,10 +128,11 @@ public @ResponseBody Map<?,?> listaArchivio(Boolean archiviato) {
         repoFilm.save(film);
         return true;
     }
+
     @PostMapping("/cancellaPartnership/{id}")
     public @ResponseBody Boolean cancellaPartnership(@PathVariable("id") Integer id) {
-    	Partnership partner = repoPartner.findByFilmId(id);
-    	repoPartner.deleteById(partner.getId());
+        Partnership partner = repoPartner.findByFilmId(id);
+        repoPartner.deleteById(partner.getId());
         return true;
     }
 

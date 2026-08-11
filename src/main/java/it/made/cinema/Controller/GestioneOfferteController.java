@@ -19,7 +19,7 @@ public class GestioneOfferteController {
     //Form aggiunta, modifica e elimina
 
     @GetMapping
-    public String gestioneOfferte(Model model){
+    public String gestioneOfferte(Model model) {
         List<Offerta> listaOfferte = repoOfferte.findAll();
         model.addAttribute("lista", listaOfferte);
         return "Admin";
