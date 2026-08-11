@@ -109,6 +109,9 @@ public class CarrelloController {
         Double prezzo = 0d;
         prezzo = prezzoService.calcolaScontoOfferta(utente,offerta);
         Carrello carello = repoCarrello.findByUtente(utente);
+        if(carello.getListaOfferte()==null) {
+        	carello.setListaOfferte(new ArrayList<>());
+        }
         carello.getListaOfferte().add(offerta);
         return prezzo;
     }
