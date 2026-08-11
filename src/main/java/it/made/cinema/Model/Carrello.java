@@ -26,4 +26,8 @@ public class Carrello {
     @JoinTable(name="carello_offerta", joinColumns=@JoinColumn(name="id_carrello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
     private List<Offerta> listaOfferte;
 
+    @ManyToOne
+    @JoinColumn(name = "id_carta")
+    private NomeCarta carta;
+
 }
