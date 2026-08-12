@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
+import Scheduler.LocalDateComparator;
 import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO;
 import it.made.cinema.Model.DTO.SalvaProgrammazioneDTO;
 import it.made.cinema.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,13 @@ public class GestioneProgrammazioneController {
             result.put(p.getOrario(), p.getFilm().getDurata());
         }
         return result;
+    }
+
+    @GetMapping("/listaProgrammazioni")
+    @ResponseBody
+    public List<ArchivioProgrammazioniDTO> listaProgrammazioni(){
+        List< ArchivioProgrammazioniDTO> listaProgrammazioni = repoProgrammazione.findAllGroupByDataProgrammazione();
+        return listaProgrammazioni;
     }
 
 
