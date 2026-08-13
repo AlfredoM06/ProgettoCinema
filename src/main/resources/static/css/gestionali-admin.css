@@ -247,3 +247,38 @@ option:hover {
     background: transparent;
     font-weight: bold;
 }
+
+/* =========================================================
+   DATATABLES - FRECCE VICINO AL TESTO
+========================================================= */
+/* =========================================================
+   DATATABLES - FRECCE VICINO AL TESTO
+========================================================= */
+
+#tableScheduling thead th.sorting,
+#tableScheduling thead th.sorting_asc,
+#tableScheduling thead th.sorting_desc {
+    white-space: nowrap;
+    padding-right: 0.5rem !important;
+}
+
+/* FRECCIA SU */
+#tableScheduling thead th.sorting::before,
+#tableScheduling thead th.sorting_asc::before,
+#tableScheduling thead th.sorting_desc::before {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.35rem !important;
+    margin-right: 0.15rem !important;
+    vertical-align: middle;
+}
+
+/* FRECCIA GIÙ */
+#tableScheduling thead th.sorting::after,
+#tableScheduling thead th.sorting_asc::after,
+#tableScheduling thead th.sorting_desc::after {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.15rem !important;
+    vertical-align: middle;
+}
