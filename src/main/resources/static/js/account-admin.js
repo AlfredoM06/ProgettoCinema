@@ -1,29 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // =========================================================
-    // SIDEBAR
+    // |                                                       |
+    // |              SIDEBAR E NAVIGAZIONE                    |
+    // |                                                       |
     // =========================================================
 
     let buttons = document.querySelectorAll(".menu-btn");
     let sections = document.querySelectorAll(".content-section");
 
-    function clearSidebarActive() {
 
+
+    // GESTIONE STATO SIDEBAR
+
+    function clearSidebarActive() {
         document.querySelectorAll(".menu-btn").forEach(btn => {
             btn.classList.remove("active");
         });
 
         document.querySelectorAll(".dropdown-toggle-admin").forEach(btn => {
-            btn.classList.remove("active");
-        });
+                btn.classList.remove("active");
+            });
     }
+
 
     function closeDropdowns() {
-
         document.querySelectorAll(".dropdown-admin").forEach(dropdown => {
-            dropdown.classList.remove("open");
-        });
+                dropdown.classList.remove("open");
+            });
     }
+
+
+    // MOSTRA SEZIONE
 
     function showSection(target) {
 
@@ -49,121 +57,544 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (btn.closest(".dropdown-menu-admin")) {
 
-            let dropdownParent = btn.closest(".dropdown-admin")?.querySelector(".dropdown-toggle-admin");
+            const dropdownParent = btn.closest(".dropdown-admin")?.querySelector(".dropdown-toggle-admin");
 
             if (dropdownParent) {
                 dropdownParent.classList.add("active");
             }
-
         } else {
             closeDropdowns();
         }
     }
 
-    buttons.forEach(btn => {
 
+    // EVENTI SIDEBAR
+    buttons.forEach(btn => {
         btn.addEventListener("click", () => {
             showSection(btn.dataset.target);
         });
-
     });
+
 
     document.querySelectorAll(".edit-btn").forEach(btn => {
-
-        btn.addEventListener("click", () => {
-            showSection("profile");
+            btn.addEventListener("click", () => {
+                showSection("profile");
+            });
         });
 
-    });
 
     document.querySelectorAll(".dropdown-toggle-admin").forEach(btn => {
+            btn.addEventListener("click", () => {
+                let dropdown = btn.closest(".dropdown-admin");
 
-        btn.addEventListener("click", () => {
+                if (!dropdown) {
+                    return;
+                }
 
-            let dropdown = btn.closest(".dropdown-admin");
+                let isOpen = dropdown.classList.contains("open");
+                clearSidebarActive();
 
-            if (!dropdown) {
+                if (!isOpen) {
+                    btn.classList.add("active");
+                }
+                dropdown.classList.toggle("open");
+            });
+    });
+
+
+
+    // =========================================================
+    // |                                                       |
+    // |                    GESTIONE FILM                      |
+    // |                                                       |
+    // =========================================================
+
+    let filmSection= document.querySelector("#film");
+
+
+
+    // ELEMENTI FORM FILM
+
+    if (filmSection) {
+       let btnConfermaFilm = filmSection.querySelector("button[type='submit']");
+       let btnAnnullaFilm = filmSection.querySelector("button[type='reset']");
+       let genereContainer = document.getElementById("genereContainer");
+       let formatoItaContainer = document.getElementById("formatoItaContainer");
+       let formatoEngContainer = document.getElementById("formatoEngContainer");
+
+
+        // CARICAMENTO GENERI
+
+        async function caricaGeneri() {
+
+            try {
+                const response = await fetch("/admin/gestioneFilm/listaGeneri");
+
+                if (!response.ok) {
+                    throw new Error();
+                }
+
+                const generi = await response.json();
+                genereContainer.innerHTML = "";
+                Object.entries(generi).forEach(
+                    ([id, nome]) => {
+
+                        genereContainer.innerHTML += `
+                            <div class="col-6 form-check">
+
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="genere"
+                                    value="${id}"
+                                    id="genere-${id}">
+
+                                <label
+                                    class="form-check-label"
+                                    for="genere-${id}">
+
+                                    ${nome}
+
+                                </label>
+
+                            </div>
+                        `;
+                    }
+                );
+            } catch (error) {
+                console.error(
+                    "Errore caricamento generi:",
+                    error
+                );
+                genereContainer.innerHTML =
+                    "<p>Impossibile caricare i generi.</p>";
+            }
+        }
+
+
+        // CARICAMENTO FORMATI
+
+        async function caricaFormati() {
+            try {
+                const response = await fetch(
+                    "/admin/gestioneFilm/listaFormati"
+                );
+                if (!response.ok) {
+                    throw new Error();
+                }
+
+                const formati = await response.json();
+
+                formatoItaContainer.innerHTML = "";
+                formatoEngContainer.innerHTML = "";
+
+                Object.entries(formati).forEach(
+                    ([id, nome]) => {
+
+                        // FORMATI ITALIANI
+                        formatoItaContainer.innerHTML += `
+                            <div class="col-5 form-check">
+
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="formato-ita"
+                                    value="${id}"
+                                    id="formato-ita-${id}">
+
+                                <label
+                                    class="form-check-label"
+                                    for="formato-ita-${id}">
+
+                                    ${nome}
+
+                                </label>
+
+                            </div>
+                        `;
+
+                        // FORMATI INGLESI
+                        formatoEngContainer.innerHTML += `
+                            <div class="col-5 form-check">
+
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="formato-eng"
+                                    value="${id}"
+                                    id="formato-eng-${id}">
+
+                                <label
+                                    class="form-check-label"
+                                    for="formato-eng-${id}">
+
+                                    ${nome}
+
+                                </label>
+
+                            </div>
+                        `;
+                    }
+                );
+
+            } catch (error) {
+                console.error("Errore caricamento formati:",error);
+                formatoItaContainer.innerHTML =
+                    "<p>Impossibile caricare i formati.</p>";
+                formatoEngContainer.innerHTML =
+                    "<p>Impossibile caricare i formati.</p>";
+            }
+        }
+
+
+        // RESET FORM FILM
+
+        function resetFormFilm() {
+
+            /*
+             * L'assenza dell'id indica che il form è pronto
+             * per l'inserimento di un nuovo film.
+             */
+            filmSection.dataset.id = "";
+
+            // Svuota campi testuali
+            filmSection
+                .querySelectorAll(
+                    "input[type='text'], " +
+                    "input[type='url'], " +
+                    "input[type='number'], " +
+                    "input[type='date'], " +
+                    "textarea"
+                )
+                .forEach(input => {
+                    input.value = "";
+                });
+
+
+            // Deseleziona checkbox
+            filmSection.querySelectorAll( "input[type='checkbox']").forEach(input => {
+                    input.checked = false;
+                });
+
+            // Deseleziona radio
+            filmSection.querySelectorAll("input[type='radio']").forEach(input => {
+                    input.checked = false;
+                });
+        }
+
+
+        // SALVATAGGIO FILM
+
+        btnConfermaFilm.addEventListener("click",async function (e) {
+                e.preventDefault();
+
+                // GENERI SELEZIONATI
+
+                let generi = [...filmSection.querySelectorAll( "input[name='genere']:checked")
+                ].map(input => Number(input.value));
+
+
+                // FORMATI ITALIANI
+
+                let italiano = [
+                    ...formatoItaContainer.querySelectorAll(
+                        "input:checked"
+                    )
+                ].map(input => Number(input.value));
+
+
+                // FORMATI INGLESI
+
+                let inglese = [
+                    ...formatoEngContainer.querySelectorAll(
+                        "input:checked"
+                    )
+                ].map(input => Number(input.value));
+
+
+                // PARTNERSHIP
+
+                let partnership =
+                    filmSection.querySelector(
+                        "input[name='partnership']:checked"
+                    )?.value === "si";
+
+
+                // STATO FILM
+
+                let archiviato =
+                    filmSection.querySelector(
+                        "input[name='statoFilm']:checked"
+                    )?.value === "archiviato";
+
+
+                // CREAZIONE DTO
+
+                const dto = { id: filmSection.dataset.id ? Number(filmSection.dataset.id) : null,
+                    titolo: document.getElementById("titoloFilm").value,
+                    distribuzione: document.getElementById("distribuzione").value,
+                    sinossi: document.getElementById("sinossi").value,
+                    genere: generi,
+                    dataUscita: document.getElementById("dataUscita").value,
+                    durata: Number(document.getElementById("durataFilm").value),
+                    prezzo: Number( document.getElementById("prezzoFilm").value),
+                    italiano: italiano,
+                    inglese: inglese,
+                    imgCopertina: document.getElementById("imgCopertina").value,
+                    imgLocandina: document.getElementById("imgLocandina").value,
+                    imgLogo: document.getElementById("imgLogo").value,
+                    partnership: partnership,
+                    imgPartnership: partnership ? document.getElementById("imgPartnership").value: null,
+                    archiviato: archiviato
+                };
+
+
+                // VALIDAZIONE
+
+                if (
+                    !dto.titolo ||
+                    !dto.dataUscita ||
+                    !dto.durata
+                ) {
+                    alert("Compila almeno titolo, data di uscita e durata.");
+                    return;
+                }
+
+                // INVIO AL BACKEND
+
+                try {
+
+                    const response = await fetch("/admin/gestioneFilm/salvaFilm", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body: JSON.stringify(dto)
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error();
+                    }
+
+                    alert( dto.id? "Film modificato correttamente." : "Film salvato correttamente.");
+
+                    // Reset form
+                    resetFormFilm();
+                    // Aggiorna le tabelle
+                    ricaricaTabelleFilm();
+                } catch (error) {
+                    console.error("Errore salvataggio film:",error);
+                    alert("Si è verificato un errore durante il salvataggio.");
+                }
+            }
+        );
+
+
+        // ANNULLA / RESET FILM
+
+        btnAnnullaFilm.addEventListener("click",function () {
+                resetFormFilm();
+            }
+        );
+
+
+        // CARICAMENTO DATI INIZIALI FILM
+
+        caricaGeneri();
+        caricaFormati();
+    }
+
+
+    // MODIFICA FILM
+
+    async function modificaFilm(id) {
+
+        if (!filmSection) {
+            console.error("Sezione film non trovata.");
+            return;
+        }
+
+        try {
+
+            // RECUPERO FILM
+
+            const response = await fetch(`/admin/gestioneFilm/film/${id}`);
+            if (!response.ok) {
+                throw new Error("Errore nel recupero del film" );
+            }
+
+            const film = await response.json();
+
+
+            // DATI PRINCIPALI
+
+            document.getElementById("titoloFilm").value = film.titolo ?? "";
+            document.getElementById("distribuzione").value = film.distribuzione ?? "";
+            document.getElementById("sinossi").value = film.sinossi ?? "";
+            document.getElementById("dataUscita").value = film.dataUscita ?? "";
+            document.getElementById("durataFilm").value = film.durata ?? "";
+            document.getElementById("prezzoFilm").value = film.prezzo ?? "";
+            document.getElementById("imgCopertina").value = film.imgCopertina ?? "";
+            document.getElementById("imgLocandina").value = film.imgLocandina ?? "";
+            document.getElementById("imgLogo").value = film.imgLogo ?? "";
+            document.getElementById("imgPartnership").value = film.imgPartnership ?? "";
+
+            // GENERI
+
+            document.querySelectorAll("#genereContainer input[type='checkbox']")
+                .forEach(checkbox => {
+                    checkbox.checked = film.genere?.includes(Number(checkbox.value)) ?? false;
+                });
+
+
+            // FORMATI ITALIANI
+
+            document.querySelectorAll("#formatoItaContainer input[type='checkbox']")
+                .forEach(checkbox => {
+                    checkbox.checked =film.italiano?.includes(Number(checkbox.value)) ?? false;
+                });
+
+
+            // FORMATI INGLESI
+
+            document.querySelectorAll("#formatoEngContainer input[type='checkbox']")
+                .forEach(checkbox => {
+                    checkbox.checked =
+                        film.inglese?.includes(
+                            Number(checkbox.value)
+                        ) ?? false;
+                });
+
+
+            // PARTNERSHIP
+
+            if (film.partnership) {
+                document.getElementById("partnershipSi").checked = true;
+            } else {
+                document.getElementById("partnershipNo").checked = true;
+            }
+
+            // STATO FILM
+
+            if (film.archiviato) {
+                document.getElementById("statoArchiviato").checked = true;
+            } else {
+                document.getElementById("statoInSala").checked = true;
+            }
+
+
+            // SALVA ID NEL FORM
+
+            /*
+             * Se dataset.id contiene un valore, il salvataggio
+             * successivo verrà interpretato come modifica.
+             */
+            filmSection.dataset.id = film.id;
+
+
+            // MOSTRA FORM FILM
+
+            showSection("film");
+
+            filmSection.scrollIntoView({ behavior: "smooth"});
+        } catch (error) {
+            console.error("Errore modifica film:", error);
+            alert("Impossibile caricare il film.");
+        }
+    }
+
+
+
+    // =========================================================
+    // |                                                       |
+    // |              GESTIONE PROGRAMMAZIONE                  |
+    // |                                                       |
+    // =========================================================
+
+
+    // ELEMENTI PROGRAMMAZIONE
+
+    let programmazioneForm = document.querySelector("#programmazione");
+
+    if (programmazioneForm) {
+
+        let filmSelect = document.getElementById("filmSalaProgrammazione");
+        let dataInput = document.getElementById("dataProgrammazione");
+
+        let saleContainer =document.getElementById("saleContainer");
+        let orariContainer =document.querySelector("#programmazione .orari-grid");
+        let btnConferma =programmazioneForm.querySelector("button[type='submit']");
+        let btnAnnulla = programmazioneForm.querySelector("button[type='reset']");
+
+        // =========================================================
+            // CONTROLLO ELEMENTI PROGRAMMAZIONE
+            // =========================================================
+
+            if (
+                !filmSelect ||
+                !dataInput ||
+                !saleContainer ||
+                !orariContainer ||
+                !btnConferma ||
+                !btnAnnulla
+            ) {
+                console.error(
+                    "ERRORE: elementi mancanti nella sezione programmazione",
+                    {
+                        programmazioneForm,
+                        filmSelect,
+                        dataInput,
+                        saleContainer,
+                        orariContainer,
+                        btnConferma,
+                        btnAnnulla
+                    }
+                );
+
                 return;
             }
 
-            let isOpen = dropdown.classList.contains("open");
-
-            clearSidebarActive();
-
-            if (!isOpen) {
-                btn.classList.add("active");
-            }
-
-            dropdown.classList.toggle("open");
-        });
-
-    });
-
-
-    // =========================================================
-    // ELEMENTI PROGRAMMAZIONE
-    // =========================================================
-
-    let programmazioneForm = document.querySelector("#programmazione");
-    let filmSelect = document.getElementById("filmSalaProgrammazione");
-    let dataInput = document.getElementById("dataProgrammazione");
-    let saleContainer = document.getElementById("saleContainer");
-    let orariContainer = document.querySelector("#programmazione .orari-grid");
-
-    if (
-        !programmazioneForm ||
-        !filmSelect ||
-        !dataInput ||
-        !saleContainer ||
-        !orariContainer
-    ) {
-
-        console.error("Elementi programmazione mancanti:", {
-            programmazioneForm,
-            filmSelect,
-            dataInput,
-            saleContainer,
-            orariContainer
-        });
-
-        return;
-    }
-
-    let btnConferma = programmazioneForm.querySelector("button[type='submit']");
-    let btnAnnulla = programmazioneForm.querySelector("button[type='reset']");
-
-
-    // =========================================================
     // STATO PROGRAMMAZIONE
-    // =========================================================
 
     let richiestaOrariInCorso = false;
+
     // Orari occupati dagli altri film
     let orariAltriFilm = [];
+
     // Orari della programmazione attualmente modificata
     let orariFilmCorrente = [];
-    // Durata associata agli orari
+
+    // Durata associata a ciascun orario
     let durataPerOrario = {};
-    // Durata dei film
-    const durataFilmMap = {};
-    // Modalità modifica
+
+    // Durata di ogni film
+    let durataFilmMap = {};
+
+    // Indica se il form è in modalità modifica
     let modalitaModifica = false;
 
 
-    // =========================================================
     // GENERAZIONE ORARI
-    // Ogni 10 minuti
-    // Dalle 11:00 alle 01:00
-    // =========================================================
+    /*
+     * Genera gli orari ogni 10 minuti.
+     * Fascia:
+     * 11:00 -> 01:00
+     */
 
     function generaOrari() {
 
         orariContainer.innerHTML = "";
 
-        let start = 11 * 60;
-        let end = 25 * 60;
+        const start = 11 * 60;
+        const end = 25 * 60;
 
-        for (let minuti = start; minuti <= end; minuti += 10) {
+        for (
+            let minuti = start;
+            minuti <= end;
+            minuti += 10
+        ) {
 
             let ore = Math.floor(minuti / 60);
             let min = minuti % 60;
@@ -172,8 +603,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 ore -= 24;
             }
 
-            let oraFormattata = String(ore).padStart(2, "0") + ":" + String(min).padStart(2, "0");
+            let oraFormattata =
+                String(ore).padStart(2, "0") +
+                ":" +
+                String(min).padStart(2, "0");
+
             let id = `ora-${oraFormattata.replace(":", "-")}`;
+
 
             orariContainer.innerHTML += `
                 <div class="form-check">
@@ -198,7 +634,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
     generaOrari();
+
 
 
     // =========================================================
@@ -211,8 +649,9 @@ document.addEventListener("DOMContentLoaded", function () {
         orariFilmCorrente = [];
         durataPerOrario = {};
 
-        document
-            .querySelectorAll("#programmazione input[name='orari']").forEach(cb => {
+        document.querySelectorAll( "#programmazione input[name='orari']")
+            .forEach(cb => {
+
                 cb.disabled = true;
                 cb.checked = false;
 
@@ -228,65 +667,65 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =========================================================
-    // CARICAMENTO FILM
-    // =========================================================
+    // CARICAMENTO FILM PER PROGRAMMAZIONE
 
-    fetch("/inSala/listaFilm")
-        .then(response => {
+    fetch("/inSala/listaFilm").then(response => {
+
             if (!response.ok) {
-                throw new Error(
-                    "Errore nel recupero dei film"
-                );
+                throw new Error("Errore nel recupero dei film");
             }
             return response.json();
         })
         .then(films => {
+
             filmSelect.innerHTML = `
                 <option value="" disabled selected>
                     Seleziona film
                 </option>
             `;
+
             films.forEach(film => {
+
                 filmSelect.innerHTML += `
                     <option value="${film.id}">
                         ${film.titolo}
                     </option>
                 `;
-                durataFilmMap[film.id] = film.durata;
+
+                durataFilmMap[film.id] =
+                    film.durata;
             });
         })
         .catch(error => {
-            console.error(
-                "Errore recupero film:",
-                error
-            );
+            console.error("Errore recupero film:", error);
         });
 
 
-    // =========================================================
+
     // CARICAMENTO SALE
-    // =========================================================
 
     fetch("/inSala/listaSale")
         .then(response => {
+
             if (!response.ok) {
-                throw new Error(
-                    "Errore nel recupero delle sale"
-                );
+                throw new Error("Errore nel recupero delle sale");
             }
             return response.json();
         })
-
         .then(sale => {
             saleContainer.innerHTML = "";
-            let col1 = `<div class="col-6">`;
-            let col2 = `<div class="col-6">`;
+
+            let col1 =
+                `<div class="col-6">`;
+
+            let col2 =
+                `<div class="col-6">`;
+
 
             Object.entries(sale).forEach(
                 ([idSala, nomeSala], index) => {
 
-                    let radio = `
+                    const radio = `
                         <div class="form-check">
 
                             <input
@@ -305,6 +744,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         </div>
                     `;
+
+
                     if (index % 2 === 0) {
                         col1 += radio;
                     } else {
@@ -313,59 +754,60 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             );
 
+
             col1 += `</div>`;
             col2 += `</div>`;
 
-            saleContainer.innerHTML = col1 + col2;
+            saleContainer.innerHTML =
+                col1 + col2;
 
+
+            // Listener sulle sale generate dinamicamente
             document.querySelectorAll("#programmazione input[name='sala']").forEach(radio => {
-                    radio.addEventListener("change", aggiornaOrariBackend);
+                    radio.addEventListener("change", aggiornaOrariBackend );
                 });
         })
+
         .catch(error => {
-            console.error( "Errore recupero sale:", error);
+            console.error("Errore recupero sale:", error);
         });
 
 
-    // =========================================================
+
     // EVENTI FILM / DATA
-    // =========================================================
 
-    filmSelect.addEventListener( "change", aggiornaOrariBackend);
-    dataInput.addEventListener("change", aggiornaOrariBackend);
+    filmSelect.addEventListener( "change",aggiornaOrariBackend);
+    dataInput.addEventListener("change",aggiornaOrariBackend);
 
-    // =========================================================
-    // AGGIORNA ORARI DAL BACKEND
-    // =========================================================
+    // RECUPERA ORARI DAL BACKEND
 
     async function aggiornaOrariBackend() {
-        let data = dataInput.value;
-        let sala =document.querySelector("#programmazione input[name='sala']:checked") ?.value;
 
+        let data = dataInput.value;
+        let sala = document.querySelector( "#programmazione input[name='sala']:checked")?.value;
+
+
+        // Se mancano dati sufficienti, resettiamo gli orari
         if (!data || !sala) {
             resetOrari();
             return;
         }
+
+        // Evita richieste contemporanee
         if (richiestaOrariInCorso) {
             return;
         }
-
         richiestaOrariInCorso = true;
         resetOrari();
 
         try {
 
-            // =====================================================
             // FETCH 1
             // ORARI OCCUPATI NELLA SALA
-            // =====================================================
 
-            const responseSala = await fetch(`/gestioneProgrammazione/getOrariPerSala/${sala}/${data}`);
-
+            const responseSala = await fetch( `/gestioneProgrammazione/getOrariPerSala/${sala}/${data}`);
             if (!responseSala.ok) {
-                throw new Error(
-                    "Errore nel recupero degli orari della sala"
-                );
+                throw new Error("Errore nel recupero degli orari della sala" );
             }
 
             const orariSala = await responseSala.json();
@@ -373,46 +815,54 @@ document.addEventListener("DOMContentLoaded", function () {
             orariAltriFilm = [];
             durataPerOrario = {};
 
+
             Object.entries(orariSala).forEach(
                 ([orario, durata]) => {
+
                     orariAltriFilm.push(orario);
+
                     durataPerOrario[orario] =
                         Number(durata) || 0;
                 }
             );
 
 
-            // =====================================================
             // FETCH 2
             // ORARI DEL FILM CORRENTE
-            // SOLO IN MODIFICA
-            // =====================================================
 
             if (modalitaModifica) {
 
-                let film = filmSelect.value;
+                const film =filmSelect.value;
 
                 if (!film) {
-                    throw new Error("Film non selezionato durante la modifica" );
+                    throw new Error("Film non selezionato durante la modifica");
                 }
 
-                const responseFilm =await fetch(`/gestioneProgrammazione/getOrari/${film}/${sala}/${data}`);
+
+                const responseFilm = await fetch(`/gestioneProgrammazione/getOrari/${film}/${sala}/${data}`);
 
                 if (!responseFilm.ok) {
                     throw new Error("Errore nel recupero degli orari del film");
                 }
 
-                const orariFilm =await responseFilm.json();
+                const orariFilm = await responseFilm.json();
                 orariFilmCorrente =Object.keys(orariFilm);
 
+                // ---------------------------------------------
+                // Rimuove gli orari del film corrente dagli
+                // orari occupati dagli altri film
+                // ---------------------------------------------
 
-                // Rimuove gli orari del film corrente
-                // dalla lista degli orari occupati
+                orariAltriFilm =
+                    orariAltriFilm.filter(
+                        orario =>
+                            !orariFilmCorrente.includes(orario)
+                    );
 
-                orariAltriFilm = orariAltriFilm.filter(orario =>!orariFilmCorrente.includes(orario));
 
-
+                // ---------------------------------------------
                 // Salva le durate degli orari correnti
+                // ---------------------------------------------
 
                 Object.entries(orariFilm).forEach(
                     ([orario, durata]) => {
@@ -423,10 +873,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
             }
 
+
+            // Prepara gli orari visualizzati
             preparaOrariDisponibili();
 
         } catch (error) {
-            console.error("Errore backend orari:",error);
+            console.error("Errore backend orari:", error);
             resetOrari();
         } finally {
             richiestaOrariInCorso = false;
@@ -434,26 +886,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =========================================================
-    // PREPARAZIONE ORARI DISPONIBILI
-    // =========================================================
+    // PREPARA ORARI DISPONIBILI
 
     function preparaOrariDisponibili() {
-        let checkboxes = document.querySelectorAll( "#programmazione input[name='orari']" );
+
+        let checkboxes = document.querySelectorAll("#programmazione input[name='orari']" );
 
 
-        // =====================================================
-        // RESET
-        // =====================================================
+        // RESET GRAFICO
 
         checkboxes.forEach(cb => {
 
             cb.checked = false;
             cb.disabled = false;
 
-            let label = cb.nextElementSibling;
+            const label =
+                cb.nextElementSibling;
 
             if (label) {
+
                 label.style.color = "";
                 label.style.textDecoration = "";
                 label.style.opacity = "";
@@ -462,13 +913,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        // =====================================================
         // BLOCCA ORARI OCCUPATI DA ALTRI FILM
-        // =====================================================
 
         orariAltriFilm.forEach(orario => {
 
-            let checkbox =
+            const checkbox =
                 [...checkboxes].find(
                     cb => cb.value === orario
                 );
@@ -477,27 +926,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+
             checkbox.disabled = true;
 
-            let label = checkbox.nextElementSibling;
+            const label =
+                checkbox.nextElementSibling;
 
             if (label) {
 
                 label.style.color = "#999";
-                label.style.textDecoration = "line-through";
+                label.style.textDecoration =
+                    "line-through";
                 label.style.opacity = "0.6";
                 label.title =
                     "Orario occupato da un altro film";
             }
 
-            bloccaIntervallo( orario, checkbox );
+
+            bloccaIntervallo(
+                orario,
+                checkbox
+            );
         });
 
 
-        // =====================================================
-        // IN MODIFICA:
+        // MODIFICA:
         // RIATTIVA GLI ORARI DEL FILM CORRENTE
-        // =====================================================
 
         if (modalitaModifica) {
             orariFilmCorrente.forEach(orario => {
@@ -514,7 +968,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 checkbox.disabled = false;
                 checkbox.checked = true;
 
-                const label = checkbox.nextElementSibling;
+                let label = checkbox.nextElementSibling;
 
                 if (label) {
 
@@ -528,9 +982,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // =====================================================
-        // EVENTI CHECKBOX
-        // =====================================================
+        // EVENTI CHECKBOX ORARI
 
         checkboxes.forEach(cb => {
             cb.onchange = () => {
@@ -542,20 +994,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =========================================================
     // CONTROLLO DURATA FILM
-    // =========================================================
 
     function aggiornaBlocchiDurata() {
 
-        let checkboxes = document.querySelectorAll("#programmazione input[name='orari']");
-        let filmSelezionato = filmSelect.value;
+        let checkboxes = document.querySelectorAll("#programmazione input[name='orari']" );
+        let filmSelezionato =filmSelect.value;
         let durataFilmSelezionato = Number(durataFilmMap[filmSelezionato]) || 0;
 
-
-        // =====================================================
         // RESET DISPONIBILITÀ
-        // =====================================================
 
         checkboxes.forEach(cb => {
             if (orariAltriFilm.includes(cb.value)) {
@@ -566,18 +1013,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        // =====================================================
         // BLOCCA DURATA DEGLI ALTRI FILM
-        // =====================================================
 
         orariAltriFilm.forEach(orario => {
-            let checkbox =
+            const checkbox =
                 [...checkboxes].find(
                     cb => cb.value === orario
                 );
-
             if (checkbox) {
-
                 bloccaIntervallo(
                     orario,
                     checkbox
@@ -586,76 +1029,50 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        // =====================================================
         // BLOCCA DURATA DEGLI ORARI SELEZIONATI
-        // =====================================================
 
-        let selezionati =
-            [...checkboxes].filter(
-                cb => cb.checked
-            );
+        let selezionati = [...checkboxes].filter( cb => cb.checked );
 
         selezionati.forEach(cb => {
             durataPerOrario[cb.value] = durataFilmSelezionato;
-            bloccaIntervallo( cb.value,  cb );
+            bloccaIntervallo(cb.value,cb);
         });
     }
 
 
-    // =========================================================
-    // BLOCCA INTERVALLO DEL FILM
-    // =========================================================
 
-    function bloccaIntervallo( orarioSelezionato, checkboxSelezionato) {
+    // BLOCCA INTERVALLO DURATA FILM
 
-        let durata = Number(durataPerOrario[orarioSelezionato]) || 0;
+    function bloccaIntervallo( orarioSelezionato,checkboxSelezionato) {
+        let durata = Number( durataPerOrario[orarioSelezionato]) || 0;
 
         if (durata <= 0) {
             return;
         }
 
-        let startMin = convertiOraInMinuti(orarioSelezionato);
+        let startMin = convertiOraInMinuti( orarioSelezionato );
         let endMin = startMin + durata;
-        let checkboxes = document.querySelectorAll("#programmazione input[name='orari']" );
+        let checkboxes =document.querySelectorAll("#programmazione input[name='orari']");
 
         checkboxes.forEach(cb => {
-
             if (cb === checkboxSelezionato) {
                 return;
             }
 
-
-            // =================================================
-            // NON BLOCCARE GLI ORARI DEL FILM CORRENTE
-            // DURANTE LA MODIFICA
-            // =================================================
-
-            if (
-                modalitaModifica &&
-                orariFilmCorrente.includes(cb.value)
-            ) {
+            // Durante la modifica non bloccare gli orari
+            // appartenenti al film corrente
+            if ( modalitaModifica && orariFilmCorrente.includes(cb.value)) {
                 return;
             }
 
-
             let currentMin = convertiOraInMinuti(cb.value);
 
-
-            // =================================================
-            // ORARIO INTERNO ALLA DURATA
-            // =================================================
-
-            if (
-                currentMin > startMin &&
-                currentMin < endMin
-            ) {
-
+            if (  currentMin > startMin && currentMin < endMin ) {
                 cb.disabled = true;
 
-                let label =  cb.nextElementSibling;
+                let label = cb.nextElementSibling;
 
                 if (label) {
-
                     label.style.color = "#999";
                     label.style.opacity = "0.6";
                     label.title =
@@ -666,39 +1083,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =========================================================
-    // CLICK MODIFICA / ELIMINA
-    // =========================================================
-
-    document.addEventListener("click", function (e) {
-
-        let editBtn = e.target.closest( ".btn-edit-programmazione" );
-
-        if (editBtn) {
-
-            modificaProgrammazione(
-                editBtn.dataset.film,
-                editBtn.dataset.sala,
-                editBtn.dataset.data
-            );
-            return;
-        }
-
-        let deleteBtn = e.target.closest(".btn-delete-programmazione");
-
-        if (deleteBtn) {
-            eliminaProgrammazione(
-                deleteBtn.dataset.film,
-                deleteBtn.dataset.sala,
-                deleteBtn.dataset.data
-            );
-        }
-    });
-
-
-    // =========================================================
-    // CONVERSIONE HH:MM -> MINUTI
-    // =========================================================
+    // CONVERSIONE ORARIO -> MINUTI
 
     function convertiOraInMinuti(ora) {
 
@@ -712,160 +1097,118 @@ document.addEventListener("DOMContentLoaded", function () {
         if (ore < 11) {
             ore += 24;
         }
-
         return ore * 60 + minuti;
     }
 
 
-    // =========================================================
-    // RESET COMPLETO FORM
-    // =========================================================
+    // RESET COMPLETO PROGRAMMAZIONE
 
     function resetFormProgrammazione() {
-
         filmSelect.selectedIndex = 0;
         dataInput.value = "";
 
-        document .querySelectorAll( "#programmazione input[name='sala']" ).forEach(radio => {
+        document.querySelectorAll("#programmazione input[name='sala']")
+            .forEach(radio => {
                 radio.checked = false;
             });
         resetOrari();
     }
 
-
-    // =========================================================
     // MODIFICA PROGRAMMAZIONE
-    // =========================================================
 
-    async function modificaProgrammazione( film,sala, data ) {
-
+    async function modificaProgrammazione(film,sala,data) {
         try {
-
-            // =====================================================
-            // ATTIVA MODALITÀ MODIFICA
-            // =====================================================
-
+            // Attiva modalità modifica
             modalitaModifica = true;
 
-
-            // =====================================================
             // FILM
-            // =====================================================
-
             filmSelect.value = film;
 
 
-            // =====================================================
             // DATA
-            // =====================================================
 
             dataInput.value = data;
 
 
-            // =====================================================
+            // -----------------------------------------------------
             // SALA
-            // =====================================================
+            // -----------------------------------------------------
 
-            let radioSala = document.querySelector(`#programmazione input[name='sala'][value="${sala}"]`);
+            let radioSala = document.querySelector( `#programmazione input[name='sala'][value="${sala}"]`);
 
             if (!radioSala) {
-                throw new Error( "Sala della programmazione non trovata");
+                throw new Error("Sala della programmazione non trovata");
             }
 
             radioSala.checked = true;
 
-
-            // =====================================================
-            // CARICA ORARI
-            // =====================================================
-
+            // CARICA ORARI DAL BACKEND
             await aggiornaOrariBackend();
 
 
-            // =====================================================
-            // SELEZIONA GLI ORARI ATTUALI
-            // =====================================================
+            // SELEZIONA ORARI ATTUALI
 
-            document.querySelectorAll( "#programmazione input[name='orari']" ).forEach(cb => {
-                    cb.checked =orariFilmCorrente.includes(cb.value);
+            document.querySelectorAll("#programmazione input[name='orari']" ).forEach(cb => {
+                    cb.checked = orariFilmCorrente.includes(cb.value);
                 });
-
 
             aggiornaBlocchiDurata();
 
 
-            // =====================================================
             // PORTA L'UTENTE AL FORM
-            // =====================================================
 
-            document.getElementById("programmazione")?.scrollIntoView({
-                    behavior: "smooth"
-                });
-
+            document.getElementById("programmazione") ?.scrollIntoView({behavior: "smooth"});
         } catch (error) {
-            console.error("Errore modifica programmazione:", error);
-            alert( "Impossibile caricare la programmazione.");
+            console.error("Errore modifica programmazione:",error);
+            alert("Impossibile caricare la programmazione.");
         }
     }
 
 
-    // =========================================================
     // ELIMINA PROGRAMMAZIONE
-    // =========================================================
 
-    async function eliminaProgrammazione(film,sala, data ) {
+    async function eliminaProgrammazione(film,sala,data) {
 
-        let conferma = confirm("Sei sicuro di voler eliminare questa programmazione?");
+        let conferma = confirm( "Sei sicuro di voler eliminare questa programmazione?");
 
         if (!conferma) {
             return;
         }
 
         try {
-
-            const response = await fetch(`/gestioneProgrammazione/cancellaProgrammazione/${film}/${sala}/${data}`,
+            const response =await fetch(`/gestioneProgrammazione/cancellaProgrammazione/${film}/${sala}/${data}`,
                     {
                         method: "POST"
                     }
                 );
 
+
             if (!response.ok) {
-
-                throw new Error( "Errore durante la cancellazione della programmazione");
+                throw new Error("Errore durante la cancellazione della programmazione");
             }
-            alert( "Programmazione eliminata correttamente." );
 
+            alert("Programmazione eliminata correttamente.");
             caricaTabellaProgrammazioni();
 
         } catch (error) {
-
-            console.error("Errore eliminazione programmazione:", error );
-            alert( "Si è verificato un errore durante l'eliminazione.");
+            console.error("Errore eliminazione programmazione:",error);
+            alert("Si è verificato un errore durante l'eliminazione.");
         }
     }
 
 
-    // =========================================================
-    // CARICA TABELLA PROGRAMMAZIONI
-    // =========================================================
 
+    // CARICAMENTO TABELLA PROGRAMMAZIONI
     caricaTabellaProgrammazioni();
 
 
-    // =========================================================
-    // SALVA PROGRAMMAZIONE
-    // =========================================================
-
-    btnConferma.addEventListener(
-        "click",
-        async function (e) {
-
+    // SALVATAGGIO PROGRAMMAZIONE
+    btnConferma.addEventListener("click",async function (e) {
             e.preventDefault();
 
-            let film = filmSelect.value;
-            let data =  dataInput.value;
-            let sala =  document.querySelector("#programmazione input[name='sala']:checked")?.value;
-
+            let film =filmSelect.value;
+            let data = dataInput.value;
+            let sala = document.querySelector("#programmazione input[name='sala']:checked")?.value;
             let orariSelezionati =
                 [
                     ...document.querySelectorAll(
@@ -874,9 +1217,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ].map(cb => cb.value);
 
 
-            // =====================================================
             // VALIDAZIONE
-            // =====================================================
 
             if (!film || !data || !sala) {
                 alert("Seleziona film, data e sala.");
@@ -888,46 +1229,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-
             try {
-
-                // =================================================
-                // MODIFICA
-                // =================================================
+                // MODIFICA PROGRAMMAZIONE
 
                 if (modalitaModifica) {
 
-                    // =============================================
                     // 1. CANCELLA PROGRAMMAZIONE ESISTENTE
-                    // =============================================
 
-                    const responseDelete = await fetch(`/gestioneProgrammazione/cancellaProgrammazione/${film}/${sala}/${data}`,
+                    const responseDelete =
+                        await fetch(`/gestioneProgrammazione/cancellaProgrammazione/${film}/${sala}/${data}`,
                             {
                                 method: "POST"
                             }
                         );
 
-                    if (!responseDelete.ok) {
 
-                        throw new Error("Errore durante la cancellazione delle programmazioni" );
+                    if (!responseDelete.ok) {
+                        throw new Error("Errore durante la cancellazione delle programmazioni");
                     }
 
-
-                    // =============================================
                     // 2. RICREA LE PROGRAMMAZIONI
-                    // =============================================
 
-                    await Promise.all( orariSelezionati.map(async orario => {
-
-                                let response = await fetch("/gestioneProgrammazione/salvaProgrammazione",
+                    await Promise.all(
+                        orariSelezionati.map(
+                            async orario => {
+                                const response =
+                                    await fetch(
+                                        "/gestioneProgrammazione/salvaProgrammazione",
                                         {
                                             method: "POST",
-
                                             headers: {
                                                 "Content-Type":
                                                     "application/json"
                                             },
-
                                             body:
                                                 JSON.stringify({
                                                     idFilm: film,
@@ -937,34 +1271,30 @@ document.addEventListener("DOMContentLoaded", function () {
                                                 })
                                         }
                                     );
-
                                 if (!response.ok) {
-
                                     throw new Error("Errore durante il salvataggio della programmazione");
                                 }
                                 return response.json();
                             }
                         )
                     );
-
                     alert("Programmazione modificata correttamente.");
+
+
+                    // NUOVA PROGRAMMAZIONE
                 } else {
-
-                    // =================================================
-                    // CREAZIONE NUOVA PROGRAMMAZIONE
-                    // =================================================
-
-                    await Promise.all(orariSelezionati.map(async orario => {
-
-                                const response = await fetch("/gestioneProgrammazione/salvaProgrammazione",
+                    await Promise.all(
+                        orariSelezionati.map(
+                            async orario => {
+                                const response =
+                                    await fetch(
+                                        "/gestioneProgrammazione/salvaProgrammazione",
                                         {
                                             method: "POST",
-
                                             headers: {
                                                 "Content-Type":
                                                     "application/json"
                                             },
-
                                             body:
                                                 JSON.stringify({
                                                     idFilm: film,
@@ -976,7 +1306,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     );
 
                                 if (!response.ok) {
-                                    throw new Error("Errore durante il salvataggio");
+                                    throw new Error("Errore durante il salvataggio" );
                                 }
                                 return response.json();
                             }
@@ -986,38 +1316,143 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert("Programmazione salvata correttamente.");
                 }
 
-
-                // =================================================
                 // RESET
-                // =================================================
 
                 resetFormProgrammazione();
                 modalitaModifica = false;
 
-                // =================================================
                 // AGGIORNA TABELLA
-                // =================================================
 
                 caricaTabellaProgrammazioni();
-
             } catch (error) {
-
-                console.error("Errore programmazione:",error);
-
-                alert("Si è verificato un errore." );
+                console.error("Errore programmazione:", error);
+                alert("Si è verificato un errore.");
             }
         }
     );
 
 
-    // =========================================================
-    // ANNULLA MODIFICA / RESET
-    // =========================================================
+    // ANNULLA MODIFICA PROGRAMMAZIONE
 
     btnAnnulla.addEventListener("click",function () {
-
             modalitaModifica = false;
             resetFormProgrammazione();
+        }
+    );
+}
+
+    // =========================================================
+    // |                                                       |
+    // |      LISTENER UNICO BOTTONI DELLE TABELLE             |
+    // |                                                       |
+    // =========================================================
+
+
+    document.addEventListener( "click",async function (e) {
+
+            // FILM - MODIFICA
+
+            let editFilmBtn =e.target.closest(".btn-edit-film");
+
+            if (editFilmBtn) { await modificaFilm(editFilmBtn.dataset.id);
+                return;
+            }
+
+
+            // FILM - ARCHIVIA / CAMBIA STATO
+
+            let archiveFilmBtn =e.target.closest(".btn-archive-film");
+
+            if (archiveFilmBtn) {
+                let id = archiveFilmBtn.dataset.id;
+                let conferma = confirm("Vuoi modificare lo stato del film?");
+
+
+                if (!conferma) {
+                    return;
+                }
+
+                try {
+
+                    const response = await fetch(`/admin/gestioneFilm/archivia/${id}`,{
+                                method: "POST"
+                            }
+                        );
+
+                    if (!response.ok) {
+                        throw new Error();
+                    }
+
+                    ricaricaTabelleFilm();
+                } catch (error) {
+                    console.error("Errore archiviazione film:",error);
+                    alert("Impossibile modificare lo stato del film.");
+                }
+                return;
+            }
+
+            // FILM - ELIMINA
+
+            let deleteFilmBtn = e.target.closest(".btn-delete-film");
+
+            if (deleteFilmBtn) {
+                let id =deleteFilmBtn.dataset.id;
+                let conferma = confirm("Sei sicuro di voler eliminare questo film?");
+
+
+                if (!conferma) {
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/admin/gestioneFilm/cancellaFilm/${id}`, {
+                                method: "POST"
+                            }
+                        );
+
+                    if (!response.ok) {
+                        throw new Error();
+                    }
+
+                    ricaricaTabelleFilm();
+                } catch (error) {
+                    console.error("Errore eliminazione film:",error);
+                    alert("Impossibile eliminare il film." );
+                }
+                return;
+            }
+
+
+            // PROGRAMMAZIONE - MODIFICA
+
+            let editProgrammazioneBtn =e.target.closest( ".btn-edit-programmazione");
+
+
+            if (editProgrammazioneBtn) {
+                await modificaProgrammazione(
+                    editProgrammazioneBtn.dataset.film,
+                    editProgrammazioneBtn.dataset.sala,
+                    editProgrammazioneBtn.dataset.data
+                );
+                return;
+            }
+
+
+
+            // PROGRAMMAZIONE - ELIMINA
+
+            let deleteProgrammazioneBtn =e.target.closest(".btn-delete-programmazione");
+
+
+            if (deleteProgrammazioneBtn) {
+                await eliminaProgrammazione(
+                    deleteProgrammazioneBtn.dataset.film,
+                    deleteProgrammazioneBtn.dataset.sala,
+                    deleteProgrammazioneBtn.dataset.data
+                );
+                return;
+            }
+
         }
     );
 

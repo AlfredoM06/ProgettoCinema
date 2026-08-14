@@ -248,6 +248,11 @@ option:hover {
     font-weight: bold;
 }
 
+#tabsFilm .dataTables_wrapper,
+#tabsFilm table.dataTable {
+    width: 100% !important;
+}
+
 /* =========================================================
    DATATABLES - FRECCE VICINO AL TESTO
 ========================================================= */

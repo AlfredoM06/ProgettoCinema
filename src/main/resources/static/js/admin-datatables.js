@@ -1,28 +1,29 @@
-// =========================================================
-// DATATABLES - CONFIGURAZIONE GENERALE
-// =========================================================
+    // =========================================================
+    // |                                                       |
+    // |        DATATABLES - CONFIGURAZIONE GENERALE           |
+    // |                                                       |
+    // =========================================================
 
-let dataTableDefaults = {
-
+const dataTableDefaults = {
+    autoWidth: false,
     dom:
         "<'row mb-3'<'col-md-6'f><'col-md-6 text-end'l>>" +
         "<'row'<'col-12'tr>>" +
         "<'row mt-3'<'col-md-5'i><'col-md-7'p>>",
 
     language: {
-
-        emptyTable: "Nessun dato disponibile nella tabella",
-
-        info: "Visualizzazione da _START_ a _END_ di _TOTAL_ elementi",
-
-        infoEmpty: "Nessun elemento disponibile",
-
-        lengthMenu: "Mostra _MENU_ elementi",
-
-        search: "Cerca:",
-
-        zeroRecords: "Nessun risultato trovato",
-
+        emptyTable:
+            "Nessun dato disponibile nella tabella",
+        info:
+            "Visualizzazione da _START_ a _END_ di _TOTAL_ elementi",
+        infoEmpty:
+            "Nessun elemento disponibile",
+        lengthMenu:
+            "Mostra _MENU_ elementi",
+        search:
+            "Cerca:",
+        zeroRecords:
+            "Nessun risultato trovato",
         paginate: {
             first: "Prima",
             last: "Ultima",
@@ -38,19 +39,16 @@ let dataTableDefaults = {
 // =========================================================
 
 function formattaData(dataISO) {
-
     if (!dataISO) {
         return "";
     }
-
-    let [anno, mese, giorno] = dataISO.split("-");
-
+    let [anno, mese, giorno] =dataISO.split("-");
     return `${giorno}/${mese}/${anno}`;
 }
 
 
 // =========================================================
-// FUNZIONE GENERICA DATATABLE
+// INIZIALIZZAZIONE GENERICA DATATABLE
 // =========================================================
 
 function inizializzaDataTable(selector, options = {}) {
@@ -61,17 +59,168 @@ function inizializzaDataTable(selector, options = {}) {
         return null;
     }
 
+    /*
+     * Se la tabella è già stata inizializzata,
+     * viene distrutta prima di ricrearla.
+     */
     if ($.fn.DataTable.isDataTable(elemento)) {
         $(elemento).DataTable().destroy();
     }
 
     return $(elemento).DataTable({
-
         ...dataTableDefaults,
-
         ...options
     });
 }
+
+
+    // =========================================================
+    // |                                                       |
+    // |              TABELLE FILM                             |
+    // |                                                       |
+    // =========================================================
+
+function inizializzaTabellaFilm(selector) {
+
+    return inizializzaDataTable(
+        selector,
+        {
+            columnDefs: [
+
+                // Nasconde la colonna contenente l'ID
+                {
+                    targets: 0,
+                    visible: false
+                },
+                // La colonna delle azioni non viene ordinata
+                // e non viene considerata nella ricerca
+                {
+                    targets: -1,
+                    orderable: false,
+                    searchable: false
+                }
+            ]
+        }
+    );
+}
+
+// =========================================================
+// TABELLA FILM IN SALA
+// =========================================================
+function inizializzaTabellaFilmInSala() {
+    return inizializzaTabellaFilm("#tableFilmInSala");
+}
+
+
+// =========================================================
+// TABELLA FILM IN ARCHIVIO
+// =========================================================
+
+function inizializzaTabellaFilmArchivio() {
+    return inizializzaTabellaFilm("#tableFilmArchivio");
+}
+
+// =========================================================
+// CARICAMENTO TABELLA FILM
+// =========================================================
+async function caricaTabellaFilm( archiviato,inizializza) {
+
+    const table = inizializza();
+
+    if (!table) {
+        return;
+    }
+    try {
+        const response = await fetch(
+            `/admin/gestioneFilm/listaArchivio/${archiviato}`
+        );
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}` );
+        }
+        const films = await response.json();
+
+        table.clear();
+        films.forEach(film => {
+
+            // Bottoni delle azioni disponibili per il film
+            const azioni = `
+                <div
+                    class="btn-group d-flex justify-content-center"
+                    role="group"
+                >
+                    <!-- Modifica film -->
+                    <button
+                        type="button"
+                        class="btn btn-outline-success btn-edit-film"
+                        data-id="${film.id}"
+                        title="Modifica film"
+                    >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+
+                    <!-- Archivia / ripristina film -->
+                    <button
+                        type="button"
+                        class="btn btn-outline-warning btn-archive-film"
+                        data-id="${film.id}"
+                        title="${
+                            archiviato
+                                ? "Ripristina film"
+                                : "Archivia film"
+                        }"
+                    >
+                        <i class="fa-regular fa-folder-open"></i>
+                    </button>
+
+                    <!-- Elimina film -->
+                    <button
+                        type="button"
+                        class="btn btn-outline-danger btn-delete-film"
+                        data-id="${film.id}"
+                        title="Elimina film"
+                    >
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+
+                </div>
+            `;
+
+            table.row.add([
+                // ID nascosto
+                film.id,
+                // Dati visualizzati
+                film.titolo,
+                film.distribuzione,
+                film.dataUscita,
+                // Azioni
+                azioni
+            ]);
+        });
+
+        table.draw();
+        table.columns.adjust();
+    } catch (error) {
+        // Errore gestito senza interrompere
+        // il funzionamento della pagina.
+    }
+}
+
+
+// =========================================================
+// RICARICA TABELLE FILM
+// =========================================================
+
+function ricaricaTabelleFilm() {
+    // Ricarica la tabella dei film in sala
+        if (document.querySelector("#tableFilmInSala")) {
+            caricaTabellaFilm(false,inizializzaTabellaFilmInSala);
+        }
+
+        // Ricarica la tabella dei film archiviati
+        if (document.querySelector("#tableFilmArchivio")) {
+            caricaTabellaFilm(true,inizializzaTabellaFilmArchivio);
+        }
+    }
 
 
 // =========================================================
@@ -80,51 +229,52 @@ function inizializzaDataTable(selector, options = {}) {
 
 function inizializzaTabellaProgrammazioni() {
 
-    return inizializzaDataTable(
-        "#tableScheduling",
-        {
+    return inizializzaDataTable("#tableScheduling",{
+            // Ordina inizialmente per data
+            order: [
+                [2, "asc"]
+            ],
 
-            // ---------------------------------------------
-            // ORDINAMENTO INIZIALE
-            // Data crescente
-            // ---------------------------------------------
-
-            order: [[2, "asc"]],
-
-
-            // ---------------------------------------------
-            // COLONNE
-            // ---------------------------------------------
-
+            /*
+             * Definisce il comportamento delle quattro colonne:
+             *
+             * 0 = Film
+             * 1 = Sala
+             * 2 = Data
+             * 3 = Azioni
+             */
             columns: [
 
-                // 0 - TITOLO
+                // Film
                 {
                     orderable: true,
                     searchable: true
                 },
 
-
-                // 1 - SALA
+                // Sala
                 {
                     orderable: true,
                     searchable: true
                 },
 
-
-                // 2 - DATA
+                // Data
                 {
                     orderable: true,
                     searchable: true,
 
-                    render: function (data, type) {
+                    render: function (
+                        data,
+                        type
+                    ) {
 
                         if (!data) {
                             return "";
                         }
 
-                        // Per ordinamento DataTables utilizza
-                        // il formato ISO originale.
+                        /*
+                         * Per ordinamento e tipo interno
+                         * manteniamo la data originale ISO.
+                         */
                         if (
                             type === "sort" ||
                             type === "type"
@@ -132,8 +282,10 @@ function inizializzaTabellaProgrammazioni() {
                             return data;
                         }
 
-                        // Per la visualizzazione mostriamo
-                        // GG/MM/AAAA.
+                        /*
+                         * Per la visualizzazione all'utente
+                         * convertiamo YYYY-MM-DD in DD/MM/YYYY.
+                         */
                         if (type === "display") {
                             return formattaData(data);
                         }
@@ -142,8 +294,7 @@ function inizializzaTabellaProgrammazioni() {
                     }
                 },
 
-
-                // 3 - AZIONI
+                // Azioni
                 {
                     orderable: false,
                     searchable: false
@@ -155,7 +306,7 @@ function inizializzaTabellaProgrammazioni() {
 
 
 // =========================================================
-// CARICAMENTO PROGRAMMAZIONI
+// CARICAMENTO TABELLA PROGRAMMAZIONI
 // =========================================================
 
 async function caricaTabellaProgrammazioni() {
@@ -167,102 +318,69 @@ async function caricaTabellaProgrammazioni() {
     }
 
     try {
-
         const response = await fetch("/gestioneProgrammazione/listaProgrammazioni");
-
         if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
+            throw new Error(`HTTP ${response.status}` );
         }
 
         const listaProgrammazioni = await response.json();
 
-
-        // ---------------------------------------------
-        // SVUOTA TABELLA
-        // ---------------------------------------------
-
         table.clear();
 
+        listaProgrammazioni.forEach(
+            programmazione => {
 
-        // ---------------------------------------------
-        // INSERIMENTO RIGHE
-        // ---------------------------------------------
+                // Bottoni delle azioni
+                const azioni = `
+                    <div
+                        class="btn-group d-flex justify-content-center"
+                    >
 
-        listaProgrammazioni.forEach(programmazione => {
-
-            let azioni = `
-                <div class="btn-group d-flex justify-content-center">
-
-                    <button
-                        type="button"
-                        class="btn btn-outline-success btn-edit-programmazione"
-                        data-film="${programmazione.idFilm}"
-                        data-sala="${programmazione.idSala}"
-                        data-data="${programmazione.data}"
-                        title="Modifica programmazione">
-
-                        <i class="fa-solid fa-pen-to-square"></i>
-
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-outline-danger btn-delete-programmazione"
-                        data-film="${programmazione.idFilm}"
-                        data-sala="${programmazione.idSala}"
-                        data-data="${programmazione.data}"
-                        title="Elimina programmazione">
-
-                        <i class="fa-regular fa-trash-can"></i>
-
-                    </button>
-
-                </div>
-            `;
+                        <!-- Modifica programmazione -->
+                        <button
+                            type="button"
+                            class="btn btn-outline-success btn-edit-programmazione"
+                            data-film="${programmazione.idFilm}"
+                            data-sala="${programmazione.idSala}"
+                            data-data="${programmazione.data}"
+                            title="Modifica programmazione"
+                        >
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
 
 
-            table.row.add([
-                programmazione.titolo,
-                programmazione.nomeSala,
-                programmazione.data,
-                azioni
-            ]);
-        });
+                        <!-- Elimina programmazione -->
+                        <button
+                            type="button"
+                            class="btn btn-outline-danger btn-delete-programmazione"
+                            data-film="${programmazione.idFilm}"
+                            data-sala="${programmazione.idSala}"
+                            data-data="${programmazione.data}"
+                            title="Elimina programmazione"
+                        >
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
 
+                    </div>
+                `;
 
-        // ---------------------------------------------
-        // DISEGNA TABELLA
-        // ---------------------------------------------
+                table.row.add([
+                    programmazione.titolo,
+                    programmazione.nomeSala,
+                    programmazione.data,
+                    azioni
+
+                ]);
+            }
+        );
 
         table.draw();
+        table.columns.adjust();
 
     } catch (error) {
-
-        // Gestione silenziosa dell'errore.
-        // In futuro qui potrai eventualmente mostrare
-        // un messaggio all'utente.
+        // Errore gestito senza interrompere
+        // il funzionamento della pagina.
     }
-}
-
-
-// =========================================================
-// TABELLA FILM
-// =========================================================
-
-function inizializzaTabellaFilm() {
-
-    return inizializzaDataTable(
-        "#tableFilm",
-        {
-            columnDefs: [
-                {
-                    targets: -1,
-                    orderable: false,
-                    searchable: false
-                }
-            ]
-        }
-    );
 }
 
 
@@ -270,95 +388,79 @@ function inizializzaTabellaFilm() {
 // TABELLA SALE
 // =========================================================
 
-function inizializzaTabellaSale() {
-
-    return inizializzaDataTable(
-        "#tableSale",
-        {
-            columnDefs: [
-                {
-                    targets: -1,
-                    orderable: false,
-                    searchable: false
-                }
-            ]
-        }
-    );
-}
+// La configurazione verrà aggiunta quando
+// verrà implementata la gestione delle sale.
 
 
 // =========================================================
 // TABELLA UTENTI
 // =========================================================
 
-function inizializzaTabellaUtenti() {
-
-    return inizializzaDataTable(
-        "#tableUtenti",
-        {
-            columnDefs: [
-                {
-                    targets: -1,
-                    orderable: false,
-                    searchable: false
-                }
-            ]
-        }
-    );
-}
+// La configurazione verrà aggiunta quando
+// verrà implementata la gestione degli utenti.
 
 
 // =========================================================
 // TABELLA PRENOTAZIONI
 // =========================================================
 
-function inizializzaTabellaPrenotazioni() {
+// La configurazione verrà aggiunta quando
+// verrà implementata la gestione delle prenotazioni.
 
-    return inizializzaDataTable(
-        "#tablePrenotazioni",
-        {
-            columnDefs: [
-                {
-                    targets: -1,
-                    orderable: false,
-                    searchable: false
+
+    // =========================================================
+    // |                                                       |
+    // |                    DOM READY                          |
+    // |                                                       |
+    // =========================================================
+
+document.addEventListener("DOMContentLoaded",function () {
+
+        // =========================================================
+        // RICALCOLA LARGHEZZE DATATABLE AL CAMBIO TAB
+        // =========================================================
+
+        document.querySelectorAll('#filmTab button[data-bs-toggle="tab"]').forEach(tabBtn => {
+            tabBtn.addEventListener('shown.bs.tab', function (e) {
+                const targetPane = document.querySelector(e.target.dataset.bsTarget);
+                const table = targetPane?.querySelector('table.dataTable-init');
+
+                if (table && $.fn.DataTable.isDataTable(table)) {
+                    $(table).DataTable().columns.adjust().draw(false);
                 }
-            ]
+            });
+        });
+        // TABELLA FILM IN SALA
+
+        if (document.querySelector("#tableFilmInSala")) {
+            caricaTabellaFilm(
+                false,
+                inizializzaTabellaFilmInSala
+            );
         }
-    );
-}
+        // TABELLA FILM IN ARCHIVIO
+        if (document.querySelector("#tableFilmArchivio")) {
+            caricaTabellaFilm(
+                true,
+                inizializzaTabellaFilmArchivio
+            );
+        }
 
 
-// =========================================================
-// DOM READY
-// =========================================================
+        // TABELLA PROGRAMMAZIONE
+        if ( document.querySelector("#tableScheduling")) {
+            caricaTabellaProgrammazioni();
+        }
 
-document.addEventListener("DOMContentLoaded", function () {
+        // TABELLA SALE
+//        if (document.querySelector("#tableSale")) {
+//            inizializzaTabellaSale();
+//        }
 
-    // Programmazioni
-    if (document.querySelector("#tableScheduling")) {
-        caricaTabellaProgrammazioni();
+        // TABELLA UTENTI
+//        if ( document.querySelector("#tableUtenti")) {
+//            inizializzaTabellaUtenti();
+//        }
+
     }
-
-    // Film
-    if (document.querySelector("#tableFilm")) {
-        inizializzaTabellaFilm();
-    }
-
-    // Sale
-    if (document.querySelector("#tableSale")) {
-        inizializzaTabellaSale();
-    }
-
-
-    // Utenti
-    if (document.querySelector("#tableUtenti")) {
-        inizializzaTabellaUtenti();
-    }
-
-    // Prenotazioni
-    if (document.querySelector("#tablePrenotazioni")) {
-        inizializzaTabellaPrenotazioni();
-    }
-
-});
+);

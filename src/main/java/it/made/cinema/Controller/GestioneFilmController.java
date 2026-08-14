@@ -171,9 +171,9 @@ public class GestioneFilmController {
         List<Integer> italiano = new ArrayList<Integer>();
         List<Integer> inglese = new ArrayList<Integer>();
         for (CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()) {
-            if (c.getLingua().getNome().equals("italiano")) {
+            if (c.getLingua().getNome().equals("ITA")) {
                 italiano.add(c.getFormato().getId());
-            } else if (c.getLingua().getNome().equals("inglese")) {
+            } else if (c.getLingua().getNome().equals("ENG")) {
                 inglese.add(c.getFormato().getId());
             }
         }

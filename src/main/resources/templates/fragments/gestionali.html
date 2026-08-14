@@ -164,239 +164,128 @@
      ============================================================ -->
 <section class="page-main" th:fragment="formFilm">
     <div class="container formFilm">
-        <div class="row g-4">
+        <div id="film">
+            <div class="row g-4">
 
-            <!-- COLONNA SINISTRA -->
-            <div class="col-md-6 form-section">
-                <div class="form-group">
-                    <label class="form-label">Titolo Film</label>
-                    <input type="text" class="form-control" id="titoloFilm">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Distribuzione</label>
-                    <input type="text" class="form-control" id="distribuzione">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Genere</label>
-                    <select class="form-select" id="genereFilm">
-                        <option value="" disabled selected>Seleziona genere...</option>
-                        <option value="azione">Azione</option>
-                        <option value="commedia">Commedia</option>
-                        <option value="dramma">Dramma</option>
-                        <option value="horror">Horror</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="fantascienza">Fantascienza</option>
-                        <option value="animazione">Animazione</option>
-                        <option value="documentario">Documentario</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- COLONNA DESTRA -->
-            <div class="col-md-6 form-section">
-                <div class="form-group">
-                    <label class="form-label">Sinossi</label>
-                    <textarea class="form-control" id="sinossi"></textarea>
-                </div>
-            </div>
-
-            <!-- DATE + DURATA -->
-            <div class="col-md-4 form-group">
-                <label class="form-label">Data Uscita</label>
-                <input type="date" class="form-control" id="dataUscita">
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="form-label">Data Fine Programmazione</label>
-                <input type="date" class="form-control" id="dataFine">
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="form-label">Durata (minuti)</label>
-                <input type="number" class="form-control" id="durata">
-            </div>
-
-            <!-- LINGUE + PREZZO + FORMATO -->
-
-            <div class="col-md-4 form-group" id="ita0">
-                <label class="form-label d-block">Italiano</label>
-
-                <div class="row">
-
-                    <!-- colonna sinistra -->
-                    <div class="col-5">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato2D"
-                                   value="2D">
-
-                            <label class="form-check-label" for="formato2D">
-                                2D
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato3D"
-                                   value="3D">
-
-                            <label class="form-check-label" for="formato3D">
-                                3D
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato3D"
-                                   value="3D">
-
-                            <label class="form-check-label" for="formato3D">
-                                No
-                            </label>
-                        </div>
-
+                <!-- COLONNA SINISTRA -->
+                <div class="col-md-6 form-section">
+                    <div class="form-group">
+                        <label class="form-label">Titolo Film</label>
+                        <input type="text" class="form-control" id="titoloFilm">
                     </div>
-
-
-                    <!-- colonna destra -->
-                    <div class="col-5">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato4K"
-                                   value="4K">
-
-                            <label class="form-check-label" for="formato4K">
-                                4K
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formatoIMAX"
-                                   value="IMAX">
-                            <label class="form-check-label" for="formatoIMAX">
-                                IMAX
-                            </label>
+                    <div class="form-group">
+                        <label class="form-label">Distribuzione</label>
+                        <input type="text" class="form-control" id="distribuzione">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label d-block">Genere</label>
+                        <div class="row" id="genereContainer">
+                            <!-- generato dinamicamente da JS -->
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4 form-group">
-                <label class="form-label d-block" id="eng">Inglese</label>
-
-                <div class="row">
-
-                    <!-- colonna sinistra -->
-                    <div class="col-5">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato2D"
-                                   value="2D">
-
-                            <label class="form-check-label" for="formato2D">
-                                2D
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato3D"
-                                   value="3D">
-
-                            <label class="form-check-label" for="formato3D">
-                                3D
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato3D"
-                                   value="3D">
-                            <label class="form-check-label" for="formato3D">
-                                No
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- colonna destra -->
-                    <div class="col-5">
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formato4K"
-                                   value="4K">
-                            <label class="form-check-label" for="formato4K">
-                                4K
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="formatoIMAX"
-                                   value="IMAX">
-                            <label class="form-check-label" for="formatoIMAX">
-                                IMAX
-                            </label>
-                        </div>
+                <!-- COLONNA DESTRA -->
+                <div class="col-md-6 form-section">
+                    <div class="form-group">
+                        <label class="form-label">Sinossi</label>
+                        <textarea class="form-control" id="sinossi"></textarea>
                     </div>
                 </div>
-            </div>
 
-            <!-- PREZZO -->
-            <div class="col-md-4 form-group">
-                <label class="form-label">Prezzo</label>
-                <input type="number" class="form-control" id="durata">
-            </div>
-
-            <!-- IMMAGINI -->
-            <div class="col-md-4 form-group">
-                <label class="form-label">Immagine Copertina</label>
-                <input type="file" class="form-control" accept="image/*">
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="form-label">Immagine Locandina</label>
-                <input type="file" class="form-control" accept="image/*">
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="form-label">Immagine Logo</label>
-                <input type="file" class="form-control" accept="image/*">
-            </div>
-
-            <!-- PARTNERSHIP -->
-            <div class="col-md-4 form-group">
-                <label class="form-label">Immagine Partnership</label>
-                <input type="file" class="form-control" accept="image/*">
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="form-label">Titolo Partnership</label>
-                <input type="text" class="form-control" id="titoloFilm">
-            </div>
-
-            <div class="col-md-2 form-group">
-                <label class="form-label d-block">Partnership</label>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="partnership"
-                           value="si">
-                    <label class="form-check-label">Sì</label>
+                <!-- DATE + DURATA -->
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Data Uscita</label>
+                    <input type="date" class="form-control" id="dataUscita">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Data Fine Programmazione</label>
+                    <input type="date" class="form-control" id="dataFine">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Durata (minuti)</label>
+                    <input type="number" class="form-control" id="durataFilm">
                 </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="partnership"
-                           value="no">
-                    <label class="form-check-label">No</label>
+                <!-- LINGUE (ITA / ENG) -->
+                <div class="col-md-4 form-group">
+                    <label class="form-label d-block">Italiano</label>
+                    <div class="row" id="formatoItaContainer">
+                        <!-- generato dinamicamente da JS -->
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-2 form-group">
-                <label class="form-label d-block">Stato Film</label>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statoFilm"
-                           value="inSala">
-                    <label class="form-check-label">In Sala</label>
+                <div class="col-md-4 form-group">
+                    <label class="form-label d-block">Inglese</label>
+                    <div class="row" id="formatoEngContainer">
+                        <!-- generato dinamicamente da JS -->
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statoFilm"
-                           value="archiviato">
-                    <label class="form-check-label">Archiviato</label>
+
+                <!-- PREZZO -->
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Prezzo</label>
+                    <input type="number" class="form-control" id="prezzoFilm">
                 </div>
-            </div>
 
-            <!-- BOTTONI CONFERMA E ANNULLA-->
-            <div class="col-12 form-actions">
-                <button type="submit" class="btn btn-outline-warning">Conferma</button>
-                <button type="reset" class="btn btn-outline-danger">Annulla</button>
-            </div>
+                <!-- IMMAGINI (URL) -->
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Immagine Copertina (URL)</label>
+                    <input type="url" class="form-control" id="imgCopertina" placeholder="https://...">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Immagine Locandina (URL)</label>
+                    <input type="url" class="form-control" id="imgLocandina" placeholder="https://...">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Immagine Logo (URL)</label>
+                    <input type="url" class="form-control" id="imgLogo" placeholder="https://...">
+                </div>
 
+                <!-- PARTNERSHIP -->
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Immagine Partnership (URL)</label>
+                    <input type="url" class="form-control" id="imgPartnership" placeholder="https://...">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Titolo Partnership</label>
+                    <input type="text" class="form-control" id="titoloPartnership">
+                </div>
+
+                <div class="col-md-2 form-group">
+                    <label class="form-label d-block">Partnership</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="partnership" id="partnershipSi" value="si">
+                        <label class="form-check-label" for="partnershipSi">Sì</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="partnership" id="partnershipNo" value="no">
+                        <label class="form-check-label" for="partnershipNo">No</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2 form-group">
+                    <label class="form-label d-block">Stato Film</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="statoFilm" id="statoInSala" value="inSala">
+                        <label class="form-check-label" for="statoInSala">In Sala</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="statoFilm" id="statoArchiviato" value="archiviato">
+                        <label class="form-check-label" for="statoArchiviato">Archiviato</label>
+                    </div>
+                </div>
+
+                <!-- BOTTONI -->
+                <div class="col-12 form-actions">
+                    <button type="submit" class="btn btn-outline-warning">Conferma</button>
+                    <button type="reset" class="btn btn-outline-danger">Annulla</button>
+                </div>
+
+            </div>
         </div>
-
     </div>
 </section>
-
 
 <!-- ============================================================
      FRAGMENT: FORM UTENTI  ← placeholder, da personalizzare
@@ -636,31 +525,31 @@
 
         <h1 class="section-title h1">Database Film</h1>
 
-        <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+        <ul class="nav nav-tabs nav-fill" id="filmTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                        data-bs-target="#home-tab-pane" type="button" role="tab"
-                        aria-controls="home-tab-pane" aria-selected="true">
+                <button class="nav-link active" id="film-in-sala-tab" data-bs-toggle="tab"
+                        data-bs-target="#film-in-sala-pane" type="button" role="tab"
+                        aria-controls="film-in-sala-pane" aria-selected="true">
                     In Sala
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                        data-bs-target="#profile-tab-pane" type="button" role="tab"
-                        aria-controls="profile-tab-pane" aria-selected="false">
+                <button class="nav-link" id="film-archivio-tab" data-bs-toggle="tab"
+                        data-bs-target="#film-archivio-pane" type="button" role="tab"
+                        aria-controls="film-archivio-pane" aria-selected="false">
                     Archivio
                 </button>
             </li>
         </ul>
 
-        <div class="tab-content py-3 px-3 px-sm-0" id="myTabContent">
+        <div class="tab-content py-3 px-3 px-sm-0" id="filmTabContent">
 
             <!-- TAB: IN SALA -->
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
-                 aria-labelledby="home-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="film-in-sala-pane" role="tabpanel"
+                 aria-labelledby="film-in-sala-tab" tabindex="0">
                 <div class="row" id="tabInSala">
-                    <table id="tabellaFilmInSala"
-                           class="table table-striped dataTable-init">
+                    <div class="col-12">
+                    <table id="tableFilmInSala" class="table table-striped dataTable-init">
                         <thead>
                         <tr>
                             <th>Id</th>
@@ -671,293 +560,33 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Esempio statico: sostituire con th:each sui dati reali -->
-                        <tr>
-                            <td>1</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Titolo Film</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2025</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <!-- CONTENUTO DINAMICO -->
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
             <!-- TAB: ARCHIVIO -->
-            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel"
-                 aria-labelledby="profile-tab" tabindex="0">
+            <div class="tab-pane fade" id="film-archivio-pane" role="tabpanel"
+                 aria-labelledby="film-archivio-tab" tabindex="0">
                 <div class="row" id="Archivio">
-                    <table id="tabellaFilmArchivio"
-                           class="table table-striped dataTable-init">
+                    <div class="col-12">
+                    <table id="tableFilmArchivio" class="table table-striped dataTable-init">
                         <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nome Film</th>
+                            <th>Titolo Film</th>
                             <th>Distribuzione</th>
                             <th>Data Uscita</th>
                             <th>Azioni</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Esempio statico: sostituire con th:each sui dati reali -->
-                        <tr>
-                            <td>1</td>
-                            <td>Titolo Film Archiviato</td>
-                            <td>Distribuzione</td>
-                            <td>01/01/2024</td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center"
-                                     role="group">
-                                    <button type="button"
-                                            class="btn btn-outline-success">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-warning">
-                                        <i class="fa-regular fa-folder-open"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <!-- CONTENUTO DINAMICO -->
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome Film</th>
-                            <th>Distribuzione</th>
-                            <th>Data Uscita</th>
-                            <th>Azioni</th>
-                        </tr>
-                        </tfoot>
                     </table>
+                    </div>
                 </div>
             </div>
 
