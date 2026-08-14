@@ -1,5 +1,7 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.DTO.GestioneOfferteDTO;
+import it.made.cinema.Model.DTO.OfferteDTO;
 import it.made.cinema.Model.Offerta;
 import it.made.cinema.Repository.IRepoOfferte;
 import jakarta.validation.Valid;
@@ -9,60 +11,74 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/gestioneOfferte")
 public class GestioneOfferteController {
     @Autowired
     IRepoOfferte repoOfferte;
-    //Form aggiunta, modifica e elimina
 
-    @GetMapping
-    public String gestioneOfferte(Model model) {
-        List<Offerta> listaOfferte = repoOfferte.findAll();
-        model.addAttribute("lista", listaOfferte);
-        return "Admin";
-    }
-
-    //form per la crezione
-    @GetMapping("/formOfferta")
-    public String formOfferta(Model model) {
-        model.addAttribute("offerta", new Offerta());
-        return "Admin";
-    }
-
-    @PostMapping("/formOfferta")
-    public String salvaForm(@ModelAttribute("offerta") Offerta formOfferta, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin";
+    @GetMapping("/listaOfferte")
+    @ResponseBody
+    public List<Map<String, Object>> listaOfferte(){
+        List<Offerta> offerte = repoOfferte.findAll();
+        List<Map<String, Object>> listeOfferte = new ArrayList<>();
+        for (Offerta o : offerte){
+            Map<String, Object> mapOfferta = new HashMap<>();
+            mapOfferta.put("id", o.getId());
+            mapOfferta.put("nome", o.getNome());
+            mapOfferta.put("categoria", o.getGenere());
+            mapOfferta.put("dataInizio", o.getDataInizio());
+            mapOfferta.put("dataFine", o.getDataScadenza());
+            listeOfferte.add(mapOfferta);
         }
-        repoOfferte.save(formOfferta);
-        return "redirect:/Admin";
+        return listeOfferte;
     }
 
-    //modifica
-    @GetMapping("/modificaOfferta/{id}")
-    public String modifica(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("offerta", repoOfferte.findById(id).get());
-        return "Admin/modificaOfferta";
+    @PostMapping("/salvaOfferta")
+    @ResponseBody
+    public Boolean salvaOfferta(@RequestBody GestioneOfferteDTO offerteDTO){
+        Offerta offerta = new Offerta();
+        offerta.setId(offerteDTO.getId());
+        offerta.setNome(offerteDTO.getNome());
+        offerta.setGenere(offerteDTO.getGenere());
+        offerta.setDescrizione(offerteDTO.getDescrizione());
+        offerta.setPrezzo(offerteDTO.getPrezzo());
+        offerta.setDataInizio(offerteDTO.getDataInizio());
+        offerta.setDataScadenza(offerteDTO.getDataScadenza());
+        offerta.setImgBanner(offerteDTO.getImgBanner());
+        offerta.setImgDettaglio(offerteDTO.getImgDettaglio());
+        offerta.setImgBannerTopOfferte(offerteDTO.getImgBannerTopOfferte());
+        repoOfferte.save(offerta);
+        return true;
     }
 
-    @PostMapping("/modificaOfferta/{id}")
-    public String aggiorna(@Valid @ModelAttribute("film") Offerta formOfferta, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin/modificaOfferta";
-        }
-        repoOfferte.save(formOfferta);
-        return "redirect:/Admin";
+    @GetMapping("/getOfferta/{id}")
+    @ResponseBody
+    private GestioneOfferteDTO getOfferta (@PathVariable (name = "id") Integer id){
+        Offerta offerta = repoOfferte.findById(id).get();
+        GestioneOfferteDTO dto = new GestioneOfferteDTO();
+        dto.setId(offerta.getId());
+        dto.setNome(offerta.getNome());
+        dto.setGenere(offerta.getGenere());
+        dto.setDescrizione(offerta.getDescrizione());
+        dto.setPrezzo(offerta.getPrezzo());
+        dto.setDataInizio(offerta.getDataInizio());
+        dto.setDataScadenza(offerta.getDataScadenza());
+        dto.setImgBanner(offerta.getImgBanner());
+        dto.setImgDettaglio(offerta.getImgDettaglio());
+        dto.setImgBannerTopOfferte(offerta.getImgBannerTopOfferte());
+        return dto;
     }
 
-    //elimina
     @PostMapping("/cancellaOfferta/{id}")
-    public String cancella(@PathVariable("id") Integer id) {
+    @ResponseBody
+    public Boolean cancella(@PathVariable("id") Integer id) {
         repoOfferte.deleteById(id);
-        return "redirect:/Admin";
+        return true;
     }
-
-
 }

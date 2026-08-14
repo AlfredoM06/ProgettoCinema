@@ -45,13 +45,6 @@ public class PaginaUtenteController {
         return "utente-profilo";
     }
 
-    //                  DA FARE:
-    //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
-    // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
-    // (Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)
-    // (soluzione emilio la parte di impedire agli altri di prenotare se non hanno la carte da far fare a erica tramite un if che mostra solo a chi è tesserato la possibilità di prendersi quei posti, erica si richiama un metodo che gli facciamo noi
-    // in cui calcoliamo se mancano effettivamente 4 ore all'inizio dell'anteprima e vedere se è tesserato o meno)
-
     //                  FATTI:
     //1) I biglietti prenotati e acquistati con i relativi dati i quali verranno cancellati dopo 1 settimana per eventuali rimborsi.
     // va aggiunto attributo in posti occupati che lega utente con posto occupato (tramite id utente) tramite l'id posto occupato andiamo in programmazione e vediamo quale film ha prenotato/acquistato.
@@ -140,6 +133,12 @@ public class PaginaUtenteController {
         Integer nPunti = utente.getPuntiMembership();
         return nPunti;
     }
+
+    //10) Solo per l'anteprima dei film i posti vip saranno riservati ai possessori di carta myUci,
+    // se i posti non verranno comprati entro 4 ore prima dell'anteprima verranno sbloccati i posti al pubblico.
+    // (Ragionamento da far verificare ad emilio = fare un if per capire se hai la carta o meno, poi far si che solo chi ha la carta può accedere ai posti vip, per gli altri fare un data di inizio minus 4 ore data di inzio)
+    // (soluzione emilio la parte di impedire agli altri di prenotare se non hanno la carte da far fare a erica tramite un if che mostra solo a chi è tesserato la possibilità di prendersi quei posti, erica si richiama un metodo che gli facciamo noi
+    // in cui calcoliamo se mancano effettivamente 4 ore all'inizio dell'anteprima e vedere se è tesserato o meno)
 
     //6) Biglietto omaggio per il tuo compleanno da usare entro i 6 giorni successivi alla data di comp.(FATTO DA DOM)
     //7) Prezzo base bliglietto 7 euro, prezzo con card myUCI è 5 euro.(controller membership) (FATTO) metodo non più necessario poichè è stato accorpato al 9 e spostato sul controller del biglietto
