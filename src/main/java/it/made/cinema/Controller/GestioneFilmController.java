@@ -155,4 +155,45 @@ public class GestioneFilmController {
     	}
     	return formati;
     }
-}
+    @GetMapping("/film/{id}")
+    public @ResponseBody FormFilmDTO getFilm(@PathVariable Integer id) {
+    	Film film = repoFilm.findById(id).get();
+    	FormFilmDTO dto = new FormFilmDTO();
+    	dto.setId(film.getId());
+    	dto.setTitolo(film.getTitolo());
+    	dto.setDistribuzione(film.getDistribuzione());
+    	dto.setSinossi(film.getDescrizione());
+    	List<Integer> generi = new ArrayList<Integer>();
+    	for (GenereFilm g:film.getGeneri()) {
+    		generi.add(g.getId());
+    	}
+    	dto.setGenere(generi);
+    	dto.setDataUscita(film.getDataDiUscita());
+    	dto.setDurata(film.getDurata());
+    	dto.setPrezzo(film.getPrezzo());
+    	List<Integer> italiano = new ArrayList<Integer>();
+    	List<Integer> inglese = new ArrayList<Integer>();
+    	for(CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()) {
+    		if (c.getLingua().getNome()=="italiano") {
+    			italiano.add(c.getFormato().getId());
+    		}
+    		else if (c.getLingua().getNome()=="inglese") {
+    			inglese.add(c.getFormato().getId());
+    	}
+    }
+    	dto.setItaliano(italiano);
+    	dto.setInglese(inglese);
+    	dto.setImgCopertina(film.getImg_cover());
+    	dto.setImgLocandina(film.getImg_poster());
+    	dto.setImgLogo(film.getImg_logo());
+    	if(film.getPartnership() != null) {
+    		dto.setPartnership(true);
+    		dto.setImgPartnership(film.getPartnership().getImg_banner());
+    	} else {
+    		dto.setPartnership(false);
+    	}
+    	dto.setArchiviato(film.getArchiviato());
+    	return dto;
+    	}
+    	
+    	}
