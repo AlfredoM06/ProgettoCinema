@@ -30,9 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/gestioneFilm")
 public class GestioneFilmController {
 
-    //c'è la pagina
-    // gestione drop down con utenti, film e profilo, login e archivio (da vedere come fare)
-
     @Autowired
     IRepoFilm repoFilm;
 
@@ -44,8 +41,7 @@ public class GestioneFilmController {
     //Film film;
     @Autowired
     IRepoFormato repoFormato;
-    //form
-    //da fare validazioni form
+
     @PostMapping("/salvaFilm")
     public @ResponseBody Boolean salvaFilm(@RequestBody FormFilmDTO dto) {
         Film film = new Film();
@@ -135,65 +131,64 @@ public class GestioneFilmController {
         repoPartner.deleteById(partner.getId());
         return true;
     }
-    
+
     @GetMapping("/listaGeneri")
-    public @ResponseBody Map<Integer, String> getGeneri(){
-    	List<GenereFilm> lista = repoGeneri.findAll();
-    	Map<Integer, String> generi= new HashMap<Integer, String>();
-    	for(GenereFilm g:lista) {
-    		generi.put(g.getId(), g.getNome());
-    	}
-    	return generi;
+    public @ResponseBody Map<Integer, String> getGeneri() {
+        List<GenereFilm> lista = repoGeneri.findAll();
+        Map<Integer, String> generi = new HashMap<Integer, String>();
+        for (GenereFilm g : lista) {
+            generi.put(g.getId(), g.getNome());
+        }
+        return generi;
     }
-    
+
     @GetMapping("/listaFormati")
-    public @ResponseBody Map<Integer, String> getFormato(){
-    	List<Formato> lista = repoFormato.findAll();
-    	Map<Integer, String> formati= new HashMap<Integer, String>();
-    	for(Formato f:lista) {
-    		formati.put(f.getId(), f.getNome());
-    	}
-    	return formati;
+    public @ResponseBody Map<Integer, String> getFormato() {
+        List<Formato> lista = repoFormato.findAll();
+        Map<Integer, String> formati = new HashMap<Integer, String>();
+        for (Formato f : lista) {
+            formati.put(f.getId(), f.getNome());
+        }
+        return formati;
     }
+
     @GetMapping("/film/{id}")
     public @ResponseBody FormFilmDTO getFilm(@PathVariable Integer id) {
-    	Film film = repoFilm.findById(id).get();
-    	FormFilmDTO dto = new FormFilmDTO();
-    	dto.setId(film.getId());
-    	dto.setTitolo(film.getTitolo());
-    	dto.setDistribuzione(film.getDistribuzione());
-    	dto.setSinossi(film.getDescrizione());
-    	List<Integer> generi = new ArrayList<Integer>();
-    	for (GenereFilm g:film.getGeneri()) {
-    		generi.add(g.getId());
-    	}
-    	dto.setGenere(generi);
-    	dto.setDataUscita(film.getDataDiUscita());
-    	dto.setDurata(film.getDurata());
-    	dto.setPrezzo(film.getPrezzo());
-    	List<Integer> italiano = new ArrayList<Integer>();
-    	List<Integer> inglese = new ArrayList<Integer>();
-    	for(CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()) {
-    		if (c.getLingua().getNome()=="italiano") {
-    			italiano.add(c.getFormato().getId());
-    		}
-    		else if (c.getLingua().getNome()=="inglese") {
-    			inglese.add(c.getFormato().getId());
-    	}
+        Film film = repoFilm.findById(id).get();
+        FormFilmDTO dto = new FormFilmDTO();
+        dto.setId(film.getId());
+        dto.setTitolo(film.getTitolo());
+        dto.setDistribuzione(film.getDistribuzione());
+        dto.setSinossi(film.getDescrizione());
+        List<Integer> generi = new ArrayList<Integer>();
+        for (GenereFilm g : film.getGeneri()) {
+            generi.add(g.getId());
+        }
+        dto.setGenere(generi);
+        dto.setDataUscita(film.getDataDiUscita());
+        dto.setDurata(film.getDurata());
+        dto.setPrezzo(film.getPrezzo());
+        List<Integer> italiano = new ArrayList<Integer>();
+        List<Integer> inglese = new ArrayList<Integer>();
+        for (CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()) {
+            if (c.getLingua().getNome().equals("italiano")) {
+                italiano.add(c.getFormato().getId());
+            } else if (c.getLingua().getNome().equals("inglese")) {
+                inglese.add(c.getFormato().getId());
+            }
+        }
+        dto.setItaliano(italiano);
+        dto.setInglese(inglese);
+        dto.setImgCopertina(film.getImg_cover());
+        dto.setImgLocandina(film.getImg_poster());
+        dto.setImgLogo(film.getImg_logo());
+        if (film.getPartnership() != null) {
+            dto.setPartnership(true);
+            dto.setImgPartnership(film.getPartnership().getImg_banner());
+        } else {
+            dto.setPartnership(false);
+        }
+        dto.setArchiviato(film.getArchiviato());
+        return dto;
     }
-    	dto.setItaliano(italiano);
-    	dto.setInglese(inglese);
-    	dto.setImgCopertina(film.getImg_cover());
-    	dto.setImgLocandina(film.getImg_poster());
-    	dto.setImgLogo(film.getImg_logo());
-    	if(film.getPartnership() != null) {
-    		dto.setPartnership(true);
-    		dto.setImgPartnership(film.getPartnership().getImg_banner());
-    	} else {
-    		dto.setPartnership(false);
-    	}
-    	dto.setArchiviato(film.getArchiviato());
-    	return dto;
-    	}
-    	
-    	}
+}
