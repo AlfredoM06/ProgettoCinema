@@ -10,7 +10,6 @@ import it.made.cinema.Model.DTO.FormFilmDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Repository.IRepoPartnership;
-import jakarta.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,10 +18,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,7 +44,7 @@ public class GestioneFilmController {
 
     //form
     //da fare validazioni form
-    @GetMapping("/salvaFilm")
+    @PostMapping("/salvaFilm")
     public @ResponseBody Boolean salvaFilm(@RequestBody FormFilmDTO dto) {
         Film film = new Film();
         film.setId(dto.getId());
@@ -102,15 +98,17 @@ public class GestioneFilmController {
     }
 
 
-    @GetMapping("/listaArchivio")
-    public @ResponseBody Map<?, ?> listaArchivio(Boolean archiviato) {
+    @GetMapping("/listaArchivio/{archiviato}")
+    public @ResponseBody List<Map<String, Object>> listaArchivio(@PathVariable Boolean archiviato) {
         List<Film> lista = repoFilm.findByArchiviato(archiviato);
-        Map<String, Object> films = new HashMap<String, Object>();
+        List<Map<String, Object>> films = new ArrayList<>();
         for (Film f : lista) {
-            films.put("id", f.getId());
-            films.put("titolo", f.getTitolo());
-            films.put("distribuzione", f.getDistribuzione());
-            films.put("dataUscita", f.getDataDiUscita());
+            Map<String, Object> mapFilm = new HashMap<>();
+            mapFilm.put("id", f.getId());
+            mapFilm.put("titolo", f.getTitolo());
+            mapFilm.put("distribuzione", f.getDistribuzione());
+            mapFilm.put("dataUscita", f.getDataDiUscita());
+            films.add(mapFilm);
         }
         return films;
     }
