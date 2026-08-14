@@ -8,6 +8,7 @@ import it.made.cinema.Model.Lingua;
 import it.made.cinema.Model.Partnership;
 import it.made.cinema.Model.DTO.FormFilmDTO;
 import it.made.cinema.Repository.IRepoFilm;
+import it.made.cinema.Repository.IRepoFormato;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Repository.IRepoPartnership;
 import jakarta.validation.Valid;
@@ -45,7 +46,8 @@ public class GestioneFilmController {
     @Autowired
     IRepoPartnership repoPartner;
     //Film film;
-
+    @Autowired
+    IRepoFormato repoFormato;
     //form
     //da fare validazioni form
     @GetMapping("/salvaFilm")
@@ -133,6 +135,24 @@ public @ResponseBody Map<?,?> listaArchivio(Boolean archiviato) {
     	repoPartner.deleteById(partner.getId());
         return true;
     }
-
-
+    
+    @GetMapping("/listaGeneri")
+    public @ResponseBody Map<Integer, String> getGeneri(){
+    	List<GenereFilm> lista = repoGeneri.findAll();
+    	Map<Integer, String> generi= new HashMap<Integer, String>();
+    	for(GenereFilm g:lista) {
+    		generi.put(g.getId(), g.getNome());
+    	}
+    	return generi;
+    }
+    
+    @GetMapping("/listaFormati")
+    public @ResponseBody Map<Integer, String> getFormato(){
+    	List<Formato> lista = repoFormato.findAll();
+    	Map<Integer, String> formati= new HashMap<Integer, String>();
+    	for(Formato f:lista) {
+    		formati.put(f.getId(), f.getNome());
+    	}
+    	return formati;
+    }
 }
