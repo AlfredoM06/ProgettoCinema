@@ -95,7 +95,7 @@
      Uso: <main th:replace="~{fragments/gestionali :: formProgrammazione}">
      ============================================================ -->
 
-        <section class="page-main" th:fragment="formProgrammazione">
+        <section id="programmazione" class="page-main" th:fragment="formProgrammazione">
             <div class="container formFilm">
 
                 <div class="row g-4">
@@ -108,15 +108,6 @@
                             <select id="filmSalaProgrammazione" class="form-select">
                                 <option selected disabled>
                                     Seleziona film...
-                                </option>
-                                <option>
-                                    Film esempio 1
-                                </option>
-                                <option>
-                                    Film esempio 2
-                                </option>
-                                <option>
-                                    Film esempio 3
                                 </option>
                             </select>
                         </div>
@@ -359,8 +350,12 @@
                 <label class="form-label">Immagine Partnership</label>
                 <input type="file" class="form-control" accept="image/*">
             </div>
-
             <div class="col-md-4 form-group">
+                <label class="form-label">Titolo Partnership</label>
+                <input type="text" class="form-control" id="titoloFilm">
+            </div>
+
+            <div class="col-md-2 form-group">
                 <label class="form-label d-block">Partnership</label>
 
                 <div class="form-check">
@@ -376,7 +371,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 form-group">
+            <div class="col-md-2 form-group">
                 <label class="form-label d-block">Stato Film</label>
 
                 <div class="form-check">
@@ -547,7 +542,6 @@
             <table id="tableScheduling" class="table table-striped dataTable-init">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Titolo</th>
                     <th>Sala</th>
                     <th>Data</th>
@@ -555,43 +549,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Film</td>
-                    <td>Sala 1</td>
-                    <td>01/01/2025</td>
-                    <td>
-                        <div class="btn-group d-flex justify-content-center"
-                             role="group">
-                            <button type="button" class="btn btn-outline-success">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-folder-open"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>bruh</td>
-                    <td>breeeh</td>
-                    <td>05/01/2025</td>
-                    <td>
-                        <div class="btn-group d-flex justify-content-center"
-                             role="group">
-                            <button type="button" class="btn btn-outline-success">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+<!--                CONTENUTO DINAMICO-->
                 </tbody>
             </table>
         </div>
@@ -665,7 +623,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
     </div>
 </section>
 

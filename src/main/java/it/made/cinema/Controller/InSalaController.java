@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.*;
+import it.made.cinema.Repository.IRepoSala;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,17 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Scheduler.LocalDateComparator;
-import it.made.cinema.Model.CrossFilmFormatoLingua;
-import it.made.cinema.Model.Film;
-import it.made.cinema.Model.GenereFilm;
-import it.made.cinema.Model.Offerta;
-import it.made.cinema.Model.ProgrammazioneFilm;
-import it.made.cinema.Model.DTO.FilmDTO;
-import it.made.cinema.Model.DTO.ListaFilmDTO;
-import it.made.cinema.Model.DTO.ListaGenereDTO;
-import it.made.cinema.Model.DTO.ListaOffertaDTO;
-import it.made.cinema.Model.DTO.ListaProgDTO;
-import it.made.cinema.Model.DTO.PostiDTO;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Repository.IRepoProgrammazione;
@@ -48,12 +40,37 @@ public class InSalaController {
     PostiService postiService;
     @Autowired
     IRepoProgrammazione repoProgrammazione;
+    @Autowired
+    IRepoSala repoSala;
 
     //index
     @GetMapping
-    public String index(Model model) {
-        List<Film> films = repoFilm.findAll();
+    public String index() {
         return "inSala";
+    }
+
+    @GetMapping("/listaFilm")
+    @ResponseBody
+    public List<SelectFilmDTO> listaFilm() {
+        List<SelectFilmDTO> listaFilm = new ArrayList<>();
+        List<Film> films = repoFilm.findAll();
+        for (Film f : films) {
+            listaFilm.add(new SelectFilmDTO(f.getId(), f.getTitolo(), f.getDurata()));
+        }
+        return listaFilm;
+    }
+
+    @GetMapping("/listaSale")
+    @ResponseBody
+    public Map<Integer, String> listaSale() {
+        Map<Integer, String> listaSale = new HashMap<>();
+        List<Sala> sale = repoSala.findAll();
+        for (Sala s : sale) {
+            listaSale.put(s.getId(), "sala" + s.getId().toString());
+
+        }
+
+        return listaSale;
     }
 
     //dettagli di un film
@@ -75,7 +92,7 @@ public class InSalaController {
         filmDTO.setImg_poster(film.getImg_poster());
         filmDTO.setScadenza(film.getScadenza());
         List<ListaOffertaDTO> listaOfferte = new ArrayList<>();
-        for (Offerta o : film.getOfferte()){
+        for (Offerta o : film.getOfferte()) {
             ListaOffertaDTO offerta = new ListaOffertaDTO();
             offerta.setId(o.getId());
             offerta.setDescrizione(o.getDescrizione());
@@ -86,7 +103,7 @@ public class InSalaController {
         }
         filmDTO.setOfferte(listaOfferte);
         List<ListaGenereDTO> listaGeneri = new ArrayList<>();
-        for (GenereFilm g : film.getGeneri()){
+        for (GenereFilm g : film.getGeneri()) {
             ListaGenereDTO genere = new ListaGenereDTO();
             genere.setId(g.getId());
             genere.setNome(g.getNome());
@@ -100,10 +117,10 @@ public class InSalaController {
             dates.add(oggi.plusDays(i)); //For per valorizzare i giorni per non fare più volte il for
         }
         // programmazioniS = separate programmazioniT = tutte a partire da oggi
-        for (LocalDate d : dates ){
+        for (LocalDate d : dates) {
             List<ListaProgDTO> programmazioniS = new ArrayList<>();
             List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmId(d, film.getId());
-            for (ProgrammazioneFilm p : programmazioni){
+            for (ProgrammazioneFilm p : programmazioni) {
                 ListaProgDTO programmazione = new ListaProgDTO();
                 programmazione.setId(p.getId());
                 programmazione.setPrezzo(film.getPrezzo());
@@ -120,7 +137,7 @@ public class InSalaController {
         //List<ListaProgDTO> programmazioniT = new ArrayList<>();
         Map<LocalDate, List<ListaProgDTO>> mapTutti = new TreeMap<>(new LocalDateComparator());
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneGreaterThanEqualAndFilmId(LocalDate.now(), film.getId());
-        for (ProgrammazioneFilm p : programmazioni){
+        for (ProgrammazioneFilm p : programmazioni) {
             ListaProgDTO programmazione = new ListaProgDTO();
             programmazione.setId(p.getId());
             programmazione.setPrezzo(film.getPrezzo());
@@ -129,24 +146,23 @@ public class InSalaController {
             programmazione.setId_sala(p.getSala().getId());
             programmazione.setOrarioInizio(p.getOrario());
             programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
-            if(mapTutti.containsKey(p.getDataProgrammazione())) {
-            	mapTutti.get(p.getDataProgrammazione()).add(programmazione);
-            }
-            else {
-            	List<ListaProgDTO> programmazioniT = new ArrayList<>();
-            	programmazioniT.add(programmazione);
-            	mapTutti.put(p.getDataProgrammazione(), programmazioniT);
+            if (mapTutti.containsKey(p.getDataProgrammazione())) {
+                mapTutti.get(p.getDataProgrammazione()).add(programmazione);
+            } else {
+                List<ListaProgDTO> programmazioniT = new ArrayList<>();
+                programmazioniT.add(programmazione);
+                mapTutti.put(p.getDataProgrammazione(), programmazioniT);
             }
         }
         filmDTO.setTutte(mapTutti);
 
         List<String> lingue = new ArrayList<>();
         List<String> formati = new ArrayList<>();
-        for (CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()){
-            if (!lingue.contains(c.getLingua().getNome())){
+        for (CrossFilmFormatoLingua c : film.getCrossFilmFormatoLingua()) {
+            if (!lingue.contains(c.getLingua().getNome())) {
                 lingue.add(c.getLingua().getNome());
             }
-            if (!formati.contains(c.getFormato().getNome())){
+            if (!formati.contains(c.getFormato().getNome())) {
                 formati.add(c.getFormato().getNome());
             }
         }
@@ -167,7 +183,7 @@ public class InSalaController {
         } else if (idGenere != null && !idGenere.isEmpty()) {
             films = repoFilm.findByGenereFilm(idGenere);
         } else {
-            films = repoFilm.findAll();
+            films = repoFilm.findByArchiviatoFalse();
         }
         List<ListaFilmDTO> filmsDTO = new ArrayList<>();
         for (Film film : films) {
@@ -186,9 +202,9 @@ public class InSalaController {
         }
         return generiDTO;
     }
-    
+
     @GetMapping("/salaAcquisto/{id}")
-    public @ResponseBody PostiDTO[][] listaPosti(@PathVariable("id") Integer id){
-    	return postiService.getPosti(id);
+    public @ResponseBody PostiDTO[][] listaPosti(@PathVariable("id") Integer id) {
+        return postiService.getPosti(id);
     }
 }

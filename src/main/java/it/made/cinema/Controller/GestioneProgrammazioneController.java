@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
+import Scheduler.LocalDateComparator;
 import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO;
 import it.made.cinema.Model.DTO.SalvaProgrammazioneDTO;
 import it.made.cinema.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,7 @@ public class GestioneProgrammazioneController {
 
     @GetMapping("/getOrariPerSala/{idSala}/{data}")
     @ResponseBody
-    public Map<?, ?> getOrariPerSala(@PathVariable Integer idSala,@PathVariable  LocalDate data) {
+    public Map<?, ?> getOrariPerSala(@PathVariable Integer idSala, @PathVariable LocalDate data) {
 
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndSalaId(data, idSala);
         Map<LocalTime, Integer> result = new HashMap<>();
@@ -53,6 +55,13 @@ public class GestioneProgrammazioneController {
             result.put(p.getOrario(), p.getFilm().getDurata());
         }
         return result;
+    }
+
+    @GetMapping("/listaProgrammazioni")
+    @ResponseBody
+    public List<ArchivioProgrammazioniDTO> listaProgrammazioni(){
+        List< ArchivioProgrammazioniDTO> listaProgrammazioni = repoProgrammazione.findAllGroupByDataProgrammazione();
+        return listaProgrammazioni;
     }
 
 
@@ -88,7 +97,7 @@ public class GestioneProgrammazioneController {
     @ResponseBody
     public Boolean cancella(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
-        for (ProgrammazioneFilm p : programmazioni){
+        for (ProgrammazioneFilm p : programmazioni) {
             repoPostiOccupati.deleteByProgrammazioneFilm(p);
             repoProgrammazione.deleteById(p.getId());
         }
