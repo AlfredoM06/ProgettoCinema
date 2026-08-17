@@ -2,7 +2,9 @@ package it.made.cinema.Controller;
 
 import it.made.cinema.Model.DTO.GestioneOfferteDTO;
 import it.made.cinema.Model.DTO.OfferteDTO;
+import it.made.cinema.Model.Film;
 import it.made.cinema.Model.Offerta;
+import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoOfferte;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,11 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin/gestioneOfferte")
 public class GestioneOfferteController {
+
     @Autowired
     IRepoOfferte repoOfferte;
+    @Autowired
+    IRepoFilm repoFilm;
 
     @GetMapping("/listaOfferte")
     @ResponseBody
@@ -53,6 +58,10 @@ public class GestioneOfferteController {
         offerta.setImgBanner(offerteDTO.getImgBanner());
         offerta.setImgDettaglio(offerteDTO.getImgDettaglio());
         offerta.setImgBannerTopOfferte(offerteDTO.getImgBannerTopOfferte());
+        if (!(offerteDTO.getIdFilm() == null)){
+            Film film = repoFilm.findById(offerteDTO.getIdFilm()).get();
+            offerta.setFilm(film);
+        }
         repoOfferte.save(offerta);
         return true;
     }
@@ -72,6 +81,9 @@ public class GestioneOfferteController {
         dto.setImgBanner(offerta.getImgBanner());
         dto.setImgDettaglio(offerta.getImgDettaglio());
         dto.setImgBannerTopOfferte(offerta.getImgBannerTopOfferte());
+        if (offerta.getFilm() != null){
+            dto.setIdFilm(offerta.getFilm().getId());
+        }
         return dto;
     }
 

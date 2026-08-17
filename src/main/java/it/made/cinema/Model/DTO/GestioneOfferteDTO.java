@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class GestioneOfferteDTO implements Serializable {
     //nome, genere, descrizione, data ini, data scad, prezzo, tutte le img
+    private Integer idFilm;
     private Integer id;
     private String nome;
     private String genere;
@@ -23,5 +24,4 @@ public class GestioneOfferteDTO implements Serializable {
     private String imgBanner;
     private String imgDettaglio;
     private String imgBannerTopOfferte;
-
 }

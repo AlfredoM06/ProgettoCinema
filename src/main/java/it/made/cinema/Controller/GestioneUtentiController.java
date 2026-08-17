@@ -5,7 +5,10 @@ import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoUtenti;
 import jakarta.validation.Valid;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,49 +23,34 @@ public class GestioneUtentiController {
     @Autowired
     IRepoUtenti repoUtenti;
 
-    @GetMapping
-    public String gestioneUtenti(Model model) {
-        List<Utente> listaUtenti = repoUtenti.findAll();
-        model.addAttribute("listaUtenti", listaUtenti);
-        return "Admin";
-    }
-
-    @GetMapping("/formUtente")
-    public String formUtente(Model model) {
-        model.addAttribute("utente", new Utente());
-        return "Admin";
-    }
-
-    @PostMapping("/formUtente")
-    public String salvaForm(@ModelAttribute("utente") Utente formUtente, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin";
+    //lista
+    @GetMapping("/listaUtenti")
+    @ResponseBody
+    public List<Map<String, Object>> listaUtenti(){
+        List<Utente> utenti = repoUtenti.findAll();
+        List<Map<String, Object>> listeUtenti = new ArrayList<>();
+        for (Utente u : utenti){
+            Map<String, Object> mapUtente = new HashMap<>();
+            mapUtente.put("id", u.getId());
+            mapUtente.put("nome", u.getNome());
+            mapUtente.put("cognome", u.getCognome());
+            mapUtente.put("email", u.getEmail());
+            mapUtente.put("ruolo", u.getRuolo());
+            listeUtenti.add(mapUtente);
         }
-        repoUtenti.save(formUtente);
-        return "redirect:/Admin";
+        return listeUtenti;
     }
 
-    //modifica
-    @GetMapping("/modificaUtente/{id}")
-    public String modifica(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("offerta", repoUtenti.findById(id).get());
-        return "Admin";
-    }
+    //salva/modifica
 
-    @PostMapping("/modificaUtente/{id}")
-    public String aggiorna(@Valid @ModelAttribute("film") Utente formUtente, BindingResult bindinResult, Model model) {
-        if (bindinResult.hasErrors()) {
-            return "Admin/modificaUtente";
-        }
-        repoUtenti.save(formUtente);
-        return "redirect:/Admin";
-    }
+    //getUtente
 
     //elimina
     @PostMapping("/cancellaUtente/{id}")
-    public String cancella(@PathVariable("id") Integer id) {
+    @ResponseBody
+    public Boolean cancella(@PathVariable("id") Integer id) {
         repoUtenti.deleteById(id);
-        return "redirect:/Admin";
+        return true;
     }
 
 }
