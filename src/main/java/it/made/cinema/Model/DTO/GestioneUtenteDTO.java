@@ -13,9 +13,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class GestioneUtenteDTO implements Serializable {
     //nome, cognome, email, ruolo
+    private Integer idRuolo;
     private Integer id;
     private String nome;
     private String cognome;
     private String email;
-    private String nomeRuolo;
 }
