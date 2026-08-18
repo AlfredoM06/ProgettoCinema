@@ -254,10 +254,7 @@ option:hover {
 }
 
 /* =========================================================
-   DATATABLES - FRECCE VICINO AL TESTO
-========================================================= */
-/* =========================================================
-   DATATABLES - FRECCE VICINO AL TESTO
+   DATATABLES - FRECCE VICINO AL TESTO PROGRAMMAZIONE
 ========================================================= */
 
 #tableScheduling thead th.sorting,
@@ -282,6 +279,97 @@ option:hover {
 #tableScheduling thead th.sorting::after,
 #tableScheduling thead th.sorting_asc::after,
 #tableScheduling thead th.sorting_desc::after {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.15rem !important;
+    vertical-align: middle;
+}
+
+/* =========================================================
+   DATATABLES - FRECCE VICINO AL TESTO FILM
+========================================================= */
+#tableFilmInSala thead th.sorting,
+#tableFilmInSala thead th.sorting_asc,
+#tableFilmInSala thead th.sorting_desc {
+    white-space: nowrap;
+    padding-right: 0.5rem !important;
+}
+
+/* FRECCIA SU */
+#tableFilmInSala thead th.sorting::before,
+#tableFilmInSala thead th.sorting_asc::before,
+#tableFilmInSala thead th.sorting_desc::before {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.35rem !important;
+    margin-right: 0.15rem !important;
+    vertical-align: middle;
+}
+
+/* FRECCIA GIÙ */
+#tableFilmInSala thead th.sorting::after,
+#tableFilmInSala thead th.sorting_asc::after,
+#tableFilmInSala thead th.sorting_desc::after {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.15rem !important;
+    vertical-align: middle;
+}
+
+--
+#tableFilmArchivio thead th.sorting,
+#tableFilmArchivio thead th.sorting_asc,
+#tableFilmArchivio thead th.sorting_desc {
+    white-space: nowrap;
+    padding-right: 0.5rem !important;
+}
+
+/* FRECCIA SU */
+#tableFilmArchivio thead th.sorting::before,
+#tableFilmArchivio thead th.sorting_asc::before,
+#tableFilmArchivio thead th.sorting_desc::before {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.35rem !important;
+    margin-right: 0.15rem !important;
+    vertical-align: middle;
+}
+
+/* FRECCIA GIÙ */
+#tableFilmArchivio thead th.sorting::after,
+#tableFilmArchivio thead th.sorting_asc::after,
+#tableFilmArchivio thead th.sorting_desc::after {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.15rem !important;
+    vertical-align: middle;
+}
+
+/* =========================================================
+   DATATABLES - FRECCE VICINO AL TESTO OFFERTE
+========================================================= */
+#tableOffers thead th.sorting,
+#tableOffers thead th.sorting_asc,
+#tableOffers thead th.sorting_desc {
+    white-space: nowrap;
+    padding-right: 0.5rem !important;
+}
+
+/* FRECCIA SU */
+#tableOffers thead th.sorting::before,
+#tableOffers thead th.sorting_asc::before,
+#tableOffers thead th.sorting_desc::before {
+    position: static !important;
+    display: inline-block !important;
+    margin-left: 0.35rem !important;
+    margin-right: 0.15rem !important;
+    vertical-align: middle;
+}
+
+/* FRECCIA GIÙ */
+#tableOffers thead th.sorting::after,
+#tableOffers thead th.sorting_asc::after,
+#tableOffers thead th.sorting_desc::after {
     position: static !important;
     display: inline-block !important;
     margin-left: 0.15rem !important;

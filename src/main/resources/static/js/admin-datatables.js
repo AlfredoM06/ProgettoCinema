@@ -385,28 +385,133 @@ async function caricaTabellaProgrammazioni() {
 
 
 // =========================================================
-// TABELLA SALE
+// TABELLA OFFERTE
 // =========================================================
 
-// La configurazione verrà aggiunta quando
-// verrà implementata la gestione delle sale.
+function inizializzaTabellaOfferte() {
+    return inizializzaDataTable("#tableOffers", {
+        order: [[3, "asc"]],
+        columnDefs: [
+            { targets: 0, visible: false },              // Id nascosto
+            {
+                targets: 3,
+                render: function (data, type) {
+                    if (!data) return "";
+                    if (type === "sort" || type === "type") return data;
+                    if (type === "display") return formattaData(data);
+                    return data;
+                }
+            },
+            { targets: -1, orderable: false, searchable: false }
+        ]
+    });
+}
+
+async function caricaTabellaOfferte() {
+
+    const table = inizializzaTabellaOfferte();
+    if (!table) return;
+
+    try {
+        const response = await fetch("/admin/gestioneOfferte/listaOfferte");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const offerte = await response.json();
+
+        table.clear();
+
+        offerte.forEach(o => {
+
+            const azioni = `
+                <div class="btn-group d-flex justify-content-center" role="group">
+                    <button type="button" class="btn btn-outline-success btn-edit-offerta"
+                            data-id="${o.id}" title="Modifica offerta">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-delete-offerta"
+                            data-id="${o.id}" title="Elimina offerta">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
+            `;
+
+            table.row.add([
+                o.id,
+                o.nome,
+                o.categoria,
+                o.dataInizio,
+                azioni
+            ]);
+        });
+
+        table.draw();
+        table.columns.adjust();
+
+    } catch (error) {
+        // gestione silenziosa, come le altre tabelle
+    }
+}
+
+function ricaricaTabellaOfferte() {
+    if (document.querySelector("#tableOffers")) {
+        caricaTabellaOfferte();
+    }
+}
 
 
 // =========================================================
 // TABELLA UTENTI
 // =========================================================
+async function caricaTabellaUtenti() {
 
-// La configurazione verrà aggiunta quando
-// verrà implementata la gestione degli utenti.
+    const tbody = document.getElementById("usersTableBody");
+    if (!tbody) {
+        return;
+    }
+    try {
+        const response =await fetch("/admin/gestioneUtenti/listaUtenti");
 
+        if (!response.ok) {
+            throw new Error("Errore nel recupero degli utenti" );
+        }
 
-// =========================================================
-// TABELLA PRENOTAZIONI
-// =========================================================
+        const utenti = await response.json();
+        tbody.innerHTML = "";
+        utenti.forEach(utente => {
+            tbody.innerHTML += `
+                <tr>
+                    <td> ${utente.id}</td>
+                    <td>${utente.nome ?? ""} </td>
+                    <td> ${utente.cognome ?? ""}</td>
+                    <td>${utente.email ?? ""} </td>
+                    <td>  ${utente.ruolo ?? ""}</td>
+                    <td>
+                        <div
+                            class="btn-group d-flex justify-content-center"
+                            role="group">
+                            <button
+                                type="button"
+                                class="btn btn-outline-success btn-edit-utente"
+                                data-id="${utente.id}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
 
-// La configurazione verrà aggiunta quando
-// verrà implementata la gestione delle prenotazioni.
+                            <button
+                                type="button"
+                                class="btn btn-outline-danger btn-delete-utente"
+                                data-id="${utente.id}">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
 
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error("Errore tabella utenti:",error);
+    }
+}
 
     // =========================================================
     // |                                                       |
@@ -452,15 +557,14 @@ document.addEventListener("DOMContentLoaded",function () {
             caricaTabellaProgrammazioni();
         }
 
-        // TABELLA SALE
-//        if (document.querySelector("#tableSale")) {
-//            inizializzaTabellaSale();
-//        }
+        // TABELLA OFFERTE
+        if (document.querySelector("#tableOffers")) {
+            caricaTabellaOfferte();
+        }
 
         // TABELLA UTENTI
-//        if ( document.querySelector("#tableUtenti")) {
-//            inizializzaTabellaUtenti();
-//        }
-
+        if (document.querySelector("#tableUsers")) {
+                    caricaTabellaUtenti();
+                }
     }
 );

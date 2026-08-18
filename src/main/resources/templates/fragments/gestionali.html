@@ -11,7 +11,7 @@
      FRAGMENT: FORM OFFERTE
      Uso: <main th:replace="~{fragments/gestionali :: formOfferte}">
      ============================================================ -->
-<section class="page-main" th:fragment="formOfferte">
+<section id="offerte" class="page-main" th:fragment="formOfferte">
     <div class="container formFilm">
         <div class="row g-4">
 
@@ -23,22 +23,30 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="filmOfferta" class="form-label">
+                        Film
+                    </label>
+                    <select id="filmOfferta" class="form-select">
+                        <option value="" selected>
+                            Seleziona Film
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label d-block">Genere Offerta</label>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genere"
-                               value="evento">
-                        <label class="form-check-label">Eventi</label>
+                        <input class="form-check-input" type="radio" name="genere" id="genereEvento" value="evento">
+                        <label class="form-check-label" for="genereEvento">Eventi</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genere"
-                               value="bar">
-                        <label class="form-check-label">Bar</label>
+                        <input class="form-check-input" type="radio" name="genere" id="genereBar" value="bar">
+                        <label class="form-check-label" for="genereBar">Bar</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genere"
-                               value="anteprima">
-                        <label class="form-check-label">Anteprime</label>
+                        <input class="form-check-input" type="radio" name="genere" id="genereAnteprima" value="anteprima">
+                        <label class="form-check-label" for="genereAnteprima">Anteprime</label>
                     </div>
                 </div>
             </div>
@@ -47,36 +55,43 @@
             <div class="col-md-6 form-section">
                 <div class="form-group">
                     <label class="form-label">Descrizione</label>
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" id="descrizioneOfferta"></textarea>
                 </div>
             </div>
 
             <!-- DATE -->
             <div class="col-md-6 form-group">
                 <label class="form-label">Data Inizio</label>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control" id="dataInizioOfferta">
             </div>
             <div class="col-md-6 form-group">
                 <label class="form-label">Data Scadenza</label>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control" id="dataScadenzaOfferta">
             </div>
 
             <!-- PREZZO + IMMAGINI -->
             <div class="col-md-3 form-group">
                 <label class="form-label">Prezzo (solo Bar)</label>
-                <input type="number" class="form-control" id="prezzo">
+                <input
+                        type="number"
+                        class="form-control"
+                        id="prezzoOfferta"
+                        step="0.01"
+                        min="0"
+                        disabled
+                >
             </div>
             <div class="col-md-3 form-group">
-                <label class="form-label">Immagine Card Ver.</label>
-                <input type="file" class="form-control">
+                <label class="form-label">Immagine Card (URL)</label>
+                <input type="url" class="form-control" id="imgBanner" placeholder="https://...">
             </div>
             <div class="col-md-3 form-group">
-                <label class="form-label">Immagine Toplist Ori.</label>
-                <input type="file" class="form-control">
+                <label class="form-label">Immagine Toplist (URL)</label>
+                <input type="url" class="form-control" id="imgBannerTopOfferte" placeholder="https://...">
             </div>
             <div class="col-md-3 form-group">
-                <label class="form-label">Immagine Dettaglio</label>
-                <input type="file" class="form-control">
+                <label class="form-label">Immagine Dettaglio (URL)</label>
+                <input type="url" class="form-control" id="imgDettaglio" placeholder="https://...">
             </div>
 
             <!-- BOTTONI -->
@@ -86,7 +101,6 @@
             </div>
 
         </div>
-
     </div>
 </section>
 
@@ -291,63 +305,78 @@
      FRAGMENT: FORM UTENTI  ← placeholder, da personalizzare
      Uso: <section th:replace="~{fragments/gestionali :: formUtenti}">
      ============================================================ -->
-<section class="page-main" th:fragment="formUtenti">
+<section id="utenti" class="page-main" th:fragment="formUtenti">
+
     <div class="container formFilm">
-        <div class="row g-4">
+        <div id="utenteForm">
+            <div class="row g-4">
+                <!-- =========================================
+                     SINISTRA
+                     ========================================= -->
 
-            <!-- COLONNA SINISTRA -->
-            <div class="col-md-6 form-section">
-                <div class="form-group">
-                    <label class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome">
+                <div class="col-md-6 form-section">
+
+                    <div class="form-group">
+
+                        <label class="form-label" for="nome">Nome</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="nome"
+                                name="nome"
+                                required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cognome">Cognome</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="cognome"
+                                name="cognome"
+                                required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Cognome</label>
-                    <input type="text" class="form-control" id="cognome">
+
+
+                <!-- =========================================
+                     DESTRA
+                     ========================================= -->
+
+                <div class="col-md-6 form-section">
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email
+                        </label>
+                        <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                required>
+                    </div>
+
+                    <!-- RUOLO -->
+                    <div class="form-group">
+                        <label class="form-label d-block">Ruolo</label>
+                        <div id="ruoliContainer">
+                            <!-- dinamicamente  -->
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+
+
+                <!-- =========================================
+                     BOTTONI
+                     ========================================= -->
+
+                <div class="col-12 form-actions">
+                    <button type="button" id="btnConfermaUtente" class="btn btn-outline-warning">Conferma</button>
+                    <button type="button" id="btnAnnullaUtente" class="btn btn-outline-danger">Annulla</button>
                 </div>
             </div>
-
-            <!-- COLONNA DESTRA -->
-            <div class="col-md-4 form-section">
-                <div class=" form-group">
-                    <label class="form-label d-block">Ruolo</label>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="ruolo">
-                        <label class="form-check-label">Admin</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="ruolo">
-                        <label class="form-check-label">User</label>
-                    </div>
-                </div>
-                <div class=" form-group">
-                    <label class="form-label d-block">Stato account</label>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="stato_account">
-                        <label class="form-check-label">Attivo</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="stato_account">
-                        <label class="form-check-label">Bloccato</label>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- BOTTONI -->
-            <div class="col-12 form-actions">
-                <button type="submit" class="btn btn-outline-warning">Conferma</button>
-                <button type="reset" class="btn btn-outline-danger">Annulla</button>
-            </div>
-
         </div>
-
     </div>
 </section>
 
@@ -361,59 +390,22 @@
         <h1 class="section-title h1">Database Offerte</h1>
 
         <div class="row" id="Offers">
-            <table id="tableOffers" class="table table-striped dataTable-init">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Titolo</th>
-                    <th>Categoria</th>
-                    <th>Data</th>
-                    <th>Azioni</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Esempio Record</td>
-                    <td>Categoria</td>
-                    <td>01/01/2025</td>
-                    <td>
-                        <div class="btn-group d-flex justify-content-center"
-                             role="group">
-                            <button type="button" class="btn btn-outline-success">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-folder-open"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>bruh</td>
-                    <td>breeeh</td>
-                    <td>05/01/2025</td>
-                    <td>
-                        <div class="btn-group d-flex justify-content-center"
-                             role="group">
-                            <button type="button" class="btn btn-outline-success">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-folder-open"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="col-12">
+                <table id="tableOffers" class="table table-striped dataTable-init">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titolo</th>
+                        <th>Categoria</th>
+                        <th>Data</th>
+                        <th>Azioni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- CONTENUTO DINAMICO -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
@@ -449,11 +441,9 @@
      FRAGMENT: TABELLA UTENTI
      Uso: <section th:replace="~{fragments/gestionali :: tabellaUtenti}">
      ============================================================ -->
-<section id="tabsUsers" class="section-layout"  th:fragment="tabellaUtenti">
+<section id="tabsUsers" class="section-layout" th:fragment="tabellaUtenti">
     <div class="container">
-
         <h1 class="section-title h1">Database Utenti</h1>
-
         <div class="row" id="Users">
             <table id="tableUsers" class="table table-striped dataTable-init">
                 <thead>
@@ -466,49 +456,8 @@
                     <th>Azioni</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mario</td>
-                    <td>Rossi</td>
-                    <td>mariorossi@gmail.com</td>
-                    <td>User</td>
-                    <td>
-                        <div class="btn-group d-flex justify-content-center"
-                             role="group">
-                            <button type="button" class="btn btn-outline-success">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-folder-open"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Mamba</td>
-                    <td>Puffi</td>
-                    <td>mambapuffi@gmail.com</td>
-                    <td>Admin</td>
-                    <td>
-                        <div class="btn-group d-flex justify-content-center"
-                             role="group">
-                            <button type="button" class="btn btn-outline-success">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-folder-open"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+                <tbody id="usersTableBody">
+                <!--dinamicamente  -->
                 </tbody>
             </table>
         </div>
