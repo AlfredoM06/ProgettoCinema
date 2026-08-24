@@ -7,10 +7,7 @@ import it.made.cinema.Model.GenereFilm;
 import it.made.cinema.Model.Lingua;
 import it.made.cinema.Model.Partnership;
 import it.made.cinema.Model.DTO.FormFilmDTO;
-import it.made.cinema.Repository.IRepoFilm;
-import it.made.cinema.Repository.IRepoFormato;
-import it.made.cinema.Repository.IRepoGeneri;
-import it.made.cinema.Repository.IRepoPartnership;
+import it.made.cinema.Repository.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +38,9 @@ public class GestioneFilmController {
     //Film film;
     @Autowired
     IRepoFormato repoFormato;
+
+    @Autowired
+    IRepoCross repoCross;
 
     @PostMapping("/salvaFilm")
     public @ResponseBody Boolean salvaFilm(@RequestBody FormFilmDTO dto) {
@@ -83,7 +83,6 @@ public class GestioneFilmController {
             c.setFilm(film);
             cross.add(c);
         }
-        //film.setCrossFilmFormatoLingua(cross);
         film.setImg_cover(dto.getImgCopertina());
         film.setImg_poster(dto.getImgLocandina());
         film.setImg_logo(dto.getImgLogo());
@@ -95,8 +94,11 @@ public class GestioneFilmController {
         }
         film.setArchiviato(dto.getArchiviato());
         repoFilm.save(film);
-        film.setCrossFilmFormatoLingua(cross);
-        repoFilm.save(film);
+
+        for (CrossFilmFormatoLingua c : cross) {
+            repoCross.save(c);
+        }
+
         return true;
     }
 
