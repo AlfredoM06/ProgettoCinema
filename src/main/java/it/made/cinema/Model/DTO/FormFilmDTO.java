@@ -26,6 +26,7 @@ public class FormFilmDTO implements Serializable{
 	private String cast;
 	private List<Integer> genere;
 	private LocalDate dataUscita;
+	private LocalDate scadenza;
 	private Integer durata;
 	private Double prezzo;
 	private List<Integer> italiano;
@@ -34,6 +35,8 @@ public class FormFilmDTO implements Serializable{
 	private String imgLocandina;
 	private String imgLogo;
 	private String imgPartnership;
+	private String titoloPartnership;
 	private Boolean partnership;
 	private Boolean archiviato;
 }
+
