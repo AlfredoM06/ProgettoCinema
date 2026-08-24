@@ -83,7 +83,7 @@ public class GestioneFilmController {
             c.setFilm(film);
             cross.add(c);
         }
-        film.setCrossFilmFormatoLingua(cross);
+        //film.setCrossFilmFormatoLingua(cross);
         film.setImg_cover(dto.getImgCopertina());
         film.setImg_poster(dto.getImgLocandina());
         film.setImg_logo(dto.getImgLogo());
@@ -94,6 +94,8 @@ public class GestioneFilmController {
             film.setPartnership(partner);
         }
         film.setArchiviato(dto.getArchiviato());
+        repoFilm.save(film);
+        film.setCrossFilmFormatoLingua(cross);
         repoFilm.save(film);
         return true;
     }

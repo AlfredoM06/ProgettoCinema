@@ -1,6 +1,6 @@
 package it.made.cinema.Security;
 
-
+/*
 import it.made.cinema.Model.Ruolo;
 import it.made.cinema.Model.Utente;
 import jakarta.persistence.Column;
@@ -41,4 +41,4 @@ public class DatabaseUserDetails implements UserDetails {
     public String getUsername() {
         return username;
     }
-}
+}*/
