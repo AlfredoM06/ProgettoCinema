@@ -22,6 +22,8 @@ public class FormFilmDTO implements Serializable{
 	private String titolo;
 	private String distribuzione;
 	private String sinossi;
+	private String regista;
+	private String cast;
 	private List<Integer> genere;
 	private LocalDate dataUscita;
 	private Integer durata;
@@ -34,5 +36,4 @@ public class FormFilmDTO implements Serializable{
 	private String imgPartnership;
 	private Boolean partnership;
 	private Boolean archiviato;
-	
 }

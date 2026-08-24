@@ -160,6 +160,8 @@ public class GestioneFilmController {
         dto.setTitolo(film.getTitolo());
         dto.setDistribuzione(film.getDistribuzione());
         dto.setSinossi(film.getDescrizione());
+        dto.setRegista(film.getRegista());
+        dto.setCast(film.getCast());
         List<Integer> generi = new ArrayList<Integer>();
         for (GenereFilm g : film.getGeneri()) {
             generi.add(g.getId());
