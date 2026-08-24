@@ -1,76 +1,221 @@
 /* =========================
-     OFFERS / PROMO SECTION
-   ========================= */
+   TITOLO CENTRATO
+========================= */
 
 .titolo-centrato {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+
+    margin-right: auto;
 }
 
-/* titolo linea */
+
+/* =========================
+   OFFERS
+========================= */
+
 .offers {
-  position: relative;
+    position: relative;
 }
 
 .offers-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0;
-  position: relative !important
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    width: 100%;
+
+    padding: 0;
+
+    position: relative !important;
 }
 
 .offers-header h1 {
-  flex: 1;
+    flex: 1;
 }
+
+
+/* =========================
+   WRAPPER
+========================= */
 
 .offers-wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
+    /*
+       1100px originale.
+    */
+    width: min(
+        68.75rem,
+        calc(100% - 2rem)
+    );
+
+    margin: 0 auto;
 }
 
-/* CARD OFFERS */
-.card {
-  width: 320px;
-  margin: 0 .5em;
-  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
-  border: none;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 1;
-  border-radius: 0;
-  color: white;
 
-  background: transparent;
-  box-shadow: none;
+/* =========================
+   CARD OFFER
+========================= */
+
+.card {
+    /*
+       320px originale a 1920.
+    */
+    width: clamp(
+        17rem,
+        16.67vw,
+        20rem
+    );
+
+    margin: 0 0.5em;
+
+    box-shadow:
+        2px
+        6px
+        8px
+        0
+        rgba(22, 22, 26, 0.18);
+
+    border: none;
+
+    overflow: hidden;
+
+    position: relative;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    z-index: 1;
+
+    border-radius: 0;
+
+    color: white;
+
+    background: transparent;
+
+    box-shadow: none;
 }
 
 .card span i {
-  color: var(--icon-color);
+    color: var(--icon-color);
 }
 
+
+/* =========================
+   LINK
+========================= */
+
 .offers a {
-  text-decoration: underline;
-  text-underline-offset: 7px;
-  color: inherit;
-  color: var(--secondary);
-  transition: color 0.6s ease, text-shadow 0.6s ease;
+    text-decoration: underline;
+
+    text-underline-offset: 7px;
+
+    color: var(--secondary);
+
+    transition:
+        color 0.6s ease,
+        text-shadow 0.6s ease;
 }
 
 .offers a:hover {
-  color: white;
+    color: white;
 }
+
+
+/* =========================
+   IMAGE WRAPPER
+========================= */
 
 .card-img-wrapper {
-  overflow: hidden;
-  position: relative;
+    overflow: hidden;
+
+    position: relative;
 }
 
+
+/* =========================
+   IMAGE
+========================= */
+
 .card-img-novita {
-  width: 320px;
-  height: 191px;
-  object-fit: cover;
-  display: block;
+
+    /*
+       320px a 1920.
+    */
+    width: clamp(
+        17rem,
+        16.67vw,
+        20rem
+    );
+
+    /*
+       191px a 1920.
+    */
+    height: clamp(
+        10.15rem,
+        9.95vw,
+        11.9375rem
+    );
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 90rem) {
+
+    .offers-wrapper {
+        width: calc(100% - 3rem);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 62rem) {
+
+    .offers-wrapper {
+        width: calc(100% - 2rem);
+    }
+
+    .card {
+        width: 18rem;
+    }
+
+    .card-img-novita {
+        width: 18rem;
+        height: 10.75rem;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 36rem) {
+
+    .offers-wrapper {
+        width: calc(100% - 1.5rem);
+    }
+
+    .card {
+        width: 100%;
+        max-width: 20rem;
+        margin-inline: auto;
+    }
+
+    .card-img-novita {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 320 / 191;
+    }
 }

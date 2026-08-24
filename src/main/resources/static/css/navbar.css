@@ -1,121 +1,194 @@
-/* =========================
-   GLOBAL
-========================= */
-
 html {
-  scrollbar-gutter: stable;
+    scrollbar-gutter: stable;
 }
+
 
 /* =========================
    HEADER
 ========================= */
 
 header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10000;
+    position: absolute;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    top: 0;
+    left: 0;
 
-  padding: 30px 100px;
-  box-sizing: border-box;
+    width: 100%;
 
-  background: transparent;
+    z-index: 10000;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    /*
+       1920:
+       30px 100px
+
+       Sotto:
+       si riduce gradualmente.
+    */
+    padding:
+        clamp(
+            1.25rem,
+            1.56vw,
+            1.875rem
+        )
+        clamp(
+            2rem,
+            5.21vw,
+            6.25rem
+        );
+
+    box-sizing: border-box;
+
+    background: transparent;
 }
+
 
 /* =========================
    LOGO
 ========================= */
 
 .logo {
-  height: 5rem;
-  width: auto;
-  display: block;
+    /*
+       5rem = 80px originale.
+    */
+    height: clamp(
+        3.5rem,
+        4.17vw,
+        5rem
+    );
+
+    width: auto;
+
+    display: block;
 }
 
+
 /* =========================
-   NAV CENTRALE (FIX IMPORTANTE)
+   NAV CENTRALE
 ========================= */
 
 header .nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+    position: absolute;
 
-  display: flex;
-  gap: 20px;
+    left: 50%;
 
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    transform: translateX(-50%);
+
+    display: flex;
+
+    gap: clamp(
+        0.9rem,
+        1.04vw,
+        1.25rem
+    );
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
 }
 
-/* link menu */
+
+/* =========================
+   LINK MENU
+========================= */
+
 .nav a {
-  font-size: 1rem;
-  letter-spacing: 2px;
-  line-height: 1;
+    font-size: clamp(
+        0.85rem,
+        0.83vw,
+        1rem
+    );
 
-  text-decoration: none;
-  color: #fff;
+    letter-spacing: clamp(
+        1px,
+        0.1vw,
+        2px
+    );
 
-  display: inline-block;
-  padding: 5px 0;
+    line-height: 1;
 
-  transition: color 0.3s ease;
+    text-decoration: none;
+
+    color: #fff;
+
+    display: inline-block;
+
+    padding: 0.3125rem 0;
+
+    transition: color 0.3s ease;
 }
 
 .nav a:hover {
-  color: var(--primary);
+    color: var(--primary);
 }
 
+
 /* =========================
-   LOGIN (ACCEDI) FIX
+   LOGIN
 ========================= */
 
 .navbar-nav {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
 
-  display: flex;
-  align-items: center;
+    padding: 0;
+
+    list-style: none;
+
+    display: flex;
+
+    align-items: center;
 }
 
 .navbar-nav a {
-  letter-spacing: 0.5px;
+    letter-spacing: 0.5px;
 }
 
 .nav-link {
-  display: inline-flex; 
-  padding: 5px 0;        
+    display: inline-flex;
 
-  font-size: 1rem;
-  letter-spacing: 0 !important;
-  line-height: 1;
+    padding: 0.3125rem 0;
 
-  text-decoration: none;
-  color: #fff;
+    font-size: clamp(
+        0.85rem,
+        0.83vw,
+        1rem
+    );
 
-  cursor: pointer;
-  transition: color 0.3s ease;
+    letter-spacing: 0 !important;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: var(--primary);
+    color: var(--primary);
 }
 
+
 /* =========================
-   NAVBAR DROPDOWN
+   DROPDOWN
 ========================= */
+
 header .accountDrop {
-	background-color: rgba(0, 0, 0, 0);
-	border-color: rgba(0, 0, 0, 0);
-	--bs-dropdown-link-active-bg: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
+
+    border-color: rgba(0, 0, 0, 0);
+
+    --bs-dropdown-link-active-bg:
+        rgba(0, 0, 0, 0.5);
 }
 
 header .accountDrop .dropdown-item {
@@ -127,29 +200,46 @@ header .accountDrop .dropdown-item:hover {
 }
 
 header .accountDrop .dropdown-item.active {
-	border: 1px solid #9e8f2b;
+    border: 1px solid #9e8f2b;
 }
 
 .accountDrop .dropdown-divider {
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.15);
 }
+
 
 /* =========================
    ICONA PROFILO
 ========================= */
+
 .user-icon-wrapper {
     display: flex;
+
     align-items: center;
+
     padding: 0;
 }
 
-/* ICONA SVG */
 .user-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: clamp(
+        2rem,
+        2.08vw,
+        2.5rem
+    );
+
+    height: clamp(
+        2rem,
+        2.08vw,
+        2.5rem
+    );
+
     filter: brightness(0) invert(1);
+
     cursor: pointer;
 }
+
 
 /* =========================
    HOVER DROPDOWN
@@ -157,46 +247,124 @@ header .accountDrop .dropdown-item.active {
 
 .nav-item.dropdown .dropdown-menu {
     position: absolute;
+
     top: 100%;
     right: 0;
 
     display: block;
 
     opacity: 0;
+
     visibility: hidden;
+
     pointer-events: none;
 
     transform: translateY(10px);
-    transition: all .25s ease;
+
+    transition: all 0.25s ease;
 
     z-index: 99999;
 }
 
 .nav-item.dropdown::after {
     content: "";
+
     position: absolute;
+
     top: 100%;
     left: 0;
+
     width: 100%;
+
     height: 15px;
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
     opacity: 1;
+
     visibility: visible;
+
     pointer-events: auto;
+
     transform: translateY(0);
 }
 
+
 /* =========================
-   NAVBAR RIMOSSA 
+   NAVBAR RIMOSSA
 ========================= */
 
 body.no-navbar header {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-20px);
-  transition: all 0.3s ease;
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(-20px);
+
+    transition: all 0.3s ease;
 }
 
 
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 75rem) {
+
+    header {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 62rem) {
+
+    header {
+        padding:
+            1.25rem
+            2rem;
+    }
+
+    header .nav {
+        gap: 1rem;
+    }
+
+    .logo {
+        height: 4rem;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 48rem) {
+
+    header {
+        padding:
+            1rem
+            1.25rem;
+    }
+
+    header .nav {
+        position: static;
+        transform: none;
+        margin-left: auto;
+        margin-right: 1rem;
+    }
+
+    .nav a {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .logo {
+        height: 3.5rem;
+    }
+}

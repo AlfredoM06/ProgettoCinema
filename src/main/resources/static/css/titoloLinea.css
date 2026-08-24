@@ -1,43 +1,77 @@
-/* =========================
-    TITOLI + LINEA ANIMATA
-========================= */
+/* =========================================================
+   TITOLI + LINEA ANIMATA
+========================================================= */
+
+.titoloLinea {
+    width: 100%;
+
+    font-size: clamp(
+        1.5rem,
+        2.08vw,
+        2rem
+    );
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    position: relative;
+
+    padding-bottom: clamp(
+        0.5rem,
+        0.625vw,
+        0.75rem
+    );
+
+    margin: 0;
+
+    color: white;
+}
+
 .titoloLinea::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 7px;
+    content: "";
 
-  background: linear-gradient(90deg,
-      transparent,
-      #9e8f2b,
-      #dc143c,
-      #9e8f2b,
-      transparent);
+    position: absolute;
 
-  filter: drop-shadow(0 0 6px #dc143c);
-  transition: width 1.5s ease;
+    bottom: 0;
+    left: 0;
+
+    width: 0;
+
+    height: clamp(
+        0.25rem,
+        0.36vw,
+        0.4375rem
+    );
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #9e8f2b,
+            #dc143c,
+            #9e8f2b,
+            transparent
+        );
+
+    filter:
+        drop-shadow(
+            0 0 clamp(
+                0.25rem,
+                0.31vw,
+                0.375rem
+            )
+            #dc143c
+        );
+
+    transition: width 1.5s ease;
 }
 
 .titoloLinea.active::after {
-  width: 100%;
+    width: 100%;
 }
 
-/* TITOLO IN EVIDENZA */
-.titoloLinea {
-  width: 100%;
-  font-size: 2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 12px;
-  margin: 0;
-  color: white;
-}
-
-/* Centro titolo */
 .titolo-centrato {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }

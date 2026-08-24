@@ -315,3 +315,138 @@
   color: white;
   padding-left: 0;
 }
+
+
+/* =========================
+   RESPONSIVE - LAPTOP (<=1440px)
+========================= */
+
+@media (max-width: 1440px) {
+  .main-content {
+    margin-top: 9rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .product-wrapper {
+    margin-top: 4rem;
+  }
+
+  .product-wrapper .card-img-top {
+    width: 22rem;
+  }
+
+  .modal-img {
+    width: 32rem;
+  }
+}
+
+
+/* =========================
+   RESPONSIVE - LAPTOP PICCOLO (<=1200px)
+========================= */
+
+@media (max-width: 1200px) {
+  .main-content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .intro h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    font-size: 1.3rem;
+    padding: 0.75rem;
+  }
+
+  .title-price h3 {
+    font-size: 1.9rem;
+  }
+
+  .title-price p {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* =========================
+   RESPONSIVE - TABLET (<=992px)
+========================= */
+
+@media (max-width: 992px) {
+  .main-content {
+    margin-top: 7rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .product-wrapper .card-img-top {
+    width: 100%;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .media-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-img {
+    width: 100%;
+  }
+
+  .info-wrapper {
+    text-align: center;
+    align-items: center;
+  }
+
+  .title-price {
+    align-items: center;
+  }
+}
+
+
+/* =========================
+   RESPONSIVE - MOBILE (<=576px)
+========================= */
+
+@media (max-width: 576px) {
+  .main-content {
+    margin-top: 6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .intro h2 {
+    font-size: 1.6rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  .custom-table {
+    min-width: 40rem;
+  }
+
+  .title-price h3 {
+    font-size: 1.5rem;
+  }
+
+  .title-price p {
+    font-size: 1.3rem;
+  }
+}

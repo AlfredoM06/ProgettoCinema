@@ -28,7 +28,11 @@
 
     <div class="filmCard" th:each="film : ${filmProssimamente}" th:data-title="${film.titolo}"
          th:data-desc="${film.descrizione}"
-         th:data-img="${film.img_cover}">
+         th:data-img="${film.img_cover}"
+         th:data-cast="${film.cast}"
+         th:data-regia="${film.regista}"
+         th:data-durata="${film.durata}"
+         th:data-data="${film.dataDiUscita}">
         <img class="img-gray" alt="incolore" th:src="${film.img_poster}">
         <img class="img-color" alt="a colori" th:src="${film.img_poster}">
     </div>

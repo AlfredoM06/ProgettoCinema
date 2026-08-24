@@ -1,121 +1,249 @@
 /* =========================
    HERO
 ========================= */
+
 .hero {
     position: relative;
+
     height: 100vh;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     overflow: hidden;
 }
 
 .hero-bg {
     position: absolute;
+
     inset: 0;
-    background: url('../img/sfondo_membership.jpg') center/cover no-repeat;
+
+    background:
+        url('../img/sfondo_membership.jpg')
+        center / cover
+        no-repeat;
+
     z-index: 0;
 
-    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom,
+            black 40%,
+            transparent 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black 40%,
+            transparent 100%
+        );
 }
 
 .hero-content {
     position: relative;
+
     z-index: 3;
+
     text-align: center;
+
     max-width: 90%;
+
     color: white;
 }
 
+
+/* =========================
+   LOGO HERO
+========================= */
+
 .hero-logo {
-    width: min(350px, 70vw);
-    margin-bottom: 2rem;
+    /*
+       350px = massimo originale.
+    */
+    width: clamp(
+        15rem,
+        18.23vw,
+        21.875rem
+    );
+
+    margin-bottom: clamp(
+        1.5rem,
+        2vw,
+        2rem
+    );
 }
+
 
 /* =========================
    FRECCIA
 ========================= */
+
 .scroll-down {
     position: absolute;
-    bottom: 20px;
+
+    bottom: clamp(
+        1rem,
+        1.04vw,
+        1.25rem
+    );
+
     left: 50%;
+
     transform: translateX(-50%);
-    font-size: 1.6rem;
+
+    font-size: clamp(
+        1.3rem,
+        1.67vw,
+        1.6rem
+    );
+
     animation: bounce 1.5s infinite;
+
     cursor: pointer;
+
     z-index: 3;
+
     color: white;
 }
 
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(12px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(
+            clamp(0.5rem, 0.625vw, 0.75rem)
+        );
+    }
 }
+
 
 /* =========================
    MAIN
 ========================= */
+
 main,
 .membership-main {
-    padding: 5rem 0;
-    margin-bottom: 10rem
+    padding:
+        clamp(3rem, 4.17vw, 5rem)
+        0;
+
+    margin-bottom:
+        clamp(5rem, 8.33vw, 10rem);
 }
+
 
 /* =========================
    TITOLI
 ========================= */
+
 h3 {
     text-align: center;
+
     text-transform: uppercase;
-    font-size: clamp(1.2rem, 1.5vw, 1.7rem);
+
+    font-size: clamp(
+        1.2rem,
+        1.5vw,
+        1.7rem
+    );
 }
 
 .title-section {
     text-align: center;
+
     text-transform: uppercase;
-    font-size: 1.90rem;
+
+    font-size: clamp(
+        1.5rem,
+        1.65vw,
+        1.9rem
+    );
 }
 
-.advantages-section .title-section{
-    margin-bottom: 4rem;
+.advantages-section .title-section {
+    margin-bottom: clamp(
+        2.5rem,
+        3.33vw,
+        4rem
+    );
 }
 
-.faq-section .title-section{
-    margin-top: 4rem;
-    
+.faq-section .title-section {
+    margin-top: clamp(
+        2.5rem,
+        3.33vw,
+        4rem
+    );
 }
+
+
+/* =========================
+   BOOTSTRAP COLUMNS
+========================= */
+
+.col-12 .col-md-4 {
+    display: block;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
 
 /* =========================
    FLIP CARD
 ========================= */
 
-.col-12 .col-md-4{
-    display: block;
-    flex-direction: column;
-    align-items: center;
-}
-
 .show-column {
-    padding: 2rem;
+    padding: clamp(
+        1rem,
+        1.67vw,
+        2rem
+    );
 }
 
 .card-face p {
     max-width: 30ch;
+
     margin: 0 auto;
 }
 
 .card-flip {
     perspective: 1000px;
+
     max-width: 100%;
+
     margin: 0 auto;
 }
 
 .card-inner {
     position: relative;
+
     width: 100%;
-    height: clamp(200px, 24vw, 280px);
+
+    /*
+       280px = altezza massima originale.
+
+       A 1920:
+       280px
+
+       Su laptop:
+       progressivamente più bassa.
+    */
+    height: clamp(
+        12.5rem,
+        14.58vw,
+        17.5rem
+    );
+
     transition: transform 0.8s;
+
     transform-style: preserve-3d;
 }
 
@@ -124,18 +252,29 @@ h3 {
 }
 
 .card-face {
-    display: block;
     position: absolute;
+
     width: 100%;
     height: 100%;
+
     backface-visibility: hidden;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     text-align: center;
+
     margin: 0;
-    padding: 1.5rem;
-    border-radius: 0.70rem;
+
+    padding: clamp(
+        1rem,
+        1.25vw,
+        1.5rem
+    );
+
+    border-radius: 0.7rem;
 }
 
 .card-front {
@@ -144,88 +283,163 @@ h3 {
 
 .card-back {
     background-color: var(--background-div);
+
     transform: rotateY(180deg);
 }
 
 .card-content {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
+
     gap: 0.6rem;
+
     height: 100%;
 }
 
+
+/* =========================
+   CARD ICON
+========================= */
+
 .card-face img {
-    width: clamp(2.5rem, 3vw, 3.2rem);
-    height: clamp(2.5rem, 3vw, 3.2rem);
+    width: clamp(
+        2.5rem,
+        3vw,
+        3.2rem
+    );
+
+    height: clamp(
+        2.5rem,
+        3vw,
+        3.2rem
+    );
+
     object-fit: contain;
+
     margin-bottom: 1rem;
 }
 
+
+/* =========================
+   CARD TEXT
+========================= */
+
 .card-face h3 {
-    font-size: 1.1rem;
+    font-size: clamp(
+        1rem,
+        1vw,
+        1.1rem
+    );
+
     font-weight: 800;
+
     margin: 0;
 }
 
 .card-face p {
-    font-size: 1rem;
+    font-size: clamp(
+        0.9rem,
+        0.83vw,
+        1rem
+    );
+
     margin: 0;
 }
 
-/* BUTTON */
+
+/* =========================
+   BUTTON
+========================= */
+
 .card-face .btn-primary {
     background-color: #fff;
+
     color: #000;
+
     border: none;
 
-    min-width: min(14rem, 80%);
-    padding: 0.75rem 2rem;
+    min-width: min(
+        14rem,
+        80%
+    );
+
+    padding:
+        0.75rem
+        clamp(1rem, 1.67vw, 2rem);
 
     transition: all 0.3s ease;
 }
 
+
 /* =========================
-   FAQ ACCORDION
+   FAQ
 ========================= */
 
-.faq-section{
-    padding-left: 2rem;
-    padding-right: 2rem;
+.faq-section {
+    padding-left: clamp(
+        1rem,
+        1.67vw,
+        2rem
+    );
+
+    padding-right: clamp(
+        1rem,
+        1.67vw,
+        2rem
+    );
 }
 
 .accordion {
     display: flex;
+
     flex-direction: column;
-    gap: 1.5rem;
+
+    gap: clamp(
+        1rem,
+        1.25vw,
+        1.5rem
+    );
 }
 
-/* item */
 .accordion-item {
     background: var(--background-card-myseg);
+
     border: none;
+
     border-radius: 0 !important;
+
     overflow: hidden;
 }
 
-/* header */
 .accordion-header {
     margin: 0;
 }
 
-/* button */
 .accordion-button {
     background: var(--background-card-myseg);
+
     color: white;
+
     font-weight: 600;
-    font-size: 1.05rem;
+
+    font-size: clamp(
+        0.95rem,
+        0.9vw,
+        1.05rem
+    );
+
     box-shadow: none !important;
+
     border-radius: 0 !important;
 }
 
 .accordion-button:not(.collapsed) {
     background: var(--background-card-myseg);
+
     color: white;
 }
 
@@ -233,24 +447,72 @@ h3 {
     box-shadow: none !important;
 }
 
-/* body */
 .accordion-collapse {
     background: var(--background-card-myseg);
 }
 
 .accordion-body {
     color: white;
+
     padding-top: 0;
+
     font-size: 0.9rem;
 }
 
 .accordion-body p {
     margin: 0;
+
     color: white;
+
     font-size: 0.9rem;
 }
 
-/* icona */
 .accordion-button::after {
     filter: brightness(0) invert(1);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 62rem) {
+
+    .hero-logo {
+        width: min(
+            18rem,
+            70vw
+        );
+    }
+
+    .card-inner {
+        height: 16rem;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 36rem) {
+
+    main,
+    .membership-main {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+
+        margin-bottom: 5rem;
+    }
+
+    .hero-logo {
+        width: min(
+            15rem,
+            75vw
+        );
+    }
+
+    .card-inner {
+        height: 15rem;
+    }
 }

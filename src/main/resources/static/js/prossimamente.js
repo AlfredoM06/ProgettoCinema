@@ -1,234 +1,349 @@
-let cards = document.querySelectorAll('.filmCard');
+document.addEventListener("DOMContentLoaded", () => {
 
-let moviePage = document.createElement('div');
-moviePage.classList.add('movie-page');
-document.body.appendChild(moviePage);
+    // ======================================================
+    // CARDS
+    // ======================================================
 
-let descStarted = false;
+    let cards = document.querySelectorAll(".filmCard");
+    let moviePage = document.createElement("div");
+    moviePage.classList.add("movie-page");
+    document.body.appendChild(moviePage);
+    let descStarted = false;
+    let isClosing = false;
 
-// ======================================================
-// INFO
-// ======================================================
-function triggerInfoAndButtons() {
 
-  moviePage.querySelectorAll('.info li').forEach((el, i) => {
+    // ======================================================
+    // FORMATTA DURATA
+    // ======================================================
 
-    setTimeout(() => {
-      el.classList.add('show');
+    function formatDuration(minutes) {
 
-      el.querySelectorAll('button').forEach(btn => {
-        btn.classList.add('show');
-      });
+        if (!minutes) {
+            return "";
+        }
 
-    }, i * 150);
-  });
+        minutes = parseInt(minutes);
 
-}
+        if (isNaN(minutes)) {
+            return "";
+        }
 
-// ======================================================
-// ACTION BUTTONS (solo PRENOTA ORA)
-// ======================================================
-function triggerButtons() {
+        let hours = Math.floor(minutes / 60);
+        let mins = minutes % 60;
 
-  let btn = moviePage.querySelector('.btn-slice');
+        if (hours > 0 && mins > 0) {
+            return `${hours}h ${mins}m`;
+        }
 
-  if (btn) {
-    setTimeout(() => {
-      btn.classList.add('show');
-    }, 200);
-  }
-}
-
-// ======================================================
-// CLOSE X
-// ======================================================
-function triggerClose() {
-  let close = moviePage.querySelector('.movie-close');
-
-  setTimeout(() => {
-    close.classList.add('show');
-  }, 150);
-}
-
-// ======================================================
-// DESCRIZIONE
-// ======================================================
-function animateDescriptionLines(container, text) {
-
-  container.innerHTML = "";
-
-  let words = text.split(" ");
-
-  let measure = document.createElement("span");
-  measure.style.visibility = "hidden";
-  measure.style.position = "absolute";
-  measure.style.whiteSpace = "nowrap";
-  document.body.appendChild(measure);
-
-  let lineText = "";
-  let lines = [];
-
-  words.forEach(word => {
-    let testText = lineText + word + " ";
-    measure.textContent = testText;
-
-    if (measure.offsetWidth > container.offsetWidth) {
-      lines.push(lineText.trim());
-      lineText = word + " ";
-    } else {
-      lineText = testText;
+        if (hours > 0) {
+            return `${hours}h`;
+        }
+        return `${mins}m`;
     }
-  });
 
-  if (lineText) lines.push(lineText.trim());
 
-  document.body.removeChild(measure);
+    // ======================================================
+    // FORMATTA DATA
+    // GG/MM/ANNO
+    // ======================================================
 
-  let triggerPoint = Math.floor(lines.length * 0.5);
-  descStarted = false;
+    function formatDate(dateValue) {
 
-  lines.forEach((line, i) => {
+        if (!dateValue) {
+            return "";
+        }
 
-    let span = document.createElement("span");
-    span.classList.add("desc-line");
-    span.textContent = line;
+        let date = new Date(dateValue);
 
-    container.appendChild(span);
+        if (isNaN(date.getTime())) {
+            return "";
+        }
 
-    setTimeout(() => {
-      span.classList.add("show");
+        let day = String(date.getDate()).padStart(2, "0");
+        let month = String(date.getMonth() + 1).padStart(2, "0");
+        let year = date.getFullYear();
 
-      if (!descStarted && i >= triggerPoint) {
-        descStarted = true;
+        return `${day}/${month}/${year}`;
+    }
 
-        triggerInfoAndButtons();
-        triggerButtons();
-        triggerClose();
-      }
 
-    }, i * 140);
-  });
-}
+    // ======================================================
+    // GESTIONE VALORI MULTIPLI
+    // ======================================================
 
-// ======================================================
-// OPEN MOVIE
-// ======================================================
-function openMovie(filmCard) {
-  document.body.classList.add("no-navbar");
-  moviePage.classList.remove('active');
+    function formatMultiple(value) {
+        if (!value) {
+            return "";
+        }
+        return value
+            .split(/[;,]/)
+            .map(item => item.trim())
+            .filter(item => item.length > 0)
+            .join(", ");
+    }
 
-  let title = filmCard.dataset.title;
-  let desc = filmCard.dataset.desc;
-  let img = filmCard.dataset.img;
 
-  moviePage.innerHTML = `
-    <div class="hero" style="background-image: url('${img}')"></div>
+    // INFO
+    function triggerInfoAndButtons() {
+        moviePage.querySelectorAll(".info li").forEach((el, i) => {
+            setTimeout(() => {
+                el.classList.add("show");
+                el.querySelectorAll("button").forEach(btn => {
+                    btn.classList.add("show");
+                });
+            }, i * 150);
+        });
+    }
 
-    <!-- X CLOSE -->
-    <div class="movie-close">×</div>
+    // ACTION BUTTON
+    function triggerButtons() {
 
-    <main class="movie-layout">
+        let btn = moviePage.querySelector(".btn-slice");
 
-      <section class="left">
-        <h1 class="title"></h1>
+        if (btn) {
 
-        <ul class="info">
-          <li><span>Cast</span><button>Zendaya, Chalamet</button></li>
-          <li><span>Regia</span><button>D. Villeneuve</button></li>
-          <li><span>Durata</span><button>2h 18m</button></li>
-          <li><span>Data</span><button>Marzo 2024</button></li>
-          <li><span>Rate</span><button>13+</button></li>
-        </ul>
-      </section>
+            setTimeout(() => {
+                btn.classList.add("show");
+            }, 200);
 
-      <section class="right">
-        <div class="desc-box"></div>
+        }
+    }
 
-        <div class="actions">
-          <a href="#" class="btn-slice">
-            <div class="top"><span>Prenota ora!</span></div>
-            <div class="bottom"><span>Prenota ora!</span></div>
-          </a>
-        </div>
-      </section>
 
-    </main>
-  `;
+    // ======================================================
+    // CLOSE X
+    // ======================================================
 
-  requestAnimationFrame(() => {
-    moviePage.classList.add('active');
-  });
+    function triggerClose() {
+        let close = moviePage.querySelector(".movie-close");
 
-  let titleEl = moviePage.querySelector('.title');
-  let descBox = moviePage.querySelector('.desc-box');
+        if (!close) {
+            return;
+        }
+        setTimeout(() => {
+            close.classList.add("show");
+        }, 150);
+    }
 
-  titleEl.innerHTML = "";
-  descBox.innerHTML = "";
 
-  // TITLE
-  let lines = title.split(":");
+    // ======================================================
+    // DESCRIZIONE
+    // ======================================================
+    function animateDescriptionLines(container, text) {
+        container.innerHTML = "";
 
-  lines.forEach((line, lineIndex) => {
+        if (!text) {
+            triggerInfoAndButtons();
+            triggerButtons();
+            triggerClose();
+            return;
+        }
 
-    let row = document.createElement("div");
-    row.classList.add("title-line");
+        let words = text.split(" ");
+        let measure = document.createElement("span");
+        measure.style.visibility = "hidden";
+        measure.style.position = "absolute";
+        measure.style.whiteSpace = "nowrap";
+        document.body.appendChild(measure);
+        let lineText = "";
+        let lines = [];
 
-    let text = line.trim() + (lineIndex === 0 && lines.length > 1 ? ":" : "");
+        words.forEach(word => {
+            let testText = lineText + word + " ";
+            measure.textContent = testText;
+            if (measure.offsetWidth > container.offsetWidth) {
+                lines.push(lineText.trim());
+                lineText = word + " ";
+            } else {
+                lineText = testText;
+            }
+        });
 
-    let words = text.split(" ");
+        if (lineText) {
+            lines.push(lineText.trim());
+        }
 
-    words.forEach((word, wordIndex) => {
+        document.body.removeChild(measure);
+        let triggerPoint = Math.floor(lines.length * 0.5);
+        descStarted = false;
 
-      let wordEl = document.createElement("span");
-      wordEl.classList.add("word");
+        lines.forEach((line, i) => {
+            let span = document.createElement("span");
+            span.classList.add("desc-line");
+            span.textContent = line;
+            container.appendChild(span);
 
-      [...word].forEach((char, charIndex) => {
+            setTimeout(() => {
+                span.classList.add("show");
+                if (!descStarted && i >= triggerPoint) {
+                    descStarted = true;
+                    triggerInfoAndButtons();
+                    triggerButtons();
+                    triggerClose();
+                }
+            }, i * 140);
+        });
+    }
 
-        let letter = document.createElement("span");
-        letter.textContent = char === " " ? "\u00A0" : char;
 
-        letter.style.animationDelay =
-          `${(lineIndex * 0.1) + (wordIndex * 0.15) + (charIndex * 0.03)}s`;
+    // ======================================================
+    // OPEN MOVIE
+    // ======================================================
 
-        wordEl.appendChild(letter);
-      });
+    function openMovie(filmCard) {
+        document.body.classList.add("no-navbar");
+        moviePage.classList.remove("active");
+        isClosing = false;
 
-      row.appendChild(wordEl);
+
+        // DATI FILM
+        let title = filmCard.dataset.title || "";
+        let desc = filmCard.dataset.desc || "";
+        let img = filmCard.dataset.img || "";
+        let cast = formatMultiple(filmCard.dataset.cast);
+        let regia = formatMultiple( filmCard.dataset.regia);
+        let durata = formatDuration(filmCard.dataset.durata);
+        let data = formatDate(filmCard.dataset.data);
+
+        // HTML
+        moviePage.innerHTML = `
+            <div class="hero"
+                 style="background-image: url('${img}')">
+            </div>
+            <div class="movie-close">
+                ×
+            </div>
+            <main class="movie-layout">
+                <section class="left">
+                    <div class="top">
+                        <h1 class="title"></h1>
+                    </div>
+                    <ul class="info">
+                        <li>
+                            <span>Cast</span>
+                            <button>${cast}</button>
+                        </li>
+                        <li>
+                            <span>Regia</span>
+                            <button>${regia}</button>
+                        </li>
+                        <li>
+                            <span>Durata</span>
+                            <button>${durata}</button>
+                        </li>
+                        <li>
+                            <span>Data</span>
+                            <button>${data}</button>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="right">
+                    <div class="desc-box"></div>
+                    <div class="actions">
+                        <a href="#" class="btn-slice">
+                            <div class="top">
+                                <span>Prenota ora!</span>
+                            </div>
+                            <div class="bottom">
+                                <span>Prenota ora!</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+            </main>
+        `;
+
+        // APERTURA
+        requestAnimationFrame(() => {
+            moviePage.classList.add("active");
+        });
+
+        let titleEl = moviePage.querySelector(".title");
+        let descBox = moviePage.querySelector(".desc-box");
+
+        // TITLE
+        titleEl.innerHTML = "";
+        let lines = title.split(":");
+        lines.forEach((line, lineIndex) => {
+            let row = document.createElement("div");
+            row.classList.add("title-line");
+            let text =
+                line.trim() + (lineIndex === 0 &&lines.length > 1? ":": "");
+
+            let words = text.split(" ");
+            words.forEach((word, wordIndex) => {
+                let wordEl = document.createElement("span");
+                wordEl.classList.add("word");
+                [...word].forEach((char, charIndex) => {
+                    let letter = document.createElement("span");
+                    letter.textContent =
+                        char === " " ? "\u00A0" : char;
+
+                    letter.style.animationDelay =
+                        `${(lineIndex * 0.1) +
+                          (wordIndex * 0.15) +
+                          (charIndex * 0.03)}s`;
+
+                    wordEl.appendChild(letter);
+                });
+                row.appendChild(wordEl);
+            });
+            titleEl.appendChild(row);
+        });
+
+
+        // DESCRIZIONE
+        let titleDuration = title.length * 25;
+
+        setTimeout(() => {
+            animateDescriptionLines(
+                descBox,
+                desc
+            );
+        }, titleDuration + 250);
+
+
+        // ==================================================
+        // CLOSE
+        // ==================================================
+        moviePage
+            .querySelector(".movie-close")
+            .addEventListener("click", closeMovie);
+    }
+
+
+    // ======================================================
+    // CLOSE MOVIE
+    // ======================================================
+
+    function closeMovie() {
+        if (isClosing) {
+            return;
+        }
+
+        isClosing = true;
+
+        moviePage.classList.add("closing");
+        moviePage.classList.remove("active");
+
+
+        setTimeout(() => {
+            moviePage.innerHTML = "";
+            moviePage.classList.remove("closing");
+            document.body.classList.remove("no-navbar");
+            isClosing = false;
+        }, 800);
+    }
+
+
+    // EVENTI CARD
+
+    cards.forEach(filmCard => {
+        filmCard.addEventListener("click", () => {
+            openMovie(filmCard);
+        });
+
     });
 
-    titleEl.appendChild(row);
-  });
-
-  let titleDuration = title.length * 25;
-
-  setTimeout(() => {
-    animateDescriptionLines(descBox, desc);
-  }, titleDuration + 250);
-
-  
-  // CLOSE CLICK
-let isClosing = false;
-
-moviePage.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('movie-close')) return;
-
-  if (isClosing) return;
-  isClosing = true;
-
-  moviePage.classList.add('closing');
-  moviePage.classList.remove('active');
-
-  // sync con CSS transition
-  setTimeout(() => {
-  moviePage.innerHTML = "";
-  moviePage.classList.remove('closing');
-
-  document.body.classList.remove("no-navbar");
-}, 800);
-});
-}
-
-// EVENTS
-cards.forEach(filmCard => {
-  filmCard.addEventListener('click', () => openMovie(filmCard));
 });

@@ -95,6 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let filmSection = document.querySelector("#film");
 
+    let formatiPromise = Promise.resolve();
+    let generiPromise = Promise.resolve();
     // ELEMENTI FORM FILM
 
     if (filmSection) {
@@ -103,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let genereContainer = document.getElementById("genereContainer");
         let formatoItaContainer = document.getElementById("formatoItaContainer");
         let formatoEngContainer = document.getElementById("formatoEngContainer");
+
 
         // CARICAMENTO GENERI
         async function caricaGeneri() {
@@ -203,6 +206,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 formatoEngContainer.innerHTML = "<p>Impossibile caricare i formati.</p>";
             }
         }
+        formatiPromise = caricaFormati();
+        generiPromise = caricaGeneri();
 
         // RESET FORM FILM
         function resetFormFilm() {
@@ -277,21 +282,51 @@ document.addEventListener("DOMContentLoaded", function () {
                 id: filmSection.dataset.id ? Number(filmSection.dataset.id) : null,
                 titolo: document.getElementById("titoloFilm").value,
                 distribuzione: document.getElementById("distribuzione").value,
+                regista: document.getElementById("regista").value,
+                cast: document.getElementById("cast").value,
                 sinossi: document.getElementById("sinossi").value,
                 genere: generi,
                 dataUscita: document.getElementById("dataUscita").value,
-                durata: Number(document.getElementById("durataFilm").value),
-                prezzo: Number(document.getElementById("prezzoFilm").value),
+                scadenza: document.getElementById("dataFine").value,
+                durata: document.getElementById("durataFilm").value
+                    ? Number(document.getElementById("durataFilm").value)
+                    : null,
+                prezzo: document.getElementById("prezzoFilm").value
+                    ? Number(document.getElementById("prezzoFilm").value)
+                    : null,
                 italiano: italiano,
                 inglese: inglese,
                 imgCopertina: document.getElementById("imgCopertina").value,
                 imgLocandina: document.getElementById("imgLocandina").value,
                 imgLogo: document.getElementById("imgLogo").value,
+                titoloPartnership: document.getElementById("titoloPartnership").value,
                 partnership: partnership,
                 imgPartnership: partnership ? document.getElementById("imgPartnership").value : null,
                 archiviato: archiviato
             };
 
+            console.log(
+                "CHECKBOX ITA SELEZIONATI:",
+                [...formatoItaContainer.querySelectorAll("input:checked")]
+                    .map(input => ({
+                        value: input.value,
+                        name: input.name,
+                        id: input.id
+                    }))
+            );
+
+            console.log(
+                "CHECKBOX ENG SELEZIONATI:",
+                [...formatoEngContainer.querySelectorAll("input:checked")]
+                    .map(input => ({
+                        value: input.value,
+                        name: input.name,
+                        id: input.id
+                    }))
+            );
+            console.log("DTO FILM INVIATO:", dto);
+            console.log("Italiano:", dto.italiano);
+            console.log("Inglese:", dto.inglese);
 
             // VALIDAZIONE
 
@@ -307,7 +342,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // INVIO AL BACKEND
 
             try {
-
                 const response = await fetch("/admin/gestioneFilm/salvaFilm", {
                     method: "POST",
                     headers: {
@@ -318,11 +352,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 );
 
-                if (!response.ok) {
-                    throw new Error();
-                }
 
-                alert(dto.id ? "Film modificato correttamente." : "Film salvato correttamente.");
+                if (!response.ok) {
+                    let errore = await response.text();
+                    console.error("Status:", response.status);
+                    console.error("Backend:", errore);
+                    throw new Error(
+                        `Errore HTTP ${response.status}: ${errore}`
+                    );
+                }
+                alert( dto.id ? "Film modificato correttamente.": "Film salvato correttamente.");
+
 
                 // Reset form
                 resetFormFilm();
@@ -342,13 +382,10 @@ document.addEventListener("DOMContentLoaded", function () {
             resetFormFilm();
         }
         );
-        // CARICAMENTO DATI INIZIALI FILM
-        caricaGeneri();
-        caricaFormati();
+
     }
 
     // MODIFICA FILM
-
     async function modificaFilm(id) {
 
         if (!filmSection) {
@@ -356,6 +393,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         try {
+            // Aspetta che generi e formati siano stati caricati
+                await generiPromise;
+                await formatiPromise;
             // RECUPERO FILM
             const response = await fetch(`/admin/gestioneFilm/film/${id}`);
             if (!response.ok) {
@@ -364,16 +404,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const film = await response.json();
 
             // DATI PRINCIPALI
+            // DATI PRINCIPALI
             document.getElementById("titoloFilm").value = film.titolo ?? "";
             document.getElementById("distribuzione").value = film.distribuzione ?? "";
+            document.getElementById("regista").value = film.regista ?? "";
+            document.getElementById("cast").value = film.cast ?? "";
             document.getElementById("sinossi").value = film.sinossi ?? "";
             document.getElementById("dataUscita").value = film.dataUscita ?? "";
+            document.getElementById("dataFine").value = film.scadenza ?? "";
             document.getElementById("durataFilm").value = film.durata ?? "";
             document.getElementById("prezzoFilm").value = film.prezzo ?? "";
             document.getElementById("imgCopertina").value = film.imgCopertina ?? "";
             document.getElementById("imgLocandina").value = film.imgLocandina ?? "";
             document.getElementById("imgLogo").value = film.imgLogo ?? "";
             document.getElementById("imgPartnership").value = film.imgPartnership ?? "";
+            document.getElementById("titoloPartnership").value = film.titoloPartnership ?? "";
 
             // GENERI
             document.querySelectorAll("#genereContainer input[type='checkbox']")
@@ -383,19 +428,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             // FORMATI ITALIANI
-            document.querySelectorAll("#formatoItaContainer input[type='checkbox']")
+            const formatiItaliani = film.italiano ?? [];
+
+            console.log("Formati italiani ricevuti:", formatiItaliani);
+
+            document
+                .querySelectorAll("#formatoItaContainer input[type='checkbox']")
                 .forEach(checkbox => {
-                    checkbox.checked = film.italiano?.includes(Number(checkbox.value)) ?? false;
+
+                    const idFormato = Number(checkbox.value);
+
+                    checkbox.checked = formatiItaliani.includes(idFormato);
+
+                    console.log(
+                        "ITA",
+                        "id:", idFormato,
+                        "checked:", checkbox.checked
+                    );
                 });
 
 
             // FORMATI INGLESI
-            document.querySelectorAll("#formatoEngContainer input[type='checkbox']")
+            // FORMATI INGLESI
+
+            const formatiInglesi = film.inglese ?? [];
+
+            console.log("Formati inglesi ricevuti:", formatiInglesi);
+
+            document
+                .querySelectorAll("#formatoEngContainer input[type='checkbox']")
                 .forEach(checkbox => {
-                    checkbox.checked =
-                        film.inglese?.includes(
-                            Number(checkbox.value)
-                        ) ?? false;
+
+                    const idFormato = Number(checkbox.value);
+
+                    checkbox.checked = formatiInglesi.includes(idFormato);
+
+                    console.log(
+                        "ENG",
+                        "id:", idFormato,
+                        "checked:", checkbox.checked
+                    );
                 });
 
 

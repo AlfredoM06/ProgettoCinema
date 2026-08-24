@@ -49,12 +49,15 @@ public class GestioneFilmController {
         film.setTitolo(dto.getTitolo());
         film.setDistribuzione(dto.getDistribuzione());
         film.setDescrizione(dto.getSinossi());
+        film.setCast(dto.getCast());
+        film.setRegista(dto.getRegista());
         List<GenereFilm> generi = new ArrayList<>();
         for (Integer g : dto.getGenere()) {
             generi.add(repoGeneri.findById(g).get());
         }
         film.setGeneri(generi);
         film.setDataDiUscita(dto.getDataUscita());
+        film.setScadenza(dto.getScadenza());
         film.setDurata(dto.getDurata());
         film.setPrezzo(dto.getPrezzo());
         Lingua italiano = new Lingua(); // potrebbe rompersi, spostare dopo il salvataggio in caso
@@ -87,7 +90,7 @@ public class GestioneFilmController {
         if (dto.getPartnership()) {
             Partnership partner = new Partnership();
             partner.setImg_banner(dto.getImgPartnership());
-            partner.setNome(dto.getTitolo());
+            partner.setNome(dto.getTitoloPartnership());
             film.setPartnership(partner);
         }
         film.setArchiviato(dto.getArchiviato());
@@ -168,6 +171,7 @@ public class GestioneFilmController {
         }
         dto.setGenere(generi);
         dto.setDataUscita(film.getDataDiUscita());
+        dto.setScadenza(film.getScadenza());
         dto.setDurata(film.getDurata());
         dto.setPrezzo(film.getPrezzo());
         List<Integer> italiano = new ArrayList<Integer>();
@@ -186,6 +190,7 @@ public class GestioneFilmController {
         dto.setImgLogo(film.getImg_logo());
         if (film.getPartnership() != null) {
             dto.setPartnership(true);
+            dto.setTitoloPartnership(film.getPartnership().getNome());
             dto.setImgPartnership(film.getPartnership().getImg_banner());
         } else {
             dto.setPartnership(false);

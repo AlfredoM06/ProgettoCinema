@@ -1,53 +1,115 @@
-/* HERO */
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero-custom {
     width: 100%;
-    height: clamp(26rem, 60vh, 48rem);
+
+    height: clamp(
+        22rem,
+        60vh,
+        48rem
+    );
+
     overflow: hidden;
 }
 
 .hero-custom img {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
+
     display: block;
 }
 
-/* MAIN */
+
+/* =========================================================
+   MAIN
+========================================================= */
+
 main {
     display: flex;
     justify-content: center;
-    padding: clamp(2rem, 5vw, 4rem);
+
+    padding:
+        clamp(1.5rem, 5vw, 4rem);
 }
 
-/* CONTENUTO TESTO */
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
 .content-wrapper {
-    width: clamp(32rem, 50%, 52rem);
+    width: min(
+        90%,
+        clamp(32rem, 50vw, 52rem)
+    );
+
     text-align: left;
 }
 
-/* TYPO */
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
 .content-wrapper h1 {
-    font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+    font-size: clamp(
+        1.8rem,
+        2.5vw,
+        2.8rem
+    );
+
     margin-bottom: 1rem;
+
     text-transform: uppercase;
 }
 
 .content-wrapper p {
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    font-size: clamp(
+        1rem,
+        1.2vw,
+        1.2rem
+    );
+
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+
+    margin-bottom:
+        clamp(1rem, 1.5vw, 1.5rem);
 }
 
-/* BUTTON */
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
 .btnGadget {
-    box-shadow: inset 0 0 0 1px var(--border-color);
+    box-shadow:
+        inset 0 0 0 1px var(--border-color);
+
     transition: all 0.25s ease;
+
     border: none;
     border-radius: 0;
 
-    width: 12.5rem;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    width: clamp(
+        10rem,
+        12.5vw,
+        12.5rem
+    );
+
+    padding:
+        clamp(0.75rem, 1vw, 1rem)
+        clamp(1.25rem, 2vw, 2rem);
+
+    font-size: clamp(
+        0.85rem,
+        1vw,
+        1rem
+    );
+
     text-transform: uppercase;
     cursor: pointer;
 
@@ -56,11 +118,34 @@ main {
 }
 
 .btnGadget:hover {
-    background: linear-gradient(90deg, #dc143c 0%, #b88f2a 50%, #9e8f2b 100%);
+    background:
+        linear-gradient(
+            90deg,
+            #dc143c 0%,
+            #b88f2a 50%,
+            #9e8f2b 100%
+        );
+
     color: #1c252e;
-    
-    box-shadow: 0 0 8px rgba(220, 20, 60, 0.5),
+
+    box-shadow:
+        0 0 8px rgba(220, 20, 60, 0.5),
         0 0 25px rgba(220, 20, 60, 0.3),
         0 0 40px rgba(158, 143, 43, 0.2);
+}
 
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .hero-custom {
+        height: 28rem;
+    }
+
+    .content-wrapper {
+        width: 100%;
+    }
 }

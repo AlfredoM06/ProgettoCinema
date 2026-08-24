@@ -45,3 +45,38 @@
   font-weight: bolder;
 }
 
+
+/* =========================
+   RESPONSIVE - TABLET (<=992px)
+========================= */
+
+@media (max-width: 992px) {
+  .freccia {
+    width: 42px;
+    height: 42px;
+    bottom: 30px;
+    right: 15px;
+  }
+
+  .testoGiu {
+    font-size: 1.2rem;
+  }
+}
+
+
+/* =========================
+   RESPONSIVE - MOBILE (<=576px)
+========================= */
+
+@media (max-width: 576px) {
+  .freccia {
+    width: 38px;
+    height: 38px;
+    bottom: 20px;
+    right: 12px;
+  }
+
+  .testoGiu {
+    font-size: 1rem;
+  }
+}

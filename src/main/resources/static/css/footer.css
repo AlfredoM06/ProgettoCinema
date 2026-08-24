@@ -206,3 +206,78 @@
 .footer-content p {
   margin-bottom: 0.5rem;
 }
+
+
+/* =========================
+   RESPONSIVE - LAPTOP (<=1440px)
+========================= */
+
+@media (max-width: 1440px) {
+  .footer-content .container-fluid {
+    padding-left: 3rem;
+    padding-right: 1.5rem;
+  }
+
+  .footer-newsletter__content {
+    padding: 3rem;
+  }
+
+  .footer-newsletter .personeLetter {
+    min-height: 14rem;
+    padding-left: 1.5rem;
+  }
+}
+
+
+/* =========================
+   RESPONSIVE - TABLET (<=992px)
+========================= */
+
+@media (max-width: 992px) {
+  .footer-content,
+  .footer-social,
+  .footer-bottom {
+    padding-top: 2.5rem;
+  }
+
+  .footer-content .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .footer-newsletter__content {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-newsletter .personeLetter {
+    padding-left: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+
+/* =========================
+   RESPONSIVE - MOBILE (<=576px)
+========================= */
+
+@media (max-width: 576px) {
+  .footer-content .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .footer-newsletter__content {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-newsletter .personeLetter {
+    min-height: 10rem;
+  }
+
+  .footer-social .social-list {
+    flex-wrap: wrap;
+  }
+}
