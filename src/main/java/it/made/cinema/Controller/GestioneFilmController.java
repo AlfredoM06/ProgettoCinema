@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ public class GestioneFilmController {
     @Autowired
     IRepoCross repoCross;
 
+    @Transactional
     @PostMapping("/salvaFilm")
     public @ResponseBody Boolean salvaFilm(@RequestBody FormFilmDTO dto) {
         Film film = new Film();
@@ -93,6 +95,11 @@ public class GestioneFilmController {
             film.setPartnership(partner);
         }
         film.setArchiviato(dto.getArchiviato());
+
+        if (film.getId() != null){
+            repoCross.deleteByFilmId(film.getId());
+        }
+
         repoFilm.save(film);
 
         for (CrossFilmFormatoLingua c : cross) {
