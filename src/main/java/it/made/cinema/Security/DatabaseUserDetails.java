@@ -1,18 +1,35 @@
 package it.made.cinema.Security;
 
 
+import it.made.cinema.Model.Carrello;
+import it.made.cinema.Model.NomeCarta;
+import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.Ruolo;
 import it.made.cinema.Model.Utente;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class DatabaseUserDetails implements UserDetails {
     private Integer id;
     private String username;

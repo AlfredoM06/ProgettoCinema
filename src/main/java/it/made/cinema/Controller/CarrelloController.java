@@ -10,9 +10,11 @@ import it.made.cinema.Repository.IRepoCarrello;
 import it.made.cinema.Repository.IRepoCarta;
 import it.made.cinema.Repository.IRepoOfferte;
 import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
 import it.made.cinema.Service.PuntiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +53,9 @@ public class CarrelloController {
 
     //mostrare carello
     @GetMapping
-    String carrello(Model model, Integer idUtente) {
-        Utente utente = repoUtenti.findById(idUtente).get();
+    String carrello(Model model, Authentication authentication) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carrello = repoCarrello.findByUtente(utente);
         if (carrello == null) {
             carrello = creaCarrello(utente);
@@ -69,10 +72,11 @@ public class CarrelloController {
     }
 
     //metodo per aggiungere al carello
-    @PostMapping("/aggiungi/{idUtente}/{idOfferta}")
+    @PostMapping("/aggiungi/{idOfferta}")
     @ResponseBody
-    private Boolean aggiungi(@RequestParam Integer idUtente, @RequestParam Integer idOfferta) {
-        Utente utente = repoUtenti.findById(idUtente).get();
+    private Boolean aggiungi(Authentication authentication, @RequestParam Integer idOfferta) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carello = repoCarrello.findByUtente(utente);
         if (carello == null) {
             carello = creaCarrello(utente);
@@ -104,8 +108,9 @@ public class CarrelloController {
     //metodo per acquistare e salvare sul db
     @GetMapping("/acquistaOfferta")
     @ResponseBody
-    private Double acquistaOfferta(Integer idUtente, Integer idOfferta) {
-        Utente utente = repoUtenti.findById(idUtente).get();
+    private Double acquistaOfferta(Authentication authentication, Integer idOfferta) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
         Double prezzo = 0d;
         prezzo = prezzoService.calcolaScontoOfferta(utente, offerta);
@@ -119,8 +124,9 @@ public class CarrelloController {
 
     @GetMapping("/acquistaCarta")
     @ResponseBody
-    private Double acquistaCarta(Integer idUtente, Integer idCarta) {
-        Utente utente = repoUtenti.findById(idUtente).get();
+    private Double acquistaCarta(Authentication authentication, Integer idCarta) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
         if (utente.getCartaRicaricabile()) {
             return -1d;
         }

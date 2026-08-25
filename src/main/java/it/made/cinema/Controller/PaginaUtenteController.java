@@ -11,6 +11,7 @@ import it.made.cinema.Repository.IRepoAcquisti;
 import it.made.cinema.Repository.IRepoOfferte;
 import it.made.cinema.Repository.IRepoPostiOccupati;
 import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,9 +50,10 @@ public class PaginaUtenteController {
     //                  FATTI:
     //1) I biglietti prenotati e acquistati con i relativi dati i quali verranno cancellati dopo 1 settimana per eventuali rimborsi.
     // va aggiunto attributo in posti occupati che lega utente con posto occupato (tramite id utente) tramite l'id posto occupato andiamo in programmazione e vediamo quale film ha prenotato/acquistato.
-    @GetMapping("/acquisti/{id}")
-    public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(@PathVariable Integer id) {
-        List<PostiOccupati> postiOccupati = repoPO.findByUtenteId(id);
+    @GetMapping("/acquisti")
+    public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(Authentication authentication) {
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+    	List<PostiOccupati> postiOccupati = repoPO.findByUtenteId(userDetails.getId());
         List<PostiOccupatiDTO> biglietti = new ArrayList<>();
         for (PostiOccupati posto : postiOccupati) {
             String[] posizioni = posto.getPosizione().split("_");
@@ -72,9 +75,10 @@ public class PaginaUtenteController {
     }
 
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
-    @GetMapping("acquistiOfferte/{id}")
-    public @ResponseBody List<OfferteDTO> offerteAcquistate(@PathVariable Integer id, @RequestParam(required = false) String genere) {
-        List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(id, genere);
+    @GetMapping("acquistiOfferte")
+    public @ResponseBody List<OfferteDTO> offerteAcquistate(Authentication authentication, @RequestParam(required = false) String genere) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(userDetails.getId(), genere);
         List<OfferteDTO> acquisti = new ArrayList<>();
         for (AcquistiGadget acquisto : acquistiGadget) {
             acquisti.add(new OfferteDTO(
@@ -88,9 +92,10 @@ public class PaginaUtenteController {
     }
 
     //2) Se ha acquistato una card(ricaricabile) e o abbonamento.
-    @GetMapping("/abbonamento/{id}")
-    public Boolean abbonamento(@PathVariable Integer id) {
-        Optional<Utente> utenteOpt = repoUtenti.findById(id);
+    @GetMapping("/abbonamento")
+    public Boolean abbonamento(Authentication authentication) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Optional<Utente> utenteOpt = repoUtenti.findById(userDetails.getId());
         if (utenteOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato");
         }
@@ -100,13 +105,13 @@ public class PaginaUtenteController {
     }
 
     //3) Cambiare i suoi dati tipo l'email.
-    @PostMapping("/modifica/{id}")
+    @PostMapping("/modifica")
     @ResponseBody
     public ResponseEntity<String> modificaUtente(
-            @PathVariable Integer id,
+    		Authentication authentication,
             @RequestBody DatiUtenteDTO datiModifica) {
-
-        Utente utente = repoUtenti.findById(id).get();
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
 
         // Modifica email se presente
         if (datiModifica.getEmail() != null && !datiModifica.getEmail().isBlank()) {
@@ -123,9 +128,10 @@ public class PaginaUtenteController {
     }
 
     //5) Card myS&G (carta con punti ottenuti).
-    @GetMapping("/punti/{id}")
-    public Integer puntiMembership(@PathVariable Integer id) {
-        Optional<Utente> utenteOpt = repoUtenti.findById(id);
+    @GetMapping("/punti")
+    public Integer puntiMembership(Authentication authentication) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Optional<Utente> utenteOpt = repoUtenti.findById(userDetails.getId());
         if (utenteOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato");
         }

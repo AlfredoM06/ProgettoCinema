@@ -45,7 +45,7 @@ public class SecurityConfiguration {
           .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
           .requestMatchers("/partnership/**").permitAll()
           .requestMatchers("/prossimamente/**").permitAll()
-          .requestMatchers("/", "/**").permitAll()
+          .anyRequest().permitAll()
           .and().formLogin()
           .and().logout()
           .and().exceptionHandling()
