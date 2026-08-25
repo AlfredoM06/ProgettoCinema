@@ -1,5 +1,5 @@
 package it.made.cinema.Security;
-/*
+
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoUtenti;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +25,4 @@ public class DatabaseUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
     }
-}*/
+}
