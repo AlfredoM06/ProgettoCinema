@@ -76,9 +76,7 @@ public class InSalaController {
     //dettagli di un film
     @GetMapping("/dettagli/{id}")
     private String dettagli(@PathVariable("id") Integer id, Model model) {
-        System.out.println("questo è l'id del film: " + id);
         Film film = repoFilm.findById(id).get();
-
         FilmDTO filmDTO = new FilmDTO();
         filmDTO.setId(id);
         filmDTO.setCast(film.getCast());

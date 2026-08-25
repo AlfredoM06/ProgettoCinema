@@ -69,7 +69,7 @@ public class CarrelloController {
     }
 
     //metodo per aggiungere al carello
-    @PostMapping("aggiungi/{idUtente}/{idOfferta}")
+    @PostMapping("/aggiungi/{idUtente}/{idOfferta}")
     @ResponseBody
     private Boolean aggiungi(@RequestParam Integer idUtente, @RequestParam Integer idOfferta) {
         Utente utente = repoUtenti.findById(idUtente).get();
@@ -84,7 +84,7 @@ public class CarrelloController {
     }
 
     //metodo per togliere
-    @PostMapping("elimina/{idCarello}/{idOfferta}")
+    @PostMapping("/elimina/{idCarello}/{idOfferta}")
     @ResponseBody
     private Boolean elimina(@RequestParam Integer idCarrello, @RequestParam Integer idOfferta) {
         Carrello carrello = repoCarrello.findById(idCarrello).get();
