@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <!-- ============================================================
      FRAGMENT: logo +
@@ -24,13 +24,13 @@
      ============================================================ -->
 <ul class="navbar-nav" th:fragment="anonimo">
     <li>
-        <a class="nav-link" th:href="@{/SignIn}">Accedi</a>
+        <a class="nav-link" th:href="@{/login}">Accedi</a>
     </li>
 </ul>
 <!-- ============================================================
      FRAGMENT: utente
      ============================================================ -->
-<ul class="navbar-nav" th:fragment="user" sec:authorize="hasAuthority('User')">
+<ul class="navbar-nav" th:fragment="user" sec:authorize="hasAnyAuthority('User', 'Admin')">
 
     <li class="nav-item dropdown">
         <a class="nav-link" th:href="@{/utente}">
