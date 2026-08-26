@@ -30,7 +30,7 @@
 <!-- ============================================================
      FRAGMENT: utente
      ============================================================ -->
-<ul class="navbar-nav" th:fragment="user" sec:authorize="isAuthenticated()">
+<ul class="navbar-nav" th:fragment="account" sec:authorize="isAuthenticated()">
 
     <li class="nav-item dropdown">
         <a class="nav-link" th:href="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/admin} : @{/utente}">
