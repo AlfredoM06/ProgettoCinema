@@ -60,6 +60,9 @@ public class CarrelloController {
         if (carrello == null) {
             carrello = creaCarrello(utente);
         }
+        if (carrello.getListaOfferte() == null) {
+            carrello.setListaOfferte(new ArrayList<>());
+        }
         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
         for (Offerta offerta : carrello.getListaOfferte()) {
             offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo()));
