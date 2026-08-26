@@ -22,7 +22,7 @@
 <!-- ============================================================
      FRAGMENT: anonimo
      ============================================================ -->
-<ul class="navbar-nav" th:fragment="anonimo">
+<ul class="navbar-nav" th:fragment="anonimo" sec:authorize="!isAuthenticated()">
     <li>
         <a class="nav-link" th:href="@{/SignIn}">Accedi</a>
     </li>
@@ -30,19 +30,20 @@
 <!-- ============================================================
      FRAGMENT: utente
      ============================================================ -->
-<ul class="navbar-nav" th:fragment="user" sec:authorize="hasAuthority('User')">
+<ul class="navbar-nav" th:fragment="user" sec:authorize="isAuthenticated()">
 
     <li class="nav-item dropdown">
-        <a class="nav-link" th:href="@{/utente}">
+        <a class="nav-link" th:href="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/admin} : @{/utente}">
             <img class="user-icon"
-                 th:src="@{/img/icona_profilo-utente.svg}"
+                 th:src="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/img/icona_admin_user.svg} : @{/img/icona_profilo-utente.svg}"
                  alt="user icon">
         </a>
 
         <ul class="dropdown-menu accountDrop">
-            <li><a class="dropdown-item" th:href="@{/utente}">Account</a></li>
-            <li><a class="dropdown-item" th:href="@{/carrello}">Carrello</a></li>
-
+            <li sec:authorize="hasAuthority('User')"><a class="dropdown-item" th:href="@{/utente}">Account</a></li>
+            <li sec:authorize="hasAuthority('User')"><a class="dropdown-item" th:href="@{/carrello}">Carrello</a></li>
+			<li sec:authorize="hasAuthority('Admin')"><a class="dropdown-item" th:href="@{/admin}">DashBoard</a>
+        </li>
             <li><hr class="dropdown-divider"></li>
             <li>
                 <form th:action="@{/logout}" method="post">
@@ -53,30 +54,6 @@
     </li>
 
 </ul>
-<!-- ============================================================
-     FRAGMENT: admin
-     ============================================================ -->
-<ul class="navbar-nav" th:fragment="admin" sec:authorize="hasAuthority('Admin')">
 
-    <li class="nav-item dropdown">
-        <a class="nav-link" href="#">
-            <img class="user-icon"
-                 th:src="@{/img/icona_admin_user.svg}"
-                 alt="admin icon">
-        </a>
-
-        <ul class="dropdown-menu accountDrop">
-            <li><a class="dropdown-item" th:href="@{/admin}">DashBoard</a></li>
-            <li><hr class="dropdown-divider"></li>
-
-            <li>
-                <form th:action="@{/logout}" method="post">
-                    <button class="dropdown-item" type="submit">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </li>
-
-</ul>
 </body>
 </html>
