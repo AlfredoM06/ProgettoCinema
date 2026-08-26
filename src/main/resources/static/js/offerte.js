@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function aggiornaCards(lista) {
-
         container.innerHTML = "";
-
         lista.forEach(offerta => {
 
             let html = `
@@ -62,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </article>
             `;
-
             container.innerHTML += html;
         });
     }

@@ -19,15 +19,10 @@
 
 .offers-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     width: 100%;
-
     padding: 0;
-
     position: relative !important;
 }
 
@@ -77,23 +72,15 @@
         rgba(22, 22, 26, 0.18);
 
     border: none;
-
     overflow: hidden;
-
     position: relative;
-
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
-
     z-index: 1;
-
     border-radius: 0;
-
     color: white;
-
     background: transparent;
-
     box-shadow: none;
 }
 
@@ -108,11 +95,8 @@
 
 .offers a {
     text-decoration: underline;
-
     text-underline-offset: 7px;
-
     color: var(--secondary);
-
     transition:
         color 0.6s ease,
         text-shadow 0.6s ease;
@@ -129,7 +113,6 @@
 
 .card-img-wrapper {
     overflow: hidden;
-
     position: relative;
 }
 
@@ -139,7 +122,6 @@
 ========================= */
 
 .card-img-novita {
-
     /*
        320px a 1920.
     */
@@ -159,7 +141,6 @@
     );
 
     object-fit: cover;
-
     display: block;
 }
 
@@ -181,15 +162,12 @@
 ========================================================= */
 
 @media (max-width: 62rem) {
-
     .offers-wrapper {
         width: calc(100% - 2rem);
     }
-
     .card {
         width: 18rem;
     }
-
     .card-img-novita {
         width: 18rem;
         height: 10.75rem;
@@ -202,17 +180,14 @@
 ========================================================= */
 
 @media (max-width: 36rem) {
-
     .offers-wrapper {
         width: calc(100% - 1.5rem);
     }
-
     .card {
         width: 100%;
         max-width: 20rem;
         margin-inline: auto;
     }
-
     .card-img-novita {
         width: 100%;
         height: auto;

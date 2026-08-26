@@ -4,10 +4,9 @@
 
 .hero-custom {
     width: 100%;
-
     height: clamp(
         22rem,
-        60vh,
+        68vh,
         48rem
     );
 
@@ -19,7 +18,6 @@
     height: 100%;
 
     object-fit: contain;
-
     display: block;
 }
 
@@ -31,9 +29,7 @@
 main {
     display: flex;
     justify-content: center;
-
-    padding:
-        clamp(1.5rem, 5vw, 4rem);
+    padding: clamp(1.5rem, 5vw, 4rem);
 }
 
 

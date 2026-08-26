@@ -30,15 +30,17 @@
 </header>
 <!--HERO-->
 <section class="hero-custom">
-    <img th:src="@{/img/prova.jfif}">
+    <img th:src="${offerta.imgDettaglio}" alt="Banner offerta dettaglio">
 </section>
 
 <main>
-    <div class="content-wrapper">
+    <div class="content-wrapper"  th:attr="data-genere=${offerta.genere}">
         <h1 th:text="${offerta.nome}"></h1>
-        <h5 th:text="${offerta.dataInizio}"></h5>
+        <h5 th:text="${#temporals.format(offerta.dataInizio, 'dd MMMM yyyy', new java.util.Locale('it', 'IT'))}"></h5>
         <p th:text="${offerta.descrizione}"></p>
-        <button class="btn btnGadget">Acquista</button>
+        <button id="btnAcquista" class="btn btnGadget" style="display: none;">
+            Acquista
+        </button>
     </div>
 </main>
 
@@ -48,6 +50,7 @@
 <div th:replace="fragments/footer :: copyright"></div>
 
 <!--JS-->
-<script src="./js/freccia.js"></script>
+<script th:src="@{/js/offerta-dettaglio.js}"></script>
+<script th:src="@{/js/freccia.js}"></script>
 </body>
 </html>
