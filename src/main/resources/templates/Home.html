@@ -52,7 +52,7 @@
                 <span th:text="${film.durata.intValue() % 60} + 'min'"></span>
             </span>
             <span th:each="genere, stat : ${film.generi}">
-                <span th:text="${genere.nome}"></span><span th:if="${!stat.last}">
+                <span th:text="${genere.nome}"></span><span th:if="${!stat.last}"></span>
             </span>
         </h4>
         <p th:text="${film.descrizione}"></p>
@@ -78,13 +78,11 @@
 
 <!-- BANNER SPONSORSHIP -->
 <section class="sponsorship-banner" aria-label="Banner sponsorizzazioni">
-    <img id="sponsorshipBannerImg" alt="Banner sponsorizzazione">
-<!--         th:src="${sponsorshipImages[0]}"-->
-    <div id="sponsorshipBannerData" hidden>
-<!--         th:attr="data-images=${#strings.listJoin(sponsorshipImages, ',')}"-->
-
-    </div>
+    <img id="sponsorshipBannerImg"
+         src="/img/banner_default_partnership.webp"
+         alt="Banner sponsorizzazione">
 </section>
+
 <!-- SWIPER FILM-->
 <main>
     <section class="filmpiuVisti" id="filmpiuVisti">

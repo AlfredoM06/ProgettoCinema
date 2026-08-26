@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("current").textContent = swiper.currentPage;
     });
 
-    // OFFERTE TOP 3
+    // =====================================================
+    //                  OFFERTE TOP 3
+    // =====================================================
     fetch("/offerte/top3")
         .then(response => response.json())
         .then(data => {
@@ -96,45 +98,101 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+     // =====================================================
+     // SPONSORSHIP BANNER
+     // =====================================================
 
-//    BANNER SCORRIMENTO X CINEFANS
-    const bannerImages = [
-        "/img/banner_homepage.webp",
-        "/img/banner_homepage2.webp",
-        "/img/banner_homepage3.webp"
-      ];
+     let sponsorshipImg = document.getElementById("sponsorshipBannerImg");
 
-      let bannerIndex = 0;
-      const bannerImg = document.getElementById("cinemaBannerImg");
+     if (sponsorshipImg) {
+         let defaultBanner = "/img/banner_default_partnership.webp";
+         console.log("SPONSORSHIP IMG TROVATA:", sponsorshipImg);
+         console.log("SRC INIZIALE:", sponsorshipImg.getAttribute("src"));
+         console.log("SRC ASSOLUTO:", sponsorshipImg.src);
 
-      setInterval(() => {
-        bannerIndex = (bannerIndex + 1) % bannerImages.length;
-        bannerImg.src = bannerImages[bannerIndex];
-      }, 2000);
+         // Impostiamo esplicitamente il default
+         sponsorshipImg.src = defaultBanner;
 
-      // =====================================================
-          // SPONSORSHIP BANNER DINAMICO DA DATABASE
-          // =====================================================
-          let sponsorshipImg =
-              document.getElementById("sponsorshipBannerImg");
-          let sponsorshipData =
-              document.getElementById("sponsorshipBannerData");
+         fetch("/partnership/listaBanner")
+             .then(response => {
+                 if (!response.ok) {
+                     throw new Error("Errore nel recupero dei banner");
+                 }
+                 return response.json();
+             })
+             .then(partnerships => {
+                 console.log("PARTNERSHIP RICEVUTE:", partnerships);
 
-          if (sponsorshipImg && sponsorshipData) {
-              let sponsorshipImages =
-                  sponsorshipData.dataset.images
-                      ? sponsorshipData.dataset.images.split(",")
-                      : [];
+                 // NESSUNA PARTNERSHIP
+                 if (!partnerships || partnerships.length === 0) {
+                     console.log("NESSUNA PARTNERSHIP");
+                     console.log("MOSTRO:", defaultBanner);
+                     sponsorshipImg.src = defaultBanner;
+                     return;
+                 }
 
-              // Se ci sono più immagini parte lo slideshow
-              if (sponsorshipImages.length > 1) {
-                  let sponsorshipIndex = 0;
-                  setInterval(() => {
-                        sponsorshipIndex = (sponsorshipIndex + 1)% sponsorshipImages.length;
-                        sponsorshipImg.src = sponsorshipImages[sponsorshipIndex];
-                  }, 2000);
-              }
-          }
+
+                 // UNA SOLA PARTNERSHIP
+                 // DEFAULT + PARTNERSHIP
+                 if (partnerships.length === 1) {
+                     console.log("UNA PARTNERSHIP");
+                     const immagini = [
+                         defaultBanner,
+                         partnerships[0].banner
+                     ];
+                     console.log("SLIDES:", immagini);
+
+                     let index = 0;
+                     sponsorshipImg.src = immagini[index];
+                     setInterval(() => {
+                         index = (index + 1) % immagini.length;
+                         console.log(
+                             "CAMBIO BANNER:",
+                             immagini[index]
+                         );
+                         sponsorshipImg.src = immagini[index];
+                     }, 4000);
+                     return;
+                 }
+
+                 // PIÙ PARTNERSHIP
+                 // SOLO PARTNERSHIP
+                 console.log("PIÙ PARTNERSHIP:", partnerships.length);
+                 let index = 0;
+                 sponsorshipImg.src = partnerships[index].banner;
+                 setInterval(() => {
+                     index = (index + 1) % partnerships.length;
+                     console.log(
+                         "CAMBIO PARTNERSHIP:",
+                         partnerships[index].banner
+                     );
+                     sponsorshipImg.src = partnerships[index].banner;
+                 }, 4000);
+             })
+             .catch(error => {
+                 console.error(
+                     "Errore caricamento banner partnership:",
+                     error
+                 );
+                 // In caso di errore mostra sempre il default
+                 sponsorshipImg.src = defaultBanner;
+             });
+     }
+
+     //    BANNER SCORRIMENTO X CINEFANS
+         const bannerImages = [
+             "/img/banner_homepage.webp",
+             "/img/banner_homepage2.webp",
+             "/img/banner_homepage3.webp"
+           ];
+
+           let bannerIndex = 0;
+           const bannerImg = document.getElementById("cinemaBannerImg");
+
+           setInterval(() => {
+             bannerIndex = (bannerIndex + 1) % bannerImages.length;
+             bannerImg.src = bannerImages[bannerIndex];
+           }, 2000);
 
 });
 
