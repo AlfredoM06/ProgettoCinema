@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -24,10 +25,10 @@ public class Offerta {
 	@NotEmpty
 	@Column(length=50, nullable=false)
 	private String genere;
-	@NotEmpty
+	@NonNull
 	@Column(nullable=false)
 	private LocalDate dataInizio;
-	@NotEmpty
+	@NotNull
 	@Column(nullable=false)
 	private LocalDate dataScadenza;
 	@NotEmpty
