@@ -256,28 +256,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             // FORMATI ITALIANI
-
             let italiano = [...formatoItaContainer.querySelectorAll("input:checked")
             ].map(input => Number(input.value));
 
 
             // FORMATI INGLESI
-
             let inglese = [...formatoEngContainer.querySelectorAll("input:checked")
             ].map(input => Number(input.value));
 
 
             // PARTNERSHIP
-
             let partnership = filmSection.querySelector("input[name='partnership']:checked")?.value === "si";
 
 
             // STATO FILM
-
             let archiviato = filmSection.querySelector("input[name='statoFilm']:checked")?.value === "archiviato";
 
             // CREAZIONE DTO
-
             const dto = {
                 id: filmSection.dataset.id ? Number(filmSection.dataset.id) : null,
                 titolo: document.getElementById("titoloFilm").value,
@@ -513,7 +508,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let offerteSection = document.querySelector("#offerte");
 
     if (offerteSection) {
-
+        offerteSection.dataset.id = "";
         let btnConfermaOfferta = offerteSection.querySelector("button[type='submit']");
         let btnAnnullaOfferta = offerteSection.querySelector("button[type='reset']");
         let prezzoOfferta = document.getElementById("prezzoOfferta");
@@ -698,6 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Impossibile caricare l'offerta.");
             }
         }
+        window.modificaOfferta = modificaOfferta;
     }
 
     // =========================================================
@@ -1525,6 +1521,8 @@ document.addEventListener("DOMContentLoaded", function () {
             resetFormProgrammazione();
         }
         );
+        window.modificaProgrammazione = modificaProgrammazione;
+        window.eliminaProgrammazione  = eliminaProgrammazione;
     }
 
 
