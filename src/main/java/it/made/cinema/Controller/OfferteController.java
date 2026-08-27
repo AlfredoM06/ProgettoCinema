@@ -55,7 +55,7 @@ public class OfferteController {
         offerte = repoOfferte.findTop3ByOrderByGenereAsc();
         List<ListaTop3DTO> top3Dto = new ArrayList<ListaTop3DTO>();
         for (Offerta offerta : offerte) {
-            top3Dto.add(new ListaTop3DTO(offerta.getId(), offerta.getNome(), offerta.getDataInizio(), offerta.getImgBanner()));
+            top3Dto.add(new ListaTop3DTO(offerta.getId(), offerta.getNome(), offerta.getDataInizio(), offerta.getImgBannerTopOfferte()));
         }
         return top3Dto;
     }

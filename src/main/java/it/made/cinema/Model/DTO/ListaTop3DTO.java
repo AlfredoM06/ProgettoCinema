@@ -15,5 +15,5 @@ public class ListaTop3DTO implements Serializable {
     private Integer id;
     private String nome;
     private LocalDate dataInizio;
-    private String imgBanner;
+    private String imgTopList;
 }
