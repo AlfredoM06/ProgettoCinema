@@ -46,7 +46,6 @@
         <img th:src="${film.img_logo}" alt="Logo Film" class="titolo">
         <h4>
             <span th:text="${#temporals.year(film.dataDiUscita)}"></span>
-<!--            <span><i th:text="${film.classificazione}"></i></span>-->
             <span>
                 <span th:text="${film.durata.intValue() / 60} + 'h'"></span>
                 <span th:text="${film.durata.intValue() % 60} + 'min'"></span>
@@ -306,6 +305,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
 <script src="./js/materialize.js"></script>
+<script src="./js/offertetoptier.js"></script>
 <script src="./js/home.js"></script>
 <script src="./js/freccia.js"></script>
 <script src="./js/titoloLinea.js"></script>

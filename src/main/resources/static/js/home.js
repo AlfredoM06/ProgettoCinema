@@ -2,16 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let cards = document.querySelectorAll('.card');
     let overlay = document.querySelector('.global-overlay');
 
-    /* style card*/
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        overlay.style.opacity = '1';
-      });
+    if (overlay) {
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                overlay.style.opacity = '1';
+            });
 
-      card.addEventListener('mouseleave', () => {
-        overlay.style.opacity = '0';
-      });
-    });
+            card.addEventListener('mouseleave', () => {
+                overlay.style.opacity = '0';
+            });
+        });
+    }
 
     // CONTROLLO FRECCE SWIPER
     document.querySelector(".swiper-button-next").addEventListener("click", () => {
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             </div>
 
                             <div class="card-body">
-
                                 <time datetime="${offerta.dataInizio}">
                                     ${formatDate(offerta.dataInizio)}
                                 </time>
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     ${offerta.nome}
                                 </h5>
 
-                                <a href="/offerte/dettagliOfferte/${offerta.id}">
+                                <a href="/offerte/dettagli/${offerta.id}">
                                     Leggi di più
                                 </a>
 
