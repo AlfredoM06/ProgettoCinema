@@ -13,33 +13,42 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(data => {
-
+            console.log("TOP 3 RICEVUTE:", data);
             container.innerHTML = "";
             data.forEach(offerta => {
+
+                console.log("OFFERTA:", offerta.nome);
+                console.log("IMG TOP:", offerta.imgBannerTopOfferte);
 
                 let card = `
                     <div class="col-lg-4 mt-4">
                         <div class="card">
+
                             <div class="card-img-wrap">
                                 <img
                                     src="${offerta.imgBannerTopOfferte}"
                                     class="card-img-novita"
                                     alt="${offerta.nome}">
                             </div>
+
                             <div class="card-body">
                                 <time datetime="${offerta.dataInizio}">
                                     ${formatDate(offerta.dataInizio)}
                                 </time>
+
                                 <h5 class="card-title">
                                     ${offerta.nome}
                                 </h5>
+
                                 <a href="/offerte/dettagli/${offerta.id}">
                                     Leggi di più
                                 </a>
                             </div>
+
                         </div>
                     </div>
                 `;
+
                 container.insertAdjacentHTML("beforeend", card);
             });
         })

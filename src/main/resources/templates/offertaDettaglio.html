@@ -38,6 +38,11 @@
         <h1 th:text="${offerta.nome}"></h1>
         <h5 th:text="${#temporals.format(offerta.dataInizio, 'dd MMMM yyyy', new java.util.Locale('it', 'IT'))}"></h5>
         <p th:text="${offerta.descrizione}"></p>
+        <p id="prezzoOfferta"
+           class="prezzo-offerta"
+           th:text="'Al prezzo di ' + ${offerta.prezzo} + ' €'"
+           style="display: none;">
+        </p>
         <button id="btnAcquista" class="btn btnGadget" style="display: none;">
             Acquista
         </button>

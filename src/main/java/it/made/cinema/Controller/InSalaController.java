@@ -96,7 +96,8 @@ public class InSalaController {
             offerta.setDescrizione(o.getDescrizione());
             offerta.setNome(o.getNome());
             offerta.setGenere(o.getGenere());
-            offerta.setImg_banner(o.getImgBanner());
+            offerta.setDataInizio(o.getDataInizio());
+            offerta.setImg_banner(o.getImgBannerTopOfferte());
             listaOfferte.add(offerta);
         }
         filmDTO.setOfferte(listaOfferte);

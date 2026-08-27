@@ -1,6 +1,7 @@
 package it.made.cinema.Model.DTO;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,4 +21,5 @@ public class ListaOffertaDTO implements Serializable {
 	private String descrizione;
 	private String img_banner;
 	private Double prezzo;
+	private LocalDate dataInizio;
 }

@@ -39,65 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("current").textContent = swiper.currentPage;
     });
 
-    // =====================================================
-    //                  OFFERTE TOP 3
-    // =====================================================
-    fetch("/offerte/top3")
-        .then(response => response.json())
-        .then(data => {
-
-            let container = document.getElementById("offerte-container");
-            container.innerHTML = "";
-            data.forEach(offerta => {
-
-                let card = `
-                    <div class="col-lg-4 mt-4">
-                        <div class="card">
-
-                            <div class="card-img-wrap">
-                                <img src="${offerta.imgBanner}" class="card-img-novita" alt="offerta">
-                            </div>
-
-                            <div class="card-body">
-                                <time datetime="${offerta.dataInizio}">
-                                    ${formatDate(offerta.dataInizio)}
-                                </time>
-
-                                <h5 class="card-title">
-                                    ${offerta.nome}
-                                </h5>
-
-                                <a href="/offerte/dettagli/${offerta.id}">
-                                    Leggi di più
-                                </a>
-
-                            </div>
-
-                        </div>
-                    </div>
-                `;
-
-                container.innerHTML += card;
-            });
-        })
-        .catch(error => {
-            console.error("Errore nel caricamento offerte:", error);
-        });
-
-
-    // format data x offerte
-    function formatDate(dateString) {
-        let [year, month, day] = dateString.split("-");
-
-        let date = new Date(year, month - 1, day);
-
-        return date.toLocaleDateString("it-IT", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        });
-    }
-
      // =====================================================
      // SPONSORSHIP BANNER
      // =====================================================

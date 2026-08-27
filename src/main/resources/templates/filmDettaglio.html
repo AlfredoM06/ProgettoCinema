@@ -98,24 +98,12 @@
                         </li>
                     </ul>
                     <div class="cinema-line"></div>
-                    <!-- BANNER PROMOZIONALE -->
-                    <section class="cinema-banner">
 
-                        <!-- IMMAGINE PICCOLA -->
-                        <div class="banner-media">
-                            <img src="./img/cvm_menu_michael.webp" alt="Menu Michael">
-                        </div>
-                        <!-- CONTENUTO SOPRA -->
-                        <div class="banner-content">
-                            <header class="title-box">
-                                <span class="banner-title">Menù Michael</span>
-                            </header>
-                            <div class="text-box">
-                                <p>Il menù Michael ti aspetta al bar da mercoledì 22 aprile.</p>
-                            </div>
-                            <a href="#" class="banner-cta">Scopri di più</a>
-                        </div>
-                    </section>
+                    <!-- BANNER PROMOZIONALE -->
+                    <div id="offerte-banner-container">
+<!--                        BANNER DINAMICI-->
+                    </div>
+
                 </div>
 
                 <!-- CONTENUTO TABS -->
@@ -189,6 +177,7 @@
 <script th:inline="javascript">
     const PROGRAMMAZIONI = /*[[${film.programmazioni}]]*/ {};
     const TUTTE_PROGRAMMAZIONI = /*[[${film.tutte}]]*/ [];
+    const OFFERTE = /*[[${film.offerte}]]*/ [];
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
