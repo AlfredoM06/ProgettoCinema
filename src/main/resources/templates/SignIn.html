@@ -11,16 +11,16 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/signin.css">
+    <link rel="stylesheet" th:href="@{/css/signin.css}">
     <link rel="stylesheet" href="./css/navbar.css">
 
 
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: account}"></div>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#">
+        <form th:action="@{/login/registrati}" method="post" th:object="${formUtente}">
             <h1>Crea Account</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="bi bi-facebook"></i></a>
@@ -28,14 +28,14 @@
                 <a href="#" class="social"><i class="bi bi-twitter-x"></i></a>
             </div>
             <span>o registrati con la tua email</span>
-            <input type="email" placeholder="Email"/>
-            <input type="text" placeholder="Username"/>
-            <input type="password" placeholder="Password"/>
-            <button class="buttRegi">Registrati</button>
+            <input type="email" th:field="*{email}" placeholder="Email"/>
+            <input type="text" th:field="*{username}" placeholder="Username"/>
+            <input type="password" th:field="*{password}" placeholder="Password"/>
+            <button type="submit" class="buttRegi">Registrati</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form th:action="@{/login}" method="post">
             <h1>Accedi</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="bi bi-facebook"></i></a>
@@ -43,11 +43,11 @@
                 <a href="#" class="social"><i class="bi bi-twitter-x"></i></a>
             </div>
             <span>usa il tuo account</span>
-            <input id="email" type="text" placeholder="Username"/>
-            <input id="password" type="password" placeholder="Password"/>
+            <input type="text" name="username" placeholder="Username"/>
+            <input type="password" name="password" placeholder="Password"/>
             <div id="forget"></div>
             <a href="#" class="passDim">Hai dimenticato la password?</a>
-            <button id="login">Accedi</button>
+            <button type="submit">Accedi</button>
         </form>
     </div>
     <div class="overlay-container">
@@ -74,7 +74,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./js/signin.js"></script>
+<script th:src="@{/js/signin.js}"></script>
 
 </body>
 

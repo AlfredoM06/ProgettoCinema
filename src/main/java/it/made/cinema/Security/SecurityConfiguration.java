@@ -46,11 +46,10 @@ public class SecurityConfiguration {
           .requestMatchers("/partnership/**").permitAll()
           .requestMatchers("/prossimamente/**").permitAll()
           .anyRequest().permitAll()
-          .and().formLogin()
-          .and().logout()
+          .and().formLogin().loginPage("/login").failureUrl("/login/login-error")
+          .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").clearAuthentication(true).invalidateHttpSession(true)
           .and().exceptionHandling()
           .and().csrf().disable();
-
       return http.build();
     }
 }
