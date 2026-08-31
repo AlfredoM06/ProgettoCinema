@@ -10,6 +10,8 @@ import java.util.TreeMap;
 import it.made.cinema.Model.*;
 import it.made.cinema.Model.DTO.*;
 import it.made.cinema.Repository.IRepoSala;
+import it.made.cinema.Scheduler.LocalDateComparator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import it.made.cinema.Scheduler.LocalDateComparator;
 import it.made.cinema.Repository.IRepoFilm;
 import it.made.cinema.Repository.IRepoGeneri;
 import it.made.cinema.Repository.IRepoProgrammazione;

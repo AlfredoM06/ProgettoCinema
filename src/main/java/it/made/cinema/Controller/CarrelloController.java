@@ -139,7 +139,18 @@ public class CarrelloController {
         carello.setCarta(carta);
         return prezzo;
     }
-
+    
+    @GetMapping("/acquistaMembership")
+    @ResponseBody
+    private Double acquistaMembership(Authentication authentication) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();    
+    	Utente utente = repoUtenti.findById(userDetails.getId()).get();
+    	Carrello carello =repoCarrello.findByUtente(utente);
+    	carello.setMembership(true);
+    	Double prezzo = 4.90;
+    	return prezzo;
+    	}
+    
     //Acquisto membership
 
 }
