@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-import Scheduler.LocalDateComparator;
 import it.made.cinema.Model.*;
 import it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO;
 import it.made.cinema.Model.DTO.SalvaProgrammazioneDTO;
@@ -13,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import it.made.cinema.Model.DTO.ListaProgDTO;
 import it.made.cinema.Service.OrarioService;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/gestioneProgrammazione")

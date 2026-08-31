@@ -1,4 +1,4 @@
-package Scheduler;
+package it.made.cinema.Scheduler;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
