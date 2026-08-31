@@ -38,23 +38,23 @@ public class Utente {
 	@NotEmpty
 	@Column(length=70, nullable=false)
 	private String email;
-	@Column(nullable=false)
+	@Column()
 	private Boolean membership;//carta punti
-	@Column(nullable=false)
+	@Column()
 	private Integer puntiMembership;
 	@Column
 	private LocalDate acquistoMembership;
-	@Column(nullable = false)
+	@Column()
 	private Boolean cartaRicaricabile;
 	@Column
 	private LocalDate dataAcquisto;
 	@Column
 	private LocalDate dataScadenza;
-	@Column(nullable=false)
+	@Column()
 	private Integer utilizziCard;
 	@Column(nullable=false)
 	private LocalDate dataNascita;
-	@Column(nullable=false)
+	@Column()
 	private Integer annoUltimaMailCompleanno;
 	@OneToMany(mappedBy="utente")
 	private List<PostiOccupati> postiOccupati;
