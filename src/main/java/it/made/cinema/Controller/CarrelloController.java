@@ -147,7 +147,8 @@ public class CarrelloController {
     	Utente utente = repoUtenti.findById(userDetails.getId()).get();
     	Carrello carello =repoCarrello.findByUtente(utente);
     	carello.setMembership(true);
-    	return 4.90;
+    	Double prezzo = 4.90;
+    	return prezzo;
     	}
     
     //Acquisto membership
