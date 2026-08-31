@@ -23,7 +23,7 @@ public class EmailCompleannoJob {
 	private JavaMailSender mailSender;
 	
 	
-	@Scheduled(cron = "0 1 0 * * *")
+	@Scheduled(cron = "30 18 0 * * *")
 	public void emailCompleanno() {
 		LocalDate oggi = LocalDate.now();
 		List<Utente> utenti = repoUtenti.findAll();
