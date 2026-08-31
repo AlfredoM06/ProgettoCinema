@@ -1,24 +1,17 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.DTO.RegistrazioneDTO;
 import it.made.cinema.Model.Ruolo;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Repository.IRepoRuoli;
 import it.made.cinema.Repository.IRepoUtenti;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Collections;
+import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
-import java.util.Set;
+
 
 @Controller
 @RequestMapping("/login")
@@ -30,38 +23,37 @@ public class LoginController {
     IRepoUtenti repoUtenti;
 
     @GetMapping
-    public String login(Model model) {
-        model.addAttribute("formUtente", new Utente());
+    public String login() {
         return "SignIn";
     }
 
     @GetMapping("/login-error")
     public String loginError(Model model) {
-        model.addAttribute("formUtente", new Utente());
         model.addAttribute("loginError", true);
         return "SignIn";
     }
 
-    @GetMapping("/registrati")
-    public String registrati(Model model){
-        Utente utente = new Utente();
-        model.addAttribute("formUtente",utente);
-        return "SignIn";
-    }
-
     @PostMapping("/registrati")
-    public String saveUtente(@Valid @ModelAttribute("formUtente")Utente formUtente, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest){
-        if (bindingResult.hasErrors()){
-            return "SignIn";
+    @ResponseBody
+    public ResponseEntity<String> saveUtente(@RequestBody RegistrazioneDTO dto) {
+
+        // controlla se username esiste già
+        if (repoUtenti.findByUsername(dto.getUsername()).isPresent()) {
+            return ResponseEntity.badRequest().body("Username già esistente");
         }
-        formUtente.setPassword("{noop}"+formUtente.getPassword());
+
+        Utente utente = new Utente();
+        utente.setUsername(dto.getUsername());
+        utente.setEmail(dto.getEmail());
+        utente.setPassword("{noop}" + dto.getPassword());
+        utente.setNome(dto.getNome());
+        utente.setCognome(dto.getCognome());
+        utente.setDataNascita(dto.getDataNascita());
+
         Optional<Ruolo> ruolo = repoRuoli.findById(2);
-        if (ruolo.isPresent()){
-            formUtente.setRuolo(ruolo.get());
-        }
-        repoUtenti.save(formUtente);
-        redirectAttributes.addFlashAttribute("redirectMessage",
-                "Ciao " + formUtente.getUsername() + " la tua registrazione è andata a buon fine!");
-        return "redirect:/";
+        ruolo.ifPresent(utente::setRuolo); //se il ruolo è presente essendo ruolo un optional, utilizza il metodo setRuolo per settare il ruolo dell'utente (invece di mandere l'oggetto/variabile manda direttamente il metodo)(espressione lambda)
+
+        repoUtenti.save(utente);
+        return ResponseEntity.ok("Registrazione avvenuta con successo!");
     }
 }

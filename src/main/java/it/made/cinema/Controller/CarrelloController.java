@@ -108,7 +108,7 @@ public class CarrelloController {
         return true;
     }
 
-    //metodo per acquistare e salvare sul db
+    //metodo per acquistare e salvare sul db l'offerta che l'utente ha acquistato
     @GetMapping("/acquistaOfferta/{idOfferta}")
     @ResponseBody
     private Double acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
