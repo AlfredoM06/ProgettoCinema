@@ -27,7 +27,7 @@ public class PrezzoService {
         switch (tipo) {
             case 2 -> prezzoPosto = 9.5;
             case 3 -> prezzoPosto = 5.0;
-            default -> prezzoPosto = 7.0; // normale
+            default -> prezzoPosto = 7.0;
         }
         // Sconto membership
         if (punti >= 800) {
