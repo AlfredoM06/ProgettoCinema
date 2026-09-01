@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @NoArgsConstructor
@@ -40,8 +42,8 @@ public class Utente {
 	private String email;
 	@Column()
 	private Boolean membership;//carta punti
-	@Column()
-	private Integer puntiMembership;
+	@Column(nullable = false, columnDefinition = "INT DEFAULT 0")
+	private Integer puntiMembership = 0;
 	@Column
 	private LocalDate acquistoMembership;
 	@Column()

@@ -31,20 +31,26 @@ public class PuntiService {
         }
         return  punti;
     }
+
     //punti per acquisti carrello
     public Integer puntiAcquisto(Double prezzoFinale){
         Integer punti;
         punti = (int)(prezzoFinale * 10);
         return punti;
     }
+
     // acquisto membership
     public Integer puntiAcquisto(Utente utente){
-        Integer punti = 0;
-        if (utente.getAcquistoMembership().isEqual(LocalDate.now())){
-             punti= 20;
-        }else {
-            //mettere un messaggio per dire che è stata già acquistata
+        Integer punti = utente.getPuntiMembership();
+
+        if (utente.getAcquistoMembership() == null){
+            utente.setAcquistoMembership(LocalDate.now());
         }
+
+        if (punti.equals(0)){
+            utente.setPuntiMembership(punti + 20);
+        }
+
         return punti;
     }
 
