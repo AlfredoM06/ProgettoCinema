@@ -6,6 +6,7 @@ import it.made.cinema.Model.DTO.BigliettoAcquistatoDTO;
 import it.made.cinema.Model.DTO.PostiDTO;
 import it.made.cinema.Model.DTO.ScontrinoDTO;
 import it.made.cinema.Repository.*;
+import it.made.cinema.Service.CartaPrepagataService;
 import it.made.cinema.Service.PrezzoService;
 import it.made.cinema.Service.PuntiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class BigliettoController {
     PuntiService puntiService;
     @Autowired
     IRepoPostiOccupati postiOccupati;
+    @Autowired
+    CartaPrepagataService cartaService;
 
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra)
     @PostMapping("/acquistoBiglietto")
@@ -40,9 +43,18 @@ public class BigliettoController {
         Double prezzoTotale = 0d;
         ScontrinoDTO scontrino = new ScontrinoDTO();
         for (PostiDTO posto : acquistoBiglietto.getListaPostiDTO()) {
-            Double prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, posto.getTipo(), puntiCarta);
+        	Boolean usataCarta = false;
+        	Double prezzoFinale;
+        	if(cartaService.validitaCarta(utente, programmazioneFilm.getSala(), posto.getTipo())) {
+        		prezzoFinale = 0.0;
+        		usataCarta = true;
+        	} else {	
+            prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, posto.getTipo(), puntiCarta);
+            }
             prezzoTotale += prezzoFinale;
+            
             if (acquistoBiglietto.getAcquisto()) {
+            	
                 // creare il posto occupato / biglietto
                 PostiOccupati biglietto = new PostiOccupati();
                 biglietto.setOccupato(true);
@@ -52,6 +64,9 @@ public class BigliettoController {
                 biglietto.setTipoPosto(posto.getTipo());
                 biglietto.setPrezzo(prezzoFinale);
                 postiOccupati.save(biglietto);
+                if(usataCarta) {
+                	utente.setUtilizziCard(utente.getUtilizziCard()-1);
+                }
             }
 
             BigliettoAcquistatoDTO bigliettoAcquistato = new BigliettoAcquistatoDTO();
