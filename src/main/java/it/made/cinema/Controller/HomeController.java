@@ -24,7 +24,7 @@ public class HomeController {
 
     //lista dei film, lista offerte , lista film in Evidenza  da finire
     @GetMapping
-    private String home(Model model) {
+    public String home(Model model) {
         List<Film> filmRecenti = repoFilm.findTop7ByArchiviatoFalseOrderByDataDiUscitaDesc();
         List<ListaFilmRecentiDTO> filmRecentiDTO = new ArrayList<>();
         for (Film recente : filmRecenti) {

@@ -68,7 +68,7 @@ public class GestioneOfferteController {
 
     @GetMapping("/getOfferta/{id}")
     @ResponseBody
-    private GestioneOfferteDTO getOfferta (@PathVariable (name = "id") Integer id){
+    public GestioneOfferteDTO getOfferta (@PathVariable (name = "id") Integer id){
         Offerta offerta = repoOfferte.findById(id).get();
         GestioneOfferteDTO dto = new GestioneOfferteDTO();
         dto.setId(offerta.getId());

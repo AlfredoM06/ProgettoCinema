@@ -28,7 +28,7 @@ public class OfferteController {
     //popolare tabella offerte
     //creare repository offerte e scommentare metodo findall
     @GetMapping
-    private String offerte(Model model) {
+    public String offerte(Model model) {
         List<Offerta> offerte = repoOfferte.findAll();
         model.addAttribute("offerte", offerte);
         return "offerte";

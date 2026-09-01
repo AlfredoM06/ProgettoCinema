@@ -40,7 +40,7 @@ public class PuntiService {
     }
 
     // acquisto membership
-    public Integer puntiAcquisto(Utente utente){
+    public Integer primoAcquisto(Utente utente){
         Integer punti = utente.getPuntiMembership();
 
         if (utente.getAcquistoMembership() == null){

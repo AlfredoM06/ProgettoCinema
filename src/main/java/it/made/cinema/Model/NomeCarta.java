@@ -31,6 +31,8 @@ public class NomeCarta {
 	private String nome;
 	@Column
 	private Double prezzo;
+	@Column()
+	private Integer utilizziCard;
 	@OneToMany(mappedBy="nomeCarta")
 	private List<Utente> utente;
 	

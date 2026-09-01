@@ -79,7 +79,7 @@ public class GestioneUtentiController {
     //getUtente
     @GetMapping("/getUtente/{id}")
     @ResponseBody
-    private GestioneUtenteDTO getUtente (@PathVariable (name = "id") Integer id){
+    public GestioneUtenteDTO getUtente (@PathVariable (name = "id") Integer id){
         Utente utente = repoUtenti.findById(id).get();
         GestioneUtenteDTO dto = new GestioneUtenteDTO();
         dto.setId(utente.getId());

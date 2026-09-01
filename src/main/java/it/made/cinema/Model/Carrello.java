@@ -18,9 +18,6 @@ public class Carrello {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column
-    private Boolean membership;
     
     @OneToOne(mappedBy = "carrello")
     private Utente utente;

@@ -20,4 +20,8 @@ import lombok.ToString;
 public class CarrelloDTO implements Serializable{
 	private Integer id;
 	private List<ListaOffertaDTO> listaOfferta;
+	private String nomeCarta;
+	private Double prezzoCarta;
+	private Double prezzoFinale;
+	private Integer punti;
 }

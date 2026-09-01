@@ -1,11 +1,13 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.AcquistiGadget;
 import it.made.cinema.Model.Carrello;
 import it.made.cinema.Model.NomeCarta;
 import it.made.cinema.Model.Offerta;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Model.DTO.CarrelloDTO;
 import it.made.cinema.Model.DTO.ListaOffertaDTO;
+import it.made.cinema.Repository.IRepoAcquisti;
 import it.made.cinema.Repository.IRepoCarrello;
 import it.made.cinema.Repository.IRepoCarta;
 import it.made.cinema.Repository.IRepoOfferte;
@@ -13,12 +15,15 @@ import it.made.cinema.Repository.IRepoUtenti;
 import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
 import it.made.cinema.Service.PuntiService;
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +45,15 @@ public class CarrelloController {
     IRepoCarta repoCarta;
 
     @Autowired
+    IRepoAcquisti repoAcquisti;
+    
+    @Autowired
     PrezzoService prezzoService;
+    
+    @Autowired PuntiService puntiService;
 
     //Se l'utente non ha il carello adesso con questo metodo c'è l'ha
-    private Carrello creaCarrello(Utente utente) {
+    public Carrello creaCarrello(Utente utente) {
         Carrello carrello = new Carrello();
 
         carrello.setUtente(utente);
@@ -57,6 +67,7 @@ public class CarrelloController {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carrello = repoCarrello.findByUtente(utente);
+        CarrelloDTO carello = new CarrelloDTO();
         if (carrello == null) {
             carrello = creaCarrello(utente);
         }
@@ -64,10 +75,19 @@ public class CarrelloController {
             carrello.setListaOfferte(new ArrayList<>());
         }
         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
+        Double prezzoTotale = 0d;
         for (Offerta offerta : carrello.getListaOfferte()) {
+        	prezzoTotale += offerta.getPrezzo();
             offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), offerta.getDataInizio()));
         }
-        CarrelloDTO carello = new CarrelloDTO();
+        if(carrello.getCarta()!= null) {
+        	prezzoTotale += carrello.getCarta().getPrezzo();
+        	carello.setNomeCarta(carrello.getCarta().getNome());
+            carello.setPrezzoCarta(carrello.getCarta().getPrezzo());
+        }
+        Integer punti =puntiService.puntiAcquisto(prezzoTotale);
+        carello.setPrezzoFinale(prezzoTotale);
+        carello.setPunti(punti);
         carello.setListaOfferta(offerteDTO);
         carello.setId(carrello.getId());
         model.addAttribute("carrello", carello);
@@ -77,7 +97,7 @@ public class CarrelloController {
     //metodo per aggiungere al carello
     @PostMapping("/aggiungi/{idOfferta}")
     @ResponseBody
-    private Boolean aggiungi(Authentication authentication, @PathVariable Integer idOfferta) {
+    public Boolean aggiungi(Authentication authentication, @PathVariable Integer idOfferta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carello = repoCarrello.findByUtente(utente);
@@ -93,7 +113,7 @@ public class CarrelloController {
     //metodo per togliere
     @PostMapping("/elimina/{idCarello}/{idOfferta}")
     @ResponseBody
-    private Boolean elimina(@PathVariable Integer idCarrello, @PathVariable Integer idOfferta) {
+    public Boolean elimina(@PathVariable Integer idCarrello, @PathVariable Integer idOfferta) {
         Carrello carrello = repoCarrello.findById(idCarrello).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
 
@@ -109,9 +129,9 @@ public class CarrelloController {
     }
 
     //metodo per acquistare e salvare sul db l'offerta che l'utente ha acquistato
-    @GetMapping("/acquistaOfferta/{idOfferta}")
+    @PostMapping("/acquistaOfferta/{idOfferta}")
     @ResponseBody
-    private Double acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
+    public Double acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
@@ -125,9 +145,9 @@ public class CarrelloController {
         return prezzo;
     }
 
-    @GetMapping("/acquistaCarta/{idCarta}")
+    @PostMapping("/acquistaCarta/{idCarta}")
     @ResponseBody
-    private Double acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
+    public Double acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         if (utente.getCartaRicaricabile()) {
@@ -139,17 +159,42 @@ public class CarrelloController {
         carello.setCarta(carta);
         return prezzo;
     }
-
-    //Acquisto membership
-    @GetMapping("/acquistaMembership")
+    
+    @Transactional
+    @PostMapping("/confermaAcquisti")
     @ResponseBody
-    private Double acquistaMembership(Authentication authentication) {
-        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-        Utente utente = repoUtenti.findById(userDetails.getId()).get();
-        Carrello carello = repoCarrello.findByUtente(utente);
-        carello.setMembership(true);
-        Double prezzo = 4.90;
-        return prezzo;
+    public Boolean confermaAcquisto(Authentication authentication) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+    	Utente utente = repoUtenti.findById(userDetails.getId()).orElse(null);
+    	if (utente == null) {
+    		return false;
+    	}
+    	
+    	Carrello carrello = repoCarrello.findByUtente(utente);
+    	if (carrello == null) {
+    	    return false;
+    	}
+    	if(carrello.getCarta() != null && !Boolean.TRUE.equals(utente.getCartaRicaricabile())) {
+    		utente.setNomeCarta(carrello.getCarta());
+    		utente.setCartaRicaricabile(true);
+    		utente.setDataAcquisto(LocalDate.now());
+    		utente.setDataScadenza(LocalDate.now().plusYears(1));
+    		utente.setUtilizziCard(carrello.getCarta().getUtilizziCard());
+    	}
+    	
+    	if (carrello.getListaOfferte() != null) {
+    		for (Offerta offerta : carrello.getListaOfferte()) {
+    			AcquistiGadget acquisto = new AcquistiGadget();
+    			acquisto.setUtente(utente);
+    			acquisto.setOfferta(offerta);
+    			acquisto.setDataAcquisto(LocalDate.now());
+    			repoAcquisti.save(acquisto);
+    		}
+    	}
+    	repoUtenti.save(utente);
+    	carrello.setCarta(null);
+    	carrello.getListaOfferte().clear();
+    	repoCarrello.save(carrello);
+    	return true;
     }
-
 }
