@@ -54,7 +54,7 @@ public class CarrelloController {
     //mostrare carello
     @GetMapping
     String carrello(Model model, Authentication authentication) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carrello = repoCarrello.findByUtente(utente);
         if (carrello == null) {
@@ -78,7 +78,7 @@ public class CarrelloController {
     @PostMapping("/aggiungi/{idOfferta}")
     @ResponseBody
     private Boolean aggiungi(Authentication authentication, @PathVariable Integer idOfferta) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carello = repoCarrello.findByUtente(utente);
         if (carello == null) {
@@ -112,7 +112,7 @@ public class CarrelloController {
     @GetMapping("/acquistaOfferta/{idOfferta}")
     @ResponseBody
     private Double acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
         Double prezzo = 0d;
@@ -128,7 +128,7 @@ public class CarrelloController {
     @GetMapping("/acquistaCarta/{idCarta}")
     @ResponseBody
     private Double acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         if (utente.getCartaRicaricabile()) {
             return -1d;
@@ -139,18 +139,17 @@ public class CarrelloController {
         carello.setCarta(carta);
         return prezzo;
     }
-    
+
+    //Acquisto membership
     @GetMapping("/acquistaMembership")
     @ResponseBody
     private Double acquistaMembership(Authentication authentication) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();    
-    	Utente utente = repoUtenti.findById(userDetails.getId()).get();
-    	Carrello carello =repoCarrello.findByUtente(utente);
-    	carello.setMembership(true);
-    	Double prezzo = 4.90;
-    	return prezzo;
-    	}
-    
-    //Acquisto membership
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
+        Carrello carello = repoCarrello.findByUtente(utente);
+        carello.setMembership(true);
+        Double prezzo = 4.90;
+        return prezzo;
+    }
 
 }

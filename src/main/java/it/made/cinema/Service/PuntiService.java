@@ -31,6 +31,12 @@ public class PuntiService {
         }
         return  punti;
     }
+    //punti per acquisti carrello
+    public Integer puntiAcquisto(Double prezzoFinale){
+        Integer punti;
+        punti = (int)(prezzoFinale * 10);
+        return punti;
+    }
     // acquisto membership
     public Integer puntiAcquisto(Utente utente){
         Integer punti = 0;

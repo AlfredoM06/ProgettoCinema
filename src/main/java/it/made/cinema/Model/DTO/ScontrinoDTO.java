@@ -14,10 +14,13 @@ import java.util.List;
 @EqualsAndHashCode
 public class ScontrinoDTO implements Serializable {
     List<BigliettoAcquistatoDTO> bigliettiAcquistati;
+    //lista offerte acquistate
+    //carta prepagata
     Double prezzoTotale;
     Integer puntiGuadagnati;
 
     public ScontrinoDTO() {
         this.bigliettiAcquistati = new ArrayList<>();
+        //lista offert eacquistate
     }
 }
