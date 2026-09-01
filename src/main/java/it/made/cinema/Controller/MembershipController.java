@@ -46,7 +46,7 @@ public class MembershipController {
 
         // Controlla se è il primo acquisto e assegna
         // eventualmente i punti di benvenuto
-        Integer punti = puntiService.puntiAcquisto(utente);
+        Integer punti = puntiService.primoAcquisto(utente);
 
         // Salva le modifiche dell'utente
         repoUtenti.save(utente);
