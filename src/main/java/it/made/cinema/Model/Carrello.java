@@ -3,6 +3,7 @@ package it.made.cinema.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Carrello {
 
     @ManyToMany
     @JoinTable(name="carello_offerta", joinColumns=@JoinColumn(name="id_carrello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
-    private List<Offerta> listaOfferte;
+    private List<Offerta> listaOfferte = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "id_carta")
