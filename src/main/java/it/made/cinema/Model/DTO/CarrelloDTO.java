@@ -24,5 +24,4 @@ public class CarrelloDTO implements Serializable{
 	private Double prezzoCarta;
 	private Double prezzoFinale;
 	private Integer punti;
-	private Boolean membership;
 }

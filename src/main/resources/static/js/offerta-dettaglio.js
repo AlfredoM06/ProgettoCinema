@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             try {
-                const response = await fetch(`/carrello/aggiungi/${idOfferta}`, {
+                const response = await fetch(`/carrello/acquistaOfferta/${idOfferta}`, {
                     method: "POST"
                 });
                 if (!response.ok) throw new Error("Errore aggiunta al carrello");

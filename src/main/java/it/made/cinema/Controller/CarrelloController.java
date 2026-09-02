@@ -55,9 +55,10 @@ public class CarrelloController {
     //Se l'utente non ha il carello adesso con questo metodo c'è l'ha
     public Carrello creaCarrello(Utente utente) {
         Carrello carrello = new Carrello();
-
         carrello.setUtente(utente);
         repoCarrello.save(carrello);
+        utente.setCarrello(carrello);
+        repoUtenti.save(utente);
         return carrello;
     }
 
@@ -66,7 +67,7 @@ public class CarrelloController {
     String carrello(Model model, Authentication authentication) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
-        Carrello carrello = repoCarrello.findByUtenteWithOfferte(utente.getId());
+        Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
         System.out.println("Carrello trovato: " + carrello);
 
         CarrelloDTO carello = new CarrelloDTO();
@@ -91,7 +92,6 @@ public class CarrelloController {
         carello.setPrezzoFinale(prezzoTotale);
         carello.setPunti(punti);
         carello.setListaOfferta(offerteDTO);
-        carello.setMembership(utente.getMembership());
         carello.setId(carrello.getId());
         model.addAttribute("carrello", carello);
         System.out.println("Lista offerte: " + carrello.getListaOfferte());
