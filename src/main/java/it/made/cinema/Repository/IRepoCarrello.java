@@ -11,5 +11,7 @@ import java.util.List;
 
 public interface IRepoCarrello extends JpaRepository<Carrello, Integer> {
 
-    public Carrello findByUtente(Utente utente);
+    Carrello findByUtenteId(Integer idUtente);
+    @Query("SELECT c FROM Carrello c LEFT JOIN FETCH c.listaOfferte LEFT JOIN c.utente u WHERE u.id = :idUtente")
+    Carrello findByUtenteWithOfferte(@Param("idUtente") Integer idUtente);
 }
