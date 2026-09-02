@@ -34,12 +34,14 @@ public class DatabaseUserDetails implements UserDetails {
     private Integer id;
     private String username;
     private String password;
+    private Boolean membership;
     private Set<GrantedAuthority> authorities;
 
     public DatabaseUserDetails(Utente utente) {
         this.id = utente.getId();
         this.username = utente.getUsername();
         this.password = utente.getPassword();
+        this.membership = Boolean.TRUE.equals(utente.getMembership());
         authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(utente.getRuolo().getNome()));
     }

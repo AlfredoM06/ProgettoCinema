@@ -27,129 +27,89 @@
 
 <!-- CONTENUTO -->
 <main class="cart-main">
-
     <div class="container cart-container">
-
         <div class="row">
+
             <!-- PRODOTTI -->
             <section class="col-lg-7">
                 <section class="cart-box">
-                    <article class="cart-item">
-
-                        <figure class="cart-img">
-                            <img src="/img/menu michael.jpg" alt="Interstellar poster">
-                        </figure>
-
-                        <div class="cart-info">
-                            <div>
-                                <h2 class="product-title">
-                                    Interstellar
-                                </h2>
-                            </div>
-
-                            <div class="price-box">
-                                <strong class="final-price">
-                                    13.80€
-                                </strong>
-                                <span class="old-price">
-                                        15.00€
-                                    </span>
-                                <span class="discount-badge">
-                                        -8%
-                                    </span>
-                            </div>
-                        </div>
-
-                        <div class="quantity-box">
-
-                            <div class="counter">
-                                <button type="button" class="quantity-btn">
-                                    <span>-</span>
-                                </button>
-                                <span>1</span>
-                                <button type="button" class="quantity-btn">
-                                    <span>+</span>
-                                </button>
-                            </div>
-
-                            <button class="remove-btn" type="button">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-
-                        </div>
-
-                    </article>
-
+                    <div id="cart-items">
+                        <!-- CONTENUTO DINAMICO JS -->
+                    </div>
                 </section>
-
-                <p class="empty-cart hidden">
-                    Il tuo carrello è vuoto
-                </p>
-
             </section>
 
-
-            <!-- 🔵 ASIDE -->
+            <!-- ASIDE -->
             <aside class="col-lg-5">
 
                 <!-- UTENTE -->
                 <section class="user-box">
-
                     <div class="user-header">
                         <p>
-                            Ciao <strong>Erica</strong>,
+                            Ciao <strong th:text="${#authentication.principal.username}">Utente</strong>,
                         </p>
-
-                        <img class="points-card" src="/img/card_myS&G.webp" alt="Carta punti">
+                        <!-- Immagine carta solo se ha la membership -->
+                        <img th:if="${#authentication.principal.membership}"
+                             class="points-card"
+                             src="/img/card_myS&G.webp"
+                             alt="Carta punti">
                     </div>
-
                     <p class="points-box">
-                        Il tuo carello può farti guadagnare <strong>120 punti</strong>
+                        Il tuo carrello può farti guadagnare
+                        <strong id="puntiDinamici"
+                                th:text="${carrello.punti} + ' punti'">
+                            0 punti
+                        </strong>
                     </p>
-
                 </section>
-
 
                 <!-- RIEPILOGO -->
                 <section class="summary-box">
-
                     <h2>Riepilogo</h2>
-
                     <dl class="container-summary">
+
                         <div class="summary-row">
                             <dt>Prezzo di riferimento</dt>
-                            <dd>15€</dd>
+                            <dd id="summary-prezzo-riferimento">0,00€</dd>
                         </div>
 
-                        <div class="summary-row discount">
-                            <dt>Sconto</dt>
-                            <dd>-1.20€</dd>
+                        <!-- Sconto visibile solo con membership -->
+                        <div class="summary-row discount"
+                             id="summary-sconto-row"
+                             th:style="${#authentication.principal.membership} ? '' : 'display:none'">
+                            <dt>Sconto (10%)</dt>
+                            <dd id="summary-sconto">-0,00€</dd>
                         </div>
 
                         <div class="summary-row total">
                             <dt>Subtotale</dt>
-                            <dd>13.80€</dd>
+                            <dd id="summary-subtotale">0,00€</dd>
                         </div>
+
                     </dl>
 
-                    <button class="btn-checkout w-100">
+                    <button class="btn-checkout w-100" id="btn-acquista">
                         Acquista Ora
                     </button>
-
                 </section>
+
             </aside>
         </div>
     </div>
 </main>
+
 <!-- FOOTER -->
 <div th:replace="fragments/footer :: content"></div>
 <div th:replace="fragments/footer :: social"></div>
 <div th:replace="fragments/footer :: copyright"></div>
 
-<!--SCRIPT-->
+<!-- SCRIPT -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-<script src="./js/freccia.js"></script>
+<script th:src="@{/js/freccia.js}"></script>
+<script th:inline="javascript">
+    const CARRELLO = /*[[${carrello}]]*/ {};
+    const MEMBERSHIP = /*[[${#authentication.principal.membership}]]*/ false;
+</script>
+<script th:src="@{/js/carrello.js}"></script>
 </body>
-
 </html>

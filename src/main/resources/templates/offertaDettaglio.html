@@ -34,7 +34,7 @@
 </section>
 
 <main>
-    <div class="content-wrapper"  th:attr="data-genere=${offerta.genere}">
+    <div class="content-wrapper"  th:attr="data-genere=${offerta.genere}, data-id=${offerta.id}">
         <h1 th:text="${offerta.nome}"></h1>
         <h5 th:text="${#temporals.format(offerta.dataInizio, 'dd MMMM yyyy', new java.util.Locale('it', 'IT'))}"></h5>
         <p th:text="${offerta.descrizione}"></p>
