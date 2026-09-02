@@ -848,6 +848,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
 
+        //AGGIORNAMENTO STATO SALE
+        function aggiornaStatoSale(formatiFilm) {
+            document.querySelectorAll("#programmazione input[name='sala']").forEach(radio => {
+                const formatoSala = saleFormatiMap[radio.value];
+                const label = radio.nextElementSibling;
+
+                // Se nessun film selezionato → riabilita tutto
+                if (!formatiFilm || formatiFilm.length === 0) {
+                    radio.disabled = false;
+                    label.style.opacity = "";
+                    label.title = "";
+                    return;
+                }
+
+                // Disabilita se il formato della sala non è nel film
+                if (!formatiFilm.includes(formatoSala)) {
+                    radio.disabled = true;
+                    radio.checked = false;
+                    label.style.opacity = "0.4";
+                    label.title = "Formato non supportato da questo film";
+                } else {
+                    radio.disabled = false;
+                    label.style.opacity = "";
+                    label.title = "";
+                }
+            });
+        }
 
         // CARICAMENTO FILM PER PROGRAMMAZIONE
 
@@ -886,9 +913,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // CARICAMENTO SALE
 
+        let saleFormatiMap = {};
+
         fetch("/inSala/listaSale")
             .then(response => {
-
                 if (!response.ok) {
                     throw new Error("Errore nel recupero delle sale");
                 }
@@ -896,69 +924,74 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(sale => {
                 saleContainer.innerHTML = "";
+                let col1 = `<div class="col-6">`;
+                let col2 = `<div class="col-6">`;
 
-                let col1 =
-                    `<div class="col-6">`;
+                sale.forEach((sala, index) => {
+                    // ← salva il formato della sala nella mappa
+                    saleFormatiMap[sala.id] = sala.formato;
 
-                let col2 =
-                    `<div class="col-6">`;
-
-
-                Object.entries(sale).forEach(
-                    ([idSala, nomeSala], index) => {
-
-                        const radio = `
+                    const radio = `
                         <div class="form-check">
-
                             <input
                                 class="form-check-input"
                                 type="radio"
                                 name="sala"
-                                value="${idSala}"
-                                id="sala-${idSala}"
+                                value="${sala.id}"
+                                id="sala-${sala.id}"
                             >
-
                             <label
                                 class="form-check-label"
-                                for="sala-${idSala}">
-                                ${nomeSala}
+                                for="sala-${sala.id}">
+                                ${sala.nome}
                             </label>
-
                         </div>
                     `;
 
-
-                        if (index % 2 === 0) {
-                            col1 += radio;
-                        } else {
-                            col2 += radio;
-                        }
+                    if (index % 2 === 0) {
+                        col1 += radio;
+                    } else {
+                        col2 += radio;
                     }
-                );
-
+                });
 
                 col1 += `</div>`;
                 col2 += `</div>`;
+                saleContainer.innerHTML = col1 + col2;
 
-                saleContainer.innerHTML =
-                    col1 + col2;
-
-
-                // Listener sulle sale generate dinamicamente
                 document.querySelectorAll("#programmazione input[name='sala']").forEach(radio => {
                     radio.addEventListener("change", aggiornaOrariBackend);
                 });
             })
-
             .catch(error => {
                 console.error("Errore recupero sale:", error);
             });
 
 
-
         // EVENTI FILM / DATA
 
-        filmSelect.addEventListener("change", aggiornaOrariBackend);
+        filmSelect.addEventListener("change", async function () {
+            const idFilm = filmSelect.value;
+
+            // Nessun film selezionato → riabilita tutte le sale
+            if (!idFilm) {
+                aggiornaStatoSale(null);
+                resetOrari();
+                return;
+            }
+
+            // Prendi i formati del film e aggiorna le sale
+            try {
+                const response = await fetch(`/gestioneProgrammazione/formatiFilm/${idFilm}`);
+                const formatiFilm = await response.json();
+                aggiornaStatoSale(formatiFilm);
+            } catch (error) {
+                console.error("Errore recupero formati film:", error);
+            }
+
+            // Aggiorna anche gli orari
+            aggiornaOrariBackend();
+        });
         dataInput.addEventListener("change", aggiornaOrariBackend);
 
         // RECUPERA ORARI DAL BACKEND
