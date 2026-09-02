@@ -66,9 +66,7 @@ public class CarrelloController {
     String carrello(Model model, Authentication authentication) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
-        Carrello carrello = repoCarrello.findByUtenteWithOfferte(utente);
-        System.out.println("Carrello trovato: " + carrello);
-        System.out.println("Lista offerte: " + carrello.getListaOfferte());
+        Carrello carrello = repoCarrello.findByUtente(utente);
         CarrelloDTO carello = new CarrelloDTO();
         if (carrello == null) {
             carrello = creaCarrello(utente);
@@ -134,6 +132,7 @@ public class CarrelloController {
     //metodo per acquistare e salvare sul db l'offerta che l'utente ha acquistato
     @PostMapping("/acquistaOfferta/{idOfferta}")
     @ResponseBody
+    @Transactional
     public Double acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
@@ -141,15 +140,20 @@ public class CarrelloController {
         Double prezzo = 0d;
         prezzo = prezzoService.calcolaScontoOfferta(utente, offerta);
         Carrello carello = repoCarrello.findByUtente(utente);
+        if(carello==null) {
+        	carello = creaCarrello(utente);
+        }
         if (carello.getListaOfferte() == null) {
             carello.setListaOfferte(new ArrayList<>());
         }
         carello.getListaOfferte().add(offerta);
+        repoCarrello.save(carello);
         return prezzo;
     }
 
     @PostMapping("/acquistaCarta/{idCarta}")
     @ResponseBody
+    @Transactional
     public Double acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
@@ -159,7 +163,11 @@ public class CarrelloController {
         NomeCarta carta = repoCarta.findById(idCarta).get();
         Double prezzo = carta.getPrezzo();
         Carrello carello = repoCarrello.findByUtente(utente);
+        if (carello == null) {
+            carello = creaCarrello(utente);
+        }
         carello.setCarta(carta);
+        repoCarrello.save(carello);
         return prezzo;
     }
     
