@@ -85,10 +85,11 @@ public class CarrelloController {
         	carello.setNomeCarta(carrello.getCarta().getNome());
             carello.setPrezzoCarta(carrello.getCarta().getPrezzo());
         }
-        Integer punti =puntiService.puntiAcquisto(prezzoTotale);
+        Integer punti = puntiService.puntiAcquisto(prezzoTotale);
         carello.setPrezzoFinale(prezzoTotale);
         carello.setPunti(punti);
         carello.setListaOfferta(offerteDTO);
+        carello.setMembership(utente.getMembership());
         carello.setId(carrello.getId());
         model.addAttribute("carrello", carello);
         return "carrello";
