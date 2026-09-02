@@ -66,7 +66,7 @@ public class CarrelloController {
     String carrello(Model model, Authentication authentication) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
-        Carrello carrello = repoCarrello.findByUtente(utente);
+        Carrello carrello = repoCarrello.findByUtenteWithOfferte(utente);
         CarrelloDTO carello = new CarrelloDTO();
         if (carrello == null) {
             carrello = creaCarrello(utente);
