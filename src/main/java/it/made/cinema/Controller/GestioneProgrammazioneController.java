@@ -3,6 +3,7 @@ package it.made.cinema.Controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import it.made.cinema.Model.*;
 import it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO;
@@ -41,6 +42,9 @@ public class GestioneProgrammazioneController {
 
     @Autowired
     IRepoPostiOccupati repoPostiOccupati;
+
+    @Autowired
+    IRepoCross repoCross;
 
     @GetMapping("/getOrariPerSala/{idSala}/{data}")
     @ResponseBody
@@ -157,6 +161,17 @@ public class GestioneProgrammazioneController {
         model.addAttribute("fine", programmazione.getOrario().plusMinutes(film.getDurata() + 30));
 
         return "prenotazioneBiglietto";
+    }
+
+    //metodo per ottenere i formati
+    @GetMapping("/formatiFilm/{idFilm}")
+    @ResponseBody
+    public List<String> getFormatiFilm(@PathVariable Integer idFilm) {
+        return repoCross.findByFilmId(idFilm)
+                .stream()
+                .map(c -> c.getFormato().getNome())
+                .distinct()
+                .collect(Collectors.toList());
     }
 
 }
