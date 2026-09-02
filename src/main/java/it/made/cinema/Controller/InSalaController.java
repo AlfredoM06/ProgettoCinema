@@ -63,14 +63,16 @@ public class InSalaController {
 
     @GetMapping("/listaSale")
     @ResponseBody
-    public Map<Integer, String> listaSale() {
-        Map<Integer, String> listaSale = new HashMap<>();
+    public List<Map<String, Object>> listaSale() {
+        List<Map<String, Object>> listaSale = new ArrayList<>();
         List<Sala> sale = repoSala.findAll();
         for (Sala s : sale) {
-            listaSale.put(s.getId(), "sala" + s.getId().toString());
-
+            Map<String, Object> datiSala = new HashMap<>();
+            datiSala.put("id", s.getId());
+            datiSala.put("nome", "Sala " + s.getId());
+            datiSala.put("formato", s.getFormato());
+            listaSale.add(datiSala);
         }
-
         return listaSale;
     }
 
