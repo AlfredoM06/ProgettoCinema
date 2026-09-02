@@ -68,8 +68,6 @@ public class CarrelloController {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
-        System.out.println("Carrello trovato: " + carrello);
-
         CarrelloDTO carello = new CarrelloDTO();
         if (carrello == null) {
             carrello = creaCarrello(utente);
@@ -94,7 +92,6 @@ public class CarrelloController {
         carello.setListaOfferta(offerteDTO);
         carello.setId(carrello.getId());
         model.addAttribute("carrello", carello);
-        System.out.println("Lista offerte: " + carrello.getListaOfferte());
         return "carrello";
     }
 
