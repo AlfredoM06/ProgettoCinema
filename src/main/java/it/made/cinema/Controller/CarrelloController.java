@@ -112,7 +112,7 @@ public class CarrelloController {
     }
 
     //metodo per togliere
-    @PostMapping("/elimina/{idCarello}/{idOfferta}")
+    @PostMapping("/elimina/{idCarrello}/{idOfferta}")
     @ResponseBody
     public Boolean elimina(@PathVariable Integer idCarrello, @PathVariable Integer idOfferta) {
         Carrello carrello = repoCarrello.findById(idCarrello).get();
