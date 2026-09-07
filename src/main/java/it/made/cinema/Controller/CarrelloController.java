@@ -78,8 +78,9 @@ public class CarrelloController {
         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
         Double prezzoTotale = 0d;
         for (Offerta offerta : carrello.getListaOfferte()) {
-        	prezzoTotale += offerta.getPrezzo();
-            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), offerta.getDataInizio()));
+            Double prezzoScontato = prezzoService.calcolaScontoOfferta(utente,offerta);
+        	prezzoTotale += prezzoScontato;
+            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), prezzoScontato, offerta.getDataInizio()));
         }
         if(carrello.getCarta()!= null) {
         	prezzoTotale += carrello.getCarta().getPrezzo();
@@ -137,8 +138,7 @@ public class CarrelloController {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
-        Double prezzo = 0d;
-        prezzo = prezzoService.calcolaScontoOfferta(utente, offerta);
+        Double prezzo = offerta.getPrezzo();
         Carrello carello = repoCarrello.findByUtenteId(utente.getId());
         if(carello==null) {
         	carello = creaCarrello(utente);
