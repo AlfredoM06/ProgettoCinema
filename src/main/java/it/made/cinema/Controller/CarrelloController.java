@@ -80,7 +80,8 @@ public class CarrelloController {
         for (Offerta offerta : carrello.getListaOfferte()) {
             Double prezzoScontato = prezzoService.calcolaScontoOfferta(utente,offerta);
         	prezzoTotale += prezzoScontato;
-            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), prezzoScontato, offerta.getDataInizio()));
+        	Double valoreSconto = offerta.getPrezzo() - prezzoScontato;
+            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), prezzoScontato, offerta.getDataInizio(), valoreSconto));
         }
         if(carrello.getCarta()!= null) {
         	prezzoTotale += carrello.getCarta().getPrezzo();

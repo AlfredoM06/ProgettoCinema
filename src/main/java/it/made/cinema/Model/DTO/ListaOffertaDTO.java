@@ -23,4 +23,5 @@ public class ListaOffertaDTO implements Serializable {
 	private Double prezzo;
 	private Double prezzoScontato;
 	private LocalDate dataInizio;
+	private Double valoreSconto;
 }
