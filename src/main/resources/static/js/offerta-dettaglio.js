@@ -42,6 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     throw new Error("Errore aggiunta al carrello");
                 }
 
+                if (response.redirected){
+                    window.location.href = response.url;
+                    return;
+                }
+
                 const risultato = await response.json();
 
                 // Utente non autenticato

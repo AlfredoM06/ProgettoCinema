@@ -186,9 +186,8 @@ public class CarrelloController {
 
     //metodo per acquistare e salvare sul db l'offerta che l'utente ha acquistato
     @PostMapping("/acquistaOfferta/{idOfferta}")
-    @ResponseBody
     @Transactional
-    public Double acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
+    public String acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
@@ -202,7 +201,7 @@ public class CarrelloController {
         }
         carello.getListaOfferte().add(offerta);
         repoCarrello.save(carello);
-        return prezzo;
+        return "redirect:/carrello" ;
     }
 
     @PostMapping("/acquistaCarta/{idCarta}")

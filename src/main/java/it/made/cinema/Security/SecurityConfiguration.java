@@ -35,13 +35,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
       http.authorizeHttpRequests()
           .requestMatchers("/biglietto/**").hasAnyAuthority("Admin","User") //solo utente loggato
-          .requestMatchers("/carrello/**").hasAnyAuthority("Admin", "User") //solo utente loggato
+          .requestMatchers("/carrello", "/carrello/**").hasAnyAuthority("Admin", "User") //solo utente loggato
           .requestMatchers("/cinefans").permitAll()
           .requestMatchers("/admin","/admin/**").hasAuthority("Admin") //solo admin da nascondere
           .requestMatchers("/inSala/**").permitAll()
           .requestMatchers("/login").permitAll()
           .requestMatchers("/membership").permitAll()
-          .requestMatchers("/offerte/**").permitAll()
+          .requestMatchers("/offete").permitAll()
           .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
           .requestMatchers("/partnership/**").permitAll()
           .requestMatchers("/prossimamente/**").permitAll()
