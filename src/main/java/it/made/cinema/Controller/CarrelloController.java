@@ -89,6 +89,7 @@ public class CarrelloController {
         if(carrello.getCarta()!= null) {
         	prezzoTotale += carrello.getCarta().getPrezzo();
         	carello.setNomeCarta(carrello.getCarta().getNome());
+            carello.setImgCarta(carrello.getCarta().getImgCarta());
             carello.setPrezzoCarta(carrello.getCarta().getPrezzo());
         }
         Integer punti = puntiService.puntiAcquisto(prezzoTotale);
@@ -178,6 +179,7 @@ public class CarrelloController {
         if (carrello.getCarta() != null) {
             prezzoFinale += carrello.getCarta().getPrezzo();
             carrelloDTO.setNomeCarta(carrello.getCarta().getNome());
+            carrelloDTO.setImgCarta(carrello.getCarta().getImgCarta());
             carrelloDTO.setPrezzoCarta(carrello.getCarta().getPrezzo());
         }
 

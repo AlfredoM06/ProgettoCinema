@@ -22,6 +22,7 @@ public class CarrelloDTO implements Serializable{
 	private List<ListaOffertaDTO> listaOfferta;
 	private String nomeCarta;
 	private Double prezzoCarta;
+	private String imgCarta;
 	private Double prezzoFinale;
 	private Integer punti;
 }

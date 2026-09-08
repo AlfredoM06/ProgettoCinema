@@ -114,14 +114,13 @@ INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 10, 3, 45, '20:00');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES(CURDATE(), 10, 3, 40, '21:40');
 INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('2026-08-30', 10, 3, 20, '20:00');
-
 -- INSERT INTO db_cinema.programmazione_dei_film (data_programmazione, id_film, id_sala, n_prenotazioni, orario) VALUES('', 0, 0, 0, 0, '', '');
 
 --nome carta
-INSERT INTO db_cinema.nomi_carta (prezzo, utilizzi_card, nome) VALUES(30.00, 5, 'CineFans Basic');
-INSERT INTO db_cinema.nomi_carta (prezzo, utilizzi_card, nome) VALUES(40.00, 5, 'CineFans Plus');
-INSERT INTO db_cinema.nomi_carta (prezzo, utilizzi_card, nome) VALUES(99.00, 9999, 'All U CAN SEE');
-
+INSERT INTO db_cinema.nomi_carta (prezzo, utilizzi_card, img_carta, nome) VALUES(30.00, 5, 'card_basic.webp','CineFans Basic');
+INSERT INTO db_cinema.nomi_carta (prezzo, utilizzi_card, img_carta, nome) VALUES(40.00, 5,  'card_plus.webp','CineFans Plus');
+INSERT INTO db_cinema.nomi_carta (prezzo, utilizzi_card, img_carta, nome) VALUES(99.00, 9999,   'card_allyoucansee.webp','All U CAN SEE');
+--INSERT INTO db_cinema.nomi_carta (id, prezzo, utilizzi_card, img_carta, nome) VALUES(0, 0, 0, '', '');
 
 --ruoli
 INSERT INTO db_cinema.ruoli (nome) VALUES('Admin');
