@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // DATI DAL BACKEND
     // =========================================================
     let hasMembership = MEMBERSHIP === true;
-//    let hasMembership = CARRELLO.membership === true;
 
     let prodotti = [];
 
@@ -159,8 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             cartContainer.appendChild(cartaItem);
         }
-
-
         aggiornaBottoni();
         aggiornaSummary();
     }
@@ -170,7 +167,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // =========================================================
 
     function aggiornaSummary() {
-
+        // PREZZO DI RIFERIMENTO
+        let membershipMessage = document.getElementById("membership-message");
+        if (membershipMessage) {
+            membershipMessage.style.display = hasMembership ? "none" : "block";
+        }
         // PREZZO DI RIFERIMENTO
 
         let prezzoRiferimento = prodotti.reduce((acc, prodotto) => {
@@ -379,7 +380,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (btnAcquista) {
         btnAcquista.addEventListener("click", async function () {
 
-            if (prodotti.length === 0) {
+            if (prodotti.length === 0 && !CARRELLO.prezzoCarta) {
                 alert("Il carrello è vuoto.");
                 return;
             }
@@ -395,6 +396,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Svuota frontend
                 prodotti = [];
+
+                // Rimuove anche la Cinefans dal frontend
+                CARRELLO.prezzoCarta = null;
+                CARRELLO.nomeCarta = null;
+                CARRELLO.imgCarta = null;
+
                 renderCarrello();
 
             } catch (error) {

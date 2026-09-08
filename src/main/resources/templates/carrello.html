@@ -54,13 +54,20 @@
                              src="/img/card_myS&G.webp"
                              alt="Carta punti">
                     </div>
-                    <p class="points-box">
-                        Il tuo carrello può farti guadagnare
-                        <strong id="puntiDinamici"
-                                th:text="${carrello.punti} + ' punti'">
-                            0 punti
-                        </strong>
-                    </p>
+                    <div class="points-box">
+                        <p>
+                            Il tuo carrello può farti guadagnare
+                            <strong id="puntiDinamici"
+                                    th:text="${carrello.punti} + ' punti'">
+                                0 punti
+                            </strong>
+                        </p>
+                        <p id="membership-message" class="membership-message">
+                            Acquista la
+                            <a th:href="@{/membership}">membership</a>
+                            per non perderli!
+                        </p>
+                    </div>
                 </section>
 
                 <!-- RIEPILOGO -->
