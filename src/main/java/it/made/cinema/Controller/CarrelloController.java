@@ -18,6 +18,9 @@ import it.made.cinema.Service.PuntiService;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -191,7 +194,6 @@ public class CarrelloController {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Offerta offerta = repoOfferte.findById(idOfferta).get();
-        Double prezzo = offerta.getPrezzo();
         Carrello carello = repoCarrello.findByUtenteId(utente.getId());
         if(carello==null) {
         	carello = creaCarrello(utente);
@@ -205,23 +207,32 @@ public class CarrelloController {
     }
 
     @PostMapping("/acquistaCarta/{idCarta}")
-    @ResponseBody
     @Transactional
-    public Double acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
+    public ResponseEntity<?> acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
+
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
+
         if (utente.getCartaRicaricabile()) {
-            return -1d;
+            return ResponseEntity.badRequest().body(-1d);
         }
+
         NomeCarta carta = repoCarta.findById(idCarta).get();
-        Double prezzo = carta.getPrezzo();
-        Carrello carello = repoCarrello.findByUtenteId(utente.getId());
-        if (carello == null) {
-            carello = creaCarrello(utente);
+
+        Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
+
+        if (carrello == null) {
+            carrello = creaCarrello(utente);
         }
-        carello.setCarta(carta);
-        repoCarrello.save(carello);
-        return prezzo;
+
+        carrello.setCarta(carta);
+        repoCarrello.save(carrello);
+
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .header(HttpHeaders.LOCATION, "/carrello")
+                .build();
     }
     
     @Transactional
