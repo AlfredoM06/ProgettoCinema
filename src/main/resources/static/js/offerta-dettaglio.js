@@ -31,17 +31,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("ID offerta non trovato nel data-id");
                 return;
             }
-
             try {
-                const response = await fetch(`/carrello/acquistaOfferta/${idOfferta}`, {
-                    method: "POST"
-                });
-                if (!response.ok) throw new Error("Errore aggiunta al carrello");
-                alert("Offerta aggiunta al carrello!");
+                const response = await fetch(
+                    `/carrello/acquistaOfferta/${idOfferta}`,
+                    {
+                        method: "POST"
+                    }
+                );
+                if (!response.ok) {
+                    throw new Error("Errore aggiunta al carrello");
+                }
 
+                const risultato = await response.json();
+
+                // Utente non autenticato
+                if (risultato === -1) {
+                    alert("Devi effettuare il login per aggiungere un'offerta al carrello.");
+                    return;
+                }
+                alert("Offerta aggiunta al carrello!");
             } catch (error) {
-                console.error("Errore aggiunta carrello:", error);
-                alert("Impossibile aggiungere al carrello. Sei loggato?");
+
+                console.error("Errore aggiunta carrello:", error );
+                alert("Impossibile aggiungere al carrello.");
             }
         });
     }

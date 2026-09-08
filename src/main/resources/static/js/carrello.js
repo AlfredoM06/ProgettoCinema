@@ -8,16 +8,27 @@ document.addEventListener("DOMContentLoaded", function () {
     // =========================================================
     // DATI DAL BACKEND
     // =========================================================
-
-    const hasMembership = CARRELLO.membership === true;
-    const SCONTO_PERCENTUALE = 0.10; // 10% fisso lato frontend
+    let hasMembership = MEMBERSHIP === true;
+//    let hasMembership = CARRELLO.membership === true;
 
     let prodotti = [];
+
     if (CARRELLO && CARRELLO.listaOfferta) {
-        prodotti = CARRELLO.listaOfferta.map(p => ({
-            ...p,
-            quantita: 1
-        }));
+        let mappaProdotti = new Map();
+        CARRELLO.listaOfferta.forEach(offerta => {
+            if (mappaProdotti.has(offerta.id)) {
+                let prodotto = mappaProdotti.get(offerta.id);
+                if (prodotto.quantita < 10) {
+                    prodotto.quantita++;
+                }
+            } else {
+                mappaProdotti.set(offerta.id, {
+                    ...offerta,
+                    quantita: 1
+                });
+            }
+        });
+        prodotti = Array.from(mappaProdotti.values());
     }
 
     // =========================================================
@@ -50,23 +61,20 @@ document.addEventListener("DOMContentLoaded", function () {
             cartItem.classList.add("cart-item");
             cartItem.dataset.id = offerta.id;
 
-            const prezzoOriginale = Number(offerta.prezzo);
-            const prezzoScontato  = prezzoOriginale * (1 - SCONTO_PERCENTUALE);
-
             // Blocco prezzo — cambia in base alla membership
             const prezzoBlocco = hasMembership
                 ? `<div class="price-box">
                         <strong class="final-price">
-                            ${formattaPrezzo(prezzoScontato)}
+                            ${formattaPrezzo(offerta.prezzoScontato)}
                         </strong>
                         <span class="old-price">
-                            ${formattaPrezzo(prezzoOriginale)}
+                            ${formattaPrezzo(offerta.prezzo)}
                         </span>
                         <span class="discount-badge">-10%</span>
                    </div>`
                 : `<div class="price-box">
                         <strong class="final-price">
-                            ${formattaPrezzo(prezzoOriginale)}
+                            ${formattaPrezzo(offerta.prezzo)}
                         </strong>
                    </div>`;
 
@@ -110,41 +118,102 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function aggiornaSummary() {
 
-        // Prezzo di riferimento = somma prezzi pieni * quantità
-        let prezzoRiferimento = prodotti.reduce((acc, o) => {
-            return acc + Number(o.prezzo) * o.quantita;
+        // PREZZO DI RIFERIMENTO
+
+        let prezzoRiferimento = prodotti.reduce((acc, prodotto) => {
+            return acc + (Number(prodotto.prezzo) * prodotto.quantita);
+    }, 0);
+
+
+    // SCONTO
+    // Differenza tra prezzo originale e prezzo scontato
+
+        let sconto = prodotti.reduce((acc, prodotto) => {
+            if (!hasMembership) {
+                return acc;
+            }
+            let prezzoOriginale = Number(prodotto.prezzo);
+            let prezzoScontato = Number(prodotto.prezzoScontato);
+            let risparmio = prezzoOriginale - prezzoScontato;
+
+            return acc + (risparmio * prodotto.quantita);
         }, 0);
 
-        let subtotale = prezzoRiferimento;
-        let sconto    = 0;
 
-        if (hasMembership) {
-            sconto    = prezzoRiferimento * SCONTO_PERCENTUALE;
-            subtotale = prezzoRiferimento - sconto;
-        }
+    // =====================================================
+    // SUBTOTALE
+    // =====================================================
 
-        // Aggiorna DOM
-        let elRiferimento = document.getElementById("summary-prezzo-riferimento");
-        let elSconto      = document.getElementById("summary-sconto");
-        let elScontoRow   = document.getElementById("summary-sconto-row");
-        let elSubtotale   = document.getElementById("summary-subtotale");
-        let elPunti       = document.getElementById("puntiDinamici");
+    let subtotale = prodotti.reduce((acc, prodotto) => {
 
-        if (elRiferimento) elRiferimento.textContent = formattaPrezzo(prezzoRiferimento);
-        if (elSconto)      elSconto.textContent      = "-" + formattaPrezzo(sconto);
-        if (elSubtotale)   elSubtotale.textContent   = formattaPrezzo(subtotale);
+        let prezzo = hasMembership
+            ? Number(prodotto.prezzoScontato)
+            : Number(prodotto.prezzo);
 
-        // Punti calcolati sul subtotale (1 punto ogni euro)
-        if (elPunti) {
-            let punti = Math.floor(subtotale);
-            elPunti.textContent = punti + " punti";
-        }
+        return acc + (prezzo * prodotto.quantita);
 
-        // Nasconde la riga sconto se non ha membership
-        if (elScontoRow) {
-            elScontoRow.style.display = hasMembership ? "" : "none";
-        }
+    }, 0);
+
+
+    // =====================================================
+    // CARTA
+    // Se nel carrello c'è una carta, la aggiungiamo
+    // una sola volta
+    // =====================================================
+
+    if (CARRELLO.prezzoCarta) {
+        subtotale += Number(CARRELLO.prezzoCarta);
+        prezzoRiferimento += Number(CARRELLO.prezzoCarta);
     }
+
+
+    // =====================================================
+    // ELEMENTI HTML
+    // =====================================================
+
+    let riferimento = document.getElementById("summary-prezzo-riferimento");
+    let elSconto = document.getElementById("summary-sconto");
+    let scontoRow = document.getElementById("summary-sconto-row");
+    let elSubtotale = document.getElementById("summary-subtotale");
+    let elPunti = document.getElementById("puntiDinamici");
+
+
+    // =====================================================
+    // AGGIORNAMENTO DOM
+    // =====================================================
+
+    if (riferimento) {
+        riferimento.textContent = formattaPrezzo(prezzoRiferimento);
+    }
+
+    if (elSconto) {
+        elSconto.textContent = "-" + formattaPrezzo(sconto);
+    }
+
+    if (elSubtotale) {
+        elSubtotale.textContent = formattaPrezzo(subtotale);
+    }
+
+
+    // =====================================================
+    // PUNTI
+    // Per ora: 1 punto ogni euro speso
+    // =====================================================
+
+    if (elPunti) {
+        let puntiCalcolati = Math.floor(subtotale);
+        elPunti.textContent = puntiCalcolati + " punti";
+    }
+
+
+    // =====================================================
+    // MOSTRA / NASCONDE LO SCONTO
+    // =====================================================
+
+    if (scontoRow) {
+        scontoRow.style.display = hasMembership ? "" : "none";
+    }
+}
 
     // =========================================================
     // BOTTONI + / - / CESTINO
@@ -152,9 +221,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     cartContainer.addEventListener("click", function (event) {
 
-        const plusButton   = event.target.closest(".btn-plus");
-        const minusButton  = event.target.closest(".btn-minus");
-        const removeButton = event.target.closest(".remove-btn");
+        let plusButton   = event.target.closest(".btn-plus");
+        let minusButton  = event.target.closest(".btn-minus");
+        let removeButton = event.target.closest(".remove-btn");
 
         // +
         if (plusButton) {
@@ -171,16 +240,44 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // -
+        // -
         if (minusButton) {
+
             let id = Number(minusButton.dataset.id);
             let prodotto = prodotti.find(p => p.id === id);
-            if (prodotto && prodotto.quantita > 1) {
+
+            if (!prodotto || prodotto.quantita <= 1) {
+                return;
+            }
+
+            fetch(`/carrello/rimuoviUno/${id}`, {
+                method: "POST"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Errore rimozione");
+                }
+                return response.json();
+            })
+            .then(carrelloDTO => {
+
+                // Il backend ha rimosso una copia
                 prodotto.quantita--;
+
                 let cartItem = minusButton.closest(".cart-item");
                 cartItem.querySelector(".quantity").textContent = prodotto.quantita;
-            }
-            aggiornaBottoni();
-            aggiornaSummary();
+
+                // Aggiorno il carrello frontend
+                CARRELLO.prezzoFinale =  carrelloDTO.prezzoFinale;
+                CARRELLO.punti =  carrelloDTO.punti;
+
+                aggiornaBottoni();
+                aggiornaSummary();
+            })
+            .catch(error => {
+                console.error( "Errore rimozione prodotto:",  error );
+                alert( "Impossibile rimuovere il prodotto.");
+            });
             return;
         }
 
