@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("ID offerta non trovato nel data-id");
                 return;
             }
+
             try {
                 const response = await fetch(
                     `/carrello/acquistaOfferta/${idOfferta}`,
@@ -38,26 +39,24 @@ document.addEventListener("DOMContentLoaded", function () {
                         method: "POST"
                     }
                 );
-                if (!response.ok) {
-                    throw new Error("Errore aggiunta al carrello");
-                }
 
-                if (response.redirected){
-                    window.location.href = response.url;
-                    return;
-                }
-
-                const risultato = await response.json();
-
-                // Utente non autenticato
-                if (risultato === -1) {
+                // Spring Security ha mandato l'utente alla pagina di login
+                if (response.redirected && response.url.includes("/login")) {
                     alert("Devi effettuare il login per aggiungere un'offerta al carrello.");
                     return;
                 }
-                alert("Offerta aggiunta al carrello!");
-            } catch (error) {
 
-                console.error("Errore aggiunta carrello:", error );
+                // L'utente è loggato e il controller ha fatto redirect
+                if (response.redirected) {
+                    alert("Offerta aggiunta al carrello!");
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error("Errore aggiunta al carrello");
+                }
+            } catch (error) {
+                console.error( "Errore aggiunta carrello:", error);
                 alert("Impossibile aggiungere al carrello.");
             }
         });
