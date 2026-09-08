@@ -131,6 +131,59 @@ public class CarrelloController {
         return true;
     }
 
+    //elimina singolo item
+    @PostMapping("/rimuoviUno/{idOfferta}")
+    @Transactional
+    @ResponseBody
+    public CarrelloDTO rimuoviUno(Authentication authentication, @PathVariable Integer idOfferta) {
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
+        Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
+
+        if (utente == null) {
+            return null;
+        }
+
+        if (carrello == null) {
+            return null;
+        }
+
+        if (carrello.getListaOfferte() == null) {
+            carrello.setListaOfferte(new ArrayList<>());
+        }
+
+        // Rimuove UNA sola copia dell'offerta
+        for (Offerta offerta : carrello.getListaOfferte()) {
+            if (offerta.getId().equals(idOfferta)) {
+                carrello.getListaOfferte().remove(offerta);
+                break;
+            }
+        }
+
+        repoCarrello.save(carrello);
+        // Creo il DTO da restituire al frontend
+        CarrelloDTO carrelloDTO = new CarrelloDTO();
+        carrelloDTO.setId(carrello.getId());
+        double prezzoFinale = 0d;
+
+        for (Offerta offerta : carrello.getListaOfferte()) {
+            double prezzoScontato = prezzoService.calcolaScontoOfferta(utente, offerta);
+            prezzoFinale += prezzoScontato;
+        }
+
+        // La carta viene conteggiata una sola volta
+        if (carrello.getCarta() != null) {
+            prezzoFinale += carrello.getCarta().getPrezzo();
+            carrelloDTO.setNomeCarta(carrello.getCarta().getNome());
+            carrelloDTO.setPrezzoCarta(carrello.getCarta().getPrezzo());
+        }
+
+        Integer punti = puntiService.puntiAcquisto(prezzoFinale);
+        carrelloDTO.setPrezzoFinale(prezzoFinale);
+        carrelloDTO.setPunti(punti);
+        return carrelloDTO;
+    }
+
     //metodo per acquistare e salvare sul db l'offerta che l'utente ha acquistato
     @PostMapping("/acquistaOfferta/{idOfferta}")
     @ResponseBody
