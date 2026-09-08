@@ -46,22 +46,32 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderCarrello() {
         cartContainer.innerHTML = "";
 
-        if (prodotti.length === 0) {
+        // =========================================================
+        // CARRELLO VUOTO
+        // =========================================================
+
+        if (prodotti.length === 0 && !CARRELLO.prezzoCarta) {
             cartContainer.innerHTML = `
                 <article class="cart-item empty-cart">
                     <p>Il tuo carrello è vuoto</p>
                 </article>
             `;
+
             aggiornaSummary();
             return;
         }
 
+
+        // =========================================================
+        // OFFERTE
+        // =========================================================
+
         prodotti.forEach(offerta => {
+
             let cartItem = document.createElement("article");
             cartItem.classList.add("cart-item");
             cartItem.dataset.id = offerta.id;
 
-            // Blocco prezzo — cambia in base alla membership
             const prezzoBlocco = hasMembership
                 ? `<div class="price-box">
                         <strong class="final-price">
@@ -82,31 +92,74 @@ document.addEventListener("DOMContentLoaded", function () {
                 <figure class="cart-img">
                     <img src="${offerta.img_banner}" alt="${offerta.nome}">
                 </figure>
+
                 <div class="cart-info">
                     <h2 class="product-title">${offerta.nome}</h2>
                     ${prezzoBlocco}
                 </div>
+
                 <div class="quantity-box">
                     <div class="counter">
+
                         <button type="button"
                                 class="quantity-btn btn-minus"
                                 data-id="${offerta.id}">
                             <span>-</span>
                         </button>
+
                         <span class="quantity">${offerta.quantita}</span>
+
                         <button type="button"
                                 class="quantity-btn btn-plus"
                                 data-id="${offerta.id}">
                             <span>+</span>
                         </button>
+
                     </div>
-                    <button class="remove-btn" type="button" data-id="${offerta.id}">
+
+                    <button class="remove-btn"
+                            type="button"
+                            data-id="${offerta.id}">
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </div>
             `;
+
             cartContainer.appendChild(cartItem);
         });
+
+
+        // =========================================================
+        // CARTA CINEFANS
+        // =========================================================
+
+        if (CARRELLO.prezzoCarta) {
+            let cartaItem = document.createElement("article");
+            cartaItem.classList.add("cart-item", "carta-item");
+
+            cartaItem.innerHTML = `
+                <figure class="cart-img">
+                    <img src="${CARRELLO.imgCarta}" alt="${CARRELLO.nomeCarta}">
+                </figure>
+
+                <div class="cart-info">
+                    <h2 class="product-title">${CARRELLO.nomeCarta}</h2>
+
+                    <div class="price-box">
+                        <strong class="final-price">
+                            ${formattaPrezzo(CARRELLO.prezzoCarta)}
+                        </strong>
+                    </div>
+                </div>
+
+                <div class="quantity-box">
+                    <span class="carta-quantita">Quantità: 1</span>
+                </div>
+            `;
+
+            cartContainer.appendChild(cartaItem);
+        }
+
 
         aggiornaBottoni();
         aggiornaSummary();
