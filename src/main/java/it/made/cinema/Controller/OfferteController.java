@@ -44,7 +44,7 @@ public class OfferteController {
         }
         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
         for (Offerta offerta : offerte) {
-            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), null, offerta.getDataInizio()));
+            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), null, offerta.getDataInizio(), null));
         }
         return offerteDTO;
     }
