@@ -34,8 +34,7 @@
             <!-- ========================= -->
             <aside class="sidebar">
 
-               <!-- <h2>Ciao <span th:text="${user.nome}">Mario</span></h2> -->
-                <h2>Ciao <span>Mario</span></h2>
+                <h2>Ciao <span th:text="${user.nome}">Nome</span></h2>
 
                 <!-- PANORAMICA -->
                 <section>
@@ -132,18 +131,29 @@
 
                                             <div class="loyalty-main">
                                                 <span class="brand">Programma myS&amp;G</span>
-                                                <span class="points">6 punti</span>
+                                                <span class="points"
+                                                      th:text="${user.membership
+                                                      ? user.puntiMembership + ' punti' : '0 punti'}"> 0 punti
+                                                </span>
                                             </div>
 
-                                            <div class="loyalty-card-number">
-                                                Numero carta: 1234 5678 9012
+                                            <div class="loyalty-card-number"
+                                                 th:if="${user.membership}">
+                                                Numero carta:
+                                                <span th:text="${user.numeroCarta}">
+                                                        MYSG-123456789
+                                                </span>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="loyalty-bottom">
                                         <a href="#" class="loyalty-link">
                                             Scopri di più sui tuoi vantaggi
                                         </a>
+                                        <p th:unless="${user.membership}">
+                                            Membership non acquistata
+                                        </p>
                                     </div>
                                 </article>
                             </section>
@@ -169,24 +179,24 @@
                                     <div class="field-row">
                                         <div class="field">
                                             <dt>Nome</dt>
-                                            <dd>Mario</dd>
+                                            <dd th:text="${user.nome}"></dd>
                                         </div>
 
                                         <div class="field">
                                             <dt>Cognome</dt>
-                                            <dd>Rossi</dd>
+                                            <dd th:text="${user.cognome}"></dd>
                                         </div>
                                     </div>
 
                                     <div class="field-row">
                                         <div class="field">
                                             <dt>Cellulare</dt>
-                                            <dd>+39 333 123 4567</dd>
+                                            <dd th:text="${user.telefono}"></dd>
                                         </div>
 
                                         <div class="field">
                                             <dt>Email</dt>
-                                            <dd>mariolumaconeseducente@gmail.com</dd>
+                                            <dd th:text="${user.email}">email@example.com</dd>
                                         </div>
                                     </div>
 
@@ -205,113 +215,9 @@
                             <img src="img/user_tickets.svg" alt="user_tickets">
                             <h1>I miei Biglietti</h1>
                         </div>
-                        <div class="row g-4">
+                        <div class="row g-4" id="tickets-container">
 
-                            <!-- BIGLIETTO 1 -->
-                            <div class="col-md-6">
-                                <article class="ticket-card">
 
-                                    <!-- HEADER -->
-                                    <div class="account-header">
-                                        <h2 class="section-title">Lilo & Stitch</h2>
-                                        <span class="ticket-date">12/07/2026</span>
-                                    </div>
-
-                                    <!-- ORARI -->
-                                    <div class="ticket-times">
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Inizio</span>
-                                            <span class="ticket-value">18:30</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Fine</span>
-                                            <span class="ticket-value">20:15</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- QR -->
-                                    <div class="ticket-qr-wrapper">
-                                        <div class="qrcode" data-id="1"></div>
-                                        <p class="codice"></p>
-                                    </div>
-
-                                    <!-- INFO -->
-                                    <div class="ticket-footer">
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Sala</span>
-                                            <span class="ticket-value">3</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Fila</span>
-                                            <span class="ticket-value">A</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Posto</span>
-                                            <span class="ticket-value">3</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Prezzo</span>
-                                            <span class="ticket-value ticket-price">€8.50</span>
-                                        </div>
-                                    </div>
-
-                                </article>
-                            </div>
-
-                            <!-- BIGLIETTO 2 -->
-                            <div class="col-md-6">
-                                <article class="ticket-card">
-
-                                    <div class="account-header">
-                                        <h2 class="section-title">Spider-Man: Brand New Day</h2>
-                                        <span class="ticket-date">15/07/2026</span>
-                                    </div>
-
-                                    <div class="ticket-times">
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Inizio</span>
-                                            <span class="ticket-value">18:30</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Fine</span>
-                                            <span class="ticket-value">20:15</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="ticket-qr-wrapper">
-                                        <div class="qrcode" data-id="2"></div>
-                                        <p class="codice"></p>
-                                    </div>
-
-                                    <div class="ticket-footer">
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Sala</span>
-                                            <span class="ticket-value">3</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Fila</span>
-                                            <span class="ticket-value">A</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Posto</span>
-                                            <span class="ticket-value">3</span>
-                                        </div>
-
-                                        <div class="ticket-field">
-                                            <span class="ticket-label">Prezzo</span>
-                                            <span class="ticket-value ticket-price">€8.50</span>
-                                        </div>
-                                    </div>
-
-                                </article>
-                            </div>
 
                         </div>
                     </section>
@@ -324,56 +230,9 @@
                             <img src="img/menus_icon.svg" alt="menù">
                             <h1>I miei menù</h1>
                         </div>
-                        <div class="row g-4">
-
-                            <!-- MENU CARD -->
-                            <div class="col-12">
-                                <article class="menu-card">
-
-                                    <!-- IMMAGINE -->
-                                    <figure class="menu-img">
-                                        <img src="./img/mandalorian_grogu_cover.jpg" alt="menu">
-                                    </figure>
-
-                                    <!-- CONTENUTO -->
-                                    <div class="menu-content">
-
-                                        <!-- HEADER -->
-                                        <div class="menu-header">
-                                            <h2 class="section-title">Menù Spiderman No Way Home</h2>
-                                        </div>
-
-                                        <!-- INFO -->
-                                        <div class="menu-info">
-
-                                            <div class="menu-field">
-                                                <span class="menu-label">Quantità</span>
-                                                <span class="menu-value">2</span>
-                                            </div>
-
-                                            <div class="menu-field">
-                                                <span class="menu-label">Prezzo</span>
-                                                <span class="menu-value menu-price">€12.00</span>
-                                            </div>
-
-                                        </div>
-
-                                        <!-- DATA SOTTO -->
-                                        <span class="menu-date">12/07/2026</span>
-
-                                    </div>
-
-                                    <!-- QR -->
-                                    <div class="menu-qr-wrapper">
-                                        <div class="menu-qrcode" data-id="101"></div>
-                                        <p class="menu-code"></p>
-                                    </div>
-
-                                </article>
-                            </div>
-
+                        <div class="row g-4" id="menus-container">
+<!--                            CONTENUTO DINAMICO CARD-->
                         </div>
-
                     </section>
 
                     <!-- ========================= -->
@@ -384,7 +243,7 @@
                             <img th:src="@{/img/user_voucher.svg}" alt="user_voucher">
                             <h1>Card e Voucher</h1>
                         </div>
-                        <div class="row g-4 voucher-layout">
+                        <div class="row g-4 voucher-layout" >
 
                             <!-- ========================= -->
                             <!-- LEFT: CARD AREA -->
@@ -475,21 +334,21 @@
                             <!-- NOME -->
                             <div class="profile-row">
                                 <label class="form-label" for="nome">Nome</label>
-                                <input type="text" id="nome" class="form-control" placeholder="Nome" value="Mario">
+                                <input type="text" id="nome" class="form-control" placeholder="Nome"  th:value="${user.nome}">
                             </div>
 
                             <!-- COGNOME -->
                             <div class="profile-row">
                                 <label class="form-label" for="cognome">Cognome</label>
                                 <input type="text" id="cognome" class="form-control" placeholder="Cognome"
-                                    value="Rossi">
+                                       th:value="${user.cognome}">
                             </div>
 
                             <!-- EMAIL -->
                             <div class="profile-row">
                                 <label class="form-label" for="email">Email</label>
                                 <input type="email" id="email" class="form-control" placeholder="Email"
-                                    value="mario.rossi@email.com">
+                                       th:value="${user.email}">
                             </div>
 
                             <!-- COMPLEANNO -->
@@ -497,14 +356,29 @@
                                 <label class="form-label">Compleanno</label>
 
                                 <div class="birthday-wrapper">
-                                    <input type="text" class="form-control" placeholder="GG" maxlength="2"
-                                        inputmode="numeric">
+                                    <input
+                                            type="text"
+                                            id="giornoNascita"
+                                            class="form-control"
+                                            placeholder="GG"
+                                            maxlength="2"
+                                            inputmode="numeric">
 
-                                    <input type="text" class="form-control" placeholder="MM" maxlength="2"
-                                        inputmode="numeric">
+                                    <input
+                                            type="text"
+                                            id="meseNascita"
+                                            class="form-control"
+                                            placeholder="MM"
+                                            maxlength="2"
+                                            inputmode="numeric">
 
-                                    <input type="text" class="form-control" placeholder="AAAA" maxlength="4"
-                                        inputmode="numeric">
+                                    <input
+                                            type="text"
+                                            id="annoNascita"
+                                            class="form-control"
+                                            placeholder="AAAA"
+                                            maxlength="4"
+                                            inputmode="numeric">
                                 </div>
                             </div>
 
@@ -528,12 +402,18 @@
                             <!-- NUOVA PASSWORD -->
                             <div class="profile-row">
                                 <label class="form-label" for="newPassword">Nuova password</label>
+
                                 <div class="input-wrapper">
-                                    <input type="password" class="form-control" placeholder="Nuova password">
+                                    <input
+                                            type="password"
+                                            id="newPassword"
+                                            class="form-control"
+                                            placeholder="Nuova password">
 
                                     <div class="password-help">
-                                        La tua password deve includere un minimo di 8 caratteri, un numero,
-                                        una lettera minuscola e una lettera maiuscola
+                                        La tua password deve includere un minimo di 8 caratteri,
+                                        un numero, una lettera minuscola, una lettera maiuscola
+                                        e un simbolo
                                     </div>
                                 </div>
                             </div>
