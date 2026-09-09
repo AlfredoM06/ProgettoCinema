@@ -8,6 +8,6 @@ import it.made.cinema.Model.AcquistiGadget;
 
 public interface IRepoAcquisti extends JpaRepository<AcquistiGadget, Integer>{
 	List<AcquistiGadget> findByUtenteIdAndOffertaGenere(Integer id, String genere);
-	
+	List<AcquistiGadget> deleteByUtenteId(Integer id);
 	List<AcquistiGadget> findByUtenteId(Integer id);
 }

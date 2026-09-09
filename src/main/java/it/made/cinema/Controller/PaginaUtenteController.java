@@ -3,29 +3,28 @@ package it.made.cinema.Controller;
 import it.made.cinema.Model.DTO.DatiUtenteDTO;
 import it.made.cinema.Model.DTO.OfferteDTO;
 import it.made.cinema.Model.DTO.PostiOccupatiDTO;
-import it.made.cinema.Model.AcquistiGadget;
-import it.made.cinema.Model.Offerta;
-import it.made.cinema.Model.PostiOccupati;
-import it.made.cinema.Model.Utente;
-import it.made.cinema.Repository.IRepoAcquisti;
-import it.made.cinema.Repository.IRepoOfferte;
-import it.made.cinema.Repository.IRepoPostiOccupati;
-import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Model.*;
+import it.made.cinema.Repository.*;
 import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/utente")
@@ -41,6 +40,8 @@ public class PaginaUtenteController {
     IRepoOfferte repoOfferte;
     @Autowired
     IRepoAcquisti repoAcquisti;
+    @Autowired
+    IRepoCarrello repoCarrello;
 
     @GetMapping
     public String paginaUtente() {
@@ -137,5 +138,31 @@ public class PaginaUtenteController {
         Integer nPunti = utente.getPuntiMembership();
         return nPunti;
     }
-
+    @PostMapping("/eliminaUtente")
+    @ResponseBody
+    @Transactional
+    public Boolean eliminaAccount(@RequestBody Map<String, String> body, Authentication authentication, HttpServletRequest request) {
+    	String password = body.get("password");
+    	if(password == null || password.isBlank()) {
+    		return false;
+    	}
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Optional<Utente> utenteOpt = repoUtenti.findById(userDetails.getId());
+        if (utenteOpt.isEmpty()) {
+            return false;
+        }		
+        Utente utente = utenteOpt.get();
+        if (!password.equals(utente.getPassword())) {
+            return false;
+        }
+        Carrello carrello = utente.getCarrello();
+        repoPO.deleteByUtenteId(utente.getId());
+        repoAcquisti.deleteByUtenteId(utente.getId());
+        if(carrello != null) {
+        repoCarrello.deleteByUtenteId(utente.getId());
+        }
+        repoUtenti.delete(utente);
+        new SecurityContextLogoutHandler().logout(request, null, authentication);
+    	return true;
+	}
 }

@@ -11,6 +11,6 @@ public interface IRepoPostiOccupati extends JpaRepository<PostiOccupati, Integer
 
 	List<PostiOccupati> findByUtenteId(Integer id);
 	/*public void deleteByIdProgrammazioneFilm(Integer id);*/
-
+	List<PostiOccupati> deleteByUtenteId(Integer id);
 	void deleteByProgrammazioneFilm(ProgrammazioneFilm p);
 }
