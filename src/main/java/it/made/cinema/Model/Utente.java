@@ -44,18 +44,26 @@ public class Utente {
 	private Boolean membership;//carta punti
 	@Column(nullable = false, columnDefinition = "INT DEFAULT 0")
 	private Integer puntiMembership = 0;
-	@Column
+	@Column()
 	private LocalDate acquistoMembership;
 	@Column()
 	private Boolean cartaRicaricabile;
-	@Column
+	@Column()
 	private LocalDate dataAcquisto;
-	@Column
+	@Column()
 	private LocalDate dataScadenza;
 	@Column()
 	private Integer utilizziCard;
 	@Column(nullable=false)
 	private LocalDate dataNascita;
+	@Column()
+	private String nTelefono;
+	@Column()
+	private String indirizzo;
+	@Column()
+	private String citta;
+	@Column()
+	private String cap;
 	@Column()
 	private Integer annoUltimaMailCompleanno;
 	@OneToMany(mappedBy="utente")

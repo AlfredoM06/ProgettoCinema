@@ -236,44 +236,67 @@ public class CarrelloController {
                 .header(HttpHeaders.LOCATION, "/carrello")
                 .build();
     }
-    
+
     @Transactional
     @PostMapping("/confermaAcquisti")
     @ResponseBody
     public Boolean confermaAcquisto(Authentication authentication) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-    	Utente utente = repoUtenti.findById(userDetails.getId()).orElse(null);
-    	if (utente == null) {
-    		return false;
-    	}
-    	
-    	Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
-    	if (carrello == null) {
-    	    return false;
-    	}
-    	if(carrello.getCarta() != null && !Boolean.TRUE.equals(utente.getCartaRicaricabile())) {
-    		utente.setNomeCarta(carrello.getCarta());
-    		utente.setCartaRicaricabile(true);
-    		utente.setDataAcquisto(LocalDate.now());
-    		utente.setDataScadenza(LocalDate.now().plusYears(1));
-    		utente.setUtilizziCard(carrello.getCarta().getUtilizziCard());
-    	}
-    	
-    	if (carrello.getListaOfferte() != null) {
-    		for (Offerta offerta : carrello.getListaOfferte()) {
-    			AcquistiGadget acquisto = new AcquistiGadget();
-    			acquisto.setUtente(utente);
-    			acquisto.setOfferta(offerta);
-    			acquisto.setDataAcquisto(LocalDate.now());
-    			repoAcquisti.save(acquisto);
-    		}
-    	}
-    	repoUtenti.save(utente);
-    	carrello.setCarta(null);
-    	carrello.getListaOfferte().clear();
-    	repoCarrello.save(carrello);
-    	return true;
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).orElse(null);
+        if (utente == null) {
+            return false;
+        }
+
+        Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
+        if (carrello == null) {
+            return false;
+        }
+
+        // Calcolo il prezzo finale del carrello (stessa logica usata per l'anteprima punti)
+        double prezzoFinale = 0d;
+        if (carrello.getListaOfferte() != null) {
+            for (Offerta offerta : carrello.getListaOfferte()) {
+                prezzoFinale += prezzoService.calcolaScontoOfferta(utente, offerta);
+            }
+        }
+        if (carrello.getCarta() != null) {
+            prezzoFinale += carrello.getCarta().getPrezzo();
+        }
+
+        // Acquisto/attivazione carta ricaricabile
+        if (carrello.getCarta() != null && !Boolean.TRUE.equals(utente.getCartaRicaricabile())) {
+            utente.setNomeCarta(carrello.getCarta());
+            utente.setCartaRicaricabile(true);
+            utente.setDataAcquisto(LocalDate.now());
+            utente.setDataScadenza(LocalDate.now().plusYears(1));
+            utente.setUtilizziCard(carrello.getCarta().getUtilizziCard());
+        }
+
+        // Salvataggio acquisti offerte
+        if (carrello.getListaOfferte() != null) {
+            for (Offerta offerta : carrello.getListaOfferte()) {
+                AcquistiGadget acquisto = new AcquistiGadget();
+                acquisto.setUtente(utente);
+                acquisto.setOfferta(offerta);
+                acquisto.setDataAcquisto(LocalDate.now());
+                repoAcquisti.save(acquisto);
+            }
+        }
+
+        // Accredito punti membership SOLO se l'utente ha la carta punti myS&G
+        if (Boolean.TRUE.equals(utente.getMembership()) && prezzoFinale > 0) {
+            Integer puntiGuadagnati = puntiService.puntiAcquisto(prezzoFinale);
+            Integer puntiAttuali = utente.getPuntiMembership() != null ? utente.getPuntiMembership() : 0;
+            utente.setPuntiMembership(puntiAttuali + puntiGuadagnati);
+        }
+
+        repoUtenti.save(utente);
+        carrello.setCarta(null);
+        carrello.getListaOfferte().clear();
+        repoCarrello.save(carrello);
+        return true;
     }
+
     @PostMapping("/eliminaCarta/")
     @Transactional
     @ResponseBody

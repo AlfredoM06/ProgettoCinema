@@ -4,6 +4,7 @@ import it.made.cinema.Model.DTO.DatiUtenteDTO;
 import it.made.cinema.Model.DTO.OfferteDTO;
 import it.made.cinema.Model.DTO.PostiOccupatiDTO;
 import it.made.cinema.Model.*;
+import it.made.cinema.Model.DTO.ProfiloDTO;
 import it.made.cinema.Repository.*;
 import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
@@ -48,6 +49,26 @@ public class PaginaUtenteController {
         return "utente-profilo";
     }
 
+    @GetMapping("/profilo")
+    public ProfiloDTO profilo (Authentication authentication){
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
+
+        ProfiloDTO profiloDTO = new ProfiloDTO();
+        profiloDTO.setId(utente.getId());
+        profiloDTO.setNome(utente.getNome());
+        profiloDTO.setCognome(utente.getCognome());
+        profiloDTO.setEmail(utente.getEmail());
+        profiloDTO.setNTelefono(utente.getNTelefono());
+        profiloDTO.setIndirizzo(utente.getIndirizzo());
+        profiloDTO.setCitta(utente.getCitta());
+        profiloDTO.setCap(utente.getCap());
+        profiloDTO.setDataNascita(utente.getDataNascita());
+        profiloDTO.setMembership(utente.getMembership());
+        profiloDTO.setPuntiMembership(utente.getPuntiMembership());
+
+        return profiloDTO;
+    }
 
     @GetMapping("/acquisti")
     public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(Authentication authentication) {
@@ -138,6 +159,7 @@ public class PaginaUtenteController {
         Integer nPunti = utente.getPuntiMembership();
         return nPunti;
     }
+
     @PostMapping("/eliminaUtente")
     @ResponseBody
     @Transactional
