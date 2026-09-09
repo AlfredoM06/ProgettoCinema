@@ -274,4 +274,22 @@ public class CarrelloController {
     	repoCarrello.save(carrello);
     	return true;
     }
+    @PostMapping("/eliminaCarta/")
+    @Transactional
+    @ResponseBody
+    public Boolean eliminaCarta(Authentication authentication) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+    	Utente utente = repoUtenti.findById(userDetails.getId()).orElse(null);
+    	if (utente == null) {
+    		return false;
+    	}
+    	Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
+    	if (carrello.getCarta() == null) {
+    	    return false;
+    	}
+    	carrello.setCarta(null);
+    	repoCarrello.save(carrello);
+		return true;
+		
+    }
 }
