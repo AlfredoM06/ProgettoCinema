@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -45,7 +46,10 @@ public class PaginaUtenteController {
     IRepoCarrello repoCarrello;
 
     @GetMapping
-    public String paginaUtente() {
+    public String paginaUtente(Authentication authentication, Model model) {
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
+        model.addAttribute("utente", utente);
         return "utente-profilo";
     }
 
