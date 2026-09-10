@@ -110,7 +110,7 @@ public class PaginaUtenteController {
                     acquisto.getOfferta().getId(),
                     acquisto.getId(),
                     acquisto.getOfferta().getNome(),
-                    acquisto.getOfferta().getImgBanner(),
+                    acquisto.getOfferta().getImgBannerTopOfferte(),
                     acquisto.getDataAcquisto(),
                     acquisto.getOfferta().getPrezzo()
             ));
