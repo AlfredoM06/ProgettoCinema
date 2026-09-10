@@ -18,8 +18,10 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class OfferteDTO implements Serializable{
+	private Integer idOfferta;
 	private Integer idAcquisto;
 	private String nome;
 	private String imgBanner;
 	private LocalDate dataAcquisto;
+	private Double prezzoAcquisto;
 }

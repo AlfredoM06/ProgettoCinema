@@ -100,17 +100,19 @@ public class PaginaUtenteController {
     }
 
     //4) Relativi gadget o offerte ottenute dall'acquisto di film o utilizzo di offerte.(da fare tabella per legare utente-gadget-dataDiAcquisto)
-    @GetMapping("acquistiOfferte")
-    public @ResponseBody List<OfferteDTO> offerteAcquistate(Authentication authentication, @RequestParam(required = false) String genere) {
+    @GetMapping("/acquistiOfferte")
+    public @ResponseBody List<OfferteDTO> offerteAcquistate(Authentication authentication) {
     	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-        List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteIdAndOffertaGenere(userDetails.getId(), genere);
+        List<AcquistiGadget> acquistiGadget = repoAcquisti.findByUtenteId(userDetails.getId());
         List<OfferteDTO> acquisti = new ArrayList<>();
         for (AcquistiGadget acquisto : acquistiGadget) {
             acquisti.add(new OfferteDTO(
+                    acquisto.getOfferta().getId(),
                     acquisto.getId(),
                     acquisto.getOfferta().getNome(),
                     acquisto.getOfferta().getImgBanner(),
-                    acquisto.getDataAcquisto()
+                    acquisto.getDataAcquisto(),
+                    acquisto.getOfferta().getPrezzo()
             ));
         }
         return acquisti;

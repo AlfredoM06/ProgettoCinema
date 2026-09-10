@@ -418,7 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generaCodiceMenu(offerta) {
         let data = formattaData(offerta.dataAcquisto);
-        return `MEN${offerta.idOfferta}${offerta.quantita}${data}`;
+        return `MEN${offerta.idAcquisto}${offerta.quantita}${data}`;
     }
 
 
