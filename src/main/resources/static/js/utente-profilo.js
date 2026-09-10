@@ -270,7 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         confirmPassword.addEventListener("blur", () => {
-
             if (confirmPassword.value === "") {
                 rimuoviErrore(confirmPassword);
                 return;
@@ -282,7 +281,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 mostraErrore( confirmPassword, "password errata");
             }
         });
-
 
         // SALVA PASSWORD
         passwordSaveButton.addEventListener("click", (event) => {
@@ -328,8 +326,6 @@ document.addEventListener("DOMContentLoaded", () => {
             rimuoviErrore(telefono);
         });
     }
-
-
     // INDIRIZZO
     if (indirizzo) {
         indirizzo.addEventListener("input", () => {
@@ -337,9 +333,6 @@ document.addEventListener("DOMContentLoaded", () => {
             rimuoviErrore(indirizzo);
         });
     }
-
-
-
     // CITTÀ
     if (citta) {
         citta.addEventListener("input", () => {
@@ -347,8 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
             rimuoviErrore(citta);
         });
     }
-
-
     // CAP
     if (cap) {
         cap.addEventListener("input", () => {
@@ -356,7 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
             rimuoviErrore(cap);
         });
     }
-
 
     // =====================================================
     // GESTIONE FORM
@@ -418,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generaCodiceMenu(offerta) {
         let data = formattaData(offerta.dataAcquisto);
-        return `MEN${offerta.idAcquisto}${offerta.quantita}${data}`;
+        return `MEN${offerta.idOfferta}${offerta.quantita}${data}`;
     }
 
 
@@ -471,33 +461,52 @@ document.addEventListener("DOMContentLoaded", () => {
 //    CREA CARD BIGLIETTO
     function creaCardBiglietto(biglietto) {
         let col = document.createElement("div");
-        col.className = "col-md-6 col-lg-4";
+        col.className = "col-md-6";
         let codice = generaCodiceBiglietto(biglietto);
 
         col.innerHTML = `
             <div class="ticket-card">
-                <h4>${biglietto.titolo}</h4>
-                <p>
-                    Data: ${biglietto.giorno}
-                </p>
-                <p>
-                    Orario: ${biglietto.inizio}
-                </p>
-                <p>
-                    Sala: ${biglietto.sala}
-                </p>
-                <p>
-                    Fila: ${biglietto.fila}
-                </p>
-                <p>
-                    Posto: ${biglietto.colonna}
-                </p>
-                <p>
-                    Prezzo: € ${biglietto.prezzo}
-                </p>
-
-                <div class="qrcode"></div>
-                <p class="codice">${codice}</p>
+//              titolo
+                <div class="account-header">
+                    <h2 class="section-title">${biglietto.titolo}</h2>
+                    <span class="ticket-date">${biglietto.giorno}</span>
+                </div>
+//                inizio e fine
+                <div class="ticket-times">
+                    <div class="ticket-field">
+                        <span class="ticket-label">Inizio</span>
+                        <span class="ticket-value">${biglietto.inizio}</span>
+                     </div>
+                    <div class="ticket-field">
+                        <span class="ticket-label">Fine</span>
+                        <span class="ticket-value">${biglietto.fine}</span>
+                        </div>
+                    </div>
+                </div>
+//                qr code
+                <div class="ticket-qr-wrapper">
+                    <div class="qrcode"></div>
+                        <p class="codice">${codice}</p>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <div class="ticket-field">
+                        <span class="ticket-label">Sala</span>
+                        <span class="ticket-value">${biglietto.sala}</span>
+                    </div>
+                    <div class="ticket-field">
+                        <span class="ticket-label">Fila</span>
+                        <span class="ticket-value">${biglietto.fila}</span>
+                    </div>
+                    <div class="ticket-field">
+                        <span class="ticket-label">Posto</span>
+                        <span class="ticket-value">${biglietto.colonna}</span>
+                    </div>
+                    <div class="ticket-field">
+                        <span class="ticket-label">Prezzo</span>
+                        <span class="ticket-value ticket-price">${biglietto.prezzo}€</span>
+                    </div>
+                </div>
             </div>
         `;
 
@@ -539,24 +548,27 @@ document.addEventListener("DOMContentLoaded", () => {
             let offerteRaggruppate = {};
 
             acquisti.forEach(offerta => {
+
                 let chiave = `${offerta.idOfferta}_${offerta.dataAcquisto}`;
 
                 if (!offerteRaggruppate[chiave]) {
+
                     offerteRaggruppate[chiave] = {
                         ...offerta,
                         quantita: 1
                     };
+
                 } else {
+
                     offerteRaggruppate[chiave].quantita++;
+
                 }
             });
 
-            Object.values(offerteRaggruppate)
-                .forEach(offerta => {
-                    container.appendChild(
-                        creaCardMenu(offerta)
-                    );
-                });
+            Object.values(offerteRaggruppate).forEach(offerta => {
+                offerta.prezzoTotale = offerta.prezzoAcquisto * offerta.quantita;
+                container.appendChild(creaCardMenu(offerta));
+            });
 
         } catch (error) {
             console.error(error);
@@ -571,21 +583,37 @@ document.addEventListener("DOMContentLoaded", () => {
 //    CREA CARD MENU
     function creaCardMenu(offerta) {
         let col = document.createElement("div");
-        col.className = "col-md-6 col-lg-4";
+        col.className = "col-md-12";
         let codice = generaCodiceMenu(offerta);
 
         col.innerHTML = `
             <div class="menu-card">
-                <img
-                    src="${offerta.imgBanner}"
-                    alt="${offerta.nome}"
-                >
-                <h4>${offerta.nome}</h4>
-                <p>
-                    Quantità: ${offerta.quantita}
-                </p>
-                <div class="menu-qrcode"></div>
-                <p class="menu-code">${codice}</p>
+                <figure class="menu-img">
+                    <img
+                        src="${offerta.imgBanner}"
+                        alt="${offerta.nome}"
+                    >
+                </figure>
+                <div class="menu-content">
+                    <div class="menu-header">
+                        <h2 class="section-title">${offerta.nome}</h2>
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-field">
+                            <span class="menu-label">Quantità</span>
+                            <span class="menu-value">${offerta.quantita}</span>
+                       </div>
+                        <div class="menu-field">
+                            <span class="menu-label">Prezzo</span>
+                            <span class="menu-value menu-price">${offerta.prezzoTotale}</span>
+                        </div>
+                    </div>
+                    <span class="menu-date">${offerta.dataAcquisto}</span>
+                </div>
+                <div class="menu-qr-wrapper">
+                    <div class="menu-qrcode"></div>
+                    <p class="menu-code">${codice}</p>
+                </div>
             </div>
         `;
 
