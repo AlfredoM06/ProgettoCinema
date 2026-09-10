@@ -53,7 +53,7 @@ public class PaginaUtenteController {
         return "utente-profilo";
     }
 
-    @GetMapping("/profilo")
+   /* @GetMapping("/profilo")
     @ResponseBody
     public ProfiloDTO profilo (Authentication authentication){
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
@@ -73,7 +73,7 @@ public class PaginaUtenteController {
         profiloDTO.setPuntiMembership(utente.getPuntiMembership());
 
         return profiloDTO;
-    }
+    }*/
 
     @GetMapping("/acquisti")
     public @ResponseBody List<PostiOccupatiDTO> bigliettiAcquistati(Authentication authentication) {
