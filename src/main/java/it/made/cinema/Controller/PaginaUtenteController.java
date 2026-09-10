@@ -50,6 +50,7 @@ public class PaginaUtenteController {
     }
 
     @GetMapping("/profilo")
+    @ResponseBody
     public ProfiloDTO profilo (Authentication authentication){
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
