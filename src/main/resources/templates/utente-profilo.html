@@ -34,7 +34,7 @@
             <!-- ========================= -->
             <aside class="sidebar">
 
-                <h2>Ciao <span th:text="${user.nome}">Nome</span></h2>
+                <h2>Ciao <span th:text="${utente.nome}">Nome</span></h2>
 
                 <!-- PANORAMICA -->
                 <section>
@@ -132,7 +132,7 @@
                                             <div class="loyalty-main">
                                                 <span class="brand">Programma myS&amp;G</span>
                                                 <span class="points"
-                                                      th:text="${user.membership ? user.puntiMembership + ' punti'
+                                                      th:text="${utente.membership ? utente.puntiMembership + ' punti'
                                                       : '0 punti'}"> 0 punti
                                                 </span>
                                             </div>
@@ -148,7 +148,7 @@
                                         <a href="#" class="loyalty-link">
                                             Scopri di più sui tuoi vantaggi
                                         </a>
-                                        <p th:unless="${user.membership}">
+                                        <p th:unless="${utente.membership}">
                                             Membership non acquistata
                                         </p>
                                     </div>
@@ -176,24 +176,24 @@
                                     <div class="field-row">
                                         <div class="field">
                                             <dt>Nome</dt>
-                                            <dd th:text="${user.nome}"></dd>
+                                            <dd th:text="${utente.nome}"></dd>
                                         </div>
 
                                         <div class="field">
                                             <dt>Cognome</dt>
-                                            <dd th:text="${user.cognome}"></dd>
+                                            <dd th:text="${utente.cognome}"></dd>
                                         </div>
                                     </div>
 
                                     <div class="field-row">
                                         <div class="field">
                                             <dt>Cellulare</dt>
-                                            <dd th:text="${user.telefono}"></dd>
+                                            <dd th:text="${utente.nTelefono}"></dd>
                                         </div>
 
                                         <div class="field">
                                             <dt>Email</dt>
-                                            <dd th:text="${user.email}">email@example.com</dd>
+                                            <dd th:text="${utente.email}">email@example.com</dd>
                                         </div>
                                     </div>
 
@@ -331,21 +331,21 @@
                             <!-- NOME -->
                             <div class="profile-row">
                                 <label class="form-label" for="nome">Nome</label>
-                                <input type="text" id="nome" class="form-control" placeholder="Nome"  th:value="${user.nome}">
+                                <input type="text" id="nome" class="form-control" placeholder="Nome"  th:value="${utente.nome}">
                             </div>
 
                             <!-- COGNOME -->
                             <div class="profile-row">
                                 <label class="form-label" for="cognome">Cognome</label>
                                 <input type="text" id="cognome" class="form-control" placeholder="Cognome"
-                                       th:value="${user.cognome}">
+                                       th:value="${utente.cognome}">
                             </div>
 
                             <!-- EMAIL -->
                             <div class="profile-row">
                                 <label class="form-label" for="email">Email</label>
                                 <input type="email" id="email" class="form-control" placeholder="Email"
-                                       th:value="${user.email}">
+                                       th:value="${utente.email}">
                             </div>
 
                             <!-- COMPLEANNO -->
