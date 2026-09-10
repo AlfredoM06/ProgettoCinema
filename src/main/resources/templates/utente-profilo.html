@@ -34,7 +34,7 @@
             <!-- ========================= -->
             <aside class="sidebar">
 
-               <h2>Ciao <span th:text="${user.nome}">Nome</span></h2>
+                <h2>Ciao <span th:text="${user.nome}">Nome</span></h2>
 
                 <!-- PANORAMICA -->
                 <section>
@@ -132,17 +132,14 @@
                                             <div class="loyalty-main">
                                                 <span class="brand">Programma myS&amp;G</span>
                                                 <span class="points"
-                                                      th:text="${user.membership
-                                                      ? user.puntiMembership + ' punti' : '0 punti'}"> 0 punti
+                                                      th:text="${user.membership ? user.puntiMembership + ' punti'
+                                                      : '0 punti'}"> 0 punti
                                                 </span>
                                             </div>
 
-                                            <div class="loyalty-card-number"
-                                                 th:if="${user.membership}">
+                                            <div class="loyalty-card-number" id="membershipCardNumber">
                                                 Numero carta:
-                                                <span th:text="${user.numeroCarta}">
-                                                        MYSG-123456789
-                                                </span>
+                                                <span id="numeroCarta"> - </span>
                                             </div>
 
                                         </div>

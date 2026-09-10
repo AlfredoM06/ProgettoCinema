@@ -539,16 +539,15 @@ document.addEventListener("DOMContentLoaded", () => {
             let offerteRaggruppate = {};
 
             acquisti.forEach(offerta => {
+                let chiave = `${offerta.idOfferta}_${offerta.dataAcquisto}`;
 
-                let idOfferta = offerta.idOfferta;
-                if (!offerteRaggruppate[idOfferta]) {
-                    offerteRaggruppate[idOfferta] = {
+                if (!offerteRaggruppate[chiave]) {
+                    offerteRaggruppate[chiave] = {
                         ...offerta,
                         quantita: 1
                     };
                 } else {
-                    offerteRaggruppate[idOfferta]
-                        .quantita++;
+                    offerteRaggruppate[chiave].quantita++;
                 }
             });
 
@@ -593,6 +592,85 @@ document.addEventListener("DOMContentLoaded", () => {
         let qrElement = col.querySelector(".menu-qrcode");
         generaQR(qrElement, codice, 160);
         return col;
+    }
+
+    // =====================================================
+    // CANCELLAZIONE ACCOUNT
+    // =====================================================
+
+    let deleteAccountButton = document.getElementById("deleteAccountButton");
+    let deletePassword = document.getElementById("deletePassword");
+    let deletePasswordError = document.getElementById("deletePasswordError");
+
+
+    if (deleteAccountButton && deletePassword) {
+        deletePassword.addEventListener("input", () => {
+            deletePassword.classList.remove("input-error");
+            if (deletePasswordError) {
+                deletePasswordError.textContent = "";
+                deletePasswordError.classList.remove("visible");
+            }
+        });
+
+
+        deleteAccountButton.addEventListener("click", async () => {
+            let password = deletePassword.value.trim();
+            if (password === "") {
+                deletePassword.classList.add("input-error");
+                if (deletePasswordError) {
+                    deletePasswordError.textContent =
+                        "Inserisci la password";
+                    deletePasswordError.classList.add("visible");
+                }
+                return;
+            }
+
+
+            let conferma = confirm("Sei sicuro di voler eliminare definitivamente il tuo account?");
+            if (!conferma) {
+                return;
+            }
+            try {
+                deleteAccountButton.disabled = true;
+                const response = await fetch(
+                    "/utente/eliminaUtente",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            password: password
+                        })
+                    }
+                );
+
+                const eliminato = await response.json();
+
+                if (eliminato === true) {
+                    window.location.href = "/";
+                    return;
+                }
+
+                deletePassword.classList.add("input-error");
+                if (deletePasswordError) {
+                    deletePasswordError.textContent = "Password errata";
+                    deletePasswordError.classList.add("visible");
+                }
+
+                deleteAccountButton.disabled = false;
+
+            } catch (error) {
+                console.error(error);
+                deletePassword.classList.add("input-error");
+                if (deletePasswordError) {
+                    deletePasswordError.textContent =
+                        "Errore durante l'eliminazione dell'account";
+                    deletePasswordError.classList.add("visible");
+                }
+                deleteAccountButton.disabled = false;
+            }
+        });
     }
 
 });
