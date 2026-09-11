@@ -19,7 +19,7 @@ public class ListaOffertaDTO implements Serializable {
 	private String nome;
 	private String genere;
 	private String descrizione;
-	private String img_banner;
+	private String imgBannerTop;
 	private Double prezzo;
 	private Double prezzoScontato;
 	private LocalDate dataInizio;

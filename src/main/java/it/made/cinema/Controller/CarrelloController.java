@@ -240,7 +240,8 @@ public class CarrelloController {
 
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
 
-        if (utente.getCartaRicaricabile()) {
+        // Utente ha già una carta ricaricabile attiva
+        if (Boolean.TRUE.equals(utente.getCartaRicaricabile())) {
             return ResponseEntity.badRequest().body(-1d);
         }
 
@@ -252,13 +253,16 @@ public class CarrelloController {
             carrello = creaCarrello(utente);
         }
 
+        // ← AGGIUNTO — c'è già una carta nel carrello
+        if (carrello.getCarta() != null) {
+            return ResponseEntity.badRequest().body(-2d);
+        }
+
+        NomeCarta carta = repoCarta.findById(idCarta).get();
         carrello.setCarta(carta);
         repoCarrello.save(carrello);
 
-        return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .header(HttpHeaders.LOCATION, "/carrello")
-                .build();
+        return ResponseEntity.ok().build();
     }
 
     @Transactional

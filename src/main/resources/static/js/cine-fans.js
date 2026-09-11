@@ -60,35 +60,37 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 );
 
-                // Spring Security ha reindirizzato al login
-                if (response.redirected) {
+                /// Spring Security ha reindirizzato al login
+                 if (response.redirected) {
+                     if (response.url.includes("/login")) {
+                         alert("Devi effettuare il login per aggiungere una Cinefans al carrello.");
+                         return;
+                     }
+                     window.location.href = response.url;
+                     return;
+                 }
 
-                    if (response.url.includes("/login")) {
-                        alert("Devi effettuare il login per aggiungere una Cinefans al carrello.");
-                        return;
-                    }
+                 // ← ELIMINA il vecchio blocco "PRIMA" con if(!response.ok) e la prima const body
+                 // ← TIENI SOLO QUESTO:
 
-                    // Eventuale altro redirect
-                    window.location.href = response.url;
-                    return;
-                }
+                 const body = await response.text();
+                 const valore = parseFloat(body);
 
-                if (!response.ok) {
-                    throw new Error("Errore aggiunta carta al carrello");
-                }
+                 if (valore === -1) {
+                     alert("Hai già una Cinefans attiva.");
+                     return;
+                 }
 
-                const prezzo = await response.json();
+                 if (valore === -2) {
+                     alert("Hai già una Cinefans nel carrello. Rimuovila prima di aggiungerne un'altra.");
+                     return;
+                 }
 
-                // L'utente possiede già una carta
-                if (prezzo === -1) {
-                    alert("Hai già una Cinefans.");
-                    return;
-                }
+                 if (!response.ok) {
+                     throw new Error("Errore aggiunta carta al carrello");
+                 }
 
-                // Carta aggiunta correttamente
-                alert("Cinefans aggiunta al carrello!");
-
-                window.location.href = "/carrello";
+                 alert("Cinefans aggiunta al carrello!");
 
             } catch (error) {
 

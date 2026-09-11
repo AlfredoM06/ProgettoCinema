@@ -132,8 +132,7 @@
                                             <div class="loyalty-main">
                                                 <span class="brand">Programma myS&amp;G</span>
                                                 <span class="points"
-                                                      th:text="${utente.membership ? utente.puntiMembership + ' punti'
-                                                      : '0 punti'}"> 0 punti
+                                                      th:text="${#bools.isTrue(utente.membership) ? utente.puntiMembership + ' punti' : '0 punti'}"> 0 punti
                                                 </span>
                                             </div>
 
@@ -271,9 +270,9 @@
                                 </article>
 
                                 <!-- 🔥 EMPTY STATE (commentato per futuro Thymeleaf) -->
-                                <!--<div class="empty-state">
+                                <<div class="empty-state">
                                     NON HAI ANCORA NESSUNA CARD O VOUCHER ASSOCIATI AL TUO ACCOUNT
-                                </div>-->
+                                </div>
 
                             </div>
 
@@ -481,8 +480,19 @@
                                 Se sei sicuro, conferma l'eliminazione dell'account.
                             </p>
 
+                            <div class="profile-row">
+                                <label class="form-label" for="deletePassword">Conferma password</label>
+                                <div class="input-wrapper">
+                                    <input type="password"
+                                           id="deletePassword"
+                                           class="form-control"
+                                           placeholder="Inserisci la tua password">
+                                    <span id="deletePasswordError" class="field-error"></span>
+                                </div>
+                            </div>
+
                             <div class="form-actions">
-                                <button type="button" class="delete-btn">
+                                <button type="button" class="delete-btn" id="deleteAccountButton">
                                     Elimina account
                                 </button>
                             </div>

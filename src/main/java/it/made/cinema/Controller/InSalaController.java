@@ -100,7 +100,7 @@ public class InSalaController {
             offerta.setNome(o.getNome());
             offerta.setGenere(o.getGenere());
             offerta.setDataInizio(o.getDataInizio());
-            offerta.setImg_banner(o.getImgBannerTopOfferte());
+            offerta.setImgBannerTop(o.getImgBannerTopOfferte());
             listaOfferte.add(offerta);
         }
         filmDTO.setOfferte(listaOfferte);
