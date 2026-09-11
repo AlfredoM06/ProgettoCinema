@@ -132,8 +132,7 @@
                                             <div class="loyalty-main">
                                                 <span class="brand">Programma myS&amp;G</span>
                                                 <span class="points"
-                                                      th:text="${utente.membership ? utente.puntiMembership + ' punti'
-                                                      : '0 punti'}"> 0 punti
+                                                      th:text="${#bools.isTrue(utente.membership) ? utente.puntiMembership + ' punti' : '0 punti'}"> 0 punti
                                                 </span>
                                             </div>
 
