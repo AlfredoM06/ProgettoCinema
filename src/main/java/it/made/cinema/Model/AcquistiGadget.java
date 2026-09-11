@@ -32,7 +32,7 @@ public class AcquistiGadget {
 	@Column
 	private LocalDate dataAcquisto;
 	@Column
-	private Integer quantità;
+	private Integer quantita;
 	@ManyToOne
 	@JoinColumn(name="id_offerta")
 	private Offerta offerta;

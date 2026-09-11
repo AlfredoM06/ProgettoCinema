@@ -90,7 +90,8 @@ public class PaginaUtenteController {
                     acquisto.getOfferta().getNome(),
                     acquisto.getOfferta().getImgBannerTopOfferte(),
                     acquisto.getDataAcquisto(),
-                    acquisto.getOfferta().getPrezzo()
+                    acquisto.getOfferta().getPrezzo(),
+                    acquisto.getQuantita()
             ));
         }
         return acquisti;
