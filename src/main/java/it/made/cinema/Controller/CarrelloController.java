@@ -213,28 +213,28 @@ public class CarrelloController {
     public ResponseEntity<?> acquistaCarta(Authentication authentication, @PathVariable Integer idCarta) {
 
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
 
-        if (utente.getCartaRicaricabile()) {
+        // Utente ha già una carta ricaricabile attiva
+        if (Boolean.TRUE.equals(utente.getCartaRicaricabile())) {
             return ResponseEntity.badRequest().body(-1d);
         }
 
-        NomeCarta carta = repoCarta.findById(idCarta).get();
-
         Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
-
         if (carrello == null) {
             carrello = creaCarrello(utente);
         }
 
+        // ← AGGIUNTO — c'è già una carta nel carrello
+        if (carrello.getCarta() != null) {
+            return ResponseEntity.badRequest().body(-2d);
+        }
+
+        NomeCarta carta = repoCarta.findById(idCarta).get();
         carrello.setCarta(carta);
         repoCarrello.save(carrello);
 
-        return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .header(HttpHeaders.LOCATION, "/carrello")
-                .build();
+        return ResponseEntity.ok().build();
     }
 
     @Transactional

@@ -135,38 +135,59 @@ document.addEventListener("DOMContentLoaded", function () {
         if (CARRELLO.prezzoCarta) {
             let cartaItem = document.createElement("article");
             cartaItem.classList.add("cart-item", "carta-item");
+            cartaItem.id = "carta-item";
 
             cartaItem.innerHTML = `
                 <figure class="cart-img">
                     <img src="${CARRELLO.imgCarta}" alt="${CARRELLO.nomeCarta}">
                 </figure>
-
                 <div class="cart-info">
                     <h2 class="product-title">${CARRELLO.nomeCarta}</h2>
-
                     <div class="price-box">
                         <strong class="final-price">
                             ${formattaPrezzo(CARRELLO.prezzoCarta)}
                         </strong>
                     </div>
                 </div>
-
                 <div class="quantity-box">
                     <span class="carta-quantita">Quantità: 1</span>
+                    <button class="remove-btn" type="button" id="btn-rimuovi-carta">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
                 </div>
             `;
 
             cartContainer.appendChild(cartaItem);
-        }
-        aggiornaBottoni();
-        aggiornaSummary();
-    }
 
+            // Listener cestino carta
+            document.getElementById("btn-rimuovi-carta").addEventListener("click", async function () {
+                try {
+                    const response = await fetch("/carrello/eliminaCarta/", { method: "POST" });
+                    if (!response.ok) throw new Error("Errore rimozione carta");
+
+                    CARRELLO.prezzoCarta = null;
+                    CARRELLO.nomeCarta   = null;
+                    CARRELLO.imgCarta    = null;
+
+                    renderCarrello();
+
+                } catch (error) {
+                    console.error("Errore rimozione carta:", error);
+                    alert("Impossibile rimuovere la Cinefans.");
+                }
+            });
+        }
+        aggiornaSummary();
+        aggiornaBottoni();
+    }
     // =========================================================
     // SUMMARY DINAMICO
     // =========================================================
 
     function aggiornaSummary() {
+    console.log("aggiornaSummary chiamata");
+        console.log("prodotti:", prodotti);
+        console.log("CARRELLO.prezzoCarta:", CARRELLO.prezzoCarta);
         // PREZZO DI RIFERIMENTO
         let membershipMessage = document.getElementById("membership-message");
         if (membershipMessage) {
@@ -336,8 +357,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // CESTINO — rimuove dal carrello backend + frontend
+        // CESTINO — rimuove dal carrello backend + frontend
         if (removeButton) {
             let id = Number(removeButton.dataset.id);
+
+            // ← se non ha data-id è il cestino della carta, lo ignoriamo
+            if (!removeButton.dataset.id) return;
 
             fetch(`/carrello/elimina/${CARRELLO.id}/${id}`, { method: "POST" })
                 .then(response => {

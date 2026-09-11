@@ -57,13 +57,13 @@
 
 
 .product-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
-
-    color: white;
+     font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: .12em;
+        background: linear-gradient(0deg, #b74d1c, #f7941e, #eec42a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 }
-
-
 
 /* =====================================================
    PREZZI PRODOTTO
@@ -78,7 +78,7 @@
 
 
 .final-price {
-    color: red;
+    color: var(--text-primary);
     font-weight: bold;
 }
 
