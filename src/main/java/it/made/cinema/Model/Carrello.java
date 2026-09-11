@@ -23,10 +23,9 @@ public class Carrello {
     @OneToOne(mappedBy = "carrello")
     private Utente utente;
 
-    @ManyToMany
-    @JoinTable(name="carello_offerta", joinColumns=@JoinColumn(name="id_carrello"),inverseJoinColumns=@JoinColumn(name="id_offerta"))
-    private List<Offerta> listaOfferte = new ArrayList<>();
-
+    @OneToMany(mappedBy = "carrello", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RigaCarrello> righeCarrello = new ArrayList<>();
+    
     @ManyToOne
     @JoinColumn(name = "id_carta")
     private NomeCarta carta;

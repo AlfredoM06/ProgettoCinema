@@ -4,6 +4,7 @@ import it.made.cinema.Model.AcquistiGadget;
 import it.made.cinema.Model.Carrello;
 import it.made.cinema.Model.NomeCarta;
 import it.made.cinema.Model.Offerta;
+import it.made.cinema.Model.RigaCarrello;
 import it.made.cinema.Model.Utente;
 import it.made.cinema.Model.DTO.CarrelloDTO;
 import it.made.cinema.Model.DTO.ListaOffertaDTO;
@@ -11,6 +12,7 @@ import it.made.cinema.Repository.IRepoAcquisti;
 import it.made.cinema.Repository.IRepoCarrello;
 import it.made.cinema.Repository.IRepoCarta;
 import it.made.cinema.Repository.IRepoOfferte;
+import it.made.cinema.Repository.IRepoRigaCarrello;
 import it.made.cinema.Repository.IRepoUtenti;
 import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
@@ -54,6 +56,8 @@ public class CarrelloController {
     PrezzoService prezzoService;
     
     @Autowired PuntiService puntiService;
+    
+    @Autowired IRepoRigaCarrello rigaCarrello;
 
     //Se l'utente non ha il carello adesso con questo metodo c'è l'ha
     public Carrello creaCarrello(Utente utente) {
@@ -75,16 +79,26 @@ public class CarrelloController {
         if (carrello == null) {
             carrello = creaCarrello(utente);
         }
-        if (carrello.getListaOfferte() == null) {
-            carrello.setListaOfferte(new ArrayList<>());
+        if (carrello.getRigheCarrello() == null) {
+            carrello.setRigheCarrello(null);
         }
         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
         Double prezzoTotale = 0d;
-        for (Offerta offerta : carrello.getListaOfferte()) {
+        for (RigaCarrello riga : carrello.getRigheCarrello()) {
+        	Offerta offerta = riga.getOfferta();
             Double prezzoScontato = prezzoService.calcolaScontoOfferta(utente,offerta);
-        	prezzoTotale += prezzoScontato;
+        	prezzoTotale += prezzoScontato * riga.getQuantita();
         	Double valoreSconto = offerta.getPrezzo() - prezzoScontato;
-            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), offerta.getNome(), offerta.getGenere(), offerta.getDescrizione(), offerta.getImgBanner(), offerta.getPrezzo(), prezzoScontato, offerta.getDataInizio(), valoreSconto));
+            offerteDTO.add(new ListaOffertaDTO(offerta.getId(), 
+            		offerta.getNome(), 
+            		offerta.getGenere(), 
+            		offerta.getDescrizione(), 
+            		offerta.getImgBanner(), 
+            		offerta.getPrezzo(), 
+            		prezzoScontato, 
+            		offerta.getDataInizio(), 
+            		valoreSconto,
+            		riga.getQuantita()));
         }
         if(carrello.getCarta()!= null) {
         	prezzoTotale += carrello.getCarta().getPrezzo();
@@ -112,8 +126,18 @@ public class CarrelloController {
             carello = creaCarrello(utente);
         }
         Offerta offerta = repoOfferte.findById(idOfferta).get();
-        carello.getListaOfferte().add(offerta);
-        repoCarrello.save(carello);
+        Optional<RigaCarrello> rigaEsistente =rigaCarrello.findByCarrelloIdAndOffertaId(carello.getId(), idOfferta);
+        if (rigaEsistente.isPresent()) {
+            RigaCarrello riga = rigaEsistente.get();
+            riga.setQuantita(riga.getQuantita() + 1);
+            rigaCarrello.save(riga);
+        } else {
+            RigaCarrello nuovaRiga = new RigaCarrello();
+            nuovaRiga.setCarrello(carello);
+            nuovaRiga.setOfferta(offerta);
+            nuovaRiga.setQuantita(1);
+            rigaCarrello.save(nuovaRiga);
+        }
         return true;
     }
 
