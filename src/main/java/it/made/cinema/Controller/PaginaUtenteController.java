@@ -4,7 +4,6 @@ import it.made.cinema.Model.DTO.DatiUtenteDTO;
 import it.made.cinema.Model.DTO.OfferteDTO;
 import it.made.cinema.Model.DTO.PostiOccupatiDTO;
 import it.made.cinema.Model.*;
-import it.made.cinema.Model.DTO.ProfiloDTO;
 import it.made.cinema.Repository.*;
 import it.made.cinema.Security.DatabaseUserDetails;
 import it.made.cinema.Service.PrezzoService;
@@ -21,12 +20,12 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/utente")
@@ -44,6 +43,8 @@ public class PaginaUtenteController {
     IRepoAcquisti repoAcquisti;
     @Autowired
     IRepoCarrello repoCarrello;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String paginaUtente(Authentication authentication, Model model) {
@@ -111,11 +112,9 @@ public class PaginaUtenteController {
     }
 
     //3) Cambiare i suoi dati tipo l'email.
-    @PostMapping("/modifica")
+    /*@PostMapping("/modifica")
     @ResponseBody
-    public ResponseEntity<String> modificaUtente(
-    		Authentication authentication,
-            @RequestBody DatiUtenteDTO datiModifica) {
+    public ResponseEntity<String> modificaUtente(Authentication authentication, @RequestBody DatiUtenteDTO datiModifica) {
     	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
 
@@ -127,6 +126,66 @@ public class PaginaUtenteController {
         // Modifica password se presente
         if (datiModifica.getPassword() != null && !datiModifica.getPassword().isBlank()) {
             utente.setPassword(datiModifica.getPassword()); // ← quando avrai Spring Security qui va l'encoder
+        }
+
+        repoUtenti.save(utente);
+        return ResponseEntity.ok("Dati aggiornati con successo");
+    }*/
+
+    @PostMapping("/modifica")
+    @ResponseBody
+    public ResponseEntity<String> modificaUtente(Authentication authentication, @RequestBody DatiUtenteDTO datiModifica) {
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId()).get();
+
+        // Modifica nome
+        if (datiModifica.getNome() != null && !datiModifica.getNome().isBlank()) {
+            utente.setNome(datiModifica.getNome());
+        }
+
+        // Modifica cognome
+        if (datiModifica.getCognome() != null && !datiModifica.getCognome().isBlank()) {
+            utente.setCognome(datiModifica.getCognome());
+        }
+
+        // Modifica username
+        if (datiModifica.getUsername() != null && !datiModifica.getUsername().isBlank()) {
+            utente.setUsername(datiModifica.getUsername());
+        }
+
+        // Modifica email
+        if (datiModifica.getEmail() != null && !datiModifica.getEmail().isBlank()) {
+            utente.setEmail(datiModifica.getEmail());
+        }
+
+        // Modifica data nascita
+        if (datiModifica.getDataNascita() != null) {
+            utente.setDataNascita(datiModifica.getDataNascita());
+        }
+
+        // Modifica password
+        if (datiModifica.getPassword() != null && !datiModifica.getPassword().isBlank()) {
+            utente.setPassword("{noop}" + datiModifica.getPassword());
+        }
+
+        // Modifica numero telefono
+        if (datiModifica.getNTelefono() != null && !datiModifica.getNTelefono().isBlank()) {
+            utente.setNTelefono(datiModifica.getNTelefono());
+        }
+
+        // Modifica indirizzo
+        if (datiModifica.getIndirizzo() != null && !datiModifica.getIndirizzo().isBlank()) {
+            utente.setIndirizzo(datiModifica.getIndirizzo());
+        }
+
+        // Modifica città
+        if (datiModifica.getCitta() != null && !datiModifica.getCitta().isBlank()) {
+            utente.setCitta(datiModifica.getCitta());
+        }
+
+        // Modifica CAP
+        if (datiModifica.getCap() != null && !datiModifica.getCap().isBlank()) {
+            utente.setCap(datiModifica.getCap());
         }
 
         repoUtenti.save(utente);
@@ -160,7 +219,8 @@ public class PaginaUtenteController {
             return false;
         }		
         Utente utente = utenteOpt.get();
-        if (!password.equals(utente.getPassword())) {
+        boolean passwordCorretta = passwordEncoder.matches(password, utente.getPassword());
+        if (!passwordCorretta) {
             return false;
         }
         Carrello carrello = utente.getCarrello();
