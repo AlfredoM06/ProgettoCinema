@@ -627,51 +627,48 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================================
 
     let deleteAccountButton = document.getElementById("deleteAccountButton");
-    let deletePassword = document.getElementById("deletePassword");
+    let deletePassword      = document.getElementById("deletePassword");
     let deletePasswordError = document.getElementById("deletePasswordError");
 
-
     if (deleteAccountButton && deletePassword) {
+//        bottone disattivato
+        setState(deleteAccountButton, false);
+
         deletePassword.addEventListener("input", () => {
+            // Rimuovi errori mentre l'utente scrive
             deletePassword.classList.remove("input-error");
             if (deletePasswordError) {
                 deletePasswordError.textContent = "";
                 deletePasswordError.classList.remove("visible");
             }
-        });
 
+            // Attiva / disattiva il bottone in base al contenuto
+            setState(deleteAccountButton, deletePassword.value.trim() !== "");
+        });
 
         deleteAccountButton.addEventListener("click", async () => {
             let password = deletePassword.value.trim();
+
             if (password === "") {
                 deletePassword.classList.add("input-error");
                 if (deletePasswordError) {
-                    deletePasswordError.textContent =
-                        "Inserisci la password";
+                    deletePasswordError.textContent = "Inserisci la password";
                     deletePasswordError.classList.add("visible");
                 }
                 return;
             }
 
-
             let conferma = confirm("Sei sicuro di voler eliminare definitivamente il tuo account?");
-            if (!conferma) {
-                return;
-            }
+            if (!conferma) return;
+
             try {
                 deleteAccountButton.disabled = true;
-                const response = await fetch(
-                    "/utente/eliminaUtente",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            password: password
-                        })
-                    }
-                );
+
+                const response = await fetch("/utente/eliminaUtente", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password: password })
+                });
 
                 const eliminato = await response.json();
 
@@ -680,23 +677,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
+                // Password errata
                 deletePassword.classList.add("input-error");
                 if (deletePasswordError) {
                     deletePasswordError.textContent = "Password errata";
                     deletePasswordError.classList.add("visible");
                 }
 
-                deleteAccountButton.disabled = false;
+                setState(deleteAccountButton, true);
 
             } catch (error) {
                 console.error(error);
-                deletePassword.classList.add("input-error");
                 if (deletePasswordError) {
-                    deletePasswordError.textContent =
-                        "Errore durante l'eliminazione dell'account";
+                    deletePasswordError.textContent = "Errore durante l'eliminazione dell'account";
                     deletePasswordError.classList.add("visible");
                 }
-                deleteAccountButton.disabled = false;
+                setState(deleteAccountButton, true);
             }
         });
     }
