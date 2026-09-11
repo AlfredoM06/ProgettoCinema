@@ -80,7 +80,7 @@ public class CarrelloController {
             carrello = creaCarrello(utente);
         }
         if (carrello.getRigheCarrello() == null) {
-            carrello.setRigheCarrello(null);
+            carrello.setRigheCarrello(new ArrayList<>());
         }
         List<ListaOffertaDTO> offerteDTO = new ArrayList<ListaOffertaDTO>();
         Double prezzoTotale = 0d;
@@ -115,47 +115,13 @@ public class CarrelloController {
         return "carrello";
     }
 
-    //metodo per aggiungere al carello
-    @PostMapping("/aggiungi/{idOfferta}")
-    @ResponseBody
-    public Boolean aggiungi(Authentication authentication, @PathVariable Integer idOfferta) {
-        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-        Utente utente = repoUtenti.findById(userDetails.getId()).get();
-        Carrello carello = repoCarrello.findByUtenteId(utente.getId());
-        if (carello == null) {
-            carello = creaCarrello(utente);
-        }
-        Offerta offerta = repoOfferte.findById(idOfferta).get();
-        Optional<RigaCarrello> rigaEsistente =rigaCarrello.findByCarrelloIdAndOffertaId(carello.getId(), idOfferta);
-        if (rigaEsistente.isPresent()) {
-            RigaCarrello riga = rigaEsistente.get();
-            riga.setQuantita(riga.getQuantita() + 1);
-            rigaCarrello.save(riga);
-        } else {
-            RigaCarrello nuovaRiga = new RigaCarrello();
-            nuovaRiga.setCarrello(carello);
-            nuovaRiga.setOfferta(offerta);
-            nuovaRiga.setQuantita(1);
-            rigaCarrello.save(nuovaRiga);
-        }
-        return true;
-    }
-
     //metodo per togliere
     @PostMapping("/elimina/{idCarrello}/{idOfferta}")
     @ResponseBody
     public Boolean elimina(@PathVariable Integer idCarrello, @PathVariable Integer idOfferta) {
         Carrello carrello = repoCarrello.findById(idCarrello).get();
-        Offerta offerta = repoOfferte.findById(idOfferta).get();
-
-        for (Offerta o : carrello.getListaOfferte()) {
-            if (o.equals(offerta)) {
-                carrello.getListaOfferte().remove(o);
-                break;
-            }
-        }
+        carrello.getRigheCarrello().removeIf(riga -> riga.getOfferta().getId().equals(idOfferta));
         repoCarrello.save(carrello);
-
         return true;
     }
 
@@ -163,73 +129,70 @@ public class CarrelloController {
     @PostMapping("/rimuoviUno/{idOfferta}")
     @Transactional
     @ResponseBody
-    public CarrelloDTO rimuoviUno(Authentication authentication, @PathVariable Integer idOfferta) {
+    public Boolean rimuoviUno(Authentication authentication, @PathVariable Integer idOfferta) {
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Utente utente = repoUtenti.findById(userDetails.getId()).get();
         Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
 
-        if (utente == null) {
-            return null;
-        }
-
         if (carrello == null) {
-            return null;
+            return false;
         }
 
-        if (carrello.getListaOfferte() == null) {
-            carrello.setListaOfferte(new ArrayList<>());
+        if (carrello.getRigheCarrello() == null) {
+            carrello.setRigheCarrello(new ArrayList<>());
         }
 
         // Rimuove UNA sola copia dell'offerta
-        for (Offerta offerta : carrello.getListaOfferte()) {
-            if (offerta.getId().equals(idOfferta)) {
-                carrello.getListaOfferte().remove(offerta);
+        for (RigaCarrello riga : carrello.getRigheCarrello()) {
+            if (riga.getOfferta().getId().equals(idOfferta)) {
+            	if(riga.getQuantita()>1) {
+            		riga.setQuantita(riga.getQuantita()-1);
+            	} else {
+            		carrello.getRigheCarrello().remove(riga);
+            	}
                 break;
             }
         }
 
         repoCarrello.save(carrello);
-        // Creo il DTO da restituire al frontend
-        CarrelloDTO carrelloDTO = new CarrelloDTO();
-        carrelloDTO.setId(carrello.getId());
-        double prezzoFinale = 0d;
-
-        for (Offerta offerta : carrello.getListaOfferte()) {
-            double prezzoScontato = prezzoService.calcolaScontoOfferta(utente, offerta);
-            prezzoFinale += prezzoScontato;
-        }
-
-        // La carta viene conteggiata una sola volta
-        if (carrello.getCarta() != null) {
-            prezzoFinale += carrello.getCarta().getPrezzo();
-            carrelloDTO.setNomeCarta(carrello.getCarta().getNome());
-            carrelloDTO.setImgCarta(carrello.getCarta().getImgCarta());
-            carrelloDTO.setPrezzoCarta(carrello.getCarta().getPrezzo());
-        }
-
-        Integer punti = puntiService.puntiAcquisto(prezzoFinale);
-        carrelloDTO.setPrezzoFinale(prezzoFinale);
-        carrelloDTO.setPunti(punti);
-        return carrelloDTO;
+        return true;
     }
+        // Creo il DTO da restituire al frontend
+
 
     //metodo per acquistare e salvare sul db l'offerta che l'utente ha acquistato
     @PostMapping("/acquistaOfferta/{idOfferta}")
     @Transactional
-    public String acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
-        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-        Utente utente = repoUtenti.findById(userDetails.getId()).get();
-        Offerta offerta = repoOfferte.findById(idOfferta).get();
-        Carrello carello = repoCarrello.findByUtenteId(utente.getId());
-        if(carello==null) {
-        	carello = creaCarrello(utente);
-        }
-        if (carello.getListaOfferte() == null) {
-            carello.setListaOfferte(new ArrayList<>());
-        }
-        carello.getListaOfferte().add(offerta);
-        repoCarrello.save(carello);
-        return "redirect:/carrello" ;
+    @ResponseBody
+    public Boolean acquistaOfferta(Authentication authentication, @PathVariable Integer idOfferta) {
+    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+    	Utente utente = repoUtenti.findById(userDetails.getId()).orElse(null);
+    	Carrello carrello = repoCarrello.findByUtenteId(utente.getId());
+    	if (carrello == null) {
+    		carrello= creaCarrello(utente);
+    	}
+    	if(carrello.getRigheCarrello()== null) {
+    		carrello.setRigheCarrello(new ArrayList<>());
+    	}
+    	Offerta offerta = repoOfferte.findById(idOfferta).get();
+    	RigaCarrello rigaEsistente = null;
+    	for(RigaCarrello riga : carrello.getRigheCarrello()) {
+    		if(riga.getOfferta().getId().equals(idOfferta)) {
+    			rigaEsistente = riga;
+    			break;
+    		}
+    	}
+    	if(rigaEsistente != null) {
+    		rigaEsistente.setQuantita(rigaEsistente.getQuantita()+1);
+    	} else {
+    		RigaCarrello nuovaRiga = new RigaCarrello();
+    		nuovaRiga.setCarrello(carrello);
+    		nuovaRiga.setOfferta(offerta);
+    		nuovaRiga.setQuantita(1);
+    		carrello.getRigheCarrello().add(nuovaRiga);
+    	}
+    	repoCarrello.save(carrello);
+    	return true;
     }
 
     @PostMapping("/acquistaCarta/{idCarta}")
@@ -258,7 +221,6 @@ public class CarrelloController {
             return ResponseEntity.badRequest().body(-2d);
         }
 
-        NomeCarta carta = repoCarta.findById(idCarta).get();
         carrello.setCarta(carta);
         repoCarrello.save(carrello);
 
@@ -282,9 +244,10 @@ public class CarrelloController {
 
         // Calcolo il prezzo finale del carrello (stessa logica usata per l'anteprima punti)
         double prezzoFinale = 0d;
-        if (carrello.getListaOfferte() != null) {
-            for (Offerta offerta : carrello.getListaOfferte()) {
-                prezzoFinale += prezzoService.calcolaScontoOfferta(utente, offerta);
+        if (carrello.getRigheCarrello() != null) {
+            for (RigaCarrello riga : carrello.getRigheCarrello()) {
+            	Offerta offerta = riga.getOfferta();
+                prezzoFinale += prezzoService.calcolaScontoOfferta(utente, offerta) * riga.getQuantita();
             }
         }
         if (carrello.getCarta() != null) {
@@ -301,13 +264,16 @@ public class CarrelloController {
         }
 
         // Salvataggio acquisti offerte
-        if (carrello.getListaOfferte() != null) {
-            for (Offerta offerta : carrello.getListaOfferte()) {
-                AcquistiGadget acquisto = new AcquistiGadget();
-                acquisto.setUtente(utente);
-                acquisto.setOfferta(offerta);
-                acquisto.setDataAcquisto(LocalDate.now());
-                repoAcquisti.save(acquisto);
+        if (carrello.getRigheCarrello() != null) {
+            for (RigaCarrello riga: carrello.getRigheCarrello()) {
+            	Offerta offerta = riga.getOfferta();
+            	AcquistiGadget acquisto = new AcquistiGadget();
+            	acquisto.setUtente(utente);
+            	acquisto.setOfferta(offerta);
+            	acquisto.setDataAcquisto(LocalDate.now());
+            	acquisto.setQuantità(riga.getQuantita());
+            	repoAcquisti.save(acquisto);
+            	
             }
         }
 
@@ -320,7 +286,7 @@ public class CarrelloController {
 
         repoUtenti.save(utente);
         carrello.setCarta(null);
-        carrello.getListaOfferte().clear();
+        carrello.getRigheCarrello().clear();
         repoCarrello.save(carrello);
         return true;
     }
@@ -341,6 +307,6 @@ public class CarrelloController {
     	carrello.setCarta(null);
     	repoCarrello.save(carrello);
 		return true;
-		
     }
+
 }

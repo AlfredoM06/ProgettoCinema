@@ -24,4 +24,5 @@ public class OfferteDTO implements Serializable{
 	private String imgBanner;
 	private LocalDate dataAcquisto;
 	private Double prezzoAcquisto;
+	private Integer quantita;
 }
