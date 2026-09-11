@@ -271,7 +271,7 @@ public class CarrelloController {
             	acquisto.setUtente(utente);
             	acquisto.setOfferta(offerta);
             	acquisto.setDataAcquisto(LocalDate.now());
-            	acquisto.setQuantità(riga.getQuantita());
+            	acquisto.setQuantita(riga.getQuantita());
             	repoAcquisti.save(acquisto);
             	
             }
