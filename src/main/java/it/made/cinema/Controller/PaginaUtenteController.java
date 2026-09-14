@@ -12,10 +12,7 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -112,84 +109,123 @@ public class PaginaUtenteController {
     }
 
     //3) Cambiare i suoi dati tipo l'email.
-    /*@PostMapping("/modifica")
-    @ResponseBody
-    public ResponseEntity<String> modificaUtente(Authentication authentication, @RequestBody DatiUtenteDTO datiModifica) {
-    	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-        Utente utente = repoUtenti.findById(userDetails.getId()).get();
-
-        // Modifica email se presente
-        if (datiModifica.getEmail() != null && !datiModifica.getEmail().isBlank()) {
-            utente.setEmail(datiModifica.getEmail());
-        }
-
-        // Modifica password se presente
-        if (datiModifica.getPassword() != null && !datiModifica.getPassword().isBlank()) {
-            utente.setPassword(datiModifica.getPassword()); // ← quando avrai Spring Security qui va l'encoder
-        }
-
-        repoUtenti.save(utente);
-        return ResponseEntity.ok("Dati aggiornati con successo");
-    }*/
-
     @PostMapping("/modifica")
     @ResponseBody
-    public ResponseEntity<String> modificaUtente(Authentication authentication, @RequestBody DatiUtenteDTO datiModifica) {
+    public ResponseEntity<Map<String, Object>> modificaUtente(Authentication authentication, @RequestBody DatiUtenteDTO datiModifica) {
+
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
-        Utente utente = repoUtenti.findById(userDetails.getId()).get();
+        Utente utente = repoUtenti.findById(userDetails.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato"));
 
-        // Modifica nome
-        if (datiModifica.getNome() != null && !datiModifica.getNome().isBlank()) {
-            utente.setNome(datiModifica.getNome());
+        Map<String, String> erroriCampi = new LinkedHashMap<>();
+        boolean modificato = false;
+
+        if (datiModifica.getNome() != null) {
+            if (!datiModifica.getNome().isBlank()) {
+                utente.setNome(datiModifica.getNome());
+                modificato = true;
+            } else {
+                erroriCampi.put("nome", "Il nome non può essere vuoto");
+            }
         }
 
-        // Modifica cognome
-        if (datiModifica.getCognome() != null && !datiModifica.getCognome().isBlank()) {
-            utente.setCognome(datiModifica.getCognome());
+        if (datiModifica.getCognome() != null) {
+            if (!datiModifica.getCognome().isBlank()) {
+                utente.setCognome(datiModifica.getCognome());
+                modificato = true;
+            } else {
+                erroriCampi.put("cognome", "Il cognome non può essere vuoto");
+            }
         }
 
-        // Modifica username
-        if (datiModifica.getUsername() != null && !datiModifica.getUsername().isBlank()) {
-            utente.setUsername(datiModifica.getUsername());
+        if (datiModifica.getUsername() != null) {
+            if (!datiModifica.getUsername().isBlank()) {
+                utente.setUsername(datiModifica.getUsername());
+                modificato = true;
+            } else {
+                erroriCampi.put("username", "Lo username non può essere vuoto");
+            }
         }
 
-        // Modifica email
-        if (datiModifica.getEmail() != null && !datiModifica.getEmail().isBlank()) {
-            utente.setEmail(datiModifica.getEmail());
+        if (datiModifica.getEmail() != null) {
+            if (!datiModifica.getEmail().isBlank()) {
+                utente.setEmail(datiModifica.getEmail());
+                modificato = true;
+            } else {
+                erroriCampi.put("email", "L'email non può essere vuota");
+            }
         }
 
-        // Modifica data nascita
         if (datiModifica.getDataNascita() != null) {
             utente.setDataNascita(datiModifica.getDataNascita());
+            modificato = true;
         }
 
-        // Modifica password
-        if (datiModifica.getPassword() != null && !datiModifica.getPassword().isBlank()) {
-            utente.setPassword("{noop}" + datiModifica.getPassword());
+        if (datiModifica.getPassword() != null) {
+            if (!datiModifica.getPassword().isBlank()) {
+                utente.setPassword("{noop}" + datiModifica.getPassword());
+                modificato = true;
+            } else {
+                erroriCampi.put("password", "La password non può essere vuota");
+            }
         }
 
-        // Modifica numero telefono
-        if (datiModifica.getNTelefono() != null && !datiModifica.getNTelefono().isBlank()) {
-            utente.setNTelefono(datiModifica.getNTelefono());
+        if (datiModifica.getNTelefono() != null) {
+            if (!datiModifica.getNTelefono().isBlank()) {
+                utente.setNTelefono(datiModifica.getNTelefono());
+                modificato = true;
+            } else {
+                erroriCampi.put("telefono", "Il numero di telefono non può essere vuoto");
+            }
         }
 
-        // Modifica indirizzo
-        if (datiModifica.getIndirizzo() != null && !datiModifica.getIndirizzo().isBlank()) {
-            utente.setIndirizzo(datiModifica.getIndirizzo());
+        if (datiModifica.getIndirizzo() != null) {
+            if (!datiModifica.getIndirizzo().isBlank()) {
+                utente.setIndirizzo(datiModifica.getIndirizzo());
+                modificato = true;
+            } else {
+                erroriCampi.put("indirizzo", "L'indirizzo non può essere vuoto");
+            }
         }
 
-        // Modifica città
-        if (datiModifica.getCitta() != null && !datiModifica.getCitta().isBlank()) {
-            utente.setCitta(datiModifica.getCitta());
+        if (datiModifica.getCitta() != null) {
+            if (!datiModifica.getCitta().isBlank()) {
+                utente.setCitta(datiModifica.getCitta());
+                modificato = true;
+            } else {
+                erroriCampi.put("citta", "La città non può essere vuota");
+            }
         }
 
-        // Modifica CAP
-        if (datiModifica.getCap() != null && !datiModifica.getCap().isBlank()) {
-            utente.setCap(datiModifica.getCap());
+        if (datiModifica.getCap() != null) {
+            if (!datiModifica.getCap().isBlank()) {
+                utente.setCap(datiModifica.getCap());
+                modificato = true;
+            } else {
+                erroriCampi.put("cap", "Il CAP non può essere vuoto");
+            }
+        }
+
+        Map<String, Object> risposta = new LinkedHashMap<>();
+
+        if (!erroriCampi.isEmpty()) {
+            risposta.put("success", false);
+            risposta.put("messaggio", "Alcuni campi non sono validi");
+            risposta.put("erroriCampi", erroriCampi);
+            return ResponseEntity.badRequest().body(risposta);
+        }
+
+        if (!modificato) {
+            risposta.put("success", false);
+            risposta.put("messaggio", "Nessun dato da modificare");
+            return ResponseEntity.badRequest().body(risposta);
         }
 
         repoUtenti.save(utente);
-        return ResponseEntity.ok("Dati aggiornati con successo");
+
+        risposta.put("success", true);
+        risposta.put("messaggio", "Dati aggiornati con successo");
+        return ResponseEntity.ok(risposta);
     }
 
     //5) Card myS&G (carta con punti ottenuti).

@@ -42,6 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================================
     // PULSANTI MODIFICA
     // =====================================================
+    const campoToId = {
+        nome: "nome",
+        cognome: "cognome",
+        email: "email",
+        password: "newPassword",
+        telefono: "telefono",
+        indirizzo: "indirizzo",
+        citta: "citta",
+        cap: "cap"
+    };
 
     document.querySelectorAll(".edit-btn").forEach(button => {
 
@@ -51,6 +61,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+    async function inviaModifica(form, saveButton, payload) {
+        saveButton.disabled = true;
+
+        try {
+            const response = await fetch("/utente/modifica", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const risultato = await response.json();
+
+            if (response.ok && risultato.success) {
+                mostraMessaggioForm(form, risultato.messaggio || "Dati aggiornati con successo", "success");
+                setState(saveButton, false);
+            } else {
+                mostraMessaggioForm(form, risultato.messaggio || "Non è stato possibile salvare le modifiche", "error");
+
+                if (risultato.erroriCampi) {
+                    Object.entries(risultato.erroriCampi).forEach(([campo, msg]) => {
+                        let inputId = campoToId[campo] || campo;
+                        let input = document.getElementById(inputId);
+                        if (input) mostraErrore(input, msg);
+                    });
+                }
+                setState(saveButton, true);
+            }
+
+        } catch (error) {
+            console.error(error);
+            mostraMessaggioForm(form, "Errore di comunicazione con il server", "error");
+            setState(saveButton, true);
+        }
+    }
 
     // =====================================================
     // FUNZIONI ERRORI
@@ -80,6 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
             error.textContent = "";
             error.classList.remove("visible");
         }
+    }
+
+    function mostraMessaggioForm(form, messaggio, tipo) {
+        let msgEl = form.querySelector(".form-message");
+
+        if (!msgEl) {
+            msgEl = document.createElement("div");
+            msgEl.classList.add("form-message");
+            form.prepend(msgEl);
+        }
+
+        msgEl.textContent = messaggio;
+        msgEl.classList.remove("success", "error");
+        msgEl.classList.add(tipo, "visible");
     }
 
 
@@ -283,29 +341,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // SALVA PASSWORD
-        passwordSaveButton.addEventListener("click", (event) => {
-            let valido = true;
+       passwordSaveButton.addEventListener("click", async (event) => {
+           let valido = true;
 
-            if (
-                passwordInput.value !== "" &&
-                !passwordValida(passwordInput.value)
-            ) {
-                mostraErrore( passwordInput,"La password non rispetta i requisiti");
-                valido = false;
-            }
-            if (
-                confirmPassword.value !== "" &&
-                confirmPassword.value !== passwordInput.value
-            ) {
-                mostraErrore( confirmPassword,"password errata");
-                valido = false;
-            }
-            if (!valido) {
-                event.preventDefault();
-                return;
-            }
-            setState(passwordSaveButton, false);
-        });
+           if (passwordInput.value === "") {
+               mostraErrore(passwordInput, "Inserisci una nuova password");
+               valido = false;
+           } else if (!passwordValida(passwordInput.value)) {
+               mostraErrore(passwordInput, "La password non rispetta i requisiti");
+               valido = false;
+           }
+
+           if (confirmPassword.value !== passwordInput.value) {
+               mostraErrore(confirmPassword, "password errata");
+               valido = false;
+           }
+
+           if (!valido) {
+               event.preventDefault();
+               return;
+           }
+
+           await inviaModifica(passwordForm, passwordSaveButton, {
+               password: passwordInput.value
+           });
+
+           passwordInput.value = "";
+           confirmPassword.value = "";
+       });
     }
 
 
@@ -352,32 +415,61 @@ document.addEventListener("DOMContentLoaded", () => {
     // GESTIONE FORM
     // =====================================================
 
-    function initFormSave(formId) {
+    function initFormSave(formId, buildPayload) {
         let form = document.getElementById(formId);
-
         if (!form) return;
 
         let inputs = form.querySelectorAll(".form-control");
         let saveButton = form.querySelector(".save-btn");
-
         if (!saveButton) return;
+
         setState(saveButton, false);
 
         inputs.forEach(input => {
             input.addEventListener("input", () => {
                 setState(saveButton, true);
             });
-
         });
 
-        saveButton.addEventListener("click", () => {
-            setState(saveButton, false);
+        // Se non viene passato buildPayload, il click è gestito altrove
+        // (es. il form password, che ha una validazione dedicata)
+        if (!buildPayload) return;
+
+        saveButton.addEventListener("click", async () => {
+            let payload = buildPayload();
+            if (!payload) return;
+            await inviaModifica(form, saveButton, payload);
         });
     }
 
-    initFormSave("sunto");
-    initFormSave("password");
-    initFormSave("details");
+    initFormSave("sunto", () => {
+        let giorno = document.getElementById("giornoNascita").value.trim();
+        let mese = document.getElementById("meseNascita").value.trim();
+        let anno = document.getElementById("annoNascita").value.trim();
+
+        let dataNascita = null;
+        if (giorno && mese && anno) {
+            dataNascita = `${anno}-${mese.padStart(2, "0")}-${giorno.padStart(2, "0")}`;
+        }
+
+        return {
+            nome: nome ? nome.value.trim() : null,
+            cognome: cognome ? cognome.value.trim() : null,
+            email: email ? email.value.trim() : null,
+            dataNascita: dataNascita
+        };
+    });
+
+    initFormSave("password"); // click gestito dal listener dedicato qui sotto
+
+    initFormSave("details", () => {
+        return {
+            nTelefono: telefono ? telefono.value.trim() : null,
+            indirizzo: indirizzo ? indirizzo.value.trim() : null,
+            citta: citta ? citta.value.trim() : null,
+            cap: cap ? cap.value.trim() : null
+        };
+    });
 
 
     // =====================================================
