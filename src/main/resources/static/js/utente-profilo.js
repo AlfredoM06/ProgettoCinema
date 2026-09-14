@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cognome: "cognome",
         email: "email",
         password: "newPassword",
-        telefono: "telefono",
+        cellulare: "cellulare",
         indirizzo: "indirizzo",
         citta: "citta",
         cap: "cap"
@@ -464,7 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initFormSave("details", () => {
         return {
-            nTelefono: telefono ? telefono.value.trim() : null,
+            cellulare: telefono ? telefono.value.trim() : null,
             indirizzo: indirizzo ? indirizzo.value.trim() : null,
             citta: citta ? citta.value.trim() : null,
             cap: cap ? cap.value.trim() : null

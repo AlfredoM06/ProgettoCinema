@@ -117,103 +117,50 @@ public class PaginaUtenteController {
         Utente utente = repoUtenti.findById(userDetails.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato"));
 
-        Map<String, String> erroriCampi = new LinkedHashMap<>();
         boolean modificato = false;
 
         if (datiModifica.getNome() != null) {
-            if (!datiModifica.getNome().isBlank()) {
-                utente.setNome(datiModifica.getNome());
-                modificato = true;
-            } else {
-                erroriCampi.put("nome", "Il nome non può essere vuoto");
-            }
+            utente.setNome(datiModifica.getNome());
+            modificato = true;
         }
-
         if (datiModifica.getCognome() != null) {
-            if (!datiModifica.getCognome().isBlank()) {
-                utente.setCognome(datiModifica.getCognome());
-                modificato = true;
-            } else {
-                erroriCampi.put("cognome", "Il cognome non può essere vuoto");
-            }
+            utente.setCognome(datiModifica.getCognome());
+            modificato = true;
         }
-
         if (datiModifica.getUsername() != null) {
-            if (!datiModifica.getUsername().isBlank()) {
-                utente.setUsername(datiModifica.getUsername());
-                modificato = true;
-            } else {
-                erroriCampi.put("username", "Lo username non può essere vuoto");
-            }
+            utente.setUsername(datiModifica.getUsername());
+            modificato = true;
         }
-
         if (datiModifica.getEmail() != null) {
-            if (!datiModifica.getEmail().isBlank()) {
-                utente.setEmail(datiModifica.getEmail());
-                modificato = true;
-            } else {
-                erroriCampi.put("email", "L'email non può essere vuota");
-            }
+            utente.setEmail(datiModifica.getEmail());
+            modificato = true;
         }
-
         if (datiModifica.getDataNascita() != null) {
             utente.setDataNascita(datiModifica.getDataNascita());
             modificato = true;
         }
-
         if (datiModifica.getPassword() != null) {
-            if (!datiModifica.getPassword().isBlank()) {
-                utente.setPassword("{noop}" + datiModifica.getPassword());
-                modificato = true;
-            } else {
-                erroriCampi.put("password", "La password non può essere vuota");
-            }
+            utente.setPassword("{noop}" + datiModifica.getPassword());
+            modificato = true;
         }
-
-        if (datiModifica.getNTelefono() != null) {
-            if (!datiModifica.getNTelefono().isBlank()) {
-                utente.setNTelefono(datiModifica.getNTelefono());
-                modificato = true;
-            } else {
-                erroriCampi.put("telefono", "Il numero di telefono non può essere vuoto");
-            }
+        if (datiModifica.getCellulare() != null) {
+            utente.setCellulare(datiModifica.getCellulare());
+            modificato = true;
         }
-
         if (datiModifica.getIndirizzo() != null) {
-            if (!datiModifica.getIndirizzo().isBlank()) {
-                utente.setIndirizzo(datiModifica.getIndirizzo());
-                modificato = true;
-            } else {
-                erroriCampi.put("indirizzo", "L'indirizzo non può essere vuoto");
-            }
+            utente.setIndirizzo(datiModifica.getIndirizzo());
+            modificato = true;
         }
-
         if (datiModifica.getCitta() != null) {
-            if (!datiModifica.getCitta().isBlank()) {
-                utente.setCitta(datiModifica.getCitta());
-                modificato = true;
-            } else {
-                erroriCampi.put("citta", "La città non può essere vuota");
-            }
+            utente.setCitta(datiModifica.getCitta());
+            modificato = true;
         }
-
         if (datiModifica.getCap() != null) {
-            if (!datiModifica.getCap().isBlank()) {
-                utente.setCap(datiModifica.getCap());
-                modificato = true;
-            } else {
-                erroriCampi.put("cap", "Il CAP non può essere vuoto");
-            }
+            utente.setCap(datiModifica.getCap());
+            modificato = true;
         }
 
         Map<String, Object> risposta = new LinkedHashMap<>();
-
-        if (!erroriCampi.isEmpty()) {
-            risposta.put("success", false);
-            risposta.put("messaggio", "Alcuni campi non sono validi");
-            risposta.put("erroriCampi", erroriCampi);
-            return ResponseEntity.badRequest().body(risposta);
-        }
 
         if (!modificato) {
             risposta.put("success", false);

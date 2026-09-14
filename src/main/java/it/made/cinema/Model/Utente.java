@@ -57,7 +57,7 @@ public class Utente {
 	@Column(nullable=false)
 	private LocalDate dataNascita;
 	@Column()
-	private String nTelefono;
+	private String cellulare;
 	@Column()
 	private String indirizzo;
 	@Column()
