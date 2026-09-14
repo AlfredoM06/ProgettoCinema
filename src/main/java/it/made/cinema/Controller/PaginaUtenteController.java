@@ -170,9 +170,9 @@ public class PaginaUtenteController {
             }
         }
 
-        if (datiModifica.getNTelefono() != null) {
-            if (!datiModifica.getNTelefono().isBlank()) {
-                utente.setNTelefono(datiModifica.getNTelefono());
+        if (datiModifica.getCellulare() != null) {
+            if (!datiModifica.getCellulare().isBlank()) {
+                utente.setCellulare(datiModifica.getCellulare());
                 modificato = true;
             } else {
                 erroriCampi.put("telefono", "Il numero di telefono non può essere vuoto");

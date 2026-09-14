@@ -19,7 +19,7 @@ public class DatiUtenteDTO implements Serializable {
     private LocalDate dataNascita;
     private String password;
     private String vecchiaPassword;
-    private String nTelefono;
+    private String cellulare;
     private String indirizzo;
     private String citta;
     private String cap;
