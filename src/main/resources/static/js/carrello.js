@@ -12,23 +12,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let prodotti = [];
 
-    if (CARRELLO && CARRELLO.listaOfferta) {
-        let mappaProdotti = new Map();
-        CARRELLO.listaOfferta.forEach(offerta => {
-            if (mappaProdotti.has(offerta.id)) {
-                let prodotto = mappaProdotti.get(offerta.id);
-                if (prodotto.quantita < 10) {
-                    prodotto.quantita++;
-                }
-            } else {
-                mappaProdotti.set(offerta.id, {
-                    ...offerta,
-                    quantita: 1
-                });
-            }
-        });
-        prodotti = Array.from(mappaProdotti.values());
-    }
+   if (CARRELLO && CARRELLO.listaOfferta) {
+       let mappaProdotti = new Map();
+
+       CARRELLO.listaOfferta.forEach(offerta => {
+           if (mappaProdotti.has(offerta.id)) {
+               let prodotto = mappaProdotti.get(offerta.id);
+               prodotto.quantita += offerta.quantita || 1;
+
+               if (prodotto.quantita > 10) {
+                   prodotto.quantita = 10;
+               }
+           } else {
+               mappaProdotti.set(offerta.id, {
+                   ...offerta,
+                   quantita: offerta.quantita || 1
+               });
+           }
+       });
+
+       prodotti = Array.from(mappaProdotti.values());
+   }
 
     // =========================================================
     // FORMATTAZIONE PREZZO
@@ -301,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let removeButton = event.target.closest(".remove-btn");
 
         // +
-        if (plusButton) {
+        /*if (plusButton) {
             let id = Number(plusButton.dataset.id);
             let prodotto = prodotti.find(p => p.id === id);
             if (prodotto && prodotto.quantita < 10) {
@@ -311,6 +315,43 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             aggiornaBottoni();
             aggiornaSummary();
+            return;
+        }*/
+        if (plusButton) {
+            let id = Number(plusButton.dataset.id);
+            let prodotto = prodotti.find(p => p.id === id);
+
+            if (!prodotto || prodotto.quantita >= 10) {
+                return;
+            }
+
+            fetch(`/carrello/acquistaOfferta/${id}`, {
+                method: "POST"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Errore aggiunta prodotto");
+                }
+                return response.json();
+            })
+            .then(success => {
+                if (!success) {
+                    throw new Error("Aggiunta prodotto non riuscita");
+                }
+
+                prodotto.quantita++;
+
+                let cartItem = plusButton.closest(".cart-item");
+                cartItem.querySelector(".quantity").textContent = prodotto.quantita;
+
+                aggiornaBottoni();
+                aggiornaSummary();
+            })
+            .catch(error => {
+                console.error("Errore aggiunta prodotto:", error);
+                alert("Impossibile aggiungere il prodotto.");
+            });
+
             return;
         }
 
