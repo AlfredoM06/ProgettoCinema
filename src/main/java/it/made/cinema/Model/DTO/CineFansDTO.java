@@ -13,4 +13,5 @@ public class CineFansDTO implements Serializable {
     private String imgCarta;
     private String nome;
     private Integer utilizziCard;
+    private Boolean cartaRicaricabile;
 }

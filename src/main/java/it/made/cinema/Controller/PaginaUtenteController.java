@@ -1,5 +1,6 @@
 package it.made.cinema.Controller;
 
+import it.made.cinema.Model.DTO.CineFansDTO;
 import it.made.cinema.Model.DTO.DatiUtenteDTO;
 import it.made.cinema.Model.DTO.OfferteDTO;
 import it.made.cinema.Model.DTO.PostiOccupatiDTO;
@@ -97,15 +98,15 @@ public class PaginaUtenteController {
 
     //2) Se ha acquistato una card(ricaricabile) e o abbonamento.
     @GetMapping("/abbonamento")
-    public Boolean abbonamento(Authentication authentication) {
+    public CineFansDTO abbonamento(Authentication authentication) {
     	DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         Optional<Utente> utenteOpt = repoUtenti.findById(userDetails.getId());
         if (utenteOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato");
         }
         Utente utente = utenteOpt.get();
-        Boolean statoAbbonamento = utente.getCartaRicaricabile();
-        return statoAbbonamento;
+        CineFansDTO statoCarta = new CineFansDTO(utente.getNomeCarta().getImgCarta(),utente.getNomeCarta().getNome(),utente.getUtilizziCard(),utente.getCartaRicaricabile());
+        return statoCarta;
     }
 
     //3) Cambiare i suoi dati tipo l'email.
