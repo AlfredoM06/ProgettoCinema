@@ -640,20 +640,12 @@ document.addEventListener("DOMContentLoaded", () => {
             let offerteRaggruppate = {};
 
             acquisti.forEach(offerta => {
-
                 let chiave = `${offerta.idOfferta}_${offerta.dataAcquisto}`;
-
                 if (!offerteRaggruppate[chiave]) {
-
                     offerteRaggruppate[chiave] = {
                         ...offerta,
-                        quantita: 1
+                        quantita: offerta.quantita ?? 1  // ← prende dal backend
                     };
-
-                } else {
-
-                    offerteRaggruppate[chiave].quantita++;
-
                 }
             });
 
@@ -700,7 +692,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <span class="menu-value menu-price">${offerta.prezzoTotale}</span>
                         </div>
                     </div>
-                    <span class="menu-date">${offerta.dataAcquisto}</span>
+                    <span class="menu-date">${formattaData(offerta.dataAcquisto)}</span>
                 </div>
                 <div class="menu-qr-wrapper">
                     <div class="menu-qrcode"></div>
@@ -789,4 +781,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ─────────────────────────────────────────────────────────
+    // NUMERO CARTA MEMBERSHIP
+    // ─────────────────────────────────────────────────────────
+    let numeroCarta = document.getElementById("numeroCarta");
+
+    if (numeroCarta && MEMBERSHIP_ATTIVA === true) {
+        let dataFormattata = "";
+        if (DATA_ACQUISTO_MEMBERSHIP) {
+            let [anno, mese, giorno] = DATA_ACQUISTO_MEMBERSHIP.split("-");
+            dataFormattata = `${giorno}${mese}${anno}`;
+        }
+        numeroCarta.textContent = `MYS&G${UTENTE_ID}${dataFormattata}`;
+    }
+
+
+    // ─────────────────────────────────────────────────────────
+    // CARD E VOUCHER
+    // ─────────────────────────────────────────────────────────
+    const GIORNI_CARTA = {
+        1: "Lunedì - Venerdì",
+        2: "Lunedì - Venerdì",
+        3: "Lunedì - Domenica"
+    };
+
+    function caricaCardVoucher() {
+        let cardBox      = document.getElementById("voucher-card-box");
+        let emptyState   = document.getElementById("voucher-empty-state");
+        let cardTitle    = document.getElementById("voucher-card-title");
+        let cardDays     = document.getElementById("voucher-card-days");
+        let cardIngressi = document.getElementById("voucher-card-ingressi");
+        let cardImg      = document.getElementById("voucher-card-img");
+
+        if (!cardBox || !emptyState) return;
+
+        if (CARTA_ID !== null) {
+            cardBox.style.display    = "";
+            emptyState.style.display = "none";
+
+            if (cardTitle)    cardTitle.textContent    = CARTA_NOME              ?? "—";
+            if (cardIngressi) cardIngressi.textContent = CARTA_UTILIZZI           ?? "—";
+            if (cardDays)     cardDays.textContent     = GIORNI_CARTA[CARTA_ID]  ?? "—";
+            if (cardImg)      cardImg.src              = CARTA_IMG               ?? "";
+
+        } else {
+            cardBox.style.display    = "none";
+            emptyState.style.display = "";
+        }
+    }
+
+    caricaCardVoucher();
 });

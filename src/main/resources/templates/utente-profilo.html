@@ -136,20 +136,21 @@
                                                 </span>
                                             </div>
 
-                                            <div class="loyalty-card-number" id="membershipCardNumber">
+                                            <div class="loyalty-card-number" id="membershipCardNumber" th:if="${utente.membership}">
                                                 Numero carta:
-                                                <span id="numeroCarta"> - </span>
+                                                <span id="numeroCarta"></span>
                                             </div>
-
+                                            <!-- Se NON ha la membership — al posto del numero carta -->
+                                            <p th:unless="${utente.membership}"
+                                               class="membership-not-acquired">
+                                                Membership non acquistata
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="loyalty-bottom">
                                         <a href="#" class="loyalty-link">
                                             Scopri di più sui tuoi vantaggi
                                         </a>
-                                        <p th:unless="${utente.membership}">
-                                            Membership non acquistata
-                                        </p>
                                     </div>
                                 </article>
                             </section>
@@ -246,31 +247,27 @@
                             <!-- ========================= -->
                             <div class="col-md-6">
 
-                                <!-- CARD ESISTENTE -->
-                                <article class="voucher-card">
+                                <!-- CARD — visibile solo se ha la carta ricaricabile -->
+                                <article class="voucher-card" id="voucher-card-box" style="display:none;">
 
                                     <figure class="voucher-img">
-                                        <img th:src="@{/img/card_basic.webp}" alt="CineFANS Basic card">
+                                        <img id="voucher-card-img" src="/img/card_basic.webp" alt="CineFANS card">
                                     </figure>
 
                                     <div class="voucher-info">
-
-                                        <span class="voucher-title">CineFANS Basic</span>
-                                        <span class="voucher-days">Lunedì - Venerdì</span>
+                                        <span class="voucher-title" id="voucher-card-title">—</span>
+                                        <span class="voucher-days" id="voucher-card-days">—</span>
 
                                         <section class="voucher-credits">
-
                                             <span class="voucher-label">Ingressi rimanenti</span>
-                                            <span class="voucher-value">4</span>
-
+                                            <span class="voucher-value" id="voucher-card-ingressi">—</span>
                                         </section>
-
                                     </div>
 
                                 </article>
 
-                                <!-- 🔥 EMPTY STATE (commentato per futuro Thymeleaf) -->
-                                <<div class="empty-state">
+                                <!-- EMPTY STATE — visibile se NON ha la carta -->
+                                <div class="empty-state" id="voucher-empty-state">
                                     NON HAI ANCORA NESSUNA CARD O VOUCHER ASSOCIATI AL TUO ACCOUNT
                                 </div>
 
@@ -575,6 +572,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="./js/utente-profilo.js"></script>
     <script src="./js/freccia.js"></script>
+    <script th:inline="javascript">
+        const UTENTE_ID                = /*[[${utente.id}]]*/ null;
+        const MEMBERSHIP_ATTIVA        = /*[[${utente.membership}]]*/ false;
+        const DATA_ACQUISTO_MEMBERSHIP = /*[[${utente.acquistoMembership}]]*/ null;
+
+        const CARTA_ID           = /*[[${utente.nomeCarta != null ? utente.nomeCarta.id : null}]]*/ null;
+        const CARTA_NOME         = /*[[${utente.nomeCarta != null ? utente.nomeCarta.nome : null}]]*/ null;
+        const CARTA_IMG          = /*[[${utente.nomeCarta != null ? utente.nomeCarta.imgCarta : null}]]*/ null;
+        const CARTA_UTILIZZI     = /*[[${utente.utilizziCard}]]*/ null;
+    </script>
 </body>
 
 </html>

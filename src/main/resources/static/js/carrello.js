@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("CARRELLO ricevuto:", CARRELLO);
-    console.log("listaOfferta:", CARRELLO.listaOfferta);
-    console.log("membership:", MEMBERSHIP);
     let cartContainer = document.getElementById("cart-items");
     if (!cartContainer) return;
 
@@ -93,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             cartItem.innerHTML = `
                 <figure class="cart-img">
-                    <img src="${offerta.img_banner}" alt="${offerta.nome}">
+                    <img src="${offerta.imgBannerTop ?? ''}" alt="${offerta.nome}">
                 </figure>
 
                 <div class="cart-info">
@@ -189,9 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // =========================================================
 
     function aggiornaSummary() {
-    console.log("aggiornaSummary chiamata");
-        console.log("prodotti:", prodotti);
-        console.log("CARRELLO.prezzoCarta:", CARRELLO.prezzoCarta);
         // PREZZO DI RIFERIMENTO
         let membershipMessage = document.getElementById("membership-message");
         if (membershipMessage) {
@@ -304,19 +298,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let minusButton  = event.target.closest(".btn-minus");
         let removeButton = event.target.closest(".remove-btn");
 
-        // +
-        /*if (plusButton) {
-            let id = Number(plusButton.dataset.id);
-            let prodotto = prodotti.find(p => p.id === id);
-            if (prodotto && prodotto.quantita < 10) {
-                prodotto.quantita++;
-                let cartItem = plusButton.closest(".cart-item");
-                cartItem.querySelector(".quantity").textContent = prodotto.quantita;
-            }
-            aggiornaBottoni();
-            aggiornaSummary();
-            return;
-        }*/
         if (plusButton) {
             let id = Number(plusButton.dataset.id);
             let prodotto = prodotti.find(p => p.id === id);
@@ -376,7 +357,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();
             })
             .then(carrelloDTO => {
-
                 // Il backend ha rimosso una copia
                 prodotto.quantita--;
 
@@ -384,8 +364,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 cartItem.querySelector(".quantity").textContent = prodotto.quantita;
 
                 // Aggiorno il carrello frontend
-                CARRELLO.prezzoFinale =  carrelloDTO.prezzoFinale;
-                CARRELLO.punti =  carrelloDTO.punti;
+//                CARRELLO.prezzoFinale =  carrelloDTO.prezzoFinale;
+//                CARRELLO.punti =  carrelloDTO.punti;
 
                 aggiornaBottoni();
                 aggiornaSummary();
@@ -398,10 +378,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // CESTINO — rimuove dal carrello backend + frontend
-        // CESTINO — rimuove dal carrello backend + frontend
         if (removeButton) {
             let id = Number(removeButton.dataset.id);
-
             // ← se non ha data-id è il cestino della carta, lo ignoriamo
             if (!removeButton.dataset.id) return;
 
@@ -445,7 +423,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (btnAcquista) {
         btnAcquista.addEventListener("click", async function () {
-
             if (prodotti.length === 0 && !CARRELLO.prezzoCarta) {
                 alert("Il carrello è vuoto.");
                 return;
@@ -455,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const response = await fetch("/carrello/confermaAcquisti", {
                     method: "POST"
                 });
-
+                 const result = await response.json();
                 if (!response.ok) throw new Error("Errore acquisto");
 
                 alert("Acquisto completato! Grazie.");
