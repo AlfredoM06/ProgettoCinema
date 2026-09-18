@@ -386,22 +386,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.querySelectorAll(".seat")
         .forEach(seat => {
-
-
           seat.classList.toggle(
             "dimmed",
             seat.dataset.type !== type
           );
-
-
         });
-
-
-
     });
 
 
   });
+
+/*
+  ===============================
+     PREZZO BACK-END MEMBERSHIP
+  ===============================
+  */
+function calcolaPrezzoBackend() {
+
+    if (selectedSeats.length === 0) {
+        totalPriceEl.textContent = "0.00";
+        return;
+    }
+
+    let listaPostiDTO = selectedSeats.map(seat => ({
+        id: reversePosizione(seat.dataset.positionView),
+        tipo: reverseTipo(seat.dataset.type)
+    }));
+
+    let payload = {
+        id_film: FILM_ID,
+        id_utente: USER_ID,
+        id_programmazione: ID_PROGRAMMAZIONE,
+        listaPostiDTO: listaPostiDTO,
+        acquisto: false
+    };
+
+    console.log("=== CALCOLO PREZZO BACKEND ===");
+    console.log("payload:", payload);
+
+    fetch(BASE_URL_POST, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(async res => {
+
+        const testo = await res.text();
+
+        console.log("=== RISPOSTA CALCOLO PREZZO ===");
+        console.log("STATUS:", res.status);
+        console.log("BODY:", testo);
+
+        if (!res.ok) {
+            throw new Error(
+                `Errore calcolo prezzo - HTTP ${res.status} - ${testo}`
+            );
+        }
+
+        return JSON.parse(testo);
+    })
+    .then(scontrino => {
+
+        console.log("=== SCONTRINO CALCOLO ===");
+        console.log(scontrino);
+
+        if (!scontrino) {
+            totalPriceEl.textContent = "0.00";
+            return;
+        }
+
+        totalPriceEl.textContent = Number(scontrino.prezzoTotale).toFixed(2);
+
+    })
+    .catch(err => {
+        console.error("=== ERRORE CALCOLO PREZZO ===", err);
+        totalPriceEl.textContent = "0.00";
+    });
+}
+
 
   /*
   =========================
@@ -410,36 +474,34 @@ document.addEventListener("DOMContentLoaded", () => {
   */
 
   let updateUI = () => {
-    seatCountEl.textContent = ticketCount;
-    if (selectedSeats.length > 0) {
 
-      selectionBox.classList.remove("hidden");
-      promoBox.classList.remove("hidden");
+      seatCountEl.textContent = ticketCount;
 
-    } else {
-
-      selectionBox.classList.add("hidden");
-
-      if (selectionStarted) {
-        promoBox.classList.remove("hidden");
+      if (selectedSeats.length > 0) {
+          selectionBox.classList.remove("hidden");
+          promoBox.classList.remove("hidden");
+      } else {
+          selectionBox.classList.add("hidden");
+          if (selectionStarted) {
+              promoBox.classList.remove("hidden");
+          }
       }
 
-    }
+      document.querySelector(".checkout-box")
+          .classList.toggle(
+              "hidden",
+              selectedSeats.length === 0
+          );
 
-    document.querySelector(".checkout-box").classList.toggle("hidden", selectedSeats.length === 0);
+      minusBtn.classList.toggle(
+          "disabled",
+          ticketCount === 1
+      );
 
-    minusBtn.classList.toggle(
-      "disabled",
-      ticketCount === 1
-    );
+      totalTicketsEl.textContent = selectedSeats.length;
 
-
-    totalTicketsEl.textContent = selectedSeats.length;
-    let total = selectedSeats.reduce((sum, seat) => sum + getPrice(seat), 0);
-    totalPriceEl.textContent = total.toFixed(2);
-
-    updateSummary();
-
+      calcolaPrezzoBackend();
+      updateSummary();
   };
 
   //RIPRISTINO SESSIONE ALLO SCADERE DEL TEMPO
