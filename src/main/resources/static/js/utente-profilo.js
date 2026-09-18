@@ -558,28 +558,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         col.innerHTML = `
             <div class="ticket-card">
-//              titolo
                 <div class="account-header">
                     <h2 class="section-title">${biglietto.titolo}</h2>
                     <span class="ticket-date">${biglietto.giorno}</span>
                 </div>
-//                inizio e fine
                 <div class="ticket-times">
                     <div class="ticket-field">
                         <span class="ticket-label">Inizio</span>
                         <span class="ticket-value">${biglietto.inizio}</span>
-                     </div>
+                    </div>
                     <div class="ticket-field">
                         <span class="ticket-label">Fine</span>
                         <span class="ticket-value">${biglietto.fine}</span>
-                        </div>
                     </div>
                 </div>
-//                qr code
                 <div class="ticket-qr-wrapper">
                     <div class="qrcode"></div>
                         <p class="codice">${codice}</p>
-                    </div>
                 </div>
                 <div class="ticket-footer">
                     <div class="ticket-field">
