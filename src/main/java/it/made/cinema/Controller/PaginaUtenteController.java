@@ -120,19 +120,19 @@ public class PaginaUtenteController {
 
         boolean modificato = false;
 
-        if (datiModifica.getNome() != null) {
+        if (datiModifica.getNome() != null && !datiModifica.getNome().isBlank()) {
             utente.setNome(datiModifica.getNome());
             modificato = true;
         }
-        if (datiModifica.getCognome() != null) {
+        if (datiModifica.getCognome() != null && !datiModifica.getCognome().isBlank()) {
             utente.setCognome(datiModifica.getCognome());
             modificato = true;
         }
-        if (datiModifica.getUsername() != null) {
+        if (datiModifica.getUsername() != null && !datiModifica.getUsername().isBlank()) {
             utente.setUsername(datiModifica.getUsername());
             modificato = true;
         }
-        if (datiModifica.getEmail() != null) {
+        if (datiModifica.getEmail() != null && !datiModifica.getEmail().isBlank()) {
             utente.setEmail(datiModifica.getEmail());
             modificato = true;
         }
@@ -140,23 +140,23 @@ public class PaginaUtenteController {
             utente.setDataNascita(datiModifica.getDataNascita());
             modificato = true;
         }
-        if (datiModifica.getPassword() != null) {
+        if (datiModifica.getPassword() != null && !datiModifica.getPassword().isBlank()) {
             utente.setPassword("{noop}" + datiModifica.getPassword());
             modificato = true;
         }
-        if (datiModifica.getCellulare() != null) {
+        if (datiModifica.getCellulare() != null && !datiModifica.getCellulare().isBlank()) {
             utente.setCellulare(datiModifica.getCellulare());
             modificato = true;
         }
-        if (datiModifica.getIndirizzo() != null) {
+        if (datiModifica.getIndirizzo() != null && !datiModifica.getIndirizzo().isBlank()) {
             utente.setIndirizzo(datiModifica.getIndirizzo());
             modificato = true;
         }
-        if (datiModifica.getCitta() != null) {
+        if (datiModifica.getCitta() != null && !datiModifica.getCitta().isBlank()) {
             utente.setCitta(datiModifica.getCitta());
             modificato = true;
         }
-        if (datiModifica.getCap() != null) {
+        if (datiModifica.getCap() != null && !datiModifica.getCap().isBlank()) {
             utente.setCap(datiModifica.getCap());
             modificato = true;
         }

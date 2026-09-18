@@ -9,8 +9,10 @@ import it.made.cinema.Model.*;
 import it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO;
 import it.made.cinema.Model.DTO.SalvaProgrammazioneDTO;
 import it.made.cinema.Repository.*;
+import it.made.cinema.Security.DatabaseUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -145,12 +147,15 @@ public class GestioneProgrammazioneController {
 
     // quando si clicca su di una programmazione di un film, ti porta alla pagina della "sala" in cui vai a restituire la matrice che hai creato con il service
     @GetMapping("/dettagliProgrammazione/{idProgrammazione}")
-    public String programmazione(@PathVariable Integer idProgrammazione, Model model) {
+    public String programmazione(@PathVariable Integer idProgrammazione, Model model, Authentication authentication) {
 
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
         ProgrammazioneFilm programmazione = repoProgrammazione.findById(idProgrammazione).get();
         Film film = repoFilm.findById(programmazione.getFilm().getId()).get();
         Sala sala = repoSala.findById(programmazione.getSala().getId()).get();
+
         List<Posto> posti = repoPosto.findAll();
+
         model.addAttribute("posti", posti);
         model.addAttribute("titolo", film.getTitolo());
         model.addAttribute("poster", film.getImg_poster());
@@ -159,6 +164,8 @@ public class GestioneProgrammazioneController {
         model.addAttribute("data", programmazione.getDataProgrammazione());
         model.addAttribute("inizio", programmazione.getOrario());
         model.addAttribute("fine", programmazione.getOrario().plusMinutes(film.getDurata() + 30));
+        model.addAttribute("idFilm", programmazione.getFilm().getId());
+        model.addAttribute("idUtente", userDetails.getId());
 
         return "prenotazioneBiglietto";
     }
