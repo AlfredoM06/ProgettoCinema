@@ -110,17 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //REVERSE PER L'ACQUISTO
   function reverseTipo(type) {
-
-    switch (type) {
-      case "green":
-        return "Standard";
-      case "vip":
-        return "V.I.P.";
-      case "disabled":
-        return "Disabili";
-      default:
-        return null;
-    }
+      switch (type) {
+          case "green": return 1;     // Standard
+          case "vip": return 2;       // V.I.P.
+          case "disabled": return 3;  // Disabili
+          default: return null;
+      }
   }
 
 
@@ -416,67 +411,67 @@ document.addEventListener("DOMContentLoaded", () => {
   =========================
   */
 
-  function acquistaBiglietto() {
-
-    let listaPostiDTO = selectedSeats.map(seat => ({
-      id: reversePosizione(seat.dataset.positionView),
-      tipo: reverseTipo(seat.dataset.type)
-    }));
-
-    fetch(BASE_URL_POST, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
-        id_film: FILM_ID,
-        id_utente: USER_ID,
-        id_programmazione: ID_PROGRAMMAZIONE,
-        listaPostiDTO: listaPostiDTO,
-        acquisto: true
-      })
-    })
-      .then(res => {
-        if (!res.ok)
-          throw new Error("Errore acquisto");
-        return res.json();
-      })
-      .then(scontrino => {
-
-        console.log("Scontrino:", scontrino);
-
-        // sicurezza base
-        if (!scontrino || scontrino.success === false) {
-          alert("Errore durante l'acquisto");
-          return;
-        }
-
-        // reset dati
-        selectedSeats = [];
-
-        updateUI();
-
-        // NASCONDI tutto il contenuto cinema
-        document
-          .getElementById("main-content")
-          .classList.add("hidden");
-
-        // MOSTRA messaggio
-        document
-          .getElementById("success-message")
-          .classList.remove("hidden");
-
-        // redirect dopo 2 secondi
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
+//  function acquistaBiglietto() {
+//
+//    let listaPostiDTO = selectedSeats.map(seat => ({
+//      id: reversePosizione(seat.dataset.positionView),
+//      tipo: reverseTipo(seat.dataset.type)
+//    }));
+//
+//    fetch(BASE_URL_POST, {
+//      method: "POST",
+//      headers: {
+//        "Content-Type": "application/json"
+//      },
+//
+//      body: JSON.stringify({
+//        id_film: FILM_ID,
+//        id_utente: USER_ID,
+//        id_programmazione: ID_PROGRAMMAZIONE,
+//        listaPostiDTO: listaPostiDTO,
+//        acquisto: true
+//      })
+//    })
+//      .then(res => {
+//        if (!res.ok)
+//          throw new Error("Errore acquisto");
+//        return res.json();
+//      })
+//      .then(scontrino => {
+//
+//        console.log("Scontrino:", scontrino);
+//
+//        // sicurezza base
+//        if (!scontrino || scontrino.success === false) {
+//          alert("Errore durante l'acquisto");
+//          return;
+//        }
+//
+//        // reset dati
+//        selectedSeats = [];
+//
+//        updateUI();
+//
+//        // NASCONDI tutto il contenuto cinema
+//        document
+//          .getElementById("main-content")
+//          .classList.add("hidden");
+//
+//        // MOSTRA messaggio
+//        document
+//          .getElementById("success-message")
+//          .classList.remove("hidden");
+//
+//        // redirect dopo 2 secondi
+//        setTimeout(() => {
+//          window.location.href = "/";
+//        }, 2000);
+//
+//      })
+//      .catch(err => {
+//        console.error(err);
+//      });
+//  }
 
   /*
   =========================
@@ -745,6 +740,85 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     modal.show();
   }
+
+  // =========================================================
+  // ACQUISTO BIGLIETTO
+  // =========================================================
+  function acquistaBiglietto() {
+
+      let listaPostiDTO = selectedSeats.map(seat => ({
+          id: reversePosizione(seat.dataset.positionView),
+          tipo: reverseTipo(seat.dataset.type)
+      }));
+
+      // LOG — verifica cosa arriva al backend
+      console.log("=== ACQUISTO BIGLIETTO ===");
+      console.log("FILM_ID:", FILM_ID);
+      console.log("USER_ID:", USER_ID);
+      console.log("ID_PROGRAMMAZIONE:", ID_PROGRAMMAZIONE);
+      console.log("listaPostiDTO:", listaPostiDTO);
+      console.log("payload completo:", {
+          id_film: FILM_ID,
+          id_utente: USER_ID,
+          id_programmazione: ID_PROGRAMMAZIONE,
+          listaPostiDTO: listaPostiDTO,
+          acquisto: true
+      });
+      // =========================================================
+
+      fetch(BASE_URL_POST, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+              id_film: FILM_ID,
+              id_utente: USER_ID,
+              id_programmazione: ID_PROGRAMMAZIONE,
+              listaPostiDTO: listaPostiDTO,
+              acquisto: true
+          })
+      })
+      .then(async res => {
+
+          console.log("=== RISPOSTA BACKEND ===");
+          console.log("STATUS:", res.status);
+          console.log("OK:", res.ok);
+          console.log("CONTENT-TYPE:", res.headers.get("content-type"));
+
+          const testo = await res.text();
+
+          console.log("BODY BACKEND:", testo);
+
+          if (!res.ok) {
+              throw new Error(
+                  `Errore acquisto - HTTP ${res.status} - ${testo}`
+              );
+          }
+
+          return JSON.parse(testo);
+      })
+      .then(scontrino => {
+          console.log("=== Scontrino ricevuto:", scontrino);
+
+          if (!scontrino || scontrino.success === false) {
+              alert("Errore durante l'acquisto");
+              return;
+          }
+
+          selectedSeats = [];
+          updateUI();
+
+          document.getElementById("main-content").classList.add("hidden");
+          document.getElementById("success-message").classList.remove("hidden");
+
+          setTimeout(() => {
+              window.location.href = "/";
+          }, 2000);
+      })
+      .catch(err => {
+          console.error("=== Errore acquisto:", err);
+      });
+  }
+
   /*
   =========================
       INIT
