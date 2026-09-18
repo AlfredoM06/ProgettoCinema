@@ -145,11 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${riga}_${numeroPosto}`;
   }
 
-  function loadPosti(idSala) {
+  function loadPosti(idProgrammazione) {
 
-    console.log("Parametro ricevuto da loadPosti:", idSala);
+    console.log("Parametro ricevuto da loadPosti:", idProgrammazione);
 
-    fetch(`${BASE_URL_GET}/${idSala}`)
+    fetch(`${BASE_URL_GET}/${idProgrammazione}`)
       .then(res => {
         if (!res.ok)
           throw new Error("Errore caricamento posti");
@@ -457,7 +457,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateUI();
 
     // aggiorna la sala (controlla eventuali acquisti fatti nel frattempo)
-    loadPosti(ID_SALA);
+    loadPosti(ID_PROGRAMMAZIONE);
 
     // chiude modal
     let modalElement = document.getElementById("sessionExpiredModal");
@@ -754,10 +754,10 @@ document.addEventListener("DOMContentLoaded", () => {
       INIT
   =========================
   */
-  console.log("ID SALA:", ID_SALA);
+  console.log("ID SALA:", ID_PROGRAMMAZIONE);
   caricaPrezzi();
   aggiornaPrezziLegenda();
-  loadPosti(ID_SALA);
+  loadPosti(ID_PROGRAMMAZIONE);
   updateUI();
   avviaTimer();
 });
