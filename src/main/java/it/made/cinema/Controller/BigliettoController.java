@@ -39,17 +39,17 @@ public class BigliettoController {
         Film film = repoFilm.findById(acquistoBiglietto.getId_film()).get();
         Utente utente = repoUtenti.findById(acquistoBiglietto.getId_utente()).get();
         ProgrammazioneFilm programmazioneFilm = repoProgrammazione.findById(acquistoBiglietto.getId_programmazione()).get();
-        Integer puntiCarta = utente.getPuntiMembership();
+        //Integer puntiCarta = utente.getPuntiMembership();
         Double prezzoTotale = 0d;
         ScontrinoDTO scontrino = new ScontrinoDTO();
         for (PostiDTO posto : acquistoBiglietto.getListaPostiDTO()) {
         	Boolean usataCarta = false;
-        	Double prezzoFinale;
+        	Double prezzoFinale = 0.0;
         	if(cartaService.validitaCarta(utente, programmazioneFilm.getSala(), posto.getTipo())) {
         		prezzoFinale = 0.0;
         		usataCarta = true;
         	} else {	
-            prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, posto.getTipo(), puntiCarta);
+            prezzoFinale = prezzoService.calcolaPrezzoFinale(utente, film, posto.getTipo());
             }
             prezzoTotale += prezzoFinale;
             
@@ -87,7 +87,7 @@ public class BigliettoController {
 
         if (acquistoBiglietto.getAcquisto()) {
             // aggiornare repo utente con i punti nuovi facendo get punti + punti
-            utente.setPuntiMembership(puntiCarta + punti);
+            //utente.setPuntiMembership(puntiCarta + punti);
             repoUtenti.save(utente);
         }
 

@@ -16,8 +16,8 @@ public class PrezzoService {
     IRepoUtenti repoUtenti;
     // da modificare non ricevi più un posto singolo ma lista di id e tipo del posto
     // service per fare il calcolo del prezzo del biglietto (il service serve come layer di mezzo tra controller e repository, gli si passasno i dati e i calcoli da fare e poi lo si richiama nel controller dove serve al contrario di un controller che non può essere richiamato da un'altro controller)
-    public Double calcolaPrezzoFinale(Utente utente, Film film, Integer tipo, Integer punti) {
-
+    public Double calcolaPrezzoFinale(Utente utente, Film film, Integer tipo) {
+        Integer punti = utente.getPuntiMembership();
         // Prezzo base del film
         Double prezzoBase = film.getPrezzo();
         Double prezzoTotale = 0d;
@@ -38,7 +38,7 @@ public class PrezzoService {
         } else {
             prezzoTotale += prezzoBase + prezzoPosto;
         }
-
+        utente.setPuntiMembership(punti);
         return prezzoTotale;
     }
 
