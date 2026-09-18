@@ -79,11 +79,8 @@ public class BigliettoController {
 
         scontrino.setPrezzoTotale(prezzoTotale);
 
-        Boolean partnership = null;
-        //controllo se il film è sponsorizzato
-        if (!film.getPartnership().getId().equals(1)) {
-            partnership = Boolean.TRUE;
-        }
+        // Controlla se il film ha una partnership non null
+        Boolean partnership = film.getPartnership() != null ? Boolean.TRUE : Boolean.FALSE;
 
         Integer punti = puntiService.puntiBiglietto(prezzoTotale, partnership);
         scontrino.setPuntiGuadagnati(punti);

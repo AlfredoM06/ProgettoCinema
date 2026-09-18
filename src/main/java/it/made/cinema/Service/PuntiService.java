@@ -24,7 +24,7 @@ public class PuntiService {
     // il film è sponsorizzato se esiste una partnership con l'id film (ovvero fare una select)
     public Integer puntiBiglietto(Double prezzoFinale, Boolean partnership){
         Integer punti;
-        if (partnership.equals(Boolean.TRUE)){
+        if (Boolean.TRUE.equals(partnership)){
             punti = (int) (prezzoFinale * 10) * 2;
         } else {
             punti = (int) (prezzoFinale * 10);
