@@ -34,9 +34,12 @@
 
     <li class="nav-item dropdown">
         <a class="nav-link" th:href="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/admin} : @{/utente}">
-            <img class="user-icon"
-                 th:src="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/img/icona_admin_user.svg} : @{/img/icona_profilo-utente.svg}"
-                 alt="user icon">
+            <div class="cart-icon-wrapper">
+                <img class="user-icon"
+                     th:src="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/img/icona_admin_user.svg} : @{/img/icona_profilo-utente.svg}"
+                     alt="user icon">
+                <span id="cart-badge" class="cart-badge" style="display:none;">0</span>
+            </div>
         </a>
 
         <ul class="dropdown-menu accountDrop">

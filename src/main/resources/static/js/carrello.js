@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
             aggiornaSummary();
+            aggiornaBadgeCarrello(0);
             return;
         }
 
@@ -171,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     CARRELLO.imgCarta    = null;
 
                     renderCarrello();
+                    aggiornaBadgeCarrello(calcolaTotaleCarrello());
 
                 } catch (error) {
                     console.error("Errore rimozione carta:", error);
@@ -327,6 +329,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 aggiornaBottoni();
                 aggiornaSummary();
+                aggiornaBadgeCarrello(calcolaTotaleCarrello());
             })
             .catch(error => {
                 console.error("Errore aggiunta prodotto:", error);
@@ -369,6 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 aggiornaBottoni();
                 aggiornaSummary();
+                aggiornaBadgeCarrello(calcolaTotaleCarrello());
             })
             .catch(error => {
                 console.error( "Errore rimozione prodotto:",  error );
@@ -388,6 +392,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (!response.ok) throw new Error("Errore rimozione");
                     prodotti = prodotti.filter(p => p.id !== id);
                     renderCarrello();
+                    aggiornaBadgeCarrello(calcolaTotaleCarrello());
                 })
                 .catch(error => {
                     console.error("Errore rimozione prodotto:", error);
@@ -446,6 +451,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 CARRELLO.imgCarta = null;
 
                 renderCarrello();
+                aggiornaBadgeCarrello(calcolaTotaleCarrello());
 
             } catch (error) {
                 console.error("Errore conferma acquisto:", error);
@@ -455,8 +461,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // =========================================================
+    // calcolo totale
+    // =========================================================
+    function calcolaTotaleCarrello() {
+        let totale = prodotti.reduce((acc, prodotto) => {
+            return acc + prodotto.quantita;
+        }, 0);
+
+        if (CARRELLO.prezzoCarta) {
+            totale += 1;
+        }
+
+        return totale;
+    }
+    // =========================================================
     // AVVIO
     // =========================================================
 
     renderCarrello();
+    aggiornaBadgeCarrello(calcolaTotaleCarrello());
 });

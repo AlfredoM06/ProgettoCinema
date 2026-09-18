@@ -46,17 +46,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                // L'utente è loggato e il controller ha fatto redirect
-                if (response.redirected) {
-                    alert("Offerta aggiunta al carrello!");
-                    return;
-                }
-
+                // Errore HTTP
                 if (!response.ok) {
                     throw new Error("Errore aggiunta al carrello");
                 }
+
+                // Aggiunta avvenuta correttamente
+                alert("Offerta aggiunta al carrello!");
+                incrementaBadge();
+
             } catch (error) {
-                console.error( "Errore aggiunta carrello:", error);
+                console.error("Errore aggiunta carrello:", error);
                 alert("Impossibile aggiungere al carrello.");
             }
         });

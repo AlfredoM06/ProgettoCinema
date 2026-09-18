@@ -296,14 +296,45 @@ header .accountDrop .dropdown-item.active {
 
 body.no-navbar header {
     opacity: 0;
-
     pointer-events: none;
-
     transform: translateY(-20px);
-
     transition: all 0.3s ease;
 }
 
+
+/* =========================================================
+   BADGE SU ICONA
+========================================================= */
+.cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-badge {
+    position: absolute;
+
+    top: -9px;
+    right: -3px;
+
+    background-color: #dc143c;
+    color: #ffffff;
+    border-radius: 50%;
+
+    width: 22px;
+    height: 22px;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    box-sizing: border-box;
+}
 
 /* =========================================================
    LAPTOP

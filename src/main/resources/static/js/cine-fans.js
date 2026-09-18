@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
                  }
 
                  alert("Cinefans aggiunta al carrello!");
-
+                incrementaBadge();
             } catch (error) {
 
                 console.error("Errore aggiunta carta:", error);
