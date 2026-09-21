@@ -76,7 +76,7 @@ public class HomeController {
             evidenzaDTO.add(listaEvidenza);
         }
 
-        model.addAttribute("inEvidenza", filmInEvidenza);
+        model.addAttribute("inEvidenza", evidenzaDTO);
         model.addAttribute("filmRecenti", filmRecentiDTO);
 
         return "Home";

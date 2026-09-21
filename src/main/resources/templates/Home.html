@@ -87,10 +87,12 @@
     <section class="filmpiuVisti" id="filmpiuVisti">
         <div class="header-swiper">
             <h1 class="titoloLinea" id="piuVisti">in evidenza</h1>
-
+            <p style="color: red;">
+                Numero film: <span th:text="${inEvidenza.size()}"></span>
+            </p>
             <div class="swiper-controls">
                 <div class="swiper-counter">
-                    <span id="current">1</span> / <span id="total">6</span>
+                    <span id="current">1</span> / <span id="total">0</span>
                 </div>
                 <div class="swiper-pagination">&nbsp;</div>
                 <div class="swiper-button-prev custom-btn"></div>
@@ -100,162 +102,27 @@
         <div class="container-fluid p-0">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <!--box1-->
-                    <div class="swiper-slide">
-                        <div class="card ">
-                            <div class="card-img-wrapper">
-                                <img src="./img/superman.jpg" class="card-img-top">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Superman1</h5>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="mb-2 d-flex gap-3">
-                                        <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
-                                        <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="d-flex mb-1">
-                                        <span class="badge sala-white text-secondary p-1">IMAX</span>
-                                        <span class="badge sala-white text-secondary p-1">3D</span>
-                                        <span class="badge sala-white text-secondary p-1">XL</span>
-                                        <span class="badge sala-white text-secondary p-1">2D</span>
-                                    </li>
-                                </ul>
-                                <span class="badge categoria-badge">Fantasy</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CARD 2 -->
-                    <div class="swiper-slide">
+
+                    <div class="swiper-slide"
+                         th:each="film : ${inEvidenza}">
+
                         <div class="card">
-                            <div class="card-img-wrapper">
-                                <img src="./img/superman.jpg" class="card-img-top">
-                            </div>
+                            <img th:src="@{${film.img_poster}}"
+                                 th:alt="${film.titolo}">
                             <div class="card-body">
-                                <h5 class="card-title">Superman2</h5>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="mb-2 d-flex gap-3">
-                                        <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
-                                        <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="d-flex mb-1">
-                                        <span class="badge sala-white text-secondary p-1">IMAX</span>
-                                        <span class="badge sala-white text-secondary p-1">3D</span>
-                                        <span class="badge sala-white text-secondary p-1">XL</span>
-                                        <span class="badge sala-white text-secondary p-1">2D</span>
-                                    </li>
-                                </ul>
-                                <span class="badge categoria-badge">Fantasy</span>
+                                <h3 th:text="${film.titolo}">
+                                    Titolo film
+                                </h3>
+
+<!--                                <span th:text="${#temporals.format(film.dataDiUscita, 'yyyy')}"></span>-->
+<!--                                <span th:text="${film.durata / 60 + 'h ' + film.durata % 60 + 'min'}"></span>-->
+
                             </div>
+
                         </div>
+
                     </div>
-                    <!-- CARD3 -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <div class="card-img-wrapper">
-                                <img src="./img/superman.jpg" class="card-img-top">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Superman3</h5>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="mb-2 d-flex gap-3">
-                                        <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
-                                        <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="d-flex mb-1">
-                                        <span class="badge sala-white text-secondary p-1">IMAX</span>
-                                        <span class="badge sala-white text-secondary p-1">3D</span>
-                                        <span class="badge sala-white text-secondary p-1">XL</span>
-                                        <span class="badge sala-white text-secondary p-1">2D</span>
-                                    </li>
-                                </ul>
-                                <span class="badge categoria-badge">Fantasy</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CARD4 -->
-                    <div class="swiper-slide ">
-                        <div class="card">
-                            <div class="card-img-wrapper">
-                                <img src="/img/superman.jpg" class="card-img-top">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Superman4</h5>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="mb-2 d-flex gap-3">
-                                        <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
-                                        <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="d-flex mb-1">
-                                        <span class="badge sala-white text-secondary p-1">IMAX</span>
-                                        <span class="badge sala-white text-secondary p-1">3D</span>
-                                        <span class="badge sala-white text-secondary p-1">XL</span>
-                                        <span class="badge sala-white text-secondary p-1">2D</span>
-                                    </li>
-                                </ul>
-                                <span class="badge categoria-badge">Fantasy</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CARD5 -->
-                    <div class="swiper-slide ">
-                        <div class="card">
-                            <div class="card-img-wrapper">
-                                <img src="./img/superman.jpg" class="card-img-top">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Superman5</h5>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="mb-2 d-flex gap-3">
-                                        <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
-                                        <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="d-flex mb-1">
-                                        <span class="badge sala-white text-secondary p-1">IMAX</span>
-                                        <span class="badge sala-white text-secondary p-1">3D</span>
-                                        <span class="badge sala-white text-secondary p-1">XL</span>
-                                        <span class="badge sala-white text-secondary p-1">2D</span>
-                                    </li>
-                                </ul>
-                                <span class="badge categoria-badge">Fantasy</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CARD6 -->
-                    <div class="swiper-slide ">
-                        <div class="card">
-                            <div class="card-img-wrapper">
-                                <img src="./img/superman.jpg" class="card-img-top">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Superman6</h5>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="mb-2 d-flex gap-3">
-                                        <span class="text-secondary"><i class="fa-regular fa-clock"></i> 2h 16min</span>
-                                        <span class="text-secondary"><i class="fa-regular fa-calendar"></i> 2026</span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled p-0 m-0">
-                                    <li class="d-flex mb-1">
-                                        <span class="badge sala-white text-secondary p-1">IMAX</span>
-                                        <span class="badge sala-white text-secondary p-1">3D</span>
-                                        <span class="badge sala-white text-secondary p-1">XL</span>
-                                        <span class="badge sala-white text-secondary p-1">2D</span>
-                                    </li>
-                                </ul>
-                                <span class="badge categoria-badge">Fantasy</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -338,22 +205,19 @@
     });
 
     //SWIPER I PIU VISTI
+    let swiperElement = document.querySelector(".mySwiper");
+    let numeroFilm = swiperElement.querySelectorAll(".swiper-slide").length;
+
     let swiper = new Swiper(".mySwiper", {
-      slidesPerView: 3, 
-      spaceBetween: 10, 
-      loop: true, 
-      
-      navigation: { 
-        nextEl: ".swiper-button-next", 
-        prevEl: ".swiper-button-prev", 
-      }, 
-      
-      on: { 
-        init: function () { 
-          const realSlides = document.querySelectorAll(".mySwiper .swiper-slide:not(.swiper-slide-duplicate)").length; 
-          this.totalPages = realSlides - this.params.slidesPerView + 1; 
-          this.currentPage = 1; document.getElementById("total").textContent = this.totalPages; 
-          document.getElementById("current").textContent = this.currentPage; } }
+        slidesPerView: 3,
+        spaceBetween: 10,
+
+        loop: numeroFilm > 3,
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        }
     });
 
 </script>

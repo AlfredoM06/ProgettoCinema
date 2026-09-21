@@ -14,30 +14,42 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // CONTROLLO FRECCE SWIPER
-    document.querySelector(".swiper-button-next").addEventListener("click", () => {
-      let swiper = document.querySelector(".mySwiper").swiper;
+   // =====================================================
+   // CONTATORE SWIPER
+   // =====================================================
 
-      swiper.currentPage++;
+    const swiperElement = document.querySelector(".mySwiper");
+       const currentElement = document.getElementById("current");
+       const totalElement = document.getElementById("total");
 
-      if (swiper.currentPage > swiper.totalPages) {
-        swiper.currentPage = 1;
-      }
+       if (swiperElement && currentElement && totalElement) {
 
-      document.getElementById("current").textContent = swiper.currentPage;
-    });
+           const slides = swiperElement.querySelectorAll(".swiper-slide");
+           const numeroFilm = slides.length;
 
-    document.querySelector(".swiper-button-prev").addEventListener("click", () => {
-      let swiper = document.querySelector(".mySwiper").swiper;
+           // Mostra il numero reale di film
+           totalElement.textContent = numeroFilm;
 
-      swiper.currentPage--;
+           // Parte sempre dalla prima card
+           currentElement.textContent = "1";
 
-      if (swiper.currentPage < 1) {
-        swiper.currentPage = swiper.totalPages;
-      }
+           // Se ci sono 3 card o meno,
+           // le frecce vengono disabilitate
+           if (numeroFilm <= 3) {
 
-      document.getElementById("current").textContent = swiper.currentPage;
-    });
+               const prevButton = document.querySelector(".swiper-button-prev");
+               const nextButton = document.querySelector(".swiper-button-next");
+
+               if (prevButton) {
+                   prevButton.classList.add("swiper-button-disabled");
+               }
+
+               if (nextButton) {
+                   nextButton.classList.add("swiper-button-disabled");
+               }
+           }
+       }
+
 
      // =====================================================
      // SPONSORSHIP BANNER
