@@ -471,7 +471,22 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
+    // =====================================================
+    // FORMATTAZIONE DATA E ORARIO BIGLIETTI
+    // =====================================================
+    // FORMATTAZIONE DATA PER VISUALIZZAZIONE — GG/MM/AAAA
 
+    function formattaDataVisuale(data) {
+        if (!data) return "";
+        let [anno, mese, giorno] = data.split("-");
+        return `${giorno}/${mese}/${anno}`;
+    }
+
+    // FORMATTAZIONE ORARIO — rimuove i secondi
+    function formattaOrario(orario) {
+        if (!orario) return "";
+        return orario.substring(0, 5);
+    }
     // =====================================================
     // CODICE QR BIGLIETTI E MENU
     // =====================================================
@@ -560,16 +575,16 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="ticket-card">
                 <div class="account-header">
                     <h2 class="section-title">${biglietto.titolo}</h2>
-                    <span class="ticket-date">${biglietto.giorno}</span>
+                    <span class="ticket-date">${formattaDataVisuale(biglietto.giorno)}</span>
                 </div>
                 <div class="ticket-times">
                     <div class="ticket-field">
                         <span class="ticket-label">Inizio</span>
-                        <span class="ticket-value">${biglietto.inizio}</span>
+                        <span class="ticket-value">${formattaOrario(biglietto.inizio)}</span>
                     </div>
                     <div class="ticket-field">
                         <span class="ticket-label">Fine</span>
-                        <span class="ticket-value">${biglietto.fine}</span>
+                        <span class="ticket-value">${formattaOrario(biglietto.fine)}</span>
                     </div>
                 </div>
                 <div class="ticket-qr-wrapper">
@@ -687,7 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <span class="menu-value menu-price">${offerta.prezzoTotale}</span>
                         </div>
                     </div>
-                    <span class="menu-date">${formattaData(offerta.dataAcquisto)}</span>
+                    <span class="menu-date">${formattaDataVisuale(offerta.dataAcquisto)}</span>
                 </div>
                 <div class="menu-qr-wrapper">
                     <div class="menu-qrcode"></div>
