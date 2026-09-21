@@ -33,7 +33,7 @@
 <ul class="navbar-nav" th:fragment="account" sec:authorize="isAuthenticated()">
 
     <li class="nav-item dropdown">
-        <a class="nav-link" th:href="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/admin} : @{/utente}">
+        <a class="nav-link booking-nav-link" th:href="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/admin} : @{/utente}">
             <div class="cart-icon-wrapper">
                 <img class="user-icon"
                      th:src="${#authorization.expression('hasAuthority(''Admin'')')} ? @{/img/icona_admin_user.svg} : @{/img/icona_profilo-utente.svg}"
@@ -43,10 +43,10 @@
         </a>
 
         <ul class="dropdown-menu accountDrop">
-            <li sec:authorize="hasAuthority('User')"><a class="dropdown-item" th:href="@{/utente}">Account</a></li>
-            <li sec:authorize="hasAuthority('Admin')"><a class="dropdown-item" th:href="@{/admin}">DashBoard</a>
-            <li><a class="dropdown-item" th:href="@{/carrello}">Carrello</a></li>
-        </li>
+            <li sec:authorize="hasAuthority('User')"><a class="dropdown-item booking-nav-link" th:href="@{/utente}">Account</a></li>
+            <li sec:authorize="hasAuthority('Admin')"><a class="dropdown-item booking-nav-link" th:href="@{/admin}">DashBoard</a></li>
+            <li><a class="dropdown-item booking-nav-link" th:href="@{/carrello}">Carrello</a></li>
+
             <li><hr class="dropdown-divider"></li>
             <li>
                 <form th:action="@{/logout}" method="post">
