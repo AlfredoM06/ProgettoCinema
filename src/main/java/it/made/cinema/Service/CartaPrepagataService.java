@@ -30,7 +30,7 @@ public class CartaPrepagataService {
         }
 
         switch (utente.getNomeCarta().getId()) {
-            case 1: // Basic → solo sala standard (id 1) e non VIP (tipo 2)
+            case 1: // Basic → solo sala standard (id 1) e 3D (id 2) e non VIP (tipo 2)
                 return sala.getId().equals(1) && sala.getId().equals(2) && tipoPosto != 2;
             case 2: // Plus → tutte le sale tranne IMAX (id 3) e non VIP
                 return !sala.getId().equals(3) && tipoPosto != 2;

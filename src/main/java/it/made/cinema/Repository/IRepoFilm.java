@@ -19,7 +19,7 @@ public interface IRepoFilm extends JpaRepository<Film, Integer> {
     // 7 film con data di uscita più recente
     List<Film> findTop7ByArchiviatoFalseOrderByDataDiUscitaDesc();
     //mettere query per fare la ricerca dei film in evidenza contando quanti posti sono stati occupati che equivalgono ai biglietti comprati
-    @Query(value = "SELECT f.*, COUNT(po.id) AS posti_occupati FROM posti_occupati po, programmazione_dei_film pdf, films f WHERE pdf.id_film = f.id AND po.id_programmazione_film = pdf.id GROUP BY f.id ORDER BY posti_occupati DESC LIMIT 6", nativeQuery = true)
+    @Query(value = "SELECT f.*, COUNT(po.id) AS posti_occupati FROM  films f LEFT OUTER JOIN programmazione_dei_film pdf ON f.id = pdf.id_film LEFT OUTER JOIN posti_occupati po ON pdf.id = po.id_programmazione_film GROUP BY f.id ORDER BY posti_occupati DESC LIMIT 6", nativeQuery = true)
     public List<Film> findFilmEvidenza();
 	public List<Film> findByArchiviato(Boolean archiviato);
 }
