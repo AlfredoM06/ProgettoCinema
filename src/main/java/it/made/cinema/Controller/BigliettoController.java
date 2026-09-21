@@ -9,6 +9,7 @@ import it.made.cinema.Repository.*;
 import it.made.cinema.Service.CartaPrepagataService;
 import it.made.cinema.Service.PrezzoService;
 import it.made.cinema.Service.PuntiService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,7 @@ public class BigliettoController {
     CartaPrepagataService cartaService;
 
     //11) Per determinate cose si hanno dei punti extra (es. chi vede i film sponsorizzati riceveranno punti extra)
+    @Transactional
     @PostMapping("/acquistoBiglietto")
     public @ResponseBody ScontrinoDTO acquistoBiglietto(@RequestBody AcquistoDTO acquistoBiglietto) {
         Film film = repoFilm.findById(acquistoBiglietto.getId_film()).get();

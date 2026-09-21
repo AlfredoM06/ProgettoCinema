@@ -21,8 +21,7 @@ public class CartaPrepagataService {
 
         // Carta annuale (id 3) → controlla solo la scadenza, utilizzi illimitati
         if (utente.getNomeCarta().getId().equals(3)) {
-            return utente.getDataScadenza() != null &&
-                    utente.getDataScadenza().isAfter(LocalDate.now());
+            return utente.getDataScadenza() != null && utente.getDataScadenza().isAfter(LocalDate.now());
         }
 
         // Carta Basic (id 1) e Plus (id 2) → controlla utilizzi rimasti
@@ -32,9 +31,11 @@ public class CartaPrepagataService {
 
         switch (utente.getNomeCarta().getId()) {
             case 1: // Basic → solo sala standard (id 1) e non VIP (tipo 2)
-                return sala.getId().equals(1) && tipoPosto != 2;
+                return sala.getId().equals(1) && sala.getId().equals(2) && tipoPosto != 2;
             case 2: // Plus → tutte le sale tranne IMAX (id 3) e non VIP
                 return !sala.getId().equals(3) && tipoPosto != 2;
+            case 3: // all u can see -> vedi tutto
+                return tipoPosto != 2;
             default:
                 return false;
         }
