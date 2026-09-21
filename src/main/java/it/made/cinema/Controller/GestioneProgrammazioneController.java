@@ -166,6 +166,7 @@ public class GestioneProgrammazioneController {
         model.addAttribute("fine", programmazione.getOrario().plusMinutes(film.getDurata() + 30));
         model.addAttribute("idFilm", programmazione.getFilm().getId());
         model.addAttribute("idUtente", userDetails.getId());
+        model.addAttribute("prezzo", film.getPrezzo());
 
         return "prenotazioneBiglietto";
     }

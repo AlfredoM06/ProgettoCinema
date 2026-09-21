@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     POSTI.forEach(posto => {
       let tipo = mapTipoPrezzo(posto.tipo);
       if (tipo && PREZZI[tipo] === undefined) {
-        PREZZI[tipo] = posto.prezzoPosto;
+        PREZZI[tipo] = Number(posto.prezzoPosto) +  Number(PREZZO_FILM);
       }
     });
   }
@@ -404,7 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function calcolaPrezzoBackend() {
 
     if (selectedSeats.length === 0) {
+        ultimoScontrino = null;
         totalPriceEl.textContent = "0.00";
+        updateSummary();
         return;
     }
 
@@ -452,17 +454,26 @@ function calcolaPrezzoBackend() {
         console.log("=== SCONTRINO CALCOLO ===");
         console.log(scontrino);
 
+        ultimoScontrino = scontrino;
+
         if (!scontrino) {
             totalPriceEl.textContent = "0.00";
+            updateSummary();
             return;
         }
 
-        totalPriceEl.textContent = Number(scontrino.prezzoTotale).toFixed(2);
+        totalPriceEl.textContent =
+            Number(scontrino.prezzoTotale).toFixed(2);
+
+        updateSummary();
 
     })
     .catch(err => {
         console.error("=== ERRORE CALCOLO PREZZO ===", err);
+
+        ultimoScontrino = null;
         totalPriceEl.textContent = "0.00";
+        updateSummary();
     });
 }
 
@@ -473,74 +484,154 @@ function calcolaPrezzoBackend() {
   =========================
   */
 
-  let updateUI = () => {
+let updateUI = () => {
 
-      seatCountEl.textContent = ticketCount;
+    seatCountEl.textContent = ticketCount;
 
-      if (selectedSeats.length > 0) {
-          selectionBox.classList.remove("hidden");
-          promoBox.classList.remove("hidden");
-      } else {
-          selectionBox.classList.add("hidden");
-          if (selectionStarted) {
-              promoBox.classList.remove("hidden");
-          }
-      }
+    if (selectedSeats.length > 0) {
 
-      document.querySelector(".checkout-box")
-          .classList.toggle(
-              "hidden",
-              selectedSeats.length === 0
-          );
+        selectionBox.classList.remove("hidden");
+        promoBox.classList.remove("hidden");
 
-      minusBtn.classList.toggle(
-          "disabled",
-          ticketCount === 1
-      );
+    } else {
 
-      totalTicketsEl.textContent = selectedSeats.length;
+        selectionBox.classList.add("hidden");
 
-      calcolaPrezzoBackend();
-      updateSummary();
-  };
+        if (selectionStarted) {
+            promoBox.classList.remove("hidden");
+        }
+    }
+
+    document.querySelector(".checkout-box")
+        .classList.toggle(
+            "hidden",
+            selectedSeats.length === 0
+        );
+
+    minusBtn.classList.toggle(
+        "disabled",
+        ticketCount === 1
+    );
+
+    totalTicketsEl.textContent = selectedSeats.length;
+
+    updateSummary();
+
+    calcolaPrezzoBackend();
+};
 
   //RIPRISTINO SESSIONE ALLO SCADERE DEL TEMPO
-  function ripristinaSessione() {
+function ripristinaSessione() {
 
+    // Deseleziona i posti attualmente selezionati
     selectedSeats.forEach(seat => {
-      let img = seat.querySelector("img");
-      let type = seat.dataset.type;
 
-      img.src = seatImages[type].available;
-      seat.classList.remove("selected");
+        let img = seat.querySelector("img");
+        let type = seat.dataset.type;
+
+        img.src = seatImages[type].available;
+        seat.classList.remove("selected");
     });
 
     selectedSeats = [];
-    updateUI();
 
-    // aggiorna la sala (controlla eventuali acquisti fatti nel frattempo)
-    loadPosti(ID_PROGRAMMAZIONE);
+    // Chiude la modal
+    let modalElement =
+        document.getElementById("sessionExpiredModal");
 
-    // chiude modal
-    let modalElement = document.getElementById("sessionExpiredModal");
-    let modal = bootstrap.Modal.getInstance(modalElement);
+    let modal =
+        bootstrap.Modal.getInstance(modalElement);
 
     if (modal) {
-      modal.hide();
+        modal.hide();
     }
 
-    // reset timer
+    // Ricarica la situazione aggiornata dei posti
+    loadPosti(ID_PROGRAMMAZIONE);
+
+    // Aggiorna interfaccia
+    updateUI();
+
+    // Reset timer
     clearInterval(timerInterval);
+
     time = 300;
     sessionExpired = false;
 
-    // riparte da 5 minuti
     avviaTimer();
-  }
+}
 
-  document.getElementById("restore-session").addEventListener("click", () => {
+
+/*
+=========================================================
+    MODAL USCITA / NAVBAR
+=========================================================
+*/
+
+let destinazioneNavbar = null;
+let formLogoutDaEseguire = null;
+let exitModalElement = document.getElementById("exitModal");
+let exitModal = bootstrap.Modal.getOrCreateInstance(exitModalElement);
+let confirmExit = document.getElementById("confirm-exit");
+let keepSelection = document.querySelector(".keep-selection");
+
+
+/*CLICK SUI LINK DELLA NAVBAR*/
+
+document.querySelectorAll(".booking-nav-link").forEach(link => {
+    link.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        // Salvo dove voleva andare l'utente
+        destinazioneNavbar = this.href;
+
+        // Mostro la modal
+        exitModal.show();
+    });
+});
+
+
+/* CLICK SU "MANTIENI LA MIA SELEZIONE"*/
+
+keepSelection.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Chiudo la modal
+    exitModal.hide();
+
+    // Non devo più effettuare nessun redirect
+    destinazioneNavbar = null;
+
+    // Aggiorno la situazione dei posti
+    loadPosti(ID_PROGRAMMAZIONE);
+});
+
+/*CLICK SU "ESCI"*/
+
+confirmExit.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    /*CASO LOGOUT*/
+
+    if (formLogoutDaEseguire) {
+        formLogoutDaEseguire.submit();
+        return;
+    }
+
+
+    /*CASO LINK NORMALE*/
+
+    if (destinazioneNavbar) {
+        window.location.href = destinazioneNavbar;
+    }
+
+});
+
+// MODAL SESSIONE SCADUTA - RIPRISTINA
+document.getElementById("restore-session").addEventListener("click", () => {
     ripristinaSessione();
-  });
+});
 
 
 
@@ -596,50 +687,50 @@ function calcolaPrezzoBackend() {
   =========================
   */
 
-  function updateSummary() {
+function updateSummary() {
+
     let summary = document.getElementById("selected-summary");
 
     if (selectedSeats.length === 0) {
-      summary.innerHTML = "";
-      summary.classList.add("hidden");
-      return;
+        summary.innerHTML = "";
+        summary.classList.add("hidden");
+        return;
     }
 
     summary.classList.remove("hidden");
     summary.innerHTML = "";
 
     /*
-  =========================
-      LISTA POSTI
-  =========================
-  */
+    =========================
+        LISTA POSTI
+    =========================
+    */
 
     let seatsList = document.createElement("div");
     seatsList.classList.add("selected-seats-list");
+
     selectedSeats.forEach(seat => {
 
-      let type = seat.dataset.type;
-      let seatItem = document.createElement("div");
+        let type = seat.dataset.type;
 
-      seatItem.classList.add(
-        "summary-seat-wrapper"
-      );
+        let seatItem = document.createElement("div");
+        seatItem.classList.add("summary-seat-wrapper");
 
-      seatItem.innerHTML = `
-      <div class="summary-seat">
-        <img src="${seatImages[type].selected}">
-      </div>
+        seatItem.innerHTML = `
+            <div class="summary-seat">
+                <img src="${seatImages[type].selected}">
+            </div>
 
-      <div class="summary-text">
-        ${seat.dataset.positionView}
-      </div>
-      `;
+            <div class="summary-text">
+                ${seat.dataset.positionView}
+            </div>
+        `;
 
-      seatsList.appendChild(seatItem);
-
+        seatsList.appendChild(seatItem);
     });
 
     summary.appendChild(seatsList);
+
 
     /*
     =========================
@@ -647,58 +738,175 @@ function calcolaPrezzoBackend() {
     =========================
     */
 
+    if (!ultimoScontrino ||
+        !ultimoScontrino.bigliettiAcquistati) {
+
+        return;
+    }
+
     let groups = {};
-    selectedSeats.forEach(seat => {
-      let type = seat.dataset.type;
 
-      if (!groups[type]) {
-        groups[type] = {
+    ultimoScontrino.bigliettiAcquistati.forEach(biglietto => {
 
-          count: 0,
-          total: 0
+        let tipo = mapTipoPosto(biglietto.tipo);
 
-        };
-      }
-      groups[type].count++;
-      groups[type].total += getPrice(seat);
+        if (!tipo) {
+            return;
+        }
+
+        // Prezzo pieno del singolo biglietto
+        let prezzoPieno = Number(PREZZI[tipo]) || 0;
+
+        // Prezzo effettivamente calcolato dal backend
+        let prezzoFinale =
+            Number(biglietto.prezzoBiglietto) || 0;
+
+        /*
+        ==========================================
+            CALCOLO SCONTO DEL SINGOLO BIGLIETTO
+        ==========================================
+        */
+
+        let percentuale = 0;
+
+        if (prezzoPieno > 0 && prezzoFinale < prezzoPieno) {
+
+            percentuale = Math.round(
+                ((prezzoPieno - prezzoFinale) / prezzoPieno) * 100
+            );
+        }
+
+        /*
+        ==========================================
+            GRUPPO = CATEGORIA + SCONTO
+        ==========================================
+
+        Esempio:
+
+        green + 46%
+        green + 20%
+        vip + 20%
+
+        vengono considerati gruppi separati.
+        */
+
+        let groupKey = `${tipo}_${percentuale}`;
+
+        if (!groups[groupKey]) {
+
+            groups[groupKey] = {
+                type: tipo,
+                count: 0,
+                originalTotal: 0,
+                total: 0,
+                discount: percentuale
+            };
+        }
+
+        groups[groupKey].count++;
+
+        groups[groupKey].originalTotal += prezzoPieno;
+
+        groups[groupKey].total += prezzoFinale;
     });
 
-    Object.keys(groups)
-      .forEach(type => {
-        let categoryWrapper = document.createElement("div");
-        categoryWrapper.classList.add(
-          "summary-category"
-        );
-        let row = document.createElement("div");
-        row.classList.add(
-          "summary-row"
-        );
+
+    /*
+    =========================
+        STAMPA GRUPPI
+    =========================
+    */
+
+    Object.values(groups).forEach(group => {
+
+        let categoryWrapper =
+            document.createElement("div");
+
+        categoryWrapper.classList.add("summary-category");
+
+
+        let row =
+            document.createElement("div");
+
+        row.classList.add("summary-row");
+
+
+        /*
+        ==========================================
+            PREZZO ORIGINALE
+        ==========================================
+        */
+
+        let oldPriceHTML = "";
+
+        if (group.discount > 0) {
+
+            oldPriceHTML = `
+                <span class="old-price">
+                    ${group.originalTotal.toFixed(2)} €
+                </span>
+            `;
+        }
+
+
+        /*
+        ==========================================
+            BADGE SCONTO
+        ==========================================
+        */
+
+        let badgeHTML = "";
+
+        if (group.discount > 0) {
+
+            badgeHTML = `
+                <span class="discount-badge">
+                    -${group.discount}%
+                </span>
+            `;
+        }
+
+
+        /*
+        ==========================================
+            RIGA
+        ==========================================
+        */
 
         row.innerHTML = `
-        <div class="summary-left">
-          <div class="summary-text">
+            <div class="summary-left">
+                <div class="summary-text">
+                    ${group.count}
+                    x Biglietto online
+                    ${capitalize(group.type)}
+                </div>
+            </div>
 
-            ${groups[type].count}
-            x Biglietto online
-            ${capitalize(type)}
+            <div class="price-wrapper">
 
-          </div>
-        </div>
+                <div class="summary-price">
+
+                    ${oldPriceHTML}
+
+                    <span class="current-price">
+                        ${group.total.toFixed(2)} €
+                    </span>
+
+                    ${badgeHTML}
+
+                </div>
+
+            </div>
+        `;
 
 
-        <div class="summary-price">
-          ${groups[type].total.toFixed(2)} €
-        </div>
-
-      `;
         categoryWrapper.appendChild(row);
+
         summary.appendChild(categoryWrapper);
+    });
+}
 
 
-      });
-
-
-  }
 
   let capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);

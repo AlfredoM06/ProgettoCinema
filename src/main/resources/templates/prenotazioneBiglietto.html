@@ -20,14 +20,14 @@
     <div class="container">
         <div class="navbar-flex">
 
-            <img class="logo" th:src="@{/img/Cinema_Logo.png}">
+            <a th:href="@{/}" class="booking-nav-link"><img class="logo"  th:src="@{/img/Cinema_Logo.png}" ></a>
 
             <div class="timer-box">
                 <span id="timer">05:00</span>
                 <span> minuti per acquistare il biglietto</span>
             </div>
 
-            <i class="fa-regular fa-user user-icon"></i>
+            <div th:replace="fragments/navbar :: account"></div>
 
         </div>
     </div>
@@ -67,7 +67,6 @@
                         ${#temporals.format(inizio, 'HH:mm')} + ' - ' +
                         ${#temporals.format(fine, 'HH:mm')}">
                         </div>
-                        <button class="btn-change"><i class="fa-regular fa-clock"></i>Cambia orario</button>
                     </div>
                 </div>
             </div>
@@ -83,10 +82,12 @@
             <div class="col-md-9 cinema-left">
 
                 <div class="cinema-inner">
-                    <button class="back-btn" data-bs-toggle="modal" data-bs-target="#exitModal">
+                    <div class="back-btn" >
                         <i class="fa-solid fa-chevron-left"></i>
-                        <span>Vedi tutti i film</span>
-                    </button>
+                        <a th:href="@{/inSala}" class="booking-nav-link">
+                            <span>Vedi tutti i film</span>
+                        </a>
+                    </div>
                     <!-- BOX SALA -->
                     <div class="cinema-box">
 
@@ -259,7 +260,7 @@
                         Mantieni la mia selezione
                     </a>
 
-                    <a href="./inSala.html" class="exit-btn text-uppercase">
+                    <a class="exit-btn text-uppercase" id="confirm-exit">
                         Esci
                     </a>
 
@@ -318,7 +319,7 @@
     const POSTI = /*[[${posti}]]*/[];
     const FILM_ID            = /*[[${idFilm}]]*/ null;
     const USER_ID            = /*[[${idUtente}]]*/ null;
-
+    const PREZZO_FILM = /*[[${prezzo}]]*/ 0;
 </script>
 <script th:src="@{/js/badgeCarrello.js}"></script>
 <script src="/js/prenotazioneBiglietto.js"></script>
