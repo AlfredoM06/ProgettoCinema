@@ -28,10 +28,11 @@ public class PartnershipController {
     public List<Map<String, Object>> listaBanner() {
         List<Partnership> banner = repoPartnership.findAll();
         List<Map<String, Object>> listaBanner = new ArrayList<>();
-        for (Partnership p : banner){
+        for (Partnership p : banner) {
             Map<String, Object> mapBanner = new HashMap<>();
             mapBanner.put("id", p.getId());
             mapBanner.put("banner", p.getImg_banner());
+            mapBanner.put("filmId", p.getFilm().getId());
             listaBanner.add(mapBanner);
         }
         return listaBanner;
