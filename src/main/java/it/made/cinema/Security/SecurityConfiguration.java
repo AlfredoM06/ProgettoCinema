@@ -83,7 +83,7 @@ public class SecurityConfiguration {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .failureUrl("/login?error")
+                        .failureUrl("/login/login-error")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
