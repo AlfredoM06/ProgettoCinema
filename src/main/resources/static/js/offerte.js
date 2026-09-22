@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let html = `
                 <article class="card" data-type="${offerta.genere}">
                     <figure class="card-media">
-                        <img src="${offerta.img_banner}" alt="Immagine offerta">
+                        <img src="${offerta.imgBanner}" alt="Immagine offerta">
 
                         <div class="card-wave">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

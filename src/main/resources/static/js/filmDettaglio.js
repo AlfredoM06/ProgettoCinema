@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <div class="banner-media">
                     <img
-                        src="${offerta.img_banner}"
+                        src="${offerta.imgBannerTop}"
                         alt="${offerta.nome}">
                 </div>
 
