@@ -42,7 +42,7 @@ public class SecurityConfiguration {
           .requestMatchers("/inSala/**").permitAll()
           .requestMatchers("/login").permitAll()
           .requestMatchers("/membership").permitAll()
-          .requestMatchers("/offete").permitAll()
+          .requestMatchers("/offerte").permitAll()
           .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
           .requestMatchers("/partnership/**").permitAll()
           .requestMatchers("/prossimamente/**").permitAll()
@@ -55,7 +55,7 @@ public class SecurityConfiguration {
     }*/
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { //metodo nuovo per la secuirity
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { //metodo nuovo per la secuirity con le lambda
         http
                 .authorizeHttpRequests(auth -> auth
                         // --- pubbliche ---
