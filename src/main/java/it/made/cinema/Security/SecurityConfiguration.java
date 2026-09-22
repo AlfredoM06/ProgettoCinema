@@ -32,6 +32,28 @@ public class SecurityConfiguration {
         return authenticationProvider;
     }
 
+   /* @Bean   METODO VECCHIO E CHE CREAVA ANCHE PROBLEMI PER OBSOLESCENZA
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+      http.authorizeHttpRequests()
+          .requestMatchers("/biglietto/**").hasAnyAuthority("Admin","User") //solo utente loggato
+          .requestMatchers("/carrello", "/carrello/**").hasAnyAuthority("Admin", "User") //solo utente loggato
+          .requestMatchers("/cinefans").permitAll()
+          .requestMatchers("/admin","/admin/**").hasAuthority("Admin") //solo admin da nascondere
+          .requestMatchers("/inSala/**").permitAll()
+          .requestMatchers("/login").permitAll()
+          .requestMatchers("/membership").permitAll()
+          .requestMatchers("/offete").permitAll()
+          .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
+          .requestMatchers("/partnership/**").permitAll()
+          .requestMatchers("/prossimamente/**").permitAll()
+          .anyRequest().permitAll()
+          .and().formLogin().loginPage("/login").failureUrl("/login/login-error")
+          .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").clearAuthentication(true).invalidateHttpSession(true)
+          .and().exceptionHandling()
+          .and().csrf().disable();
+      return http.build();
+    }*/
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -40,7 +62,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/", "/login", "/logout").permitAll()
                         .requestMatchers("/offete", "/cinefans").permitAll()
                         .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
 
                         // --- membership: pagina pubblica, acquisto protetto ---
                         .requestMatchers(HttpMethod.POST, "/membership/membershipAcquistata").hasAnyAuthority("Admin", "User")
