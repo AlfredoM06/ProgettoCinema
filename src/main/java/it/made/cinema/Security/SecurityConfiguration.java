@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 @Configuration
 public class SecurityConfiguration {
@@ -33,24 +34,45 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-      http.authorizeHttpRequests()
-          .requestMatchers("/biglietto/**").hasAnyAuthority("Admin","User") //solo utente loggato
-          .requestMatchers("/carrello", "/carrello/**").hasAnyAuthority("Admin", "User") //solo utente loggato
-          .requestMatchers("/cinefans").permitAll()
-          .requestMatchers("/admin","/admin/**").hasAuthority("Admin") //solo admin da nascondere
-          .requestMatchers("/inSala/**").permitAll()
-          .requestMatchers("/login").permitAll()
-          .requestMatchers("/membership").permitAll()
-          .requestMatchers("/offete").permitAll()
-          .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
-          .requestMatchers("/partnership/**").permitAll()
-          .requestMatchers("/prossimamente/**").permitAll()
-          .anyRequest().permitAll()
-          .and().formLogin().loginPage("/login").failureUrl("/login/login-error")
-          .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").clearAuthentication(true).invalidateHttpSession(true)
-          .and().exceptionHandling()
-          .and().csrf().disable();
-      return http.build();
+        http
+                .authorizeHttpRequests(auth -> auth
+                        // --- pubbliche ---
+                        .requestMatchers("/", "/login", "/logout").permitAll()
+                        .requestMatchers("/offete", "/cinefans").permitAll()
+                        .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
+
+                        // --- membership: pagina pubblica, acquisto protetto ---
+                        .requestMatchers(HttpMethod.POST, "/membership/membershipAcquistata").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/membership").permitAll()
+
+                        // --- gestioneProgrammazione: solo il dettaglio richiede login, il resto è admin-only ---
+                        .requestMatchers(HttpMethod.GET, "/gestioneProgrammazione/dettagliProgrammazione/**").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/gestioneProgrammazione/**").hasAuthority("Admin")
+
+                        // --- protette ---
+                        .requestMatchers("/biglietto/**").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/carrello", "/carrello/**").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/admin", "/admin/**").hasAuthority("Admin")
+
+                        // --- fallback sicuro ---
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .failureUrl("/login?error")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                )
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                )
+                .csrf(csrf -> csrf.disable());
+        return http.build();
     }
 }
-

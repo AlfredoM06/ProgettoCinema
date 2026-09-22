@@ -36,8 +36,6 @@ public class InSalaController {
     @Autowired
     private IRepoGeneri repoGeneri;
     @Autowired
-    PrezzoService prezzoService;
-    @Autowired
     PostiService postiService;
     @Autowired
     IRepoProgrammazione repoProgrammazione;
