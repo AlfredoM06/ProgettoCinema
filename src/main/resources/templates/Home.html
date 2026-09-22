@@ -87,9 +87,7 @@
     <section class="filmpiuVisti" id="filmpiuVisti">
         <div class="header-swiper">
             <h1 class="titoloLinea" id="piuVisti">in evidenza</h1>
-            <p style="color: red;">
-                Numero film: <span th:text="${inEvidenza.size()}"></span>
-            </p>
+
             <div class="swiper-controls">
                 <div class="swiper-counter">
                     <span id="current">1</span> / <span id="total">0</span>
@@ -107,16 +105,35 @@
                          th:each="film : ${inEvidenza}">
 
                         <div class="card">
-                            <img th:src="@{${film.img_poster}}"
-                                 th:alt="${film.titolo}">
+                            <div class="card-img-wrapper">
+                                <img th:src="@{${film.img_poster}}" th:alt="${film.titolo}" class="card-img-top">
+                            </div>
                             <div class="card-body">
-                                <h3 th:text="${film.titolo}">
+                                <h5 class="card-title" th:text="${film.titolo}">
                                     Titolo film
-                                </h3>
-
-<!--                                <span th:text="${#temporals.format(film.dataDiUscita, 'yyyy')}"></span>-->
-<!--                                <span th:text="${film.durata / 60 + 'h ' + film.durata % 60 + 'min'}"></span>-->
-
+                                </h5>
+                                <ul class="list-unstyled p-0 m-0">
+                                    <li class="mb-2 d-flex gap-3">
+                                        <span class="text-secondary"
+                                              th:text="${film.durata / 60 + 'h ' + film.durata % 60 + 'min'}">
+                                            <i class="fa-regular fa-clock"></i></span>
+                                        <span class="text-secondary"
+                                              th:text="${#temporals.format(film.dataDiUscita, 'yyyy')}">
+                                            <i class="fa-regular fa-calendar"></i> 2026</span>
+                                    </li>
+                                </ul>
+                                <ul class="list-unstyled p-0 m-0">
+                                    <li class="d-flex mb-1">
+                                        <span th:each="formato : ${film.formato}"
+                                              class="badge formato-badge sala-white text-secondary p-1"
+                                              th:text="${formato}">
+                                        </span>
+                                    </li>
+                                </ul>
+                                <span th:each="genere : ${film.generi}"
+                                      class="badge categoria-badge"
+                                      th:text="${genere.nome}">
+                                </span>
                             </div>
 
                         </div>
@@ -204,21 +221,7 @@
       $('.carusel').carusel();
     });
 
-    //SWIPER I PIU VISTI
-    let swiperElement = document.querySelector(".mySwiper");
-    let numeroFilm = swiperElement.querySelectorAll(".swiper-slide").length;
 
-    let swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 10,
-
-        loop: numeroFilm > 3,
-
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        }
-    });
 
 </script>
 </body>

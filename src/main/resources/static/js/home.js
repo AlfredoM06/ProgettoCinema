@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    // =====================================================
+    // CARD
+    // =====================================================
+
     let cards = document.querySelectorAll('.card');
     let overlay = document.querySelector('.global-overlay');
 
@@ -14,138 +19,302 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-   // =====================================================
-   // CONTATORE SWIPER
-   // =====================================================
+
+    // =====================================================
+    // SWIPER FILM IN EVIDENZA
+    // =====================================================
 
     const swiperElement = document.querySelector(".mySwiper");
-       const currentElement = document.getElementById("current");
-       const totalElement = document.getElementById("total");
+    const currentElement = document.getElementById("current");
+    const totalElement = document.getElementById("total");
 
-       if (swiperElement && currentElement && totalElement) {
+    if (swiperElement) {
 
-           const slides = swiperElement.querySelectorAll(".swiper-slide");
-           const numeroFilm = slides.length;
+        // Numero totale dei film
+        const numeroFilm = swiperElement.querySelectorAll(".swiper-slide").length;
 
-           // Mostra il numero reale di film
-           totalElement.textContent = numeroFilm;
+        console.log("FILM IN EVIDENZA:", numeroFilm);
 
-           // Parte sempre dalla prima card
-           currentElement.textContent = "1";
+        // Aggiorna il totale
+        if (totalElement) {
+            totalElement.textContent = numeroFilm;
+        }
 
-           // Se ci sono 3 card o meno,
-           // le frecce vengono disabilitate
-           if (numeroFilm <= 3) {
+        // Inizializza Swiper
+        const swiper = new Swiper(".mySwiper", {
 
-               const prevButton = document.querySelector(".swiper-button-prev");
-               const nextButton = document.querySelector(".swiper-button-next");
+            slidesPerView: 3,
+            spaceBetween: 10,
 
-               if (prevButton) {
-                   prevButton.classList.add("swiper-button-disabled");
-               }
+            loop: numeroFilm > 3,
+             roundLengths: numeroFilm > 3,
+             loopAdditionalSlides: 1,
+             watchSlidesProgress: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
 
-               if (nextButton) {
-                   nextButton.classList.add("swiper-button-disabled");
-               }
-           }
-       }
+            on: {
+                init: function () {
+                    aggiornaCounter(this, numeroFilm);
+                },
 
+                slideChange: function () {
+                    aggiornaCounter(this, numeroFilm);
+                }
+            }
+        });
 
-     // =====================================================
-     // SPONSORSHIP BANNER
-     // =====================================================
+        // Se abbiamo 3 film o meno disabilitiamo le frecce
+        if (numeroFilm <= 3) {
 
-     let sponsorshipImg = document.getElementById("sponsorshipBannerImg");
+            const prevButton =
+                document.querySelector(".swiper-button-prev");
 
-     if (sponsorshipImg) {
-         let defaultBanner = "/img/banner_default_partnership.webp";
-         console.log("SPONSORSHIP IMG TROVATA:", sponsorshipImg);
-         console.log("SRC INIZIALE:", sponsorshipImg.getAttribute("src"));
-         console.log("SRC ASSOLUTO:", sponsorshipImg.src);
+            const nextButton =
+                document.querySelector(".swiper-button-next");
 
-         // Impostiamo esplicitamente il default
-         sponsorshipImg.src = defaultBanner;
+            if (prevButton) {
+                prevButton.classList.add("swiper-button-disabled");
+            }
 
-         fetch("/partnership/listaBanner")
-             .then(response => {
-                 if (!response.ok) {
-                     throw new Error("Errore nel recupero dei banner");
-                 }
-                 return response.json();
-             })
-             .then(partnerships => {
-                 console.log("PARTNERSHIP RICEVUTE:", partnerships);
-
-                 // NESSUNA PARTNERSHIP
-                 if (!partnerships || partnerships.length === 0) {
-                     console.log("NESSUNA PARTNERSHIP");
-                     console.log("MOSTRO:", defaultBanner);
-                     sponsorshipImg.src = defaultBanner;
-                     return;
-                 }
+            if (nextButton) {
+                nextButton.classList.add("swiper-button-disabled");
+            }
+        }
+    }
 
 
-                 // UNA SOLA PARTNERSHIP
-                 // DEFAULT + PARTNERSHIP
-                 if (partnerships.length === 1) {
-                     console.log("UNA PARTNERSHIP");
-                     const immagini = [
-                         defaultBanner,
-                         partnerships[0].banner
-                     ];
-                     console.log("SLIDES:", immagini);
+    // =====================================================
+    // FUNZIONE COUNTER SWIPER
+    // =====================================================
 
-                     let index = 0;
-                     sponsorshipImg.src = immagini[index];
-                     setInterval(() => {
-                         index = (index + 1) % immagini.length;
-                         console.log(
-                             "CAMBIO BANNER:",
-                             immagini[index]
-                         );
-                         sponsorshipImg.src = immagini[index];
-                     }, 4000);
-                     return;
-                 }
+    function aggiornaCounter(swiper, numeroFilm) {
 
-                 // PIÙ PARTNERSHIP
-                 // SOLO PARTNERSHIP
-                 console.log("PIÙ PARTNERSHIP:", partnerships.length);
-                 let index = 0;
-                 sponsorshipImg.src = partnerships[index].banner;
-                 setInterval(() => {
-                     index = (index + 1) % partnerships.length;
-                     console.log(
-                         "CAMBIO PARTNERSHIP:",
-                         partnerships[index].banner
-                     );
-                     sponsorshipImg.src = partnerships[index].banner;
-                 }, 4000);
-             })
-             .catch(error => {
-                 console.error(
-                     "Errore caricamento banner partnership:",
-                     error
-                 );
-                 // In caso di errore mostra sempre il default
-                 sponsorshipImg.src = defaultBanner;
-             });
-     }
+        const currentElement =
+            document.getElementById("current");
 
-     //    BANNER SCORRIMENTO X CINEFANS
-         const bannerImages = [
-             "/img/banner_homepage.webp",
-             "/img/banner_homepage2.webp",
-             "/img/banner_homepage3.webp"
-           ];
+        const totalElement =
+            document.getElementById("total");
 
-           let bannerIndex = 0;
-           const bannerImg = document.getElementById("cinemaBannerImg");
+        if (!currentElement || !totalElement) {
+            return;
+        }
 
-           setInterval(() => {
-             bannerIndex = (bannerIndex + 1) % bannerImages.length;
-             bannerImg.src = bannerImages[bannerIndex];
-           }, 2000);
+        // Totale film
+        totalElement.textContent = numeroFilm;
+
+        let posizione;
+
+        /*
+         * Se loop è attivo Swiper crea delle slide duplicate.
+         * Per questo usiamo realIndex invece di activeIndex.
+         */
+        if (swiper.params.loop) {
+
+            posizione = swiper.realIndex + 1;
+
+        } else {
+
+            posizione = swiper.activeIndex + 1;
+        }
+
+        // Sicurezza
+        if (posizione > numeroFilm) {
+            posizione = numeroFilm;
+        }
+
+        if (posizione < 1) {
+            posizione = 1;
+        }
+
+        currentElement.textContent = posizione;
+    }
+
+
+    // =====================================================
+    // SPONSORSHIP BANNER
+    // =====================================================
+
+    let sponsorshipImg =
+        document.getElementById("sponsorshipBannerImg");
+
+    if (sponsorshipImg) {
+
+        let defaultBanner =
+            "/img/banner_default_partnership.webp";
+
+        console.log(
+            "SPONSORSHIP IMG TROVATA:",
+            sponsorshipImg
+        );
+
+        console.log(
+            "SRC INIZIALE:",
+            sponsorshipImg.getAttribute("src")
+        );
+
+        console.log(
+            "SRC ASSOLUTO:",
+            sponsorshipImg.src
+        );
+
+        // Mostra inizialmente il banner di default
+        sponsorshipImg.src = defaultBanner;
+
+
+        fetch("/partnership/listaBanner")
+
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Errore nel recupero dei banner"
+                    );
+                }
+
+                return response.json();
+            })
+
+            .then(partnerships => {
+
+                console.log(
+                    "PARTNERSHIP RICEVUTE:",
+                    partnerships
+                );
+
+
+                // NESSUNA PARTNERSHIP
+                if (
+                    !partnerships ||
+                    partnerships.length === 0
+                ) {
+
+                    console.log(
+                        "NESSUNA PARTNERSHIP"
+                    );
+
+                    sponsorshipImg.src =
+                        defaultBanner;
+
+                    return;
+                }
+
+
+                // UNA SOLA PARTNERSHIP
+                // DEFAULT + PARTNERSHIP
+                if (partnerships.length === 1) {
+
+                    console.log(
+                        "UNA PARTNERSHIP"
+                    );
+
+                    const immagini = [
+                        defaultBanner,
+                        partnerships[0].banner
+                    ];
+
+                    console.log(
+                        "SLIDES:",
+                        immagini
+                    );
+
+                    let index = 0;
+
+                    sponsorshipImg.src =
+                        immagini[index];
+
+                    setInterval(() => {
+
+                        index =
+                            (index + 1) %
+                            immagini.length;
+
+                        console.log(
+                            "CAMBIO BANNER:",
+                            immagini[index]
+                        );
+
+                        sponsorshipImg.src =
+                            immagini[index];
+
+                    }, 4000);
+
+                    return;
+                }
+
+
+                // PIÙ PARTNERSHIP
+                // SOLO PARTNERSHIP
+
+                console.log(
+                    "PIÙ PARTNERSHIP:",
+                    partnerships.length
+                );
+
+                let index = 0;
+
+                sponsorshipImg.src =
+                    partnerships[index].banner;
+
+                setInterval(() => {
+
+                    index =
+                        (index + 1) %
+                        partnerships.length;
+
+                    console.log(
+                        "CAMBIO PARTNERSHIP:",
+                        partnerships[index].banner
+                    );
+
+                    sponsorshipImg.src =
+                        partnerships[index].banner;
+
+                }, 4000);
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Errore caricamento banner partnership:",
+                    error
+                );
+
+                sponsorshipImg.src =
+                    defaultBanner;
+            });
+    }
+
+
+    // =====================================================
+    // BANNER CINEFANS
+    // =====================================================
+
+    const bannerImages = [
+        "/img/banner_homepage.webp",
+        "/img/banner_homepage2.webp",
+        "/img/banner_homepage3.webp"
+    ];
+
+    let bannerIndex = 0;
+
+    const bannerImg =
+        document.getElementById("cinemaBannerImg");
+
+    if (bannerImg) {
+
+        setInterval(() => {
+
+            bannerIndex =
+                (bannerIndex + 1) %
+                bannerImages.length;
+
+            bannerImg.src =
+                bannerImages[bannerIndex];
+
+        }, 2000);
+    }
 
 });
-

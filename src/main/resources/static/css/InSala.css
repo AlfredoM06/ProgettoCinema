@@ -191,17 +191,11 @@ main {
 
 .movie-card {
   width: 100%;
-
   text-align: center;
-
   cursor: pointer;
-
   background: transparent;
-
   border: none;
-
   max-width: 29.9375rem;
-
   margin: 0 auto;
 
   transition:
@@ -218,17 +212,6 @@ main {
 .movie-card img {
   width: 100%;
 
-  /*
-     320px ESATTI a 1920px.
-
-     Sotto i 1920:
-     1920 → 320px
-     1800 → ~300px
-     1600 → ~270px
-     1440 → ~240px
-     1366 → ~228px
-  */
-
   height: clamp(
     14rem,
     16.667vw,
@@ -236,7 +219,6 @@ main {
   );
 
   object-fit: contain;
-
   display: block;
 }
 
