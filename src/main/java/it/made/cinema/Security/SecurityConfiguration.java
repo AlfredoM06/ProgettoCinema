@@ -55,12 +55,12 @@ public class SecurityConfiguration {
     }*/
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { //metodo nuovo per la secuirity
         http
                 .authorizeHttpRequests(auth -> auth
                         // --- pubbliche ---
                         .requestMatchers("/", "/login", "/logout").permitAll()
-                        .requestMatchers("/offete", "/cinefans").permitAll()
+                        .requestMatchers("/offerte", "/cinefans").permitAll()
                         .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
 
