@@ -62,6 +62,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/", "/login", "/logout").permitAll()
                         .requestMatchers("/offete", "/cinefans").permitAll()
                         .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
 
                         // --- membership: pagina pubblica, acquisto protetto ---
                         .requestMatchers(HttpMethod.POST, "/membership/membershipAcquistata").hasAnyAuthority("Admin", "User")
