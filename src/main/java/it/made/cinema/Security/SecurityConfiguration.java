@@ -60,7 +60,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         // --- pubbliche ---
                         .requestMatchers("/", "/login", "/logout").permitAll()
-                        .requestMatchers("/offerte", "/cinefans").permitAll()
+                        .requestMatchers("/offerte/**", "/cinefans").permitAll()
                         .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
 
