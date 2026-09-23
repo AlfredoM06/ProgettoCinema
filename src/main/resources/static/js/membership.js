@@ -45,7 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const response = await fetch("/membership/membershipAcquistata", {
                     method: "POST"
                 });
-
+                console.log("STATUS:", response.status);
+                console.log("REDIRECTED:", response.redirected);
+                console.log("URL:", response.url);
+                console.log("STATUS TEXT:", response.statusText);
                 // Utente non loggato — Spring Security reindirizza al login
                 if (response.redirected && response.url.includes("/login")) {
                     window.location.href = "/login";
