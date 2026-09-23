@@ -73,7 +73,7 @@ public class ProssimamenteController {
                 programmazione.getDataProgrammazione(),
                 programmazione.getOrario()
         );
-        LocalDateTime sogliaAccesso = inizioAnteprima.plusHours(5);
+        LocalDateTime sogliaAccesso = inizioAnteprima.minusHours(5);
 
         return LocalDateTime.now().isAfter(sogliaAccesso);
     }
