@@ -19,4 +19,6 @@ public interface IRepoProgrammazione extends JpaRepository<ProgrammazioneFilm, I
 
 	@Query(value = "select new it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO(p.film.id, p.sala.id, p.film.titolo, concat('sala ', p.sala.id), p.dataProgrammazione) from ProgrammazioneFilm p group by p.film.id, p.sala.id, p.film.titolo, p.dataProgrammazione")
 	public List<ArchivioProgrammazioniDTO> findAllGroupByDataProgrammazione();
+
+	ProgrammazioneFilm findByFilmIdAndAnteprimaTrue(Integer id);
 }

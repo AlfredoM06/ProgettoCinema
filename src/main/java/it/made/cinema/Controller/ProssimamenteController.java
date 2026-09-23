@@ -1,9 +1,20 @@
 package it.made.cinema.Controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
+import it.made.cinema.Model.ProgrammazioneFilm;
+import it.made.cinema.Model.Utente;
+import it.made.cinema.Repository.IRepoProgrammazione;
+import it.made.cinema.Repository.IRepoUtenti;
+import it.made.cinema.Security.DatabaseUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.made.cinema.Model.Film;
 import it.made.cinema.Repository.IRepoFilm;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/prossimamente")
@@ -21,6 +33,10 @@ public class ProssimamenteController {
     //lista film, dettagli film, log in per la prenotazione,
     @Autowired
     private IRepoFilm repoFilm;
+    @Autowired
+    private IRepoUtenti repoUtenti;
+    @Autowired
+    private IRepoProgrammazione repoProgrammazione;
 
     @GetMapping
     public String listaProssimamente(Model model) {
@@ -36,5 +52,30 @@ public class ProssimamenteController {
         return "filmDettaglio";
     }
 
+    // metodo che restituisce un boolean e che controlla data e membership per accedere alla programmazione
+    @GetMapping("/anteprima/{idFilm}")
+    public Boolean anteprima(@PathVariable Integer idFilm, Authentication authentication) {
+
+        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        Utente utente = repoUtenti.findById(userDetails.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato"));
+
+        ProgrammazioneFilm programmazione = repoProgrammazione.findByFilmIdAndAnteprimaTrue(idFilm);
+        if (programmazione == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Anteprima non trovata");
+        }
+
+        if (Boolean.TRUE.equals(utente.getMembership())) {
+            return true;
+        }
+
+        LocalDateTime inizioAnteprima = LocalDateTime.of(
+                programmazione.getDataProgrammazione(),
+                programmazione.getOrario()
+        );
+        LocalDateTime sogliaAccesso = inizioAnteprima.plusHours(5);
+
+        return LocalDateTime.now().isAfter(sogliaAccesso);
+    }
 
 }

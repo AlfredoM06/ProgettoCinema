@@ -39,6 +39,8 @@ public class ProgrammazioneFilm {
     @NotNull
     private LocalDate dataProgrammazione;
 
+    private Boolean anteprima;
+
     // ManyToOne con Sala
     @ManyToOne
     @JoinColumn(name = "id_sala")
