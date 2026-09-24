@@ -11,8 +11,8 @@ import it.made.cinema.Model.ProgrammazioneFilm;
 import org.springframework.data.jpa.repository.Query;
 
 public interface IRepoProgrammazione extends JpaRepository<ProgrammazioneFilm, Integer> {
-	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmId (LocalDate dataProgrammazione, Integer id);
-	public List<ProgrammazioneFilm> findByDataProgrammazioneGreaterThanEqualAndFilmId(LocalDate dataProgrammazione, Integer id);
+	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmIdAndAnteprimaFalse (LocalDate dataProgrammazione, Integer id);
+	public List<ProgrammazioneFilm> findByDataProgrammazioneGreaterThanEqualAndFilmIdAndAnteprimaFalse(LocalDate dataProgrammazione, Integer id);
 	public List<ProgrammazioneFilm> findByDataProgrammazione(LocalDate dataProgrammazione);
 	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmIdAndSalaId(LocalDate dataProgrammazione, Integer idFilm, Integer idSala);
 	public List<ProgrammazioneFilm> findByDataProgrammazioneAndSalaId(LocalDate dataProgrammazione, Integer idSala);

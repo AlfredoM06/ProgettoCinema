@@ -119,7 +119,7 @@ public class InSalaController {
         // programmazioniS = separate programmazioniT = tutte a partire da oggi
         for (LocalDate d : dates) {
             List<ListaProgDTO> programmazioniS = new ArrayList<>();
-            List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmId(d, film.getId());
+            List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndAnteprimaFalse(d, film.getId());
             for (ProgrammazioneFilm p : programmazioni) {
                 ListaProgDTO programmazione = new ListaProgDTO();
                 programmazione.setId(p.getId());
@@ -136,7 +136,7 @@ public class InSalaController {
         filmDTO.setProgrammazioni(listaProgrammazioni);
         //List<ListaProgDTO> programmazioniT = new ArrayList<>();
         Map<LocalDate, List<ListaProgDTO>> mapTutti = new TreeMap<>(new LocalDateComparator());
-        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneGreaterThanEqualAndFilmId(LocalDate.now(), film.getId());
+        List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneGreaterThanEqualAndFilmIdAndAnteprimaFalse(LocalDate.now(), film.getId());
         for (ProgrammazioneFilm p : programmazioni) {
             ListaProgDTO programmazione = new ListaProgDTO();
             programmazione.setId(p.getId());

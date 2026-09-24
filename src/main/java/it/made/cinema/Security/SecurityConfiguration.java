@@ -64,6 +64,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**" , "/svg/**").permitAll()
 
+                        // --- prossimamente: pronota protetto ---
+                        .requestMatchers(HttpMethod.GET, "/prossimamente/prenota/**").hasAnyAuthority("Admin","User")
+
                         // --- membership: pagina pubblica, acquisto protetto ---
                         .requestMatchers(HttpMethod.POST, "/membership/membershipAcquistata").hasAnyAuthority("Admin", "User")
                         .requestMatchers("/membership").permitAll()
