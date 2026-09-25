@@ -167,6 +167,7 @@ public class GestioneProgrammazioneController {
         model.addAttribute("titolo", film.getTitolo());
         model.addAttribute("poster", film.getImg_poster());
         model.addAttribute("sala", sala.getId());
+        model.addAttribute("idProgrammazione", programmazione.getId());
         model.addAttribute("formato", sala.getFormato());
         model.addAttribute("data", programmazione.getDataProgrammazione());
         model.addAttribute("inizio", programmazione.getOrario());
