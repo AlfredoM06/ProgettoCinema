@@ -308,4 +308,71 @@ dropdown-admin {
     background: #111821;
 }
 
+/* ========================= */
+/* ORARI PROGRAMMAZIONE */
+/* ========================= */
 
+.orari-grid .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+/* ========================= */
+/* CHECKBOX BOOTSTRAP */
+/* ========================= */
+
+.orari-grid .form-check-input {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    border: 1px solid #adb5bd;
+    border-radius: .25rem;
+
+    background-color: transparent;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+/* ORARIO NORMALE SELEZIONATO */
+
+.orari-grid .form-check.is-selected .form-check-input {
+    background-color: var(--border-color);
+    border-color: var(--border-color);
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3L13 4.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: .7rem .7rem;
+}
+
+/* ========================= */
+/* ANTEPRIMA */
+/* ========================= */
+
+.orari-grid .form-check.is-anteprima .form-check-input {
+    background-color: red;
+    border-color: red;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='8' y='12' text-anchor='middle' font-size='13' fill='white'%3E★%3C/text%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: .8rem .8rem;
+}
+
+/* ========================= */
+/* LABEL */
+/* ========================= */
+
+.orari-grid .form-check-label {
+    cursor: pointer;
+}

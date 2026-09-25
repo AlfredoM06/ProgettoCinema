@@ -78,6 +78,7 @@ public class GestioneProgrammazioneController {
         programmazioneFilm.setSala(sala);
         programmazioneFilm.setDataProgrammazione(dto.getData());
         programmazioneFilm.setOrario(dto.getOrario());
+        programmazioneFilm.setAnteprima(Boolean.TRUE.equals(dto.getAnteprima()));
         repoProgrammazione.save(programmazioneFilm);
         return true;
     }
@@ -85,12 +86,18 @@ public class GestioneProgrammazioneController {
     //modifica
     @GetMapping("/getOrari/{idFilm}/{idSala}/{data}")
     @ResponseBody
-    public Map<?, ?> getOrari(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
+    public Map<LocalTime, Map<String, Object>> getOrari(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
 
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
-        Map<LocalTime, Integer> result = new HashMap<>();
+        Map<LocalTime, Map<String, Object>> result = new HashMap<>();
         for (ProgrammazioneFilm p : programmazioni) {
-            result.put(p.getOrario(), p.getFilm().getDurata());
+
+            Map<String, Object> dati = new HashMap<>();
+
+            dati.put("durata", p.getFilm().getDurata());
+            dati.put("anteprima", Boolean.TRUE.equals(p.getAnteprima()));
+
+            result.put(p.getOrario(), dati);
         }
         return result;
     }

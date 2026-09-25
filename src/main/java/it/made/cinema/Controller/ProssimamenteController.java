@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
@@ -73,6 +74,7 @@ public class ProssimamenteController {
 
     // metodo che restituisce un boolean e che controlla data e membership per accedere alla programmazione
     @GetMapping("/anteprima/{idFilm}")
+    @ResponseBody
     public Boolean anteprima(@PathVariable Integer idFilm, Authentication authentication) {
 
         DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();

@@ -742,19 +742,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // STATO PROGRAMMAZIONE
         let richiestaOrariInCorso = false;
-
         // Orari occupati dagli altri film
         let orariAltriFilm = [];
-
         // Orari della programmazione attualmente modificata
         let orariFilmCorrente = [];
 
         // Durata associata a ciascun orario
         let durataPerOrario = {};
-
+        // Indica quali orari della programmazione corrente sono anteprima
+        let anteprimaPerOrario = {};
         // Durata di ogni film
         let durataFilmMap = {};
-
         // Indica se il form è in modalità modifica
         let modalitaModifica = false;
 
@@ -797,7 +795,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="form-check">
 
                     <input
-                        class="form-check-input"
+                        class="form-check-input orario-checkbox"
                         type="checkbox"
                         name="orari"
                         value="${oraFormattata}"
@@ -806,7 +804,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     >
 
                     <label
-                        class="form-check-label"
+                        class="form-check-label orario-label"
                         for="${id}">
                         ${oraFormattata}
                     </label>
@@ -830,12 +828,22 @@ document.addEventListener("DOMContentLoaded", function () {
             orariAltriFilm = [];
             orariFilmCorrente = [];
             durataPerOrario = {};
+            anteprimaPerOrario = {};
 
             document.querySelectorAll("#programmazione input[name='orari']")
                 .forEach(cb => {
 
                     cb.disabled = true;
                     cb.checked = false;
+
+                    let contenitore = cb.closest(".form-check");
+
+                    if (contenitore) {
+                        contenitore.classList.remove(
+                            "is-selected",
+                            "is-anteprima"
+                        );
+                    }
 
                     let label = cb.nextElementSibling;
 
@@ -1062,6 +1070,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const orariFilm = await responseFilm.json();
                     orariFilmCorrente = Object.keys(orariFilm);
+                    anteprimaPerOrario = {};
 
                     // ---------------------------------------------
                     // Rimuove gli orari del film corrente dagli
@@ -1080,11 +1089,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     // ---------------------------------------------
 
                     Object.entries(orariFilm).forEach(
-                        ([orario, durata]) => {
+                        ([orario, dati]) => {
 
-                            durataPerOrario[orario] =
-                                Number(durata) || 0;
+                            console.log("================================");
+                            console.log("ORARIO:", orario);
+                            console.log("DATI:", dati);
+                            console.log("dati.anteprima:", dati.anteprima);
+                            console.log("tipo anteprima:", typeof dati.anteprima);
+
+                            durataPerOrario[orario] = Number(dati.durata) || 0;
+
+                            anteprimaPerOrario[orario] = dati.anteprima === true;
+
+                            console.log(
+                                "anteprimaPerOrario[" + orario + "]:",
+                                anteprimaPerOrario[orario]
+                            );
                         }
+                    );
+
+                    console.log(
+                        "MAPPA ANTEPRIMA COMPLETA:",
+                        anteprimaPerOrario
                     );
                 }
 
@@ -1104,22 +1130,24 @@ document.addEventListener("DOMContentLoaded", function () {
         // PREPARA ORARI DISPONIBILI
 
         function preparaOrariDisponibili() {
-
             let checkboxes = document.querySelectorAll("#programmazione input[name='orari']");
 
-
             // RESET GRAFICO
-
             checkboxes.forEach(cb => {
-
                 cb.checked = false;
                 cb.disabled = false;
 
-                const label =
-                    cb.nextElementSibling;
+                let contenitore = cb.closest(".form-check");
+                    if (contenitore) {
+                        contenitore.classList.remove(
+                            "is-selected",
+                            "is-anteprima"
+                        );
+                    }
+
+                let label = cb.nextElementSibling;
 
                 if (label) {
-
                     label.style.color = "";
                     label.style.textDecoration = "";
                     label.style.opacity = "";
@@ -1129,26 +1157,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             // BLOCCA ORARI OCCUPATI DA ALTRI FILM
-
             orariAltriFilm.forEach(orario => {
 
-                const checkbox =
-                    [...checkboxes].find(
-                        cb => cb.value === orario
-                    );
-
+                let checkbox = [...checkboxes].find(  cb => cb.value === orario  );
                 if (!checkbox) {
                     return;
                 }
 
-
                 checkbox.disabled = true;
-
-                const label =
-                    checkbox.nextElementSibling;
+                let label = checkbox.nextElementSibling;
 
                 if (label) {
-
                     label.style.color = "#999";
                     label.style.textDecoration =
                         "line-through";
@@ -1156,12 +1175,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label.title =
                         "Orario occupato da un altro film";
                 }
-
-
-                bloccaIntervallo(
-                    orario,
-                    checkbox
-                );
+                bloccaIntervallo( orario,checkbox);
             });
 
 
@@ -1183,6 +1197,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     checkbox.disabled = false;
                     checkbox.checked = true;
 
+                    let contenitore = checkbox.closest(".form-check");
+                    if (contenitore) {
+                        contenitore.classList.add("is-selected");
+                        if (anteprimaPerOrario[orario] === true) {
+                            contenitore.classList.remove("is-selected");
+                            contenitore.classList.add("is-anteprima");
+                        }
+                    }
+
                     let label = checkbox.nextElementSibling;
 
                     if (label) {
@@ -1198,9 +1221,72 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             // EVENTI CHECKBOX ORARI
-
             checkboxes.forEach(cb => {
-                cb.onchange = () => {
+
+                let contenitore = cb.closest(".form-check");
+
+                if (!contenitore) {
+                    return;
+                }
+
+                contenitore.onclick = function (e) {
+
+                    if (cb.disabled) {
+                        return;
+                    }
+
+                    e.preventDefault();
+
+                    // =====================================================
+                    // STATO 1: NON SELEZIONATO → NORMALE
+                    // =====================================================
+
+                    if (
+                        !contenitore.classList.contains("is-selected") &&
+                        !contenitore.classList.contains("is-anteprima")
+                    ) {
+
+                        cb.checked = true;
+
+                        contenitore.classList.add("is-selected");
+
+                        anteprimaPerOrario[cb.value] = false;
+                    }
+
+                    // =====================================================
+                    // STATO 2: NORMALE → ANTEPRIMA
+                    // =====================================================
+
+                    else if (
+                        contenitore.classList.contains("is-selected")
+                    ) {
+
+                        cb.checked = true;
+
+                        contenitore.classList.remove("is-selected");
+                        contenitore.classList.add("is-anteprima");
+
+                        anteprimaPerOrario[cb.value] = true;
+                    }
+
+                    // =====================================================
+                    // STATO 3: ANTEPRIMA → NON SELEZIONATO
+                    // =====================================================
+
+                    else if (
+                        contenitore.classList.contains("is-anteprima")
+                    ) {
+
+                        cb.checked = false;
+
+                        contenitore.classList.remove(
+                            "is-selected",
+                            "is-anteprima"
+                        );
+
+                        anteprimaPerOrario[cb.value] = false;
+                    }
+
                     aggiornaBlocchiDurata();
                 };
             });
@@ -1246,7 +1332,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // BLOCCA DURATA DEGLI ORARI SELEZIONATI
 
-            let selezionati = [...checkboxes].filter(cb => cb.checked);
+            let selezionati = [...checkboxes].filter(cb => {
+                let contenitore = cb.closest(".form-check");
+                return contenitore?.classList.contains("is-selected") || contenitore?.classList.contains("is-anteprima");
+            });
 
             selezionati.forEach(cb => {
                 durataPerOrario[cb.value] = durataFilmSelezionato;
@@ -1335,13 +1424,10 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 // Attiva modalità modifica
                 modalitaModifica = true;
-
                 // FILM
                 filmSelect.value = film;
 
-
                 // DATA
-
                 dataInput.value = data;
 
 
@@ -1359,19 +1445,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // CARICA ORARI DAL BACKEND
                 await aggiornaOrariBackend();
-
-
-                // SELEZIONA ORARI ATTUALI
-
-                document.querySelectorAll("#programmazione input[name='orari']").forEach(cb => {
-                    cb.checked = orariFilmCorrente.includes(cb.value);
-                });
-
                 aggiornaBlocchiDurata();
 
-
                 // PORTA L'UTENTE AL FORM
-
                 document.getElementById("programmazione")?.scrollIntoView({ behavior: "smooth" });
             } catch (error) {
                 console.error("Errore modifica programmazione:", error);
@@ -1425,13 +1501,24 @@ document.addEventListener("DOMContentLoaded", function () {
             let data = dataInput.value;
             let sala = document.querySelector("#programmazione input[name='sala']:checked")?.value;
             let orariSelezionati =
-                [
-                    ...document.querySelectorAll(
-                        "#programmazione input[name='orari']:checked"
-                    )
-                ].map(cb => cb.value);
+                [...document.querySelectorAll("#programmazione input[name='orari']")]
+                    .filter(cb => {
+                        let contenitore = cb.closest(".form-check");
+                        return contenitore?.classList.contains("is-selected") ||
+                               contenitore?.classList.contains("is-anteprima");
+                    })
+                    .map(cb => cb.value);
 
-
+            console.log("ORARI CHECKED:", orariSelezionati);
+            console.log(
+                "TUTTI GLI ORARI:",
+                [...document.querySelectorAll("#programmazione input[name='orari']")]
+                    .filter(cb => {
+                        const contenitore = cb.closest(".form-check");
+                        return contenitore?.classList.contains("is-selected") ||
+                               contenitore?.classList.contains("is-anteprima");
+                    })
+            );
             // VALIDAZIONE
 
             if (!film || !data || !sala) {
@@ -1468,6 +1555,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     await Promise.all(
                         orariSelezionati.map(
                             async orario => {
+                            console.log("================================");
+                            console.log("SALVATAGGIO PROGRAMMAZIONE");
+                            console.log("ORARIO:", orario);
+                            console.log("ANTEPRIMA:", anteprimaPerOrario[orario]);
+                            console.log("TIPO ANTEPRIMA:", typeof anteprimaPerOrario[orario]);
+                            console.log("MAPPA COMPLETA:", anteprimaPerOrario);
                                 const response =
                                     await fetch(
                                         "/gestioneProgrammazione/salvaProgrammazione",
@@ -1482,7 +1575,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     idFilm: film,
                                                     idSala: sala,
                                                     data: data,
-                                                    orario: orario
+                                                    orario: orario,
+                                                    anteprima: anteprimaPerOrario[orario] === true
                                                 })
                                         }
                                     );
@@ -1515,7 +1609,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                                     idFilm: film,
                                                     idSala: sala,
                                                     data: data,
-                                                    orario: orario
+                                                    orario: orario,
+                                                    anteprima: anteprimaPerOrario[orario] === true
                                                 })
                                         }
                                     );

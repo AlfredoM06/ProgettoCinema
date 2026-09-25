@@ -200,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let title = filmCard.dataset.title || "";
         let desc = filmCard.dataset.desc || "";
         let img = filmCard.dataset.img || "";
+        let idFilm = filmCard.dataset.id || "";
         let cast = formatMultiple(filmCard.dataset.cast);
         let regia = formatMultiple( filmCard.dataset.regia);
         let durata = formatDuration(filmCard.dataset.durata);
@@ -259,6 +260,10 @@ document.addEventListener("DOMContentLoaded", () => {
             moviePage.classList.add("active");
         });
 
+            moviePage
+                .querySelector(".movie-close")
+                .addEventListener("click", closeMovie);
+
         let titleEl = moviePage.querySelector(".title");
         let descBox = moviePage.querySelector(".desc-box");
 
@@ -308,8 +313,55 @@ document.addEventListener("DOMContentLoaded", () => {
         // CLOSE
         // ==================================================
         moviePage
-            .querySelector(".movie-close")
-            .addEventListener("click", closeMovie);
+            .querySelector(".btn-slice")
+            .addEventListener("click", async function (e) {
+
+                e.preventDefault();
+                 console.log("===== CONTROLLO PRENOTAZIONE =====");
+                        console.log("ID FILM:", idFilm);
+                try {
+
+                    const response = await fetch(`/prossimamente/anteprima/${idFilm}`);
+                     console.log("URL chiamato:", url);
+                     console.log("STATUS HTTP:", response.status);
+                                 console.log("RESPONSE OK:", response.ok);
+
+                    if (!response.ok) {
+                        throw new Error("Anteprima non disponibile");
+                    }
+
+                    const accessoConsentito = await response.json();
+
+                    console.log("STATUS HTTP:", response.status);
+                                console.log("RESPONSE OK:", response.ok);
+
+                    if (accessoConsentito === true) {
+
+                        // ACCESSO CONSENTITO
+                        window.location.href =
+                            `/prossimamente/prenota/${idFilm}`;
+
+                    } else {
+
+                        // ACCESSO NON ANCORA CONSENTITO
+                        alert(
+                            "La prenotazione per questo film non è ancora disponibile."
+                        );
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Errore controllo anteprima:",
+                        error
+                    );
+
+                    alert(
+                        "Non è stato possibile verificare la disponibilità della prenotazione."
+                    );
+                }
+
+            });
     }
 
 

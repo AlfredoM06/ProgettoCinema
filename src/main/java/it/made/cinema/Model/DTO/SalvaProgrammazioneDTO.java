@@ -18,5 +18,5 @@ public class SalvaProgrammazioneDTO implements Serializable {
     private Integer idSala;
     private LocalDate data;
     private LocalTime orario;
-
+    private Boolean anteprima;
 }
