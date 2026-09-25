@@ -24,7 +24,6 @@ public class AnteprimaService {
                 programmazione.getOrario()
         );
         LocalDateTime sogliaAccesso = inizioAnteprima.minusHours(5);
-
-        return LocalDateTime.now().isAfter(sogliaAccesso);
+        return !LocalDateTime.now().isBefore(sogliaAccesso); // true se now >= soglia
     }
 }
