@@ -756,19 +756,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // Indica se il form è in modalità modifica
         let modalitaModifica = false;
 
-        // GENERAZIONE ORARI
-        /*
-         * Genera gli orari ogni 10 minuti.
-         * Fascia:
-         * 11:00 -> 01:00
-         */
 
+        // GENERAZIONE ORARI
         function generaOrari() {
 
             orariContainer.innerHTML = "";
 
+            // Orari disponibili: 11:00 -> 23:50
             const start = 11 * 60;
-            const end = 25 * 60;
+            const end = 23 * 60 + 50;
 
             for (
                 let minuti = start;
@@ -779,10 +775,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 let ore = Math.floor(minuti / 60);
                 let min = minuti % 60;
 
-                if (ore >= 24) {
-                    ore -= 24;
-                }
-
                 let oraFormattata =
                     String(ore).padStart(2, "0") +
                     ":" +
@@ -790,27 +782,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 let id = `ora-${oraFormattata.replace(":", "-")}`;
 
-
                 orariContainer.innerHTML += `
-                <div class="form-check">
+                    <div class="form-check">
 
-                    <input
-                        class="form-check-input orario-checkbox"
-                        type="checkbox"
-                        name="orari"
-                        value="${oraFormattata}"
-                        id="${id}"
-                        disabled
-                    >
+                        <input
+                            class="form-check-input orario-checkbox"
+                            type="checkbox"
+                            name="orari"
+                            value="${oraFormattata}"
+                            id="${id}"
+                            disabled
+                        >
 
-                    <label
-                        class="form-check-label orario-label"
-                        for="${id}">
-                        ${oraFormattata}
-                    </label>
+                        <label
+                            class="form-check-label orario-label"
+                            for="${id}">
+                            ${oraFormattata}
+                        </label>
 
-                </div>
-            `;
+                    </div>
+                `;
             }
         }
 
@@ -1509,16 +1500,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     })
                     .map(cb => cb.value);
 
-            console.log("ORARI CHECKED:", orariSelezionati);
-            console.log(
-                "TUTTI GLI ORARI:",
-                [...document.querySelectorAll("#programmazione input[name='orari']")]
-                    .filter(cb => {
-                        const contenitore = cb.closest(".form-check");
-                        return contenitore?.classList.contains("is-selected") ||
-                               contenitore?.classList.contains("is-anteprima");
-                    })
-            );
             // VALIDAZIONE
 
             if (!film || !data || !sala) {
@@ -1555,12 +1536,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     await Promise.all(
                         orariSelezionati.map(
                             async orario => {
-                            console.log("================================");
-                            console.log("SALVATAGGIO PROGRAMMAZIONE");
-                            console.log("ORARIO:", orario);
-                            console.log("ANTEPRIMA:", anteprimaPerOrario[orario]);
-                            console.log("TIPO ANTEPRIMA:", typeof anteprimaPerOrario[orario]);
-                            console.log("MAPPA COMPLETA:", anteprimaPerOrario);
                                 const response =
                                     await fetch(
                                         "/gestioneProgrammazione/salvaProgrammazione",
@@ -1657,12 +1632,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // =========================================================
     // |                                                       |
     // |                   FORM UTENTI                         |
-    // |                                                       |
-    // =========================================================
-
-    // =========================================================
-    // |                                                       |
-    // |                    FORM UTENTI                        |
     // |                                                       |
     // =========================================================
 

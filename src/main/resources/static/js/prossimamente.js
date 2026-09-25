@@ -318,19 +318,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 e.preventDefault();
 
-                console.log("===== CONTROLLO PRENOTAZIONE =====");
-                console.log("ID FILM:", idFilm);
-
                 try {
-
                     const url = `/prossimamente/anteprima/${idFilm}`;
-
-                    console.log("URL chiamato:", url);
-
                     const response = await fetch(url);
-
-                    console.log("STATUS HTTP:", response.status);
-                    console.log("RESPONSE OK:", response.ok);
 
                     if (!response.ok) {
                         throw new Error("Anteprima non disponibile");
@@ -338,42 +328,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const accessoConsentito = await response.json();
 
-                    console.log("RISPOSTA BACKEND:", accessoConsentito);
-                    console.log("TIPO RISPOSTA:", typeof accessoConsentito);
-                    console.log(
-                        "ACCESSO CONSENTITO === true:",
-                        accessoConsentito === true
-                    );
-
                     if (accessoConsentito === true) {
-
-                        console.log("✅ PRENOTAZIONE CONSENTITA");
-
-                        window.location.href =
-                            `/prossimamente/prenota/${idFilm}`;
-
+                        window.location.href =`/prossimamente/prenota/${idFilm}`;
                     } else {
-
-                        console.log("❌ PRENOTAZIONE NON ANCORA DISPONIBILE");
-
-                        alert(
-                            "La prenotazione per questo film non è ancora disponibile."
-                        );
+                        alert("La prenotazione per questo film non è ancora disponibile, passa a MYS&G per l'anteprima anticipata.");
                     }
-
                 } catch (error) {
-
-                    console.error(
-                        "Errore controllo anteprima:",
-                        error
-                    );
-
-                    alert(
-                        "Non è stato possibile verificare la disponibilità della prenotazione."
-                    );
+                    console.error("Errore controllo anteprima:", error);
+                    alert("Non è stato possibile verificare la disponibilità della prenotazione.");
                 }
-
-                console.log("=================================");
             });
     }
 
