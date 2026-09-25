@@ -61,11 +61,12 @@ public class SecurityConfiguration {
                         // --- pubbliche ---
                         .requestMatchers("/", "/login", "/logout").permitAll()
                         .requestMatchers("/offerte/**", "/cinefans").permitAll()
-                        .requestMatchers("/inSala/**", "/prossimamente/**", "/partnership/**").permitAll()
+                        .requestMatchers("/inSala/**", "/partnership/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**" , "/svg/**").permitAll()
 
                         // --- prossimamente: pronota protetto ---
                         .requestMatchers(HttpMethod.GET, "/prossimamente/prenota/**").hasAnyAuthority("Admin","User")
+                        .requestMatchers("/prossimamente/**").permitAll()
 
                         // --- membership: pagina pubblica, acquisto protetto ---
                         .requestMatchers(HttpMethod.POST, "/membership/membershipAcquistata").hasAnyAuthority("Admin", "User")

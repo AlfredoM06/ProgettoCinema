@@ -10,9 +10,11 @@ import java.util.Optional;
 import it.made.cinema.Model.*;
 import it.made.cinema.Repository.*;
 import it.made.cinema.Security.DatabaseUserDetails;
+import it.made.cinema.Service.AnteprimaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +40,8 @@ public class ProssimamenteController {
     private IRepoSala repoSala;
     @Autowired
     private IRepoPosto repoPosto;
+    @Autowired
+    private AnteprimaService anteprimaService;
 
     @GetMapping
     public String listaProssimamente(Model model) {
@@ -48,12 +52,22 @@ public class ProssimamenteController {
     }
 
     @GetMapping("/prenota/{idFilm}")
-    public String prenota(@PathVariable Integer idFilm, Authentication authentication, Model model) {
-        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+    public String prenota(@PathVariable Integer idFilm, @AuthenticationPrincipal DatabaseUserDetails userDetails, Model model) {
+
+        Utente utente = repoUtenti.findById(userDetails.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato"));
+
         ProgrammazioneFilm programmazione = repoProgrammazione.findByFilmIdAndAnteprimaTrue(idFilm);
+        if (programmazione == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Anteprima non trovata");
+        }
+
+        if (!anteprimaService.puoAccedere(utente, programmazione)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Accesso all'anteprima non ancora disponibile");
+        }
+
         Film film = repoFilm.findById(programmazione.getFilm().getId()).get();
         Sala sala = repoSala.findById(programmazione.getSala().getId()).get();
-
         List<Posto> posti = repoPosto.findAll();
 
         model.addAttribute("posti", posti);
@@ -75,9 +89,12 @@ public class ProssimamenteController {
     // metodo che restituisce un boolean e che controlla data e membership per accedere alla programmazione
     @GetMapping("/anteprima/{idFilm}")
     @ResponseBody
-    public Boolean anteprima(@PathVariable Integer idFilm, Authentication authentication) {
+    public Boolean anteprima(@PathVariable Integer idFilm, @AuthenticationPrincipal DatabaseUserDetails userDetails) {
 
-        DatabaseUserDetails userDetails = (DatabaseUserDetails) authentication.getPrincipal();
+        if (userDetails == null) {
+            return false; // utente anonimo, non può comunque prenotare
+        }
+
         Utente utente = repoUtenti.findById(userDetails.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utente non trovato"));
 
@@ -86,17 +103,7 @@ public class ProssimamenteController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Anteprima non trovata");
         }
 
-        if (Boolean.TRUE.equals(utente.getMembership())) {
-            return true;
-        }
-
-        LocalDateTime inizioAnteprima = LocalDateTime.of(
-                programmazione.getDataProgrammazione(),
-                programmazione.getOrario()
-        );
-        LocalDateTime sogliaAccesso = inizioAnteprima.minusHours(5);
-
-        return LocalDateTime.now().isAfter(sogliaAccesso);
+        return anteprimaService.puoAccedere(utente, programmazione);
     }
 
 }
