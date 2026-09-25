@@ -317,14 +317,20 @@ document.addEventListener("DOMContentLoaded", () => {
             .addEventListener("click", async function (e) {
 
                 e.preventDefault();
-                 console.log("===== CONTROLLO PRENOTAZIONE =====");
-                        console.log("ID FILM:", idFilm);
+
+                console.log("===== CONTROLLO PRENOTAZIONE =====");
+                console.log("ID FILM:", idFilm);
+
                 try {
 
-                    const response = await fetch(`/prossimamente/anteprima/${idFilm}`);
-                     console.log("URL chiamato:", url);
-                     console.log("STATUS HTTP:", response.status);
-                                 console.log("RESPONSE OK:", response.ok);
+                    const url = `/prossimamente/anteprima/${idFilm}`;
+
+                    console.log("URL chiamato:", url);
+
+                    const response = await fetch(url);
+
+                    console.log("STATUS HTTP:", response.status);
+                    console.log("RESPONSE OK:", response.ok);
 
                     if (!response.ok) {
                         throw new Error("Anteprima non disponibile");
@@ -332,18 +338,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const accessoConsentito = await response.json();
 
-                    console.log("STATUS HTTP:", response.status);
-                                console.log("RESPONSE OK:", response.ok);
+                    console.log("RISPOSTA BACKEND:", accessoConsentito);
+                    console.log("TIPO RISPOSTA:", typeof accessoConsentito);
+                    console.log(
+                        "ACCESSO CONSENTITO === true:",
+                        accessoConsentito === true
+                    );
 
                     if (accessoConsentito === true) {
 
-                        // ACCESSO CONSENTITO
+                        console.log("✅ PRENOTAZIONE CONSENTITA");
+
                         window.location.href =
                             `/prossimamente/prenota/${idFilm}`;
 
                     } else {
 
-                        // ACCESSO NON ANCORA CONSENTITO
+                        console.log("❌ PRENOTAZIONE NON ANCORA DISPONIBILE");
+
                         alert(
                             "La prenotazione per questo film non è ancora disponibile."
                         );
@@ -361,6 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
                 }
 
+                console.log("=================================");
             });
     }
 
