@@ -37,6 +37,7 @@ public class HomeController {
             listaRecenti.setImg_logo(recente.getImg_logo());
             listaRecenti.setDataDiUscita(recente.getDataDiUscita());
             listaRecenti.setImg_poster(recente.getImg_poster());
+            listaRecenti.setLinkYouTube(recente.getLinkYouTube());
             List<ListaGenereDTO> listaGenere = new ArrayList<>();
             for (GenereFilm g : recente.getGeneri()) {
                 ListaGenereDTO listaGenDTO = new ListaGenereDTO();

@@ -13,12 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(data => {
-            console.log("TOP 3 RICEVUTE:", data);
             container.innerHTML = "";
             data.forEach(offerta => {
-
-                console.log("OFFERTA:", offerta.nome);
-                console.log("IMG TOP:", offerta.imgBannerTopOfferte);
 
                 let card = `
                     <div class="col-lg-4 mt-4">

@@ -57,7 +57,12 @@
         <p th:text="${film.descrizione}"></p>
 
         <div class="button">
-            <a href="#"><i class="bi bi-play-fill"></i>Trailer</a>
+            <a href="#"
+               class="btn-trailer"
+               th:attr="data-youtube=${film.linkYouTube}">
+                <i class="bi bi-play-fill"></i>
+                Trailer
+            </a>
             <a th:href="@{'/inSala/dettagli/' + ${film.id}}"><i class="bi bi-plus-lg"></i>Scopri di più</a>
         </div>
     </div>
@@ -184,6 +189,26 @@
 <div th:replace="fragments/footer :: content"></div>
 <div th:replace="fragments/footer :: social"></div>
 <div th:replace="fragments/footer :: copyright"></div>
+
+<!-- OVERLAY TRAILER -->
+<div id="trailerOverlay" class="trailer-overlay">
+    <div class="trailer-container">
+        <button type="button"
+                id="chiudiTrailer"
+                class="trailer-close">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="trailer-video">
+            <iframe
+                    id="trailerIframe"
+                    src=""
+                    title="Trailer del film"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

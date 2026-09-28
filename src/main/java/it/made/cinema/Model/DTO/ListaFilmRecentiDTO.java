@@ -22,5 +22,6 @@ public class ListaFilmRecentiDTO {
     private String img_cover;
     private String img_logo;
     private List<ListaGenereDTO> generi;
+    private String linkYouTube;
     private List<String> formato;
 }

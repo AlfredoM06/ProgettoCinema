@@ -1,5 +1,85 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+        // =====================================================
+        // TRAILER
+        // =====================================================
+
+        let trailerOverlay = document.getElementById("trailerOverlay");
+        let trailerIframe = document.getElementById("trailerIframe");
+        let chiudiTrailer = document.getElementById("chiudiTrailer");
+        let trailerButtons = document.querySelectorAll(".btn-trailer");
+
+        trailerButtons.forEach(button => {
+            button.addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                let youtubeUrl = button.dataset.youtube;
+
+                if (!youtubeUrl) {
+                    alert("Trailer non disponibile.");
+                    return;
+                }
+
+                let videoId = estraiYoutubeId(youtubeUrl);
+
+                if (!videoId) {
+                    alert("Link YouTube non valido.");
+                    return;
+                }
+
+                trailerIframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+                trailerOverlay.classList.add("active");
+            });
+        });
+
+        // =====================================================
+        // CHIUDI TRAILER
+        // =====================================================
+
+        function chiudiTrailerOverlay() {
+            trailerOverlay.classList.remove("active");
+
+            // IMPORTANTE:
+            // svuotiamo l'iframe per fermare il video
+            trailerIframe.src = "";
+        }
+
+        chiudiTrailer.addEventListener("click", chiudiTrailerOverlay);
+
+        // Chiudi cliccando sullo sfondo
+        trailerOverlay.addEventListener("click", function (e) {
+            if (e.target === trailerOverlay) {
+                chiudiTrailerOverlay();
+            }
+        });
+
+        // Chiudi con ESC
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" &&
+                trailerOverlay.classList.contains("active")) {
+                chiudiTrailerOverlay();
+            }
+        });
+
+        // ESTRAZIONE ID VIDEO YOUTUBE
+        function estraiYoutubeId(url) {
+            try {
+                const urlObj = new URL(url);
+
+                if (urlObj.hostname.includes("youtube.com")) {
+                    return urlObj.searchParams.get("v");
+                }
+
+                if (urlObj.hostname === "youtu.be") {
+                    return urlObj.pathname.substring(1);
+                }
+            } catch (error) {
+                console.error("URL YouTube non valido:", error);
+            }
+            return null;
+        }
+
     // =====================================================
     // CARD
     // =====================================================
@@ -161,7 +241,6 @@ if (sponsorshipImg) {
         })
 
         .then(partnerships => {
-            console.log("PARTNERSHIP:", partnerships);
 
             // =============================================
             // NESSUNA PARTNERSHIP
