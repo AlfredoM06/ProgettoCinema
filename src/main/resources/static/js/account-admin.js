@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //PREZZO OFFERTA DISABILITATA
         function aggiornaPrezzoOfferta() {
             let genereSelezionato = offerteSection.querySelector("input[name='genere']:checked")?.value;
-            if (genereSelezionato === "bar") {
+            if (genereSelezionato === "manu") {
                 prezzoOfferta.disabled = false;
             } else {
                 prezzoOfferta.disabled = true;
@@ -643,7 +643,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // PREZZO
             let prezzo = null;
-            if (genere === "bar") {
+            if (genere === "menu") {
                 prezzo = Number(prezzoOfferta.value);
             }
 
@@ -670,7 +670,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("La data di scadenza non può essere precedente alla data di inizio.");
                 return;
             }
-            if (genere === "bar") {
+            if (genere === "menu") {
                 if (!prezzoOfferta.value || Number(prezzoOfferta.value) <= 0) {
                     alert("Inserisci un prezzo valido per l'offerta bar.");
                     return;
