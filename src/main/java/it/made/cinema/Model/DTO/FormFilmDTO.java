@@ -38,5 +38,6 @@ public class FormFilmDTO implements Serializable{
 	private String titoloPartnership;
 	private Boolean partnership;
 	private Boolean archiviato;
+	private String linkYouTube;
 }
 

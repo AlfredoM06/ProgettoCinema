@@ -76,24 +76,69 @@ function inizializzaDataTable(selector, options = {}) {
 
     // =========================================================
     // |                                                       |
-    // |              TABELLE FILM                             |
+    // |              TABELLE FILM  + FORMAT DATA              |
     // |                                                       |
     // =========================================================
 
 function inizializzaTabellaFilm(selector) {
-
     return inizializzaDataTable(
         selector,
         {
             columnDefs: [
 
-                // Nasconde la colonna contenente l'ID
+                // ID nascosto
                 {
                     targets: 0,
                     visible: false
                 },
-                // La colonna delle azioni non viene ordinata
-                // e non viene considerata nella ricerca
+
+                // Data Uscita
+                {
+                    targets: 3,
+                    render: function (data, type) {
+
+                        if (!data) {
+                            return "";
+                        }
+
+                        // Per ordinamento manteniamo YYYY-MM-DD
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
+
+                        // Per l'utente mostriamo DD/MM/YYYY
+                        if (type === "display") {
+                            return formattaData(data);
+                        }
+
+                        return data;
+                    }
+                },
+
+                // Data Fine
+                {
+                    targets: 4,
+                    render: function (data, type) {
+
+                        if (!data) {
+                            return "";
+                        }
+
+                        // Per ordinamento manteniamo YYYY-MM-DD
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
+
+                        // Per l'utente mostriamo DD/MM/YYYY
+                        if (type === "display") {
+                            return formattaData(data);
+                        }
+
+                        return data;
+                    }
+                },
+
+                // Azioni
                 {
                     targets: -1,
                     orderable: false,
@@ -188,10 +233,14 @@ async function caricaTabellaFilm( archiviato,inizializza) {
             table.row.add([
                 // ID nascosto
                 film.id,
-                // Dati visualizzati
+                // Titolo Film
                 film.titolo,
-                film.distribuzione,
+                // Titolo Partnership
+                film.titoloPartnership,
+                // Data Uscita
                 film.dataUscita,
+                // Data Fine
+                film.dataFine,
                 // Azioni
                 azioni
             ]);
@@ -200,8 +249,7 @@ async function caricaTabellaFilm( archiviato,inizializza) {
         table.draw();
         table.columns.adjust();
     } catch (error) {
-        // Errore gestito senza interrompere
-        // il funzionamento della pagina.
+        console.error("Errore caricamento tabella film:", error);
     }
 }
 

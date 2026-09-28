@@ -53,6 +53,7 @@ public class GestioneFilmController {
         film.setDescrizione(dto.getSinossi());
         film.setCast(dto.getCast());
         film.setRegista(dto.getRegista());
+        film.setLinkYouTube(dto.getLinkYouTube());
         List<GenereFilm> generi = new ArrayList<>();
         for (Integer g : dto.getGenere()) {
             generi.add(repoGeneri.findById(g).get());
@@ -118,8 +119,13 @@ public class GestioneFilmController {
             Map<String, Object> mapFilm = new HashMap<>();
             mapFilm.put("id", f.getId());
             mapFilm.put("titolo", f.getTitolo());
-            mapFilm.put("distribuzione", f.getDistribuzione());
+            if (f.getPartnership() != null) {
+                mapFilm.put("titoloPartnership", f.getPartnership().getNome());
+            } else {
+                mapFilm.put("titoloPartnership", "Nessuna Partnership");
+            }
             mapFilm.put("dataUscita", f.getDataDiUscita());
+            mapFilm.put("dataFine", f.getScadenza());
             films.add(mapFilm);
         }
         return films;
@@ -176,6 +182,7 @@ public class GestioneFilmController {
         dto.setSinossi(film.getDescrizione());
         dto.setRegista(film.getRegista());
         dto.setCast(film.getCast());
+        dto.setLinkYouTube(film.getLinkYouTube());
         List<Integer> generi = new ArrayList<Integer>();
         for (GenereFilm g : film.getGeneri()) {
             generi.add(g.getId());

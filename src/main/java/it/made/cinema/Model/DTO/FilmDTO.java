@@ -34,4 +34,5 @@ public class FilmDTO implements Serializable {
     private Map<LocalDate, List<ListaProgDTO>> programmazioni;
     private List<String> formati;
     private List<String> lingue;
+
 }

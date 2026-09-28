@@ -295,6 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 imgLocandina: document.getElementById("imgLocandina").value,
                 imgLogo: document.getElementById("imgLogo").value,
                 titoloPartnership: document.getElementById("titoloPartnership").value,
+                linkYouTube: document.getElementById("linkYouTube").value,
                 partnership: partnership,
                 imgPartnership: partnership ? document.getElementById("imgPartnership").value : null,
                 archiviato: archiviato
@@ -399,7 +400,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const film = await response.json();
 
             // DATI PRINCIPALI
-            // DATI PRINCIPALI
             document.getElementById("titoloFilm").value = film.titolo ?? "";
             document.getElementById("distribuzione").value = film.distribuzione ?? "";
             document.getElementById("regista").value = film.regista ?? "";
@@ -412,6 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("imgCopertina").value = film.imgCopertina ?? "";
             document.getElementById("imgLocandina").value = film.imgLocandina ?? "";
             document.getElementById("imgLogo").value = film.imgLogo ?? "";
+            document.getElementById("linkYouTube").value = film.linkYouTube ?? "";
             document.getElementById("imgPartnership").value = film.imgPartnership ?? "";
             document.getElementById("titoloPartnership").value = film.titoloPartnership ?? "";
 

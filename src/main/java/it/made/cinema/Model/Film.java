@@ -68,6 +68,8 @@ public class Film implements Serializable {
 	@Column(length = 500, nullable = false)
 	private String img_poster;
 
+	@NotNull
+	@Column(length = 1500, nullable = false)
 	private String linkYouTube;
 
 	@NotNull
