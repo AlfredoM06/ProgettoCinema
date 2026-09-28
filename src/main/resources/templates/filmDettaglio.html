@@ -138,9 +138,11 @@
                 </div>
                 <div class="info-item">
                     <span class="label">Genere</span>
-                    <ul>
-                        <li th:each="genere : ${film.generi}" th:text="${genere.nome}"></li>
-                    </ul>
+                    <span>
+                        <span th:each="genere, stat : ${film.generi}">
+                            <span th:text="${genere.nome}"></span><span th:if="${!stat.last}">, </span>
+                        </span>
+                    </span>
                 </div>
                 <div class="info-item">
                     <span class="label">Rating</span>
