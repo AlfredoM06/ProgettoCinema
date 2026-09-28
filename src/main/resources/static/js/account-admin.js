@@ -1,4 +1,44 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // =========================================================
+    // |                 FILTRI DI DIGITAZIONE                 |
+    // =========================================================
+
+    // Solo testo: impedisce di scrivere numeri (regista, cast)
+    function bloccaNumeri(input) {
+        input.addEventListener("beforeinput", e => {
+            if (e.data && /\d/.test(e.data)) {
+                e.preventDefault();
+            }
+        });
+        // Rete di sicurezza (es. incolla)
+        input.addEventListener("input", () => {
+            input.value = input.value.replace(/\d/g, "");
+        });
+    }
+
+    // Solo numeri interi (durata)
+    function soloInteri(input) {
+        input.addEventListener("beforeinput", e => {
+            if (e.data && /\D/.test(e.data)) {
+                e.preventDefault();
+            }
+        });
+        input.addEventListener("input", () => {
+            input.value = input.value.replace(/\D/g, "");
+        });
+    }
+
+    // Prezzo: solo cifre e una virgola, massimo 2 decimali
+    function filtroPrezzo(input) {
+        input.addEventListener("input", () => {
+            let v = input.value.replace(/[^\d,]/g, "");
+            let i = v.indexOf(",");
+            if (i !== -1) {
+                v = v.slice(0, i + 1) + v.slice(i + 1).replace(/,/g, "").slice(0, 2);
+            }
+            input.value = v;
+        });
+    }
 
     // =========================================================
     // |                                                       |
@@ -106,7 +146,18 @@ document.addEventListener("DOMContentLoaded", function () {
         let formatoItaContainer = document.getElementById("formatoItaContainer");
         let formatoEngContainer = document.getElementById("formatoEngContainer");
 
+        let registaInput = document.getElementById("regista");
+        let castInput = document.getElementById("cast");
+        let durataInput = document.getElementById("durataFilm");
+        let prezzoInput = document.getElementById("prezzoFilm");
 
+        bloccaNumeri(registaInput);
+        bloccaNumeri(castInput);
+        soloInteri(durataInput);
+        filtroPrezzo(prezzoInput);
+
+        durataInput.placeholder = "120";
+        prezzoInput.placeholder = "8,50";
         // CARICAMENTO GENERI
         async function caricaGeneri() {
             try {
@@ -243,14 +294,22 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-
         // SALVATAGGIO FILM
-
         btnConfermaFilm.addEventListener("click", async function (e) {
             e.preventDefault();
 
-            // GENERI SELEZIONATI
+            let regista = registaInput.value.trim();
+            let cast = castInput.value.trim();
+            let durata = durataInput.value.trim();
+            let prezzo = prezzoInput.value.trim();
 
+            // Il prezzo, se presente, deve avere la virgola e 2 decimali
+            if (prezzo && !/^\d+,\d{2}$/.test(prezzo)) {
+                alert("Inserisci il prezzo con la virgola, ad esempio 8,50.");
+                return;
+            }
+
+            // GENERI SELEZIONATI
             let generi = [...filmSection.querySelectorAll("input[name='genere']:checked")
             ].map(input => Number(input.value));
 
@@ -277,18 +336,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 id: filmSection.dataset.id ? Number(filmSection.dataset.id) : null,
                 titolo: document.getElementById("titoloFilm").value,
                 distribuzione: document.getElementById("distribuzione").value,
-                regista: document.getElementById("regista").value,
-                cast: document.getElementById("cast").value,
+                regista: regista,
+                cast: cast,
                 sinossi: document.getElementById("sinossi").value,
                 genere: generi,
                 dataUscita: document.getElementById("dataUscita").value,
                 scadenza: document.getElementById("dataFine").value,
-                durata: document.getElementById("durataFilm").value
-                    ? Number(document.getElementById("durataFilm").value)
-                    : null,
-                prezzo: document.getElementById("prezzoFilm").value
-                    ? Number(document.getElementById("prezzoFilm").value)
-                    : null,
+                durata: durata ? Number(durata) : null,
+                prezzo: prezzo ? Number(prezzo.replace(",", ".")) : null,
                 italiano: italiano,
                 inglese: inglese,
                 imgCopertina: document.getElementById("imgCopertina").value,
@@ -400,6 +455,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const film = await response.json();
 
             // DATI PRINCIPALI
+            document.getElementById("prezzoFilm").value = film.prezzo != null ? Number(film.prezzo).toFixed(2).replace(".", ",") : "";
             document.getElementById("titoloFilm").value = film.titolo ?? "";
             document.getElementById("distribuzione").value = film.distribuzione ?? "";
             document.getElementById("regista").value = film.regista ?? "";
@@ -408,7 +464,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("dataUscita").value = film.dataUscita ?? "";
             document.getElementById("dataFine").value = film.scadenza ?? "";
             document.getElementById("durataFilm").value = film.durata ?? "";
-            document.getElementById("prezzoFilm").value = film.prezzo ?? "";
             document.getElementById("imgCopertina").value = film.imgCopertina ?? "";
             document.getElementById("imgLocandina").value = film.imgLocandina ?? "";
             document.getElementById("imgLogo").value = film.imgLogo ?? "";
@@ -1249,9 +1304,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     // STATO 2: NORMALE → ANTEPRIMA
                     // =====================================================
 
+                    // =====================================================
+                    // STATO 2: NORMALE → ANTEPRIMA
+                    // =====================================================
+
                     else if (
                         contenitore.classList.contains("is-selected")
                     ) {
+
+                        // Se esiste già un'anteprima su un altro orario,
+                        // la riporta a "normale"
+                        document.querySelectorAll("#programmazione .form-check.is-anteprima").forEach(altro => {
+                                altro.classList.remove("is-anteprima");
+
+                                let altroCb = altro.querySelector("input[name='orari']");
+                                if (altroCb) {
+                                    altroCb.checked = false;
+                                    anteprimaPerOrario[altroCb.value] = false;
+                                }
+                            });
 
                         cb.checked = true;
 
