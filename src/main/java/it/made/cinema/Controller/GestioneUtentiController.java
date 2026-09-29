@@ -1,103 +1,190 @@
 package it.made.cinema.Controller;
 
-import it.made.cinema.Model.*;
-import it.made.cinema.Model.DTO.GestioneOfferteDTO;
+import it.made.cinema.Model.Ruolo;
+import it.made.cinema.Model.Utente;
 import it.made.cinema.Model.DTO.GestioneUtenteDTO;
 import it.made.cinema.Repository.IRepoRuoli;
 import it.made.cinema.Repository.IRepoUtenti;
-import jakarta.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/gestioneUtenti")
 public class GestioneUtentiController {
 
-    //Form aggiunta, modifica e elimina
     @Autowired
     IRepoUtenti repoUtenti;
+
     @Autowired
     IRepoRuoli repoRuoli;
 
-    //lista
+
+    // LISTA UTENTI
     @GetMapping("/listaUtenti")
     @ResponseBody
-    public List<Map<String, Object>> listaUtenti(){
+    public List<Map<String, Object>> listaUtenti() {
         List<Utente> utenti = repoUtenti.findAll();
-        List<Map<String, Object>> listeUtenti = new ArrayList<>();
-        for (Utente u : utenti){
+        List<Map<String, Object>> listaUtenti = new ArrayList<>();
+        for (Utente u : utenti) {
             Map<String, Object> mapUtente = new HashMap<>();
             mapUtente.put("id", u.getId());
+            mapUtente.put("username", u.getUsername());
             mapUtente.put("nome", u.getNome());
             mapUtente.put("cognome", u.getCognome());
             mapUtente.put("email", u.getEmail());
-            mapUtente.put("ruolo", u.getRuolo().getNome());
-            listeUtenti.add(mapUtente);
+
+            if (u.getRuolo() != null) {
+                mapUtente.put("ruolo", u.getRuolo().getNome());
+            } else {
+                mapUtente.put("ruolo", "");
+            }
+            listaUtenti.add(mapUtente);
         }
-        return listeUtenti;
+        return listaUtenti;
     }
 
-    //creare metodo getRuoli che restituisce una lista di id e nome ruolo(gia fatto in film)
+
+    // LISTA RUOLI
+
     @GetMapping("/listaRuoli")
-    public @ResponseBody Map<Integer, String> getRuoli() {
+    @ResponseBody
+    public Map<Integer, String> getRuoli() {
         List<Ruolo> lista = repoRuoli.findAll();
-        Map<Integer, String> ruoli = new HashMap<Integer, String>();
+        Map<Integer, String> ruoli = new HashMap<>();
         for (Ruolo r : lista) {
             ruoli.put(r.getId(), r.getNome());
         }
         return ruoli;
     }
 
-    //salva/modifica
+
+    // SALVA / MODIFICA UTENTE
+
     @PostMapping("/salvaUtente")
     @ResponseBody
-    public Boolean salvaUtente(@RequestBody GestioneUtenteDTO utenteDTO){
-        Utente utente = new Utente();
-        utente.setId(utenteDTO.getId());
-        utente.setNome(utenteDTO.getNome());
-        utente.setCognome(utenteDTO.getCognome());
-        utente.setEmail(utenteDTO.getEmail());
-        if (!(utenteDTO.getIdRuolo() == null)){
-            Ruolo ruolo = repoRuoli.findById(utenteDTO.getIdRuolo()).get();
-            utente.setRuolo(ruolo);
+    public ResponseEntity<Map<String, Object>> salvaUtente(@RequestBody GestioneUtenteDTO utenteDTO) {
+        Map<String, Object> risposta = new HashMap<>();
+
+        // CONTROLLO DATI OBBLIGATORI
+        if (utenteDTO.getUsername() == null ||
+                utenteDTO.getUsername().trim().isEmpty() ||
+                utenteDTO.getEmail() == null ||
+                utenteDTO.getEmail().trim().isEmpty() ||
+                utenteDTO.getIdRuolo() == null) {
+
+            risposta.put("success", false);
+            risposta.put("message", "Compila username, email e ruolo.");
+            return ResponseEntity.badRequest().body(risposta);
         }
-        repoUtenti.save(utente);
-        return true;
+        String username = utenteDTO.getUsername().trim();
+        String email = utenteDTO.getEmail().trim();
+
+
+        // RECUPERO RUOLO
+        Optional<Ruolo> ruoloOptional = repoRuoli.findById(utenteDTO.getIdRuolo());
+        if (ruoloOptional.isEmpty()) {
+            risposta.put("success", false);
+            risposta.put("message", "Il ruolo selezionato non esiste.");
+            return ResponseEntity.badRequest().body(risposta);
+        }
+        Ruolo ruolo = ruoloOptional.get();
+
+
+        // MODIFICA UTENTE
+        if (utenteDTO.getId() != null) {
+            Optional<Utente> utenteOptional = repoUtenti.findById(utenteDTO.getId());
+            if (utenteOptional.isEmpty()) {
+                risposta.put("success", false);
+                risposta.put("message", "Utente non trovato.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(risposta);
+            }
+            Utente utente = utenteOptional.get();
+
+            // Modifichiamo solo i dati necessari
+            utente.setUsername(username);
+            utente.setEmail(email);
+            utente.setRuolo(ruolo);
+            repoUtenti.save(utente);
+            risposta.put("success", true);
+            risposta.put("message", "Utente modificato con successo.");
+            return ResponseEntity.ok(risposta);
+        }
+
+        // NUOVO AGGIORNAMENTO UTENTE
+        Optional<Utente> utenteCompleto = repoUtenti.findByUsernameAndEmail(username, email);
+
+        // USERNAME + EMAIL CORRETTI
+        if (utenteCompleto.isPresent()) {
+            Utente utente = utenteCompleto.get();
+            utente.setRuolo(ruolo);
+            repoUtenti.save(utente);
+            risposta.put("success", true);
+            risposta.put("message", "Utente aggiornato con successo.");
+            return ResponseEntity.ok(risposta);
+        }
+
+
+        // CONTROLLO SE USERNAME ED EMAIL ESISTONO SEPARATAMENTE
+        Optional<Utente> utenteUsername = repoUtenti.findByUsername(username);
+        boolean usernameCorretto = utenteUsername.isPresent();
+        boolean emailCorretta = repoUtenti.findAll().stream().anyMatch(u -> u.getEmail() != null && u.getEmail().equalsIgnoreCase(email));
+        // USERNAME CORRETTO - EMAIL SBAGLIATA
+        if (usernameCorretto && !emailCorretta) {
+            risposta.put("success", false);
+            risposta.put("message", "Email sbagliata.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(risposta);
+        }
+        // USERNAME SBAGLIATO - EMAIL CORRETTA
+        if (!usernameCorretto && emailCorretta) {
+            risposta.put("success", false);
+            risposta.put("message", "Username sbagliato.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(risposta);
+        }
+        // USERNAME + EMAIL SBAGLIATI
+        risposta.put("success", false);
+        risposta.put("message", "Utente non esistente, riprovare.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(risposta);
     }
 
 
-
-    //getUtente
+    // GET UTENTE
     @GetMapping("/getUtente/{id}")
     @ResponseBody
-    public GestioneUtenteDTO getUtente (@PathVariable (name = "id") Integer id){
-        Utente utente = repoUtenti.findById(id).get();
+    public ResponseEntity<GestioneUtenteDTO> getUtente(@PathVariable("id") Integer id) {
+        Optional<Utente> utenteOptional = repoUtenti.findById(id);
+        if (utenteOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Utente utente = utenteOptional.get();
         GestioneUtenteDTO dto = new GestioneUtenteDTO();
         dto.setId(utente.getId());
+        dto.setUsername(utente.getUsername());
         dto.setNome(utente.getNome());
         dto.setCognome(utente.getCognome());
         dto.setEmail(utente.getEmail());
-        if (utente.getRuolo() != null){
+
+        if (utente.getRuolo() != null) {
             dto.setIdRuolo(utente.getRuolo().getId());
         }
-        return dto;
+        return ResponseEntity.ok(dto);
     }
 
-    //elimina
+
+    // ELIMINA UTENTE
     @PostMapping("/cancellaUtente/{id}")
     @ResponseBody
     public Boolean cancella(@PathVariable("id") Integer id) {
         repoUtenti.deleteById(id);
         return true;
     }
-
 }

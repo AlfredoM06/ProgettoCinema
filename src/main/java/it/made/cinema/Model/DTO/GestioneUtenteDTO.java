@@ -15,6 +15,7 @@ public class GestioneUtenteDTO implements Serializable {
     //nome, cognome, email, ruolo
     private Integer idRuolo;
     private Integer id;
+    private String username;
     private String nome;
     private String cognome;
     private String email;

@@ -508,56 +508,103 @@ function ricaricaTabellaOfferte() {
 
 
 // =========================================================
-// TABELLA UTENTI
+// TABELLA UTENTI - INIZIALIZZAZIONE DATATABLE
 // =========================================================
-async function caricaTabellaUtenti() {
 
-    const tbody = document.getElementById("usersTableBody");
-    if (!tbody) {
+function inizializzaTabellaUtenti() {
+
+    return inizializzaDataTable(
+        "#tableUsers",
+        {
+            order: [[1, "asc"]],
+            columnDefs: [
+                // ID nascosto
+                {
+                    targets: 0,
+                    visible: false
+                },
+                // Azioni
+                {
+                    targets: -1,
+                    orderable: false,
+                    searchable: false
+                }
+            ]
+        }
+    );
+}
+
+// =========================================================
+// CARICAMENTO TABELLA UTENTI
+// =========================================================
+
+async function caricaTabellaUtenti() {
+    let table = inizializzaTabellaUtenti();
+    if (!table) {
         return;
     }
     try {
-        const response =await fetch("/admin/gestioneUtenti/listaUtenti");
-
+        const response = await fetch("/admin/gestioneUtenti/listaUtenti");
         if (!response.ok) {
-            throw new Error("Errore nel recupero degli utenti" );
+            throw new Error(`HTTP ${response.status}`);
         }
-
         const utenti = await response.json();
-        tbody.innerHTML = "";
+
+        // Svuota la DataTable
+        table.clear();
+
         utenti.forEach(utente => {
-            tbody.innerHTML += `
-                <tr>
-                    <td> ${utente.id}</td>
-                    <td>${utente.nome ?? ""} </td>
-                    <td> ${utente.cognome ?? ""}</td>
-                    <td>${utente.email ?? ""} </td>
-                    <td>  ${utente.ruolo ?? ""}</td>
-                    <td>
-                        <div
-                            class="btn-group d-flex justify-content-center"
-                            role="group">
-                            <button
-                                type="button"
-                                class="btn btn-outline-success btn-edit-utente"
-                                data-id="${utente.id}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+            const azioni = `
+                <div
+                    class="btn-group d-flex justify-content-center"
+                    role="group"
+                >
+                    <!-- MODIFICA -->
+                    <button
+                        type="button"
+                        class="btn btn-outline-success btn-edit-utente"
+                        data-id="${utente.id}"
+                        title="Modifica utente"
+                    >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
 
-                            <button
-                                type="button"
-                                class="btn btn-outline-danger btn-delete-utente"
-                                data-id="${utente.id}">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
+                    <!-- ELIMINA -->
+                    <button
+                        type="button"
+                        class="btn btn-outline-danger btn-delete-utente"
+                        data-id="${utente.id}"
+                        title="Elimina utente"
+                    >
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
             `;
+
+            table.row.add([
+                // 0 - ID nascosto
+                utente.id,
+                // 1 - USERNAME
+                utente.username ?? "",
+                // 2 - NOME
+                utente.nome ?? "",
+                // 3 - COGNOME
+                utente.cognome ?? "",
+                // 4 - EMAIL
+                utente.email ?? "",
+                // 5 - RUOLO
+                utente.ruolo ?? "",
+                // 6 - AZIONI
+                azioni
+            ]);
         });
+
+        // Disegna la tabella
+        table.draw();
+        // Ricalcola larghezze
+        table.columns.adjust();
     } catch (error) {
-        console.error("Errore tabella utenti:",error);
+        console.error( "Errore tabella utenti:", error);
     }
 }
 
@@ -568,11 +615,9 @@ async function caricaTabellaUtenti() {
     // =========================================================
 
 document.addEventListener("DOMContentLoaded",function () {
-
         // =========================================================
         // RICALCOLA LARGHEZZE DATATABLE AL CAMBIO TAB
         // =========================================================
-
         document.querySelectorAll('#filmTab button[data-bs-toggle="tab"]').forEach(tabBtn => {
             tabBtn.addEventListener('shown.bs.tab', function (e) {
                 const targetPane = document.querySelector(e.target.dataset.bsTarget);
@@ -584,7 +629,6 @@ document.addEventListener("DOMContentLoaded",function () {
             });
         });
         // TABELLA FILM IN SALA
-
         if (document.querySelector("#tableFilmInSala")) {
             caricaTabellaFilm(
                 false,
@@ -598,18 +642,14 @@ document.addEventListener("DOMContentLoaded",function () {
                 inizializzaTabellaFilmArchivio
             );
         }
-
-
         // TABELLA PROGRAMMAZIONE
         if ( document.querySelector("#tableScheduling")) {
             caricaTabellaProgrammazioni();
         }
-
         // TABELLA OFFERTE
         if (document.querySelector("#tableOffers")) {
             caricaTabellaOfferte();
         }
-
         // TABELLA UTENTI
         if (document.querySelector("#tableUsers")) {
                     caricaTabellaUtenti();
