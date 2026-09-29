@@ -53,5 +53,9 @@ public class ProgrammazioneFilm {
 
     @OneToMany(mappedBy = "programmazioneFilm")
     private List<PostiOccupati> listaPostiOccupati;
+
+    @ManyToOne
+    @JoinColumn(name = "id_lingua")
+    private Lingua lingua;
 }
 

@@ -16,6 +16,7 @@ public class SalvaProgrammazioneDTO implements Serializable {
 
     private Integer idFilm;
     private Integer idSala;
+    private Integer idLingua;
     private LocalDate data;
     private LocalTime orario;
     private Boolean anteprima;

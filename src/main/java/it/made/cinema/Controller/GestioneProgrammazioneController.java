@@ -48,6 +48,9 @@ public class GestioneProgrammazioneController {
     @Autowired
     IRepoCross repoCross;
 
+    @Autowired
+    IRepoLingue repoLingue;
+
     @GetMapping("/getOrariPerSala/{idSala}/{data}")
     @ResponseBody
     public Map<?, ?> getOrariPerSala(@PathVariable Integer idSala, @PathVariable LocalDate data) {
@@ -73,9 +76,11 @@ public class GestioneProgrammazioneController {
     public Boolean salvaForm(@RequestBody SalvaProgrammazioneDTO dto) {
         Film film = repoFilm.findById(dto.getIdFilm()).get();
         Sala sala = repoSala.findById(dto.getIdSala()).get();
+        Lingua lingua = repoLingue.findById(dto.getIdLingua()).get();
         ProgrammazioneFilm programmazioneFilm = new ProgrammazioneFilm();
         programmazioneFilm.setFilm(film);
         programmazioneFilm.setSala(sala);
+        programmazioneFilm.setLingua(lingua);
         programmazioneFilm.setDataProgrammazione(dto.getData());
         programmazioneFilm.setOrario(dto.getOrario());
         programmazioneFilm.setAnteprima(Boolean.TRUE.equals(dto.getAnteprima()));
@@ -179,12 +184,24 @@ public class GestioneProgrammazioneController {
         return "prenotazioneBiglietto";
     }
 
-    //metodo per ottenere i formati
-    @GetMapping("/formatiFilm/{idFilm}")
+    @GetMapping("/lingueFilm/{idFilm}")
     @ResponseBody
-    public List<String> getFormatiFilm(@PathVariable Integer idFilm) {
+    public Map<Integer, String> getLingueFilm(@PathVariable Integer idFilm) {
+        List<CrossFilmFormatoLingua> cross = repoCross.findByFilmId(idFilm);
+        Map<Integer , String> result = new HashMap<>();
+        for(CrossFilmFormatoLingua c : cross){
+            result.put(c.getLingua().getId(), c.getLingua().getNome());
+        }
+        return result;
+    }
+
+    //metodo per ottenere i formati filtrando per film e lingua
+    @GetMapping("/formatiFilm/{idFilm}/{idLingua}")
+    @ResponseBody
+    public List<String> getFormatiFilm(@PathVariable Integer idFilm, @PathVariable Integer idLingua) {
         return repoCross.findByFilmId(idFilm)
                 .stream()
+                .filter(c -> c.getLingua().getId().equals(idLingua))
                 .map(c -> c.getFormato().getNome())
                 .distinct()
                 .collect(Collectors.toList());
