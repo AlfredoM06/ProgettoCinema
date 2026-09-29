@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //PREZZO OFFERTA DISABILITATA
         function aggiornaPrezzoOfferta() {
             let genereSelezionato = offerteSection.querySelector("input[name='genere']:checked")?.value;
-            if (genereSelezionato === "manu") {
+            if (genereSelezionato === "menu") {
                 prezzoOfferta.disabled = false;
             } else {
                 prezzoOfferta.disabled = true;
@@ -1711,8 +1711,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (utenteSection) {
 
-        let nomeInput = document.getElementById("nome");
-        let cognomeInput = document.getElementById("cognome");
+        let usernameInput = document.getElementById("username");
         let emailInput = document.getElementById("email");
         let ruoliContainer = document.getElementById("ruoliContainer");
 
@@ -1725,14 +1724,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // =====================================================
 
         if (
-            !nomeInput ||
-            !cognomeInput ||
+            !usernameInput ||
             !emailInput ||
             !ruoliContainer
         ) {
-
             console.error("Elementi form utenti mancanti.");
-
         } else {
 
 
@@ -1741,20 +1737,14 @@ document.addEventListener("DOMContentLoaded", function () {
             // =================================================
 
             async function caricaRuoli() {
-
                 try {
-
-                    const response =
-                        await fetch("/admin/gestioneUtenti/listaRuoli");
+                    const response = await fetch("/admin/gestioneUtenti/listaRuoli");
 
                     if (!response.ok) {
-                        throw new Error(
-                            "Errore nel recupero dei ruoli"
-                        );
+                        throw new Error( "Errore nel recupero dei ruoli" );
                     }
 
                     const ruoli = await response.json();
-
                     ruoliContainer.innerHTML = "";
 
                     Object.entries(ruoli).forEach(
@@ -1781,13 +1771,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             `;
                         }
                     );
-
                 } catch (error) {
-
-                    console.error(
-                        "Errore recupero ruoli:",
-                        error
-                    );
+                    console.error("Errore recupero ruoli:",error);
                 }
             }
 
@@ -1798,13 +1783,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function resetFormUtente() {
 
-                nomeInput.value = "";
-                cognomeInput.value = "";
+                usernameInput.value = "";
                 emailInput.value = "";
 
-                ruoliContainer
-                    .querySelectorAll("input[name='ruolo']")
-                    .forEach(radio => {
+                ruoliContainer.querySelectorAll("input[name='ruolo']").forEach(radio => {
                         radio.checked = false;
                     });
 
@@ -1815,102 +1797,112 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
+            // =================================================
             // MODIFICA UTENTE
+            // =================================================
 
             async function modificaUtente(id) {
-
                 try {
-                    const response = await fetch(`/admin/gestioneUtenti/getUtente/${id}`);
-
+                    const response = await fetch( `/admin/gestioneUtenti/getUtente/${id}` );
                     if (!response.ok) {
-                        throw new Error("Errore nel recupero dell'utente");
+                        throw new Error( "Errore nel recupero dell'utente" );
                     }
 
                     const utente = await response.json();
 
                     modalitaModifica = true;
                     utenteIdModifica = utente.id;
-                    nomeInput.value = utente.nome ?? "";
-                    cognomeInput.value = utente.cognome ?? "";
-                    emailInput.value =utente.email ?? "";
+                    usernameInput.value = utente.username ?? "";
+                    emailInput.value = utente.email ?? "";
 
                     ruoliContainer.querySelectorAll("input[name='ruolo']").forEach(radio => {
                             radio.checked = String(radio.value) === String(utente.idRuolo);
                         });
 
-                    // Salviamo l'id nella section
-                    utenteSection.dataset.id =utente.id;
+                    utenteSection.dataset.id = utente.id;
 
-                    // Mostra la sezione utenti
                     showSection("utenti");
 
                     utenteSection.scrollIntoView({
                         behavior: "smooth"
                     });
+
                 } catch (error) {
-                    console.error("Errore modifica utente:", error);
-                    alert("Impossibile caricare l'utente.");
+                    console.error("Errore modifica utente:",error);
+                    alert( "Impossibile caricare l'utente.");
                 }
             }
 
 
-            // SALVATAGGIO UTENTE
+            // =================================================
+            // SALVATAGGIO / AGGIORNAMENTO UTENTE
+            // =================================================
+
             async function salvaUtente() {
-                let nome = nomeInput.value.trim();
-                let cognome = cognomeInput.value.trim();
+                let username = usernameInput.value.trim();
                 let email = emailInput.value.trim();
-                let radioRuolo = ruoliContainer.querySelector( "input[name='ruolo']:checked");
+                let radioRuolo = ruoliContainer.querySelector("input[name='ruolo']:checked");
                 let idRuolo = radioRuolo ? Number(radioRuolo.value) : null;
 
-
+                // =================================================
                 // VALIDAZIONE
-                if (
-                    !nome ||
-                    !cognome ||
-                    !email ||
-                    !idRuolo
-                ) {
-                    alert("Compila tutti i campi.");
+                // =================================================
+                if (!username || !email || !idRuolo) {
+                    alert("Compila username, email e ruolo.");
                     return;
                 }
 
 
+                // =================================================
                 // DTO
+                // =================================================
+
                 let dto = {
-                    id: modalitaModifica ? utenteIdModifica : null,
-                    nome: nome,
-                    cognome: cognome,
+                    id: modalitaModifica
+                        ? utenteIdModifica
+                        : null,
+                    username: username,
                     email: email,
                     idRuolo: idRuolo
                 };
 
 
+                // =================================================
                 // INVIO AL BACKEND
+                // =================================================
+
                 try {
-                    const response =await fetch("/admin/gestioneUtenti/salvaUtente",{
-                                method: "POST",
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-                                body:
-                                    JSON.stringify(dto)
-                            }
-                        );
+                    const response = await fetch("/admin/gestioneUtenti/salvaUtente",{
+                            method: "POST",
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body: JSON.stringify(dto)
+                        }
+                    );
+
+
+                    // =================================================
+                    // RISPOSTA BACKEND
+                    // =================================================
+
+                    const risultato = await response.json();
 
                     if (!response.ok) {
-                        throw new Error( "Errore durante il salvataggio" );
+                        alert(risultato.message ||"Si è verificato un errore.");
+                        return;
                     }
 
-                    await response.json();
-
-                    alert(modalitaModifica ? "Utente modificato correttamente.": "Utente salvato correttamente.");
+                    // =================================================
+                    // SUCCESSO
+                    // =================================================
+                    alert( risultato.message);
                     resetFormUtente();
                     caricaTabellaUtenti();
-
                 } catch (error) {
                     console.error("Errore salvataggio utente:",error);
-                    alert( "Si è verificato un errore durante il salvataggio." );
+                    alert("Si è verificato un errore durante il salvataggio.");
                 }
             }
 
@@ -1918,31 +1910,41 @@ document.addEventListener("DOMContentLoaded", function () {
             // CARICA RUOLI
             caricaRuoli();
 
-            // BOTTONI FORM
-            let btnConfermaUtente = utenteSection.querySelector("button[type='submit']");
-            let btnAnnullaUtente =utenteSection.querySelector("button[type='reset']");
+            // BOTTONI
+            let btnConfermaUtente = document.getElementById("btnConfermaUtente");
+            let btnAnnullaUtente = document.getElementById("btnAnnullaUtente");
 
+            // =================================================
+            // CONFERMA
+            // =================================================
 
             if (btnConfermaUtente) {
-                btnConfermaUtente.addEventListener("click", function (e) {
+                btnConfermaUtente.addEventListener( "click",function (e) {
                         e.preventDefault();
                         salvaUtente();
                     }
                 );
             }
 
+
+            // =================================================
+            // ANNULLA
+            // =================================================
+
             if (btnAnnullaUtente) {
-                btnAnnullaUtente.addEventListener("click", function (e) {
+                btnAnnullaUtente.addEventListener("click",function (e) {
                         e.preventDefault();
                         resetFormUtente();
                     }
                 );
             }
 
-            // ESPONI MODIFICA AL LISTENER UNICO
+
+            // ESPONI MODIFICA
             window.modificaUtente = modificaUtente;
         }
     }
+
 
     // CARICAMENTO TABELLA UTENTI
     caricaTabellaUtenti();
