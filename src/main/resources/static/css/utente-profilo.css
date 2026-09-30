@@ -997,3 +997,880 @@ input.input-error {
 .field-error.visible {
     visibility: visible;
 }
+
+/* ========================================================= */
+/* LAPTOP - FINO A 1200px */
+/* ========================================================= */
+
+@media (max-width: 1200px) {
+
+    /* ========================= */
+    /* LAYOUT */
+    /* ========================= */
+
+    .account-wrapper {
+        gap: 2rem;
+        margin-top: 7rem;
+        margin-bottom: 7rem;
+    }
+
+    .sidebar {
+        width: 22%;
+        margin-top: 3rem;
+    }
+
+    .content-area {
+        width: 68%;
+    }
+
+    .content-box {
+        padding: 1.5rem;
+    }
+
+
+    /* ========================= */
+    /* PAGE TITLE */
+    /* ========================= */
+
+    .page-title {
+        margin-bottom: 3rem;
+    }
+
+    .page-title h1 {
+        font-size: 2.2rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT PANORAMA */
+    /* ========================= */
+
+    .account-panorama {
+        gap: 1.5rem;
+        padding-bottom: 8rem;
+    }
+
+
+    /* ========================= */
+    /* PROFILE */
+    /* ========================= */
+
+    .profile-form {
+        padding: 0 5rem 0 1rem;
+    }
+
+    .profile-section-title {
+        margin-left: 1rem;
+    }
+
+
+    /* ========================= */
+    /* SOCIAL */
+    /* ========================= */
+
+    .social-wrapper {
+        padding: 0 5rem 0 1rem;
+    }
+
+
+    /* ========================= */
+    /* MARKETING */
+    /* ========================= */
+
+    .marketing-wrapper {
+        padding: 0 5rem 0 1rem;
+    }
+
+
+    /* ========================= */
+    /* VOUCHER */
+    /* ========================= */
+
+    .voucher-card {
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .voucher-img img {
+        width: 12rem;
+    }
+
+
+    /* ========================= */
+    /* TICKETS */
+    /* ========================= */
+
+    .ticket-card {
+        padding: 1.5rem;
+    }
+
+    .ticket-value {
+        font-size: 1.05rem;
+    }
+
+
+    /* ========================= */
+    /* MENUS */
+    /* ========================= */
+
+    .menu-card {
+        gap: 1rem;
+        padding: 1.25rem;
+    }
+
+    .menu-img img {
+        width: 14rem;
+        height: 10rem;
+    }
+
+    .menu-qr-wrapper {
+        min-width: 13rem;
+        padding-right: 1rem;
+    }
+
+}
+
+
+/* ========================================================= */
+/* MOBILE - FINO A 767px */
+/* ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* ========================= */
+    /* LAYOUT */
+    /* ========================= */
+
+    .account-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        padding: 0 1rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .content-area {
+        width: 100%;
+    }
+
+    .content-box {
+        padding: 1rem;
+    }
+
+
+    /* ========================= */
+    /* SIDEBAR */
+    /* ========================= */
+
+    .menu-btn {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .menu-btn img {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+
+    .menu-btn span {
+        font-size: 0.9rem;
+    }
+
+
+    /* ========================= */
+    /* PAGE TITLE */
+    /* ========================= */
+
+    .page-title {
+        gap: 0.75rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .page-title h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-title img {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT PANORAMA */
+    /* ========================= */
+
+    .account-panorama {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-bottom: 5rem;
+    }
+
+    .account-left,
+    .account-right {
+        width: 100%;
+    }
+
+
+    /* ========================= */
+    /* LOYALTY CARD */
+    /* ========================= */
+
+    .loyalty-card {
+        padding: 1.25rem;
+    }
+
+    .loyalty-img img {
+        width: 5rem;
+    }
+
+    .brand,
+    .points {
+        font-size: 1.05rem;
+    }
+
+    .loyalty-card-number {
+        font-size: 0.85rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT FIELDS */
+    /* ========================= */
+
+    .field-row {
+        flex-direction: column;
+        gap: 0.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .field dd {
+        font-size: 1rem;
+    }
+
+
+    /* ========================= */
+    /* TICKETS */
+    /* ========================= */
+
+    .ticket-card {
+        padding: 1.25rem;
+    }
+
+    .ticket-times {
+        font-size: 0.85rem;
+    }
+
+    .ticket-footer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .ticket-value {
+        font-size: 1rem;
+    }
+
+
+    /* ========================= */
+    /* VOUCHER */
+    /* ========================= */
+
+    .voucher-layout {
+        padding-bottom: 5rem;
+    }
+
+    .voucher-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+    }
+
+    .voucher-img {
+        width: 100%;
+    }
+
+    .voucher-img img {
+        width: 100%;
+        max-width: 18rem;
+    }
+
+    .voucher-info {
+        width: 100%;
+    }
+
+    .voucher-title {
+        font-size: 1.1rem;
+    }
+
+    .voucher-value {
+        font-size: 1.3rem;
+    }
+
+
+    /* ========================= */
+    /* VOUCHER FORM */
+    /* ========================= */
+
+    .voucher-form-wrapper {
+        padding: 1.25rem;
+    }
+
+    .voucher-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .label-wrapper {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .label-wrapper label {
+        text-align: left;
+    }
+
+    .input-wrapper {
+        width: 100%;
+    }
+
+    .voucher-btn {
+        width: 100%;
+    }
+
+
+    /* ========================= */
+    /* PROFILE */
+    /* ========================= */
+
+    .profile-form {
+        padding: 0;
+    }
+
+    .profile-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .profile-form .form-label {
+        width: 100%;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+
+    .profile-row .input-wrapper {
+        width: 100%;
+    }
+
+    .profile-form .form-control {
+        width: 100%;
+        min-height: 3rem;
+    }
+
+    .birthday-wrapper {
+        width: 100%;
+    }
+
+    .profile-section-title {
+        margin-left: 0;
+        margin-top: 2rem;
+        font-size: 1.3rem;
+    }
+
+    .profile-section-title.big {
+        font-size: 1.6rem;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .save-btn,
+    .delete-btn {
+        width: 100%;
+    }
+
+
+    /* ========================= */
+    /* SOCIAL */
+    /* ========================= */
+
+    .social-wrapper {
+        padding: 0;
+    }
+
+    .social-text {
+        font-size: 1rem;
+    }
+
+    .social-item {
+        padding: 1rem 0;
+    }
+
+    .social-left {
+        gap: 0.75rem;
+    }
+
+    .social-left span {
+        font-size: 0.9rem;
+    }
+
+
+    /* ========================= */
+    /* MARKETING */
+    /* ========================= */
+
+    .marketing-wrapper {
+        padding: 0;
+    }
+
+    .marketing-title {
+        font-size: 1.4rem;
+    }
+
+    .marketing-text {
+        font-size: 1rem;
+    }
+
+    .marketing-check label {
+        font-size: 1rem;
+    }
+
+
+    /* ========================= */
+    /* MENUS */
+    /* ========================= */
+
+    .menu-card {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .menu-img {
+        width: 100%;
+    }
+
+    .menu-img img {
+        width: 100%;
+        height: auto;
+        max-height: 14rem;
+        object-fit: cover;
+    }
+
+    .menu-content {
+        width: 100%;
+    }
+
+    .menu-header .section-title {
+        font-size: 1rem;
+    }
+
+    .menu-info {
+        gap: 2rem;
+    }
+
+    .menu-value {
+        font-size: 1rem;
+    }
+
+    .menu-date {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .menu-qr-wrapper {
+        min-width: 0;
+        width: 100%;
+        padding-right: 0;
+    }
+
+
+    /* ========================= */
+    /* EMPTY STATE */
+    /* ========================= */
+
+    .empty-state {
+        padding: 1.25rem;
+        font-size: 0.95rem;
+    }
+
+}
+
+/* ========================================================= */
+/* MOBILE PICCOLO - FINO A 400px */
+/* ========================================================= */
+
+@media (max-width: 400px) {
+
+    /* ========================= */
+    /* LAYOUT */
+    /* ========================= */
+
+    .account-wrapper {
+        padding: 0 0.75rem;
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .content-box {
+        padding: 0.75rem;
+    }
+
+
+    /* ========================= */
+    /* PAGE TITLE */
+    /* ========================= */
+
+    .page-title {
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title h1 {
+        font-size: 1.5rem;
+    }
+
+    .page-title img {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+
+
+    /* ========================= */
+    /* SIDEBAR */
+    /* ========================= */
+
+    .menu-btn {
+        padding: 0.85rem;
+        gap: 0.6rem;
+    }
+
+    .menu-btn img {
+        width: 1.15rem;
+        height: 1.15rem;
+    }
+
+    .menu-btn span {
+        font-size: 0.8rem;
+    }
+
+
+    /* ========================= */
+    /* LOYALTY CARD */
+    /* ========================= */
+
+    .loyalty-card {
+        padding: 1rem;
+    }
+
+    .loyalty-top {
+        gap: 0.75rem;
+    }
+
+    .loyalty-img img {
+        width: 4rem;
+    }
+
+    .brand,
+    .points {
+        font-size: 0.95rem;
+    }
+
+    .loyalty-card-number {
+        font-size: 0.75rem;
+    }
+
+    .loyalty-link {
+        font-size: 0.8rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT */
+    /* ========================= */
+
+    .account-header {
+        margin-bottom: 1rem;
+    }
+
+    .section-title {
+        font-size: 0.85rem;
+    }
+
+    .edit-btn {
+        font-size: 0.8rem;
+    }
+
+    .edit-btn i {
+        font-size: 1rem;
+    }
+
+    .field dt {
+        font-size: 0.7rem;
+    }
+
+    .field dd {
+        font-size: 0.9rem;
+    }
+
+
+    /* ========================= */
+    /* TICKETS */
+    /* ========================= */
+
+    .ticket-card {
+        padding: 1rem;
+    }
+
+    .ticket-date {
+        font-size: 0.8rem;
+    }
+
+    .ticket-times {
+        flex-direction: column;
+        gap: 0.35rem;
+        align-items: flex-start;
+        font-size: 0.8rem;
+    }
+
+    .ticket-footer {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .ticket-label {
+        font-size: 0.65rem;
+    }
+
+    .ticket-value {
+        font-size: 0.9rem;
+    }
+
+
+    /* ========================= */
+    /* VOUCHER */
+    /* ========================= */
+
+    .voucher-card {
+        padding: 1rem;
+    }
+
+    .voucher-img img {
+        max-width: 100%;
+    }
+
+    .voucher-title {
+        font-size: 1rem;
+    }
+
+    .voucher-days {
+        font-size: 0.75rem;
+    }
+
+    .voucher-label {
+        font-size: 0.65rem;
+    }
+
+    .voucher-value {
+        font-size: 1.15rem;
+    }
+
+
+    /* ========================= */
+    /* VOUCHER FORM */
+    /* ========================= */
+
+    .voucher-form-wrapper {
+        padding: 1rem;
+    }
+
+    .label-wrapper label {
+        font-size: 0.8rem;
+    }
+
+    .voucher-form input {
+        font-size: 0.85rem;
+        padding: 0.55rem 0.7rem;
+    }
+
+    .form-text {
+        font-size: 0.7rem;
+    }
+
+    .voucher-btn {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.85rem;
+    }
+
+
+    /* ========================= */
+    /* PROFILE */
+    /* ========================= */
+
+    .profile-section-title {
+        font-size: 1.15rem;
+    }
+
+    .profile-section-title.big {
+        font-size: 1.4rem;
+    }
+
+    .profile-form .form-label {
+        font-size: 0.75rem;
+    }
+
+    .profile-form .form-control {
+        padding: 0.8rem;
+        min-height: 2.8rem;
+        font-size: 0.85rem;
+    }
+
+    .birthday-wrapper {
+        gap: 0.35rem;
+    }
+
+    .birthday-wrapper .form-control {
+        padding: 0.8rem 0.35rem;
+    }
+
+    .password-help {
+        font-size: 0.75rem;
+    }
+
+    .save-btn,
+    .delete-btn {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.85rem;
+    }
+
+
+    /* ========================= */
+    /* SOCIAL */
+    /* ========================= */
+
+    .social-text {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .social-item {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .social-left span {
+        font-size: 0.8rem;
+    }
+
+    .connect-btn {
+        justify-self: stretch;
+        width: 100%;
+    }
+
+
+    /* ========================= */
+    /* MARKETING */
+    /* ========================= */
+
+    .marketing-title {
+        font-size: 1.2rem;
+    }
+
+    .marketing-text {
+        font-size: 0.85rem;
+    }
+
+    .marketing-checklist {
+        gap: 1rem;
+    }
+
+    .marketing-check {
+        gap: 0.7rem;
+    }
+
+    .marketing-checkbox {
+        width: 1.1rem;
+        height: 1.1rem;
+    }
+
+    .marketing-check label {
+        font-size: 0.85rem;
+    }
+
+    .save-btn-marketing {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.85rem;
+    }
+
+
+    /* ========================= */
+    /* MENUS */
+    /* ========================= */
+
+    .menu-card {
+        padding: 0.85rem;
+    }
+
+    .menu-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .menu-header .section-title {
+        font-size: 0.9rem;
+    }
+
+    .menu-info {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .menu-date {
+        font-size: 0.8rem;
+    }
+
+    .menu-label {
+        font-size: 0.65rem;
+    }
+
+    .menu-value {
+        font-size: 0.9rem;
+    }
+
+    .menu-price {
+        font-size: 1rem;
+    }
+
+    .menu-qr-wrapper {
+        margin-top: 0.5rem;
+    }
+
+    .menu-code {
+        font-size: 0.65rem;
+    }
+
+
+    /* ========================= */
+    /* EMPTY STATE */
+    /* ========================= */
+
+    .empty-state {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+}

@@ -430,3 +430,320 @@ dropdown-admin {
     font-size: 1.25rem;
     line-height: 1;
 }
+
+/* ========================================================= */
+/* LAPTOP - FINO A 1200px */
+/* ========================================================= */
+
+@media (max-width: 1200px) {
+
+    /* ========================= */
+    /* LAYOUT */
+    /* ========================= */
+
+    .account-wrapper {
+        gap: 2rem;
+        margin-top: 7rem;
+    }
+
+    .sidebar {
+        width: 22%;
+        margin-top: 3rem;
+    }
+
+    .content-area {
+        width: 68%;
+    }
+
+    .content-box {
+        padding: 1.5rem;
+    }
+
+
+    /* ========================= */
+    /* SIDEBAR */
+    /* ========================= */
+
+    .menu-btn {
+        padding: 1.2rem 1rem;
+        gap: .75rem;
+    }
+
+    .menu-btn img,
+    .dropdown-toggle-admin img {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+
+    .menu-btn span,
+    .dropdown-toggle-admin {
+        font-size: .95rem;
+    }
+
+    .dropdown-menu-admin .menu-btn {
+        padding-left: 2rem;
+    }
+
+
+    /* ========================= */
+    /* PAGE TITLE */
+    /* ========================= */
+
+    .page-title {
+        margin-bottom: 3rem;
+    }
+
+    .page-title h1 {
+        font-size: 2.2rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT PANORAMA */
+    /* ========================= */
+
+    .account-panorama {
+        gap: 1.5rem;
+        padding-bottom: 8rem;
+    }
+
+
+    /* ========================= */
+    /* PROGRAMMAZIONE */
+    /* ========================= */
+
+    .formProgrammazione {
+        padding: 1.5rem;
+    }
+
+    .programmazione-title {
+        font-size: 1.1rem;
+        margin: 1.5rem 0;
+    }
+
+
+    /* ========================= */
+    /* ORARI */
+    /* ========================= */
+
+    .orari-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: .8rem;
+        padding: 1.25rem;
+    }
+
+    .orari-grid .form-check {
+        gap: .4rem;
+    }
+
+    .orari-grid .form-check-label {
+        font-size: .9rem;
+    }
+
+
+    /* ========================= */
+    /* LEGENDA */
+    /* ========================= */
+
+    .legenda-wrapper {
+        margin-top: 2rem;
+    }
+
+    .legenda-programmazione {
+        gap: 1.25rem;
+        padding: 1rem;
+    }
+
+    .legenda-item {
+        font-size: .95rem;
+    }
+
+}
+
+
+/* ========================================================= */
+/* MOBILE - FINO A 767px */
+/* ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* ========================= */
+    /* LAYOUT */
+    /* ========================= */
+
+    .account-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 5rem;
+        padding: 0 1rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .content-area {
+        width: 100%;
+    }
+
+    .content-box {
+        padding: 1rem;
+    }
+
+
+    /* ========================= */
+    /* SIDEBAR */
+    /* ========================= */
+
+    .menu-btn {
+        padding: 1rem;
+        gap: .75rem;
+    }
+
+    .menu-btn img,
+    .dropdown-toggle-admin img {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+
+    .menu-btn span {
+        font-size: .9rem;
+    }
+
+    .dropdown-toggle-admin {
+        padding: 1rem;
+        font-size: .9rem;
+    }
+
+    .dropdown-menu-admin .menu-btn {
+        padding-left: 2rem;
+    }
+
+
+    /* ========================= */
+    /* PAGE TITLE */
+    /* ========================= */
+
+    .page-title {
+        gap: .75rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .page-title h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-title img {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT PANORAMA */
+    /* ========================= */
+
+    .account-panorama {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-bottom: 5rem;
+    }
+
+
+    /* ========================= */
+    /* ACCOUNT FIELDS */
+    /* ========================= */
+
+    .field-row {
+        flex-direction: column;
+        gap: .25rem;
+        margin-bottom: 1rem;
+    }
+
+    .field dd {
+        font-size: 1rem;
+    }
+
+
+    /* ========================= */
+    /* PROGRAMMAZIONE */
+    /* ========================= */
+
+    .formProgrammazione {
+        padding: 1rem;
+        border-radius: .5rem;
+    }
+
+    .programmazione-title {
+        font-size: 1rem;
+        margin: 1.25rem 0;
+        line-height: 1.4;
+    }
+
+
+    /* ========================= */
+    /* SALE */
+    /* ========================= */
+
+    .sale-wrapper .col-6 {
+        width: 100%;
+    }
+
+
+    /* ========================= */
+    /* ORARI */
+    /* ========================= */
+
+    .orari-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: .6rem;
+        padding: 1rem;
+    }
+
+    .orari-grid .form-check {
+        justify-content: flex-start;
+        gap: .4rem;
+    }
+
+    .orari-grid .form-check-label {
+        font-size: .85rem;
+    }
+
+    .orari-grid .form-check-input {
+        width: .95rem;
+        height: .95rem;
+        flex-shrink: 0;
+    }
+
+
+    /* ========================= */
+    /* LEGENDA */
+    /* ========================= */
+
+    .legenda-wrapper {
+        margin-top: 1.5rem;
+    }
+
+    .legenda-programmazione {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .9rem;
+        padding: 1rem;
+    }
+
+    .legenda-item {
+        font-size: .9rem;
+    }
+
+    .legenda-pallino {
+        width: .9rem;
+        height: .9rem;
+    }
+
+    .legenda-stella {
+        font-size: 1.1rem;
+    }
+
+}

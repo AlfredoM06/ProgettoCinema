@@ -651,11 +651,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             acquisti.forEach(offerta => {
                 let chiave = `${offerta.idOfferta}_${offerta.dataAcquisto}`;
+                let quantita = Number(offerta.quantita) || 1;
+
                 if (!offerteRaggruppate[chiave]) {
                     offerteRaggruppate[chiave] = {
-                        ...offerta,
-                        quantita: offerta.quantita ?? 1  // ← prende dal backend
+                        ...offerta, quantita: quantita
                     };
+                } else {
+                    offerteRaggruppate[chiave].quantita += quantita;
                 }
             });
 
