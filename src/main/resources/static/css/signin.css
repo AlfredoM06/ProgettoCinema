@@ -1095,3 +1095,45 @@ input:-webkit-autofill:active {
         min-height: 4.3rem;
     }
 }
+
+/* =========================================
+   LAPTOP / TABLET - FINO A 1024px
+   ========================================= */
+
+@media (max-width: 1024px) {
+
+    body {
+        padding-top: 7rem;
+        padding-bottom: 3rem;
+    }
+
+    .container {
+        width: 52rem;
+        max-width: 92vw;
+        height: 29rem;
+    }
+}
+
+
+/* =========================================
+   MOBILE - BOOTSTRAP md
+   ========================================= */
+
+@media (max-width: 767.98px) {
+
+    body {
+        padding-top: 6rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 25rem;
+        height: auto;
+    }
+
+    .overlay-container {
+        display: none;
+    }
+}
