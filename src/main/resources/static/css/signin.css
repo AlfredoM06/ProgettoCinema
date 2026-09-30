@@ -1103,14 +1103,14 @@ input:-webkit-autofill:active {
 @media (max-width: 1024px) {
 
     body {
-        padding-top: 7rem;
-        padding-bottom: 3rem;
+        padding-top: 7rem !important;
+        padding-bottom: 3rem !important!;
     }
 
     .container {
-        width: 40rem;
-        max-width: 72vw;
-        height: 20rem;
+        width: 52rem !important;
+        max-width: 92vw !important;
+        height: 29rem !important;
     }
 }
 
