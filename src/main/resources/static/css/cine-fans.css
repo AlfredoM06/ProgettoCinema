@@ -344,36 +344,127 @@
 }
 
 
-/* =========================
-   RESPONSIVE - LAPTOP PICCOLO (<=1200px)
-========================= */
+/* =========================================================
+   CINEFANS - LAPTOP
+   Ridimensionamento reale della sala
+   ========================================================= */
 
 @media (max-width: 1200px) {
-  .main-content {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
 
-  .intro h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
-  .custom-table th,
-  .custom-table td {
-    font-size: 1.3rem;
-    padding: 0.75rem;
-  }
+    /* =========================
+       CONTENITORE SALA
+    ========================= */
 
-  .title-price h3 {
-    font-size: 1.9rem;
-  }
+    .cinema-main {
+        width: 100%;
+        max-width: 100%;
+    }
 
-  .title-price p {
-    font-size: 1.6rem;
-  }
+    .cinema-left,
+    .cinema-right {
+        max-width: 100%;
+    }
+
+    .cinema-inner {
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+    }
+
+    .cinema-box {
+        padding: 1.25rem 0.75rem;
+        overflow: hidden;
+    }
+
+
+    /* =========================
+       GRIGLIA POSTI
+    ========================= */
+
+    .seats-grid {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .row-wrapper {
+        max-width: 100%;
+    }
+
+    .row-seats {
+        gap: 0.5rem;
+    }
+
+    .seat,
+    .seat-empty {
+        width: 1.3rem;
+        height: 1.3rem;
+        min-width: 1.3rem;
+        max-width: 1.3rem;
+
+        font-size: 0.55rem;
+    }
+
+    .row-label {
+        left: -2.8rem;
+        font-size: 0.55rem;
+    }
+
+
+    /* =========================
+       SCHERMO
+    ========================= */
+
+    .screen {
+        width: 55%;
+        max-width: 30rem;
+    }
+
+    .screen-wrapper::after {
+        width: 55%;
+        max-width: 30rem;
+    }
+
+    .screen-shadow {
+        width: 55%;
+        max-width: 30rem;
+    }
+
+
+    /* =========================
+       SCROLL
+    ========================= */
+
+    .scroll-area {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        max-height: 28rem;
+        overflow-x: hidden;
+    }
+
+
+    /* =========================
+       DESTRA
+    ========================= */
+
+    .cinema-right {
+        padding: 0 0.75rem;
+    }
+
+    .quantity-row span:first-child {
+        font-size: 1.15rem;
+    }
+
+    .checkout-box {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
-
 
 /* =========================
    RESPONSIVE - TABLET (<=992px)
