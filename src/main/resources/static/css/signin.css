@@ -1108,9 +1108,9 @@ input:-webkit-autofill:active {
     }
 
     .container {
-        width: 52rem;
-        max-width: 92vw;
-        height: 29rem;
+        width: 40rem;
+        max-width: 72vw;
+        height: 20rem;
     }
 }
 
