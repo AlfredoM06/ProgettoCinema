@@ -40,7 +40,7 @@
         <p th:text="${offerta.descrizione}"></p>
         <p id="prezzoOfferta"
            class="prezzo-offerta"
-           th:text="'Al prezzo di ' + ${offerta.prezzo} + ' €'"
+           th:text="'Al prezzo di ' + ${#numbers.formatDecimal(offerta.prezzo, 1, 2)} + ' €'"
            style="display: none;">
         </p>
         <button id="btnAcquista" class="btn btnGadget" style="display: none;">

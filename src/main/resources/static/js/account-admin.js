@@ -1624,11 +1624,27 @@ if (programmazioneForm) {
         // -------------------------------------------------
 
         checkboxes.forEach(cb => {
+            cb.disabled = orariAltriFilm.includes(cb.value);
 
-            if (orariAltriFilm.includes(cb.value)) {
-                cb.disabled = true;
-            } else {
-                cb.disabled = false;
+            let label = cb.nextElementSibling;
+            if (label) {
+                if (orariAltriFilm.includes(cb.value)) {
+                    // Orario realmente occupato da un altro film
+                    label.style.color = "#999";
+                    label.style.textDecoration = "line-through";
+                    label.style.opacity = "0.6";
+                    label.title = "Orario occupato da un altro film";
+                } else {
+                    // Pulizia: poi bloccaIntervallo ricalcola i blocchi
+                    label.style.color = "";
+                    label.style.textDecoration = "";
+                    label.style.opacity = "";
+                    label.title = "";
+
+                    if (modalitaModifica && orariFilmCorrente.includes(cb.value)) {
+                        label.title = "Orario della programmazione corrente";
+                    }
+                }
             }
         });
 
