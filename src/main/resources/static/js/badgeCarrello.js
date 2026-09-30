@@ -23,7 +23,8 @@ function decrementaBadge() {
 }
 
 async function caricaBadgeDalServer() {
-    try {
+   	
+	 try {
         const response = await fetch("/carrello/conteggio", { cache: "no-store" });
         if (!response.ok) throw new Error();
         aggiornaBadgeCarrello(await response.json());
