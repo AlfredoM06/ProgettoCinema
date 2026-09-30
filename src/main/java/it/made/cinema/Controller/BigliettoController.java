@@ -89,7 +89,9 @@ public class BigliettoController {
 
         if (acquistoBiglietto.getAcquisto()) {
             // aggiornare repo utente con i punti nuovi facendo get punti + punti
-            utente.setPuntiMembership(utente.getPuntiMembership() + punti);
+        	if(Boolean.TRUE.equals(utente.getMembership()) ) {
+        		utente.setPuntiMembership(utente.getPuntiMembership() + punti);
+            }
             repoUtenti.save(utente);
         }
 
