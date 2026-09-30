@@ -1676,21 +1676,23 @@ if (programmazioneForm) {
     // =========================================================
 
     function bloccaIntervallo(orarioSelezionato, checkboxSelezionato) {
-        let durata = Number(durataPerOrario[orarioSelezionato] ) || 0;
+        let durata = Number(durataPerOrario[orarioSelezionato]) || 0;
 
         if (durata <= 0) {
             return;
         }
 
-        let startMin = convertiOraInMinuti(orarioSelezionato );
+        // Durata del film che si sta programmando ora
+        let durataNuovo = Number(durataFilmMap[filmSelect.value]) || 0;
+
+        let startMin = convertiOraInMinuti(orarioSelezionato);
         let endMin = startMin + durata;
-        let checkboxes = document.querySelectorAll( "#programmazione input[name='orari']");
+        let checkboxes = document.querySelectorAll("#programmazione input[name='orari']");
 
         checkboxes.forEach(cb => {
             if (cb === checkboxSelezionato) {
                 return;
             }
-
 
             // Durante la modifica non blocco
             // gli orari del film corrente
@@ -1701,31 +1703,43 @@ if (programmazioneForm) {
                 return;
             }
 
-
-            let currentMin =
-                convertiOraInMinuti(
-                    cb.value
-                );
-
-
+            // Non disabilito mai un orario già selezionato,
+            // altrimenti non si potrebbe più deselezionare
+            let contenitore = cb.closest(".form-check");
             if (
-                currentMin > startMin &&
-                currentMin < endMin
+                contenitore?.classList.contains("is-selected") ||
+                contenitore?.classList.contains("is-anteprima")
             ) {
+                return;
+            }
 
+            let currentMin = convertiOraInMinuti(cb.value);
+            let label = cb.nextElementSibling;
+
+            // 1) DOPO l'inizio: il film esistente è ancora in corso
+            if (currentMin > startMin && currentMin < endMin) {
                 cb.disabled = true;
 
-                let label =
-                    cb.nextElementSibling;
-
-
                 if (label) {
-
                     label.style.color = "#999";
                     label.style.opacity = "0.6";
+                    label.title = "Orario bloccato dalla durata del film";
+                }
+                return;
+            }
 
-                    label.title =
-                        "Orario bloccato dalla durata del film";
+            // 2) PRIMA dell'inizio: il nuovo film finirebbe dopo l'inizio di quello esistente
+            if (
+                durataNuovo > 0 &&
+                currentMin < startMin &&
+                currentMin + durataNuovo > startMin
+            ) {
+                cb.disabled = true;
+
+                if (label) {
+                    label.style.color = "#999";
+                    label.style.opacity = "0.6";
+                    label.title = "Orario bloccato: il film finirebbe dopo l'inizio di un'altra proiezione";
                 }
             }
         });
