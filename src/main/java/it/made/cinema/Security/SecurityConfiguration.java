@@ -78,7 +78,8 @@ public class SecurityConfiguration {
 
                         // --- protette ---
                         .requestMatchers("/biglietto/**").hasAnyAuthority("Admin", "User")
-                        .requestMatchers("/carrello", "/carrello/**").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/carrello").hasAnyAuthority("Admin", "User")
+                        .requestMatchers("/carrello/**").hasAnyAuthority("Admin", "User")
                         .requestMatchers("/utente/**").hasAnyAuthority("Admin", "User")
                         .requestMatchers("/admin", "/admin/**").hasAuthority("Admin")
 
@@ -88,6 +89,8 @@ public class SecurityConfiguration {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login/login-error")
+                        .defaultSuccessUrl("/", true)
+                        	
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
