@@ -1,15 +1,13 @@
-// =========================================================
-// BADGE CARRELLO — condiviso tra tutte le pagine
-// =========================================================
+let cartTotale = 0;
 
 function aggiornaBadgeCarrello(totale) {
+    cartTotale = Number(totale) || 0;
+
     let badge = document.getElementById("cart-badge");
     if (!badge) return;
 
-    sessionStorage.setItem("cartTotale", totale);
-
-    if (totale > 0) {
-        badge.textContent   = totale > 99 ? "99+" : totale;
+    if (cartTotale > 0) {
+        badge.textContent   = cartTotale > 99 ? "99+" : cartTotale;
         badge.style.display = "flex";
     } else {
         badge.style.display = "none";
@@ -17,18 +15,21 @@ function aggiornaBadgeCarrello(totale) {
 }
 
 function incrementaBadge() {
-    let attuale = parseInt(sessionStorage.getItem("cartTotale")) || 0;
-    aggiornaBadgeCarrello(attuale + 1);
+    aggiornaBadgeCarrello(cartTotale + 1);
 }
 
 function decrementaBadge() {
-    let attuale = parseInt(sessionStorage.getItem("cartTotale")) || 0;
-    aggiornaBadgeCarrello(Math.max(0, attuale - 1));
+    aggiornaBadgeCarrello(Math.max(0, cartTotale - 1));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    let salvato = parseInt(sessionStorage.getItem("cartTotale")) || 0;
-    if (salvato > 0) {
-        aggiornaBadgeCarrello(salvato);
+async function caricaBadgeDalServer() {
+    try {
+        const response = await fetch("/carrello/conteggio", { cache: "no-store" });
+        if (!response.ok) throw new Error();
+        aggiornaBadgeCarrello(await response.json());
+    } catch (e) {
+        aggiornaBadgeCarrello(0);
     }
-});
+}
+
+document.addEventListener("DOMContentLoaded", caricaBadgeDalServer);

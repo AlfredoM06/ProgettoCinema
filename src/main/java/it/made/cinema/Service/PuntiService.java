@@ -40,18 +40,21 @@ public class PuntiService {
     }
 
     // acquisto membership
-    public Integer primoAcquisto(Utente utente){
-        Integer punti = utente.getPuntiMembership();
+    // acquisto membership
+    public Integer primoAcquisto(Utente utente) {
+        Integer punti = utente.getPuntiMembership() != null ? utente.getPuntiMembership() : 0;
+        int guadagnati = 0;
 
-        if (utente.getAcquistoMembership() == null){
+        if (utente.getAcquistoMembership() == null) {
             utente.setAcquistoMembership(LocalDate.now());
         }
 
-        if (punti.equals(0)){
-            utente.setPuntiMembership(punti + 20);
+        if (punti.equals(0)) {
+            guadagnati = 20;
+            utente.setPuntiMembership(punti + guadagnati);
         }
 
-        return punti;
+        return guadagnati;
     }
 
 }

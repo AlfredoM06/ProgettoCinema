@@ -49,7 +49,7 @@
                             Ciao <strong th:text="${#authentication.principal.username}">Utente</strong>,
                         </p>
                         <!-- Immagine carta solo se ha la membership -->
-                        <img th:if="${#authentication.principal.membership}"
+                        <img th:if="${membership}"
                              class="points-card"
                              src="/img/card_myS&G.webp"
                              alt="Carta punti">
@@ -83,7 +83,7 @@
                         <!-- Sconto visibile solo con membership -->
                         <div class="summary-row discount"
                              id="summary-sconto-row"
-                             th:style="${#authentication.principal.membership} ? '' : 'display:none'">
+                             th:style="${membership} ? '' : 'display:none'">
                             <dt>Sconto</dt>
                             <dd id="summary-sconto">-0,00€</dd>
                         </div>
@@ -116,7 +116,7 @@
 <script th:src="@{/js/freccia.js}"></script>
 <script th:inline="javascript">
     const CARRELLO = /*[[${carrello}]]*/ {};
-    const MEMBERSHIP = /*[[${#authentication.principal.membership}]]*/ false;
+    const MEMBERSHIP = /*[[${membership}]]*/ false;
 </script>
 <script th:src="@{/js/carrello.js}"></script>
 </body>

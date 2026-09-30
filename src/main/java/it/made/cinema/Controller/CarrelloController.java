@@ -311,4 +311,23 @@ public class CarrelloController {
 		return true;
     }
 
+    @GetMapping("/conteggio")
+    @ResponseBody
+    public Integer conteggio(Authentication authentication) {
+        if (authentication == null || !(authentication.getPrincipal() instanceof DatabaseUserDetails ud)) {
+            return 0;
+        }
+        Carrello c = repoCarrello.findByUtenteId(ud.getId());
+        if (c == null) return 0;
+
+        int totale = 0;
+        if (c.getRigheCarrello() != null) {
+            for (RigaCarrello r : c.getRigheCarrello()) {
+                totale += r.getQuantita();
+            }
+        }
+        if (c.getCarta() != null) totale++;
+        return totale;
+    }
+
 }
