@@ -65,8 +65,8 @@ public class GestioneProgrammazioneController {
 
     @GetMapping("/listaProgrammazioni")
     @ResponseBody
-    public List<ArchivioProgrammazioniDTO> listaProgrammazioni(){
-        List< ArchivioProgrammazioniDTO> listaProgrammazioni = repoProgrammazione.findAllGroupByDataProgrammazione();
+    public List<ArchivioProgrammazioniDTO> listaProgrammazioni() {
+        List<ArchivioProgrammazioniDTO> listaProgrammazioni = repoProgrammazione.findAllGroupByDataProgrammazione();
         return listaProgrammazioni;
     }
 
@@ -190,8 +190,8 @@ public class GestioneProgrammazioneController {
     @ResponseBody
     public Map<Integer, String> getLingueFilm(@PathVariable Integer idFilm) {
         List<CrossFilmFormatoLingua> cross = repoCross.findByFilmId(idFilm);
-        Map<Integer , String> result = new HashMap<>();
-        for(CrossFilmFormatoLingua c : cross){
+        Map<Integer, String> result = new HashMap<>();
+        for (CrossFilmFormatoLingua c : cross) {
             result.put(c.getLingua().getId(), c.getLingua().getNome());
         }
         return result;
@@ -208,5 +208,4 @@ public class GestioneProgrammazioneController {
                 .distinct()
                 .collect(Collectors.toList());
     }
-
 }

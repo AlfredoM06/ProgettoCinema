@@ -12,6 +12,7 @@
 	<artifactId>cinema</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cinema</name>
+	<packaging>war</packaging>
 	<description>Progetto di gruppo</description>
 	<url/>
 	<licenses>
