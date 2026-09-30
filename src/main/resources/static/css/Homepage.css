@@ -521,3 +521,535 @@ header {
 .trailer-close:hover {
     background: rgba(255, 255, 255, 0.2);
 }
+
+/* =========================================================
+   RESPONSIVE HOMEPAGE - LAPTOP (FINO A 1200px)
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    /* =========================
+       CARD GENERICHE
+    ========================= */
+
+    .box .box-img {
+        height: 14rem;
+    }
+
+    .box h3 {
+        font-size: 1.3rem;
+    }
+
+    .box span {
+        font-size: 1rem;
+    }
+
+
+    /* =========================
+       FILM PIÙ VISTI
+    ========================= */
+
+    .filmpiuVisti {
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+    }
+
+
+    /* =========================
+       HEADER SWIPER
+    ========================= */
+
+    .header-swiper {
+        width: 90%;
+        max-width: 68.75rem;
+        margin: 2rem auto 1rem;
+    }
+
+
+    /* =========================
+       CONTROLLI
+    ========================= */
+
+    .swiper-controls {
+        gap: 0.4rem;
+    }
+
+    .swiper-counter {
+        font-size: 0.8rem;
+        min-width: 3rem;
+    }
+
+
+    /* =========================
+       SWIPER
+    ========================= */
+
+    .swiper {
+        width: 95%;
+        max-width: 1200px;
+        padding-bottom: 1.5rem;
+    }
+
+
+    /* =========================
+       CARD FILM
+    ========================= */
+
+    .card-img-wrapper {
+        height: 26rem;
+    }
+
+
+    /* =========================
+       BANNER SPONSORSHIP
+    ========================= */
+
+    .sponsorship-banner,
+    .cinema-banner {
+        width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    .sponsorship-banner img,
+    .cinema-banner img {
+        width: 100%;
+        max-width: 90rem;
+        height: auto;
+        min-height: 18rem;
+        object-fit: contain;
+    }
+
+
+    /* =========================
+       MEMBERSHIP
+    ========================= */
+
+    .membership-banner {
+        height: 32rem;
+    }
+
+    .membership-content {
+        width: 100%;
+    }
+
+    .membership-image {
+        width: 60%;
+    }
+
+    .membership-text {
+        width: 40%;
+        padding-left: 3rem;
+        padding-right: 2rem;
+    }
+
+    .membership-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .membership-text p {
+        font-size: 0.95rem;
+    }
+
+    .membership-btn {
+        width: 11rem;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       TRAILER
+    ========================= */
+
+    .trailer-container {
+        width: 85%;
+        max-width: 1000px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE HOMEPAGE - MOBILE (FINO A 767px)
+========================================================= */
+
+@media (max-width: 767px) {
+
+    /* =========================
+       GLOBAL
+    ========================= */
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+
+    /* =========================
+       CARD GENERICHE
+    ========================= */
+
+    .box .box-img {
+        height: 12rem;
+    }
+
+    .box h3 {
+        font-size: 1.1rem;
+    }
+
+    .box span {
+        font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       FILM PIÙ VISTI
+    ========================= */
+
+    .filmpiuVisti {
+        width: 100%;
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+
+    /* =========================
+       HEADER SWIPER
+    ========================= */
+
+    .header-swiper {
+        width: 100%;
+        max-width: 100%;
+        margin: 1.5rem auto 1rem;
+        padding: 0 1rem;
+        box-sizing: border-box;
+
+        gap: 0.75rem;
+    }
+
+
+    /* =========================
+       CONTROLLI
+    ========================= */
+
+    .swiper-controls {
+        gap: 0.3rem;
+        flex-shrink: 0;
+    }
+
+    .swiper-counter {
+        font-size: 0.75rem;
+        min-width: 2.5rem;
+    }
+
+
+    /* =========================
+       SWIPER
+    ========================= */
+
+    .swiper {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 0.75rem 1.5rem;
+        box-sizing: border-box;
+    }
+
+    .swiper-slide {
+        width: 100%;
+    }
+
+
+    /* =========================
+       CARD FILM
+    ========================= */
+
+    .card {
+        width: 100%;
+    }
+
+    .card-img-wrapper {
+        width: 100%;
+        height: 23rem;
+    }
+
+    .card-body {
+        padding: 0.65rem 0;
+    }
+
+    .card-title {
+        font-size: 1.05rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .card span {
+        font-size: 0.85rem;
+    }
+
+
+    /* =========================
+       BOTTONI SWIPER
+    ========================= */
+
+    .custom-btn {
+        width: 1.7rem;
+        height: 1.7rem;
+    }
+
+    .custom-btn::after {
+        font-size: 0.7rem;
+    }
+
+
+    /* =========================
+       BANNER SPONSORSHIP
+    ========================= */
+
+    .sponsorship-banner {
+        width: 100%;
+        margin-top: 0.75rem;
+        padding: 0 0.75rem;
+        box-sizing: border-box;
+    }
+
+    .sponsorship-banner img {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        object-fit: contain;
+    }
+
+
+    /* =========================
+       BANNER CINEMA
+    ========================= */
+
+    .cinema-banner {
+        width: 100%;
+        margin-top: 0.75rem;
+        padding: 0 0.75rem;
+        box-sizing: border-box;
+    }
+
+    .cinema-banner img {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        object-fit: contain;
+    }
+
+
+    /* =========================
+       MEMBERSHIP
+    ========================= */
+
+    .membership-banner {
+        width: 100%;
+        height: auto;
+        min-height: 34rem;
+        overflow: hidden;
+    }
+
+    .membership-content {
+        width: 100%;
+        min-height: 34rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    /* IMMAGINE SOPRA */
+
+    .membership-image {
+        width: 100%;
+        height: 17rem;
+        flex-shrink: 0;
+    }
+
+    .membership-image-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .membership-image-wrapper::after {
+        background: linear-gradient(
+            to bottom,
+            transparent 50%,
+            #111821 100%
+        );
+    }
+
+    .membership-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+    /* TESTO SOTTO */
+
+    .membership-text {
+        width: 100%;
+        height: auto;
+
+        padding: 1.5rem 1.25rem 2rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        box-sizing: border-box;
+    }
+
+    .membership-text h2 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+    }
+
+    .membership-text p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.25rem;
+    }
+
+
+    /* =========================
+       MEMBERSHIP BUTTON
+    ========================= */
+
+    .membership-btn {
+        width: 100%;
+        max-width: 12.5rem;
+
+        padding: 0.85rem 1rem;
+        font-size: 0.85rem;
+    }
+
+
+    /* =========================
+       TRAILER
+    ========================= */
+
+    .trailer-overlay {
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .trailer-container {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0.5rem;
+    }
+
+    .trailer-video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+
+    .trailer-close {
+        top: 0.5rem;
+        right: 0.5rem;
+
+        width: 2rem;
+        height: 2rem;
+
+        font-size: 1rem;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - SMARTPHONE PICCOLO (FINO A 480px)
+========================================================= */
+
+@media (max-width: 480px) {
+
+    /* =========================
+       FILM PIÙ VISTI
+    ========================= */
+
+    .filmpiuVisti {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+
+    /* =========================
+       HEADER SWIPER
+    ========================= */
+
+    .header-swiper {
+        padding: 0 0.75rem;
+    }
+
+
+    /* =========================
+       SWIPER
+    ========================= */
+
+    .swiper-counter {
+        display: none;
+    }
+
+
+    /* =========================
+       CARD
+    ========================= */
+
+    .card-img-wrapper {
+        height: 20rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card span {
+        font-size: 0.8rem;
+    }
+
+
+    /* =========================
+       SWIPER BUTTONS
+    ========================= */
+
+    .custom-btn {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+
+    /* =========================
+       MEMBERSHIP
+    ========================= */
+
+    .membership-banner,
+    .membership-content {
+        min-height: 32rem;
+    }
+
+    .membership-image {
+        height: 15rem;
+    }
+
+    .membership-text {
+        padding: 1.25rem 1rem 1.75rem;
+    }
+
+    .membership-text h2 {
+        font-size: 1.35rem;
+    }
+
+    .membership-text p {
+        font-size: 0.85rem;
+    }
+
+    .membership-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+}
