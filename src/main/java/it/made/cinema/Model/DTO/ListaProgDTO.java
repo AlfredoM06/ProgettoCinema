@@ -21,6 +21,7 @@ public class ListaProgDTO implements Serializable {
     private String formato;
     private LocalTime orarioInizio;
     private LocalTime orarioFine;
+    private String lingua;
 
 
 

@@ -92,16 +92,17 @@ public class GestioneProgrammazioneController {
     @GetMapping("/getOrari/{idFilm}/{idSala}/{data}")
     @ResponseBody
     public Map<LocalTime, Map<String, Object>> getOrari(@PathVariable Integer idFilm, @PathVariable Integer idSala, @PathVariable LocalDate data) {
-
         List<ProgrammazioneFilm> programmazioni = repoProgrammazione.findByDataProgrammazioneAndFilmIdAndSalaId(data, idFilm, idSala);
         Map<LocalTime, Map<String, Object>> result = new HashMap<>();
         for (ProgrammazioneFilm p : programmazioni) {
-
             Map<String, Object> dati = new HashMap<>();
-
             dati.put("durata", p.getFilm().getDurata());
             dati.put("anteprima", Boolean.TRUE.equals(p.getAnteprima()));
-
+            // Lingua associata a quella specifica programmazione
+            if (p.getLingua() != null) {
+                dati.put("idLingua", p.getLingua().getId());
+                dati.put("lingua", p.getLingua().getNome());
+            }
             result.put(p.getOrario(), dati);
         }
         return result;
@@ -136,7 +137,8 @@ public class GestioneProgrammazioneController {
                     programmazione.getFilm().getPrezzo(),
                     programmazione.getSala().getFormato(),
                     programmazione.getOrario(),
-                    programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata() + 30)));
+                    programmazione.getOrario().plusMinutes(programmazione.getFilm().getDurata() + 30),
+                    programmazione.getLingua() != null ? programmazione.getLingua().getNome() : null));
         }
         return programmazioneDTO;
     }

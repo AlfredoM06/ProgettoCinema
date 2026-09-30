@@ -129,6 +129,7 @@ public class InSalaController {
                 programmazione.setId_sala(p.getSala().getId());
                 programmazione.setOrarioInizio(p.getOrario());
                 programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
+                programmazione.setLingua(p.getLingua() != null ? p.getLingua().getNome() : null);
                 programmazioniS.add(programmazione);
             }
             listaProgrammazioni.put(d, programmazioniS);
@@ -146,6 +147,7 @@ public class InSalaController {
             programmazione.setId_sala(p.getSala().getId());
             programmazione.setOrarioInizio(p.getOrario());
             programmazione.setOrarioFine(p.getOrario().plusMinutes(p.getFilm().getDurata() + 30));
+            programmazione.setLingua(p.getLingua() != null ? p.getLingua().getNome() : null);
             if (mapTutti.containsKey(p.getDataProgrammazione())) {
                 mapTutti.get(p.getDataProgrammazione()).add(programmazione);
             } else {

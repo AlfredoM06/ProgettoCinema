@@ -275,15 +275,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
   }
+
+    /*
+    ======================================
+       HELPER X BADGET ENG
+    ======================================
+    */
+  function isInglese(lingua) {
+    const nome = (lingua || "").toLowerCase().trim();
+    return nome.startsWith("eng") || nome.startsWith("ing");
+  }
+
   /*
   ======================================
      RENDER CARD PROGRAMMAZIONI
   ======================================
   */
   function creaCardProgrammazione(prog) {
+  let badgeEng = isInglese(prog.lingua) ? `<span class="badge-lingua">ENG</span>` : "";
     return `
             <article class="col-6 col-md-4 col-lg-3 show-column" data-id="${prog.id}">
                 <div class="show-card">
+                    ${badgeEng}
                     <div class="session-time">
                         <time class="start">
                             ${prog.orarioInizio.substring(0, 5)}
@@ -333,9 +346,16 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     container.innerHTML += creaHeaderProgrammazione(titolo);
-    lista.forEach(prog => {
-      container.innerHTML += creaCardProgrammazione(prog);
-    });
+    [...lista].sort((a, b) => {
+            let [oreA, minutiA] = a.orarioInizio.substring(0, 5).split(":");
+            let [oreB, minutiB] = b.orarioInizio.substring(0, 5).split(":");
+            let minutiTotaliA =  Number(oreA) * 60 + Number(minutiA);
+            let minutiTotaliB =  Number(oreB) * 60 + Number(minutiB);
+            return minutiTotaliA - minutiTotaliB;
+        })
+        .forEach(prog => {
+            container.innerHTML += creaCardProgrammazione(prog);
+        });
 
   }
 
@@ -362,9 +382,18 @@ document.addEventListener("DOMContentLoaded", function () {
       let giorno = new Date(data);
       container.innerHTML += creaHeaderProgrammazione(formatHeaderDate(giorno));
 
-      programmi.forEach(prog => {
-        container.innerHTML += creaCardProgrammazione(prog);
-      });
+      [...programmi].sort((a, b) => {
+              const [oreA, minutiA] = a.orarioInizio.substring(0, 5).split(":");
+              const [oreB, minutiB] = b.orarioInizio.substring(0, 5).split(":");
+
+              const minutiTotaliA = Number(oreA) * 60 + Number(minutiA);
+              const minutiTotaliB = Number(oreB) * 60 + Number(minutiB);
+
+              return minutiTotaliA - minutiTotaliB;
+          })
+          .forEach(prog => {
+              container.innerHTML += creaCardProgrammazione(prog);
+          });
     });
   }
 

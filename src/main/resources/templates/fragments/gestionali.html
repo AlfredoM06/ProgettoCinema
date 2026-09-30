@@ -116,33 +116,52 @@
                     <!-- SINISTRA -->
                     <div class="col-md-6 form-section">
                         <div class="form-group">
-                            <label class="form-label">
-                                Film
-                            </label>
+                            <label class="form-label">Film</label>
                             <select id="filmSalaProgrammazione" class="form-select">
-                                <option selected disabled>
-                                    Seleziona film...
-                                </option>
+                                <option selected disabled>Seleziona film...</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">
-                                Data programmazione
-                            </label>
+                            <label class="form-label">Data programmazione</label>
                             <input id="dataProgrammazione" type="date" class="form-control">
                         </div>
 
+                        <!-- SALE -->
+                        <div class="form-group">
+                            <label class="form-label d-block">Sala</label>
+                            <div class="row sale-wrapper" id="saleContainer">
+                                <!-- CONTENUTO DINAMICO SALE -->
+                            </div>
+                        </div>
                     </div>
 
                     <!-- DESTRA SALE -->
                     <div class="col-md-6 form-section">
-                        <label class="form-label d-block">
-                            Sala
-                        </label>
+                        <div class="form-group">
+                            <label for="linguaProgrammazione" class="form-label">Lingua</label>
+                            <select id="linguaProgrammazione" class="form-select" disabled>
+                                <option value="" selected disabled>Seleziona lingua...</option>
+                            </select>
+                        </div>
 
-                        <div class="row sale-wrapper" id="saleContainer">
-<!--                            CONTENUTO DINAMICO SALE-->
+                        <!-- LEGENDA -->
+                        <div class="form-group legenda-wrapper">
+                            <label class="form-label d-block">LEGENDA</label>
+                            <ul class="legenda-programmazione">
+                                <li class="legenda-item">
+                                    <span class="legenda-pallino legenda-italiano"></span>
+                                    Italiano
+                                </li>
+                                <li class="legenda-item">
+                                    <span class="legenda-pallino legenda-inglese"></span>
+                                    Inglese
+                                </li>
+                                <li class="legenda-item">
+                                    <span class="legenda-stella">★</span>
+                                    Anteprima
+                                </li>
+                            </ul>
                         </div>
                     </div>
 

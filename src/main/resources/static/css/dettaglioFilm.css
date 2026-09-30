@@ -320,6 +320,7 @@ CINEMA TABS (giorni/orari film)
 }
 
 .show-card {
+    position: relative;
     border: 1px solid #333;
     border-radius: 6px;
     padding: 4px;
@@ -402,6 +403,21 @@ CINEMA TABS (giorni/orari film)
 .price-line .price {
     color: white;
     font-weight: 700;
+}
+
+/*BADGET ENG*/
+.badge-lingua {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 2px 6px;
+    background-color: red;
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    line-height: 1.2;
+    border-radius: .25rem;
 }
 
 

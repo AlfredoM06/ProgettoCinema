@@ -16,6 +16,7 @@ public interface IRepoProgrammazione extends JpaRepository<ProgrammazioneFilm, I
 	public List<ProgrammazioneFilm> findByDataProgrammazione(LocalDate dataProgrammazione);
 	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmIdAndSalaId(LocalDate dataProgrammazione, Integer idFilm, Integer idSala);
 	public List<ProgrammazioneFilm> findByDataProgrammazioneAndSalaId(LocalDate dataProgrammazione, Integer idSala);
+	public List<ProgrammazioneFilm> findByDataProgrammazioneAndFilmIdAndSalaIdAndLinguaId(LocalDate data, Integer idFilm, Integer idSala, Integer idLingua);
 
 	@Query(value = "select new it.made.cinema.Model.DTO.ArchivioProgrammazioniDTO(p.film.id, p.sala.id, p.film.titolo, concat('sala ', p.sala.id), p.dataProgrammazione) from ProgrammazioneFilm p group by p.film.id, p.sala.id, p.film.titolo, p.dataProgrammazione")
 	public List<ArchivioProgrammazioniDTO> findAllGroupByDataProgrammazione();
