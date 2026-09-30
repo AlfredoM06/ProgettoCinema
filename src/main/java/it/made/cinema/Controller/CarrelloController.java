@@ -112,6 +112,7 @@ public class CarrelloController {
         carello.setPunti(punti);
         carello.setListaOfferta(offerteDTO);
         carello.setId(carrello.getId());
+        model.addAttribute("membership", Boolean.TRUE.equals(utente.getMembership()));
         model.addAttribute("carrello", carello);
         return "carrello";
     }
