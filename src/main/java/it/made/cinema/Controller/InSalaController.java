@@ -168,6 +168,7 @@ public class InSalaController {
                 formati.add(c.getFormato().getNome());
             }
         }
+
         filmDTO.setFormati(formati);
         filmDTO.setLingue(lingue);
 

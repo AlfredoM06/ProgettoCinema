@@ -145,19 +145,20 @@
                     </span>
                 </div>
                 <div class="info-item">
-                    <span class="label">Rating</span>
-                    <span class="value">8.5</span>
-                </div>
-                <div class="info-item">
                     <span class="label">Lingue</span>
-                    <span th:each="lingua, stat : ${film.lingue}">
-                        <span th:text="${lingua}"></span><span th:if="${!stat.last}">, </span>
+                    <span>
+                        <span th:each="lingua, stat : ${film.lingue}">
+                            <span th:text="${lingua}"></span><span th:if="${!stat.last}">, </span>
+                        </span>
                     </span>
+
                 </div>
                 <div class="info-item">
                     <span class="label">Disponibile</span>
-                    <span th:each="formato, stat : ${film.formati}">
-                        <span th:text="${formato}"></span><span th:if="${!stat.last}">, </span>
+                    <span>
+                        <span th:each="formato, stat : ${film.formati}">
+                            <span th:text="${formato}"></span><span th:if="${!stat.last}">, </span>
+                         </span>
                     </span>
                 </div>
             </div>
